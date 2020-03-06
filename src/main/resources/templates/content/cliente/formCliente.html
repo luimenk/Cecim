@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card stacked-form">
+                            <div class="card-header ">
+                                <h4 class="card-title">Registro de Clientes</h4>
+                            </div>
+                            <div class="card-body ">
+                                <form id="TypeValidation" method="" th:object="${cliente}" class="form-horizontal">
+                                    <div class="form-group">
+                                        <input type="hidden" placeholder="" class="form-control" th:value="${clientId}" disabled
+                                               name="clientId" id="clientId" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nombre de la Razón Social</label>
+                                        <input type="text" placeholder="Nombre de la Razón Social" class="form-control" th:value="${nombreRazonSocial}"
+                                               name="nombreRazonSocial" id="nombreRazonSocial" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nombre Común de la Empresa</label>
+                                        <input type="text" placeholder="Nombre Común de la Empresa" class="form-control" th:value="${nombreComunEmpresa}"
+                                               name="nombreComunEmpresa" id="nombreComunEmpresa" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Calle</label>
+                                        <input type="text" placeholder="Calle" class="form-control" th:value="${calle}"
+                                               name="calle" id="calle" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Número</label>
+                                        <input type="text" placeholder="Número" class="form-control" th:value="${numero}"
+                                               name="numero" id="numero" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Colonia</label>
+                                        <input type="text" placeholder="Colonia" class="form-control" th:value="${colonia}"
+                                               name="colonia" id="colonia" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Municipio</label>
+                                        <input type="text" placeholder="Municipio" class="form-control" th:value="${municipio}"
+                                               name="municipio" id="municipio" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Estado</label>
+                                        <input type="text" placeholder="Estado" class="form-control" th:value="${estado}"
+                                               name="estado" id="estado" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Código Postal</label>
+                                        <input type="text" placeholder="Código Postal" class="form-control" th:value="${codigoPostal}"
+                                               name="codigoPostal" id="codigoPostal" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>RFC</label>
+                                        <input type="text" placeholder="RFC" class="form-control" th:value="${rfc}"
+                                               name="rfc" id="rfc" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nombre de la Persona de Contacto</label>
+                                        <input type="text" placeholder="Nombre de la Persona de Contacto" class="form-control" th:value="${nombrePersonaContacto}"
+                                               name="nombrePersonaContacto" id="nombrePersonaContacto" required="true">
+
+                                        <label>Cargo</label>
+                                        <input type="text" placeholder="Cargo" class="form-control" th:value="${nombrePersonaContacto}"
+                                               name="cargo" id="cargo" required="true">
+
+                                        <label>Correo Electrónico</label>
+                                        <input type="email" placeholder="Correo Electrónico" class="form-control" th:value="${email}"
+                                               name="email" id="email" required="true">
+
+                                        <label>Teléfono Celular</label>
+                                        <input type="number" placeholder="Teléfono Celular" class="form-control" th:value="${telefono}"
+                                               name="telefonoCelular" id="telefonoCelular" required="true">
+                                        <label>Teléfono Oficina</label>
+                                        <input type="number" placeholder="Teléfono Oficina" class="form-control" th:value="${telefono}"
+                                               name="telefonoOficina" id="telefonoOficina" required="true">
+                                    </div>
+                                    <div class="form-group" id="contactoExtra">
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-fill btn-default" onclick="agregaCliente()">Agregar otro contacto</button>
+                            </div>
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-fill btn-primary" onclick="valida()">Registrar Cliente</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+        <script src="../assets/js/actions/client.js" type="text/javascript"></script>
+    </div>
+</div>
+</body>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+</html>

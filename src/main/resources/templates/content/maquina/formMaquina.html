@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Registro de Equipo</h4>
+                            </div>
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="card-header ">
+                                        <h5 class="card-title">Datos del equipo</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Área responsable del equipo: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="areaResponsable" id="areaResponsable" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                    <option value="Laboratorio">Laboratorio</option>
+                                                    <option value="Control de Calidad">Control de Calidad</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">ID Interno del Equipo:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   placeholder=""
+                                                   name="codigoInterno" id="codigoInterno" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Nombre del Equipo o Instrumento:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="nombreEquipoInstrumento" id="nombreEquipoInstrumento"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Tipo: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoEquipo" id="tipoEquipo" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Equipo">Equipo</option>
+                                                <option value="Instrumento">Instrumento</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Registro: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="registro" id="registro" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Alta">Alta</option>
+                                                <option value="Suspencion Temporal">Suspención temporal</option>
+                                                <option value="Baja Definitiva">Baja Definitiva</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Tipo de Servicio Requerido: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoServicioRequerido" id="tipoServicioRequerido" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Calibracion">Calibración</option>
+                                                <option value="Verificacion">Verificación</option>
+                                                <option value="Mantenimiento">Mantenimiento</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Condición del Equipo: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="condicionEquipo" id="condicionEquipo" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Nuevo">Nuevo</option>
+                                                <option value="Usado">Usado</option>
+                                                <option value="Reconstruido / Modificado">Reconstruido / Modificado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Número de Serie:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="numeroSerie" id="numeroSerie"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Modelo: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="modelo" id="modelo"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Marca:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="marca" id="marca"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Garantia: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="garantia" id="garantia"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fabricante:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="fabricante" id="fabricante"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">largo: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="largo" id="largo"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">ancho:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="ancho" id="ancho"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">alto: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="alto" id="alto"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">peso:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="peso" id="peso"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Zona de Ubicacion: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="zonaUbicacion" id="zonaUbicacion"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Se anexa al plano de ubicación:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="planoAnexo" id="planoAnexo" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="card-header ">
+                                        <h5 class="card-title">Datos del proveedor</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Proveedor o Distribuidor: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="proveedor" id="proveedor"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Dirección del proveedor:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="direccionProveedor" id="direccionProveedor"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Persona de Contacto: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="personaContacto" id="personaContacto"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Teléfono Proveedor:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="telefonoProveedor" id="telefonoProveedor"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Correo electrónico: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="correoProveedor" id="correoProveedor"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha de Adquisición:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control datepicker"
+                                                   placeholder=""
+                                                   name="fechaAdquisicion" id="fechaAdquisicion" required="true" onkeydown="return false">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Fecha de Instalación:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control datepicker"
+                                                   placeholder=""
+                                                   name="fechaInstalacion" id="fechaInstalacion" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="card-header ">
+                                        <h5 class="card-title">Requerimientos de Instalación</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Agua (Tipo, flujo): </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="agua" id="agua"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Aire comprimido:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="aireComprimido" id="aireComprimido"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Gas (que tipo): </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="gas" id="gas"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Voltaje de Alimentación:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="voltajeAlimentacion" id="voltajeAlimentacion"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Consumo eléctrico </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="consumoElectrico" id="consumoElectrico"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Otro, especifíque:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="otroEspecifique" id="otroEspecifique"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="card-header ">
+                                        <h5 class="card-title">Programas y aplicaciones</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Nombre y versión: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="nombreVersion" id="nombreVersion"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Aplicación:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="aplicacion" id="aplicacion"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">accesorios: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="accesorios" id="accesorios"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">usuarios:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder=""
+                                                   name="usuarios" id="usuarios"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="card-header ">
+                                        <h5 class="card-title">Facilidades del Proveedor</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Idioma del Manual:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="idiomaManual" id="idiomaManual" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Español">Español</option>
+                                                <option value="Ingles">Ingles</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Planos:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="entregaPlanos" id="entregaPlanos" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Electricos">Electricos</option>
+                                                <option value="Mecanicos">Mecanicos</option>
+                                                <option value="Neumaticos">Neumáticos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Certificado de calibración:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="certificadoCalibracion" id="certificadoCalibracion" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Certificado de materiales o accesorios :</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="certificadoMaterialesAccesorios" id="certificadoMaterialesAccesorios" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Instalación y capacitación por parte del proveedor/fabricante:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="instalacionCapacitacion" id="instalacionCapacitacion" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Mantenimiento periódico a cargo del proveedor/fabricante:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="mantenimientoPeriodico" id="mantenimientoPeriodico" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer ">
+                                    <button type="submit" class="btn btn-fill btn-primary" onclick="valida()">Registrar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/machine.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaAdquisicion').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+    $('#fechaInstalacion').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+</script>
+</html>

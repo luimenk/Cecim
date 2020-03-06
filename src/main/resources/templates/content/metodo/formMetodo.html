@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card stacked-form">
+                            <div class="card-header ">
+                                <h4 class="card-title">Registro de Métodos</h4>
+                            </div>
+                            <div class="card-body ">
+                                <form id="TypeValidation" method="" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label>Código del Método</label>
+                                        <input type="text" placeholder="Código del Método" class="form-control"
+                                               name="codigoMetodo" id="codigoMetodo" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cantidad de Muestra para el Ensayo</label>
+                                        <input type="text" placeholder="Cantidad de muestra para el ensayo" class="form-control"
+                                               name="cantidadMuestraEnsayo" id="cantidadMuestraEnsayo" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cantidad de Muestra de Retención</label>
+                                        <input type="text" placeholder="Cantidad de Muestra de Retención" class="form-control"
+                                               name="cantidadMuestraRetencion" id="cantidadMuestraRetencion" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Dimensiones de Corte de la Probeta</label>
+                                        <input type="text" placeholder="Dimensiones de Corte de la Probeta" class="form-control"
+                                               name="dimensionesCorteProbeta" id="dimensionesCorteProbeta" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Número de Probetas o Muestras</label>
+                                        <input type="text" placeholder="Número de Probetas o Muestras" class="form-control"
+                                               name="numeroProbetasMuestras" id="numeroProbetasMuestras" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Condiciones Especiales de Acondicionamiento</label>
+                                        <input type="text" placeholder="Condiciones Especiales de Acondicionamiento" class="form-control"
+                                               name="condicionesEspecialesAcondicionamiento" id="condicionesEspecialesAcondicionamiento" required="true">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-fill btn-info" onclick="valida()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/method.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+</html>

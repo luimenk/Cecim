@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:include="/dependences/accesos/_HeadInside"></th:block>
+    <title>Inicio de Sesión</title>
+</head>
+<body>
+<div class="wrapper wrapper-full-page">
+    <div class="full-page  section-image" data-color="black" data-image="assets/img/lab.jpg" ;>
+        <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+        <div class="content">
+            <div class="container">
+                <div class="col-md-4 col-sm-6 ml-auto mr-auto">
+                    <form method="POST" th:action="@{/j_spring_security_check}">
+                        <div class="card card-login card-hidden">
+                            <div class="card-header ">
+                                <h3 class="header text-center">Inicio de Sesión</h3>
+                            </div>
+                            <div class="card-body ">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Correo Electrónico</label>
+                                        <input type="email" placeholder="Enter email" class="form-control" name="username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        <input type="password" placeholder="Password" class="form-control" name="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="nameCorreo">Olvidaste tu contraseña?</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer ml-auto mr-auto">
+                                <button type="submit" class="btn-fill btn-wd btn btn-info">Login</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/dependences/accesos/_RequiredScripts"></th:block>
+</html>

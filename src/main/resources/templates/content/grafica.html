@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Panel de Administración</title>
+        <th:block th:include="/dependences/_HeadInside"></th:block>
+    </head>
+    <body>
+        <div class="wrapper">
+            <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+            <div class="main-panel">
+                <th:block th:include="/dependences/_Header"></th:block>
+
+                <!--Contenido de página-->
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card ">
+                                    <div class="card-header ">
+                                        <h4 class="card-title">Título: Gráfica de Línea</h4>
+                                        <p class="card-category">Subtítulo: Gráfica de Línea</p>
+                                    </div>
+                                    <div class="card-body ">
+                                        <div id="chartPerformance" class="ct-chart "></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card ">
+                                    <div class="card-header ">
+                                        <h4 class="card-title">Título: Gráfica de Línea con Puntos</h4>
+                                        <p class="card-category">Subtítulo: Gráfica de Línea con Puntos</p>
+                                    </div>
+                                    <div class="card-body ">
+                                        <div id="chartStock" class="ct-chart "></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card ">
+                                    <div class="card-header ">
+                                        <h4 class="card-title">Título: Gráfica de Líneas Múltiples</h4>
+                                        <p class="card-category">Subtítulo: Gráfica de Líneas Múltiples</p>
+                                    </div>
+                                    <div class="card-body ">
+                                        <div id="chartBehaviour" class="ct-chart"></div>
+                                    </div>
+                                    <div class="card-footer ">
+                                        <div class="legend">
+                                            <i class="fa fa-circle text-info"></i> Azúl
+                                            <i class="fa fa-circle text-danger"></i> Rojo
+                                            <i class="fa fa-circle text-warning"></i> Amarillo
+                                        </div>
+                                        <hr>
+                                        <div class="stats">
+                                            <i class="fa fa-history"></i> Última actualización hace 3 minutos
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card ">
+                                    <div class="card-header ">
+                                        <h4 class="card-title">Título: Gráfica Circular</h4>
+                                        <p class="card-category">Subtítulo: Gráfica Circular</p>
+                                    </div>
+                                    <div class="card-body ">
+                                        <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+                                    </div>
+                                    <div class="card-footer ">
+                                        <div class="legend">
+                                            <i class="fa fa-circle text-info"></i> Azúl
+                                            <i class="fa fa-circle text-danger"></i> Rojo
+                                            <i class="fa fa-circle text-warning"></i> Amarillo
+                                        </div>
+                                        <hr>
+                                        <div class="stats">
+                                            <i class="fa fa-clock-o"></i> Actualización Semanal
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card ">
+                                <div class="card-header ">
+                                    <h4 class="card-title">Título: Gráfica de Barras</h4>
+                                    <p class="card-category">Subtítulo: Gráfica de Barras</p>
+                                </div>
+                                <div class="card-body ">
+                                    <div id="chartViews" class="ct-chart"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card ">
+                                <div class="card-header ">
+                                    <h4 class="card-title">Título: Gráfica de Barras Múltiples</h4>
+                                    <p class="card-category">Subtítulo: Gráfica de Barras Múltiples</p>
+                                </div>
+                                <div class="card-body ">
+                                    <div id="chartActivity" class="ct-chart"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <th:block th:include="/dependences/_Footer"></th:block>
+            </div>
+        </div>
+    </body>
+    <th:block th:include="/dependences/_RequiredScripts"></th:block>
+    <script type="text/javascript">
+        $().ready(function() {
+            demo.initCharts();
+        });
+    </script>
+</html>

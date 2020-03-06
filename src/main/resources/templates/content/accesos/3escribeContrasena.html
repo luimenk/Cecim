@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:include="/dependences/accesos/_HeadInside"></th:block>
+    <title>Inicio de Sesión</title>
+</head>
+<body>
+<div class="wrapper wrapper-full-page">
+    <div class="full-page  section-image" data-color="black" data-image="assets/img/lab.jpg" ;>
+        <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+        <div class="content">
+            <div class="container">
+                <div class="col-md-4 col-sm-6 ml-auto mr-auto">
+                    <div class="card card-login card-hidden">
+                        <div class="card-header ">
+                            <h3 class="header text-center">Generación de nueva contraseña</h3>
+                        </div>
+                        <div class="card-body ">
+                            <div class="card-body">
+                                <!--<div class="form-group">
+                                    <input type="hidden" class="form-control" name="userId" id="userId" th:value="${nombreDepa}">
+                                </div>-->
+                                <div class="form-group">
+                                    <label>Escribe tu nueva contraseña</label>
+                                    <input type="password" class="form-control" name="password" id="password">
+                                </div>
+                                <div class="form-group">
+                                    <label>Vuelve a escribir tu nueva contraseña</label>
+                                    <input type="password" class="form-control" name="password2" id="password2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ml-auto mr-auto">
+                            <button type="submit" class="btn-fill btn-wd btn btn-info" onclick="valida()">Aceptar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/dependences/accesos/_RequiredScripts"></th:block>
+</html>

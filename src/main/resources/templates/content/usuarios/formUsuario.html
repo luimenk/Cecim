@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card stacked-form">
+                            <div class="card-header ">
+                                <h4 class="card-title">Registro de Usuarios</h4>
+                            </div>
+                            <div class="card-body ">
+                                <form id="TypeValidation" method="" th:object="${cliente}" class="form-horizontal">
+                                    <div class="form-group">
+                                        <input type="hidden" placeholder="" class="form-control" th:value="${clientId}"
+                                               disabled
+                                               name="clientId" id="clientId" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nombre(s) de Usuario</label>
+                                        <input type="text" placeholder="Nombre:" class="form-control"
+                                               th:value="${nombreUsuario}"
+                                               name="nombreUsuario" id="nombreUsuario" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Apellido(s) de Usuario</label>
+                                        <input type="text" placeholder="Apellido:" class="form-control"
+                                               th:value="${apellidoUsuario}"
+                                               name="apellidoUsuario" id="apellidoUsuario" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fecha de Nacimiento</label>
+                                        <input type="text" class="form-control datepicker"
+                                               placeholder="Fecha de nacimiento"
+                                               name="nacimiento" id="nacimiento" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Puesto</label>
+                                        <input type="text" placeholder="Puesto" class="form-control"
+                                               th:value="${puesto}"
+                                               name="puesto" id="puesto" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Correo electrónico<star class="star">*</star></label>
+                                        <input type="email" placeholder="Correo electronico" class="form-control"
+                                               name="userName" id="userName" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        <input type="password" class="form-control" th:value="${password}"
+                                               name="password" id="password" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Confirmar contraseña</label>
+                                        <input type="password" class="form-control" th:value="${password1}"
+                                               name="password1" id="password1" required="true">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tipo de rol de usuario</label>
+                                        <select class="selectpicker" name="rolUsuario" id="rolUsuario" required="true"
+                                                data-title="Selecciona un método..."
+                                                data-style="btn-default btn-outline"
+                                                data-menu-style="dropdown-blue">
+                                            <option th:each="item : ${roles}"
+                                                    th:value="${item.roleId}"
+                                                    th:text="${item.roleName}"></option>
+                                        </select>
+                                    </div>
+                                    <!--<div class="form-group">
+                                        <button type="submit" class="btn btn-fill btn-info">Submit23</button>
+                                    </div>-->
+                                </form>
+                            </div>
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-fill btn-info" onclick="valida()">Registrar</button>
+                                <!--<button type="submit" class="btn btn-fill btn-info">Submit</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script src="../assets/js/actions/user.js" type="text/javascript"></script>
+<script>
+    $('#nacimiento').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+</script>
+<script type="text/javascript">
+    $('#TypeValidation').validate({
+        rules: {
+            email: {
+                required: true,
+                email: true,
+                minlength: 5
+            },
+            password: {
+                required: true,
+                minlength: 6,
+                maxlength: 20
+            },
+            password1: {
+                required: true,
+                minlength: 6,
+                maxlength: 20,
+                equalTo: "#password"
+            },
+            puesto: {
+                required: true,
+                minlength: 2
+            },
+            first_name: {
+                required: false,
+                minlength: 5
+            },
+            last_name: {
+                required: false,
+                minlength: 5
+            },
+            website: {
+                required: true,
+                minlength: 5,
+                url: true
+            },
+            framework: {
+                required: false,
+                minlength: 4
+            },
+            cities: {
+                required: true
+            },
+            price: {
+                number: true
+            }
+        },
+        highlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            //$(element).closest('.form-check').removeClass('has-success').addClass('has-error');
+        },
+        success: function(element) {
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+            //$(element).closest('.form-check').removeClass('has-error').addClass('has-success');
+        }
+
+        // errorPlacement: function(error, element) {
+        //     $(element).parent('div').addClass('has-danger');
+        //  }
+    });
+</script>
+</html>
