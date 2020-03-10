@@ -58,7 +58,7 @@ function agregarMuestra() {
         contMuestra++;
     });
 
-    /*function cantidadMuestrasFunction() {
+    function cantidadMuestrasFunction() {
         var cantMues = document.getElementById('metodo'+contMuestra).value;
         var cantidadProducto =
             '<input type="text" placeholder="Cantidad de Muestra" class="form-control" value="' + cantMues + '"' +
@@ -67,6 +67,6 @@ function agregarMuestra() {
         var cadena="$("+"\"#textbox"+contMuestra+"\""+")"+".empty().append("+cantidadProducto+")";
         eval(cadena);
         //$("#textbox").empty().append(cantidadProducto);
-    }*/
+    }
 }
 

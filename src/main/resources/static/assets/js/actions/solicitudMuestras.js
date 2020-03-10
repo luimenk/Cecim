@@ -53,6 +53,7 @@ function cargar() {
     });
 }
 
+/*
 function cantidadMuestrasFunction() {
     var cantMues = document.getElementById('metodo').value;
     var cantidadProducto =
@@ -60,4 +61,4 @@ function cantidadMuestrasFunction() {
         'name="nombrePersonaContacto" id="nombrePersonaContacto" disabled>';
 
     $("#textbox").empty().append(cantidadProducto);
-}
+}*/
