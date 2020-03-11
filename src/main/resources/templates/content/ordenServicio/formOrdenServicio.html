@@ -3,7 +3,6 @@
 <head>
     <title>Panel de Administración</title>
     <th:block th:include="/dependences/_HeadInside"></th:block>
-    <script src="../assets/js/actions/ordenServicio.js" type="text/javascript"></script>
 </head>
 <body>
 <!--<body>-->
@@ -97,7 +96,7 @@
                                                     data-title="Selecciona un método..."
                                                     data-style="btn-default btn-outline"
                                                     data-menu-style="dropdown-blue"
-                                                    onchange="check()">
+                                                    onchange="chequeo()">
                                                 <option th:each="item : ${metodos}"
                                                         th:value="${item.cantidadMuestraEnsayo}"
                                                         th:text="${item.codigoMetodo}"></option>
@@ -108,8 +107,8 @@
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="cantidadMuestra"
-                                                   id="cantidadMuestra" required="true" disabled>
+                                                   name="cantidadMuestra0"
+                                                   id="cantidadMuestra0" required="true" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -165,6 +164,7 @@
 </div>
 </body>
 <th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script src="../assets/js/actions/ordenServicioCliente.js" type="text/javascript"></script>
 <script>
     $('#fechaEnvioMuestras').datetimepicker({
         format: 'YYYY-MM-DD'
@@ -182,14 +182,5 @@
         format: 'YYYY-MM-DD'
     });
 
-    $(document).on("change", "#metodo", function () {
-        var text_val = "<input type='text' id ='new_name' name ='new_name' " +
-            " value =' " + 2 + " ' />";
-        $("#textBox").empty().append(text_val);
-    })
-
-    function check() {
-        document.getElementById("cantidadMuestra").value = document.getElementById("metodo0").value;
-    }
 </script>
 </html>
