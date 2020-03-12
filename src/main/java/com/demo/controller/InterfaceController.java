@@ -520,7 +520,7 @@ public class InterfaceController {
     }
 
     //Registrar
-    @RequestMapping(value = "/registerSolicitudServicio")
+    /*@RequestMapping(value = "/registerSolicitudServicio")
     public String registerSolicitudServicio(Model model, Principal principal) {
         // After user login successfully.
         String userName = principal.getName();
@@ -541,10 +541,10 @@ public class InterfaceController {
             model.addAttribute("role", a.getAuthority());
         }
         return "content/solicitudServicioCliente/formSolicitudServicio";
-    }
+    }*/
 
     //Listar
-    @RequestMapping("/listSolicitudServicio")
+    /*@RequestMapping("/listSolicitudServicio")
     public String listSolicitudServicio(Model model, Principal principal) {
         // After user login successfully.
         String userName = principal.getName();
@@ -566,5 +566,5 @@ public class InterfaceController {
         }
 
         return "content/solicitudServicioCliente/listSolicitudServicio";
-    }
+    }*/
 }
