@@ -98,7 +98,14 @@
 <script src="../assets/js/actions/user.js" type="text/javascript"></script>
 <script>
     $('#nacimiento').datetimepicker({
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
     });
 </script>
 <script type="text/javascript">
