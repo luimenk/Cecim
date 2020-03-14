@@ -38,19 +38,19 @@ function generadorReporteDirect(e) {
     window.location = "/generadorReporte";
 }
 
+function registerOrdenServicio(e) {
+    window.location = "/registerOrdenServicio";
+}
 
 function listOrdenServicio(e) {
     window.location = "/listOrdenServicio";
 }
 
-function registerOrdenServicio(e) {
-    window.location = "/registerOrdenServicio";
+function registerSolicitudServicio(e) {
+    window.location = "/registerSolicituedServicio";
 }
 
 function listSolicitudServicio(e) {
-    window.location = "/listOrdenServicio";
+    window.location = "/listSolicitudServicio";
 }
 
-function registerSolicitudServicio(e) {
-    window.location = "/registerOrdenServicio";
-}
