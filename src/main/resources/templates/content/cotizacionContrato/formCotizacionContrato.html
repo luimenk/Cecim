@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Cotización y Contrato</h4>
+                            </div>
+                            <div class="card-body ">
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Fecha: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control datepicker"
+                                                   name="fechaHoy" id="fechaHoy" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Quién atiende: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control datepicker"
+                                                   name="quienAtiende"
+                                                   id="quienAtiende" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Cliente: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="empresa" id="empresa" required="true"
+                                                    data-title="Selecciona una Empresa..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <th:block th:object="${empresas}" th:each="item : ${empresas}">
+                                                    <option th:text="${item.nombreRazonSocial}"></option>
+                                                </th:block>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="card-header ">
+                                        <h5 class="card-title">Datos de Facturación</h5>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer ">
+                                    <button type="submit" class="btn btn-fill btn-primary" onclick="valida()">Generar
+                                        Solicitud
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <th:block th:include="/dependences/_Footer"></th:block>
+        </div>
+    </div>
+</div>
+</body>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script src="../assets/js/actions/ordenServicioCliente.js" type="text/javascript"></script>
+<script>
+    $('#fechaHoy').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaPago').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+    $('#fechaRecepcionMuestra').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+    $('#fechaCompromisoEntregaResultados').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+    $('#fechaOrdenServicio').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+
+</script>
+</html>

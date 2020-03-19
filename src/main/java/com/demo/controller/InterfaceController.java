@@ -504,21 +504,13 @@ public class InterfaceController {
         return "content/solicitudServicio/listSolicitudServicio";
     }
 
-
-
-
-
-
-    @RequestMapping(value = "/registroSolicitudMuestra")
-    public String registroSolicitud(Model model, Principal principal) {
-
+    //COTIZACION Y CONTRATO
+    @RequestMapping(value = "/registerCotizacionContrato")
+    public String registerCotizacionContrato(Model model, Principal principal) {
         // After user login successfully.
         String userName = principal.getName();
-
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
         String userInfo = WebUtils.toString(loginedUser);
-
         Collection<GrantedAuthority> review = loginedUser.getAuthorities();
 
         model.addAttribute("userName", userName);
@@ -533,9 +525,36 @@ public class InterfaceController {
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());
         }
-
-        return "content/muestras/solicitudMuestras";
+        return "content/cotizacionContrato/formCotizacionContrato";
     }
+
+    @RequestMapping("/listCotizacionContrato")
+    public String listCotizacionContrato(Model model, Principal principal) {
+        // After user login successfully.
+        String userName = principal.getName();
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        List<Machine> lista = machineService.findAll();
+        model.addAttribute("maquinas", lista);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+
+        return "content/cotizacionContrato/listCotizacionContrato";
+    }
+
+
+
+
 
     @RequestMapping(value = "/generadorReporte")
     public String generarReporte(Model model, Principal principal) {

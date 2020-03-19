@@ -54,3 +54,11 @@ function listSolicitudServicio(e) {
     window.location = "/listSolicitudServicio";
 }
 
+function registerCotizacionContrato(e) {
+    window.location = "/registerCotizacionContrato";
+}
+
+function listCotizacionContrato(e) {
+    window.location = "/listCotizacionContrato";
+}
+

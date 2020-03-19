@@ -22,29 +22,96 @@
                             <div class="card-body ">
                                 <!--Radios-->
                                 <div class="row">
-                                    <label class="col-sm-2 control-label">Fecha: </label>
+                                    <label class="col-sm-2 control-label">Servicio Urgente: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <form method="get" action="/" class="form-horizontal">
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="exampleRadio" id="exampleRadios1" value="option1">
+                                                    <span class="form-check-sign"></span>
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="exampleRadio" id="exampleRadios2" value="option2" checked>
+                                                    <span class="form-check-sign"></span>
+                                                    No
+                                                </label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Fecha de Envío de Muestras</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control datepicker"
                                                    placeholder="Fecha de envío de muestras"
-                                                   name="fechaOrdenServicio" id="fechaOrdenServicio" required="true">
+                                                   name="fechaEnvioMuestras" id="fechaEnvioMuestras" required="true">
                                         </div>
                                     </div>
-                                    <label class="col-sm-2 control-label">Folio de Solicitid de Servicio del
-                                        Cliente</label>
+                                    <label class="col-sm-2 control-label">Fecha de Pago</label>
                                     <div class="col-sm-4 col-sm-offset-1">
-                                        <input type="text" placeholder="AAAAMMDD_0000" disabled=""
-                                               class="form-control">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control datepicker"
+                                                   placeholder="Fecha de pago"
+                                                   name="fechaPago" id="fechaPago" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Nombre y Firma de Quién Envía las
+                                        Muestras</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   placeholder="Nombre y Firma de Quién Envía las Muestras">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">¿Las muestras requieren un almacenamiento especial?</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <form method="get" action="/" class="form-horizontal">
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="exampleRadio" id="exampleRadios5" value="option1">
+                                                    <span class="form-check-sign"></span>
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="exampleRadio" id="exampleRadios6" value="option2" checked>
+                                                    <span class="form-check-sign"></span>
+                                                    No
+                                                </label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group"></div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Especifique: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
                                     </div>
                                 </div>
 
                                 <!--ESPECIFICO-->
                                 <div class="row">
-                                    <label class="col-sm-2 control-label">Empresa: </label>
+                                    <label class="col-sm-2 control-label">Cliente: </label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <select class="selectpicker" name="empresa" id="empresa" required="true"
-                                                    data-title="Selecciona una Empresa..."
+                                                    data-title="Selecciona un Cliente..."
                                                     data-style="btn-default btn-outline"
                                                     data-menu-style="dropdown-blue">
                                                 <th:block th:object="${empresas}" th:each="item : ${empresas}">
@@ -58,92 +125,146 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-2 control-label">¿Requiere asesoría de un experto?: </label>
-                                    <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
-                                        <div class="form-check form-check-radio checkbox-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="radio" name="exampleRadio"
-                                                       id="exampleRadios3" value="option1">
-                                                <span class="form-check-sign"></span>
-                                                Si
-                                            </label>
-                                        </div>
-                                        <div class="form-check form-check-radio checkbox-inline">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="radio" name="exampleRadio"
-                                                       id="exampleRadios4" value="option2" checked>
-                                                <span class="form-check-sign"></span>
-                                                No
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Personal que lo atiende: </label>
+                                    <label class="col-sm-2 control-label">Fecha de Recepción de Muestras</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control datepicker"
-                                                   placeholder="Personal que lo atiende"
-                                                   name="nombreJefeCalidad"
-                                                   id="nombreJefeCalidad" required="true">
+                                                   placeholder="Fecha de envío de muestras"
+                                                   name="fechaRecepcionMuestras" id="fechaRecepcionMuestras" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha compromiso entrega de resultados</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control datepicker"
+                                                   placeholder="Fecha de pago"
+                                                   name="fechaCompromisoEntrega" id="fechaCompromisoEntrega" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Nombre y firma de quien recibe las muestras:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Nombre y firma del jefe de control de calidad:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="card-header ">
-                                        <h5 class="card-title">Solicitud de Servicio del Cliente</h5>
+                                        <h5 class="card-title">Información de las muestras</h5>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-2 control-label">Método Solicitado: </label>
+                                    <label class="col-sm-2 control-label">ID cliente de la muestra:</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <select class="selectpicker" name="metodo" id="metodo" required="true"
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Tipo de muestra:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Descripción de la muestra:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Método Solicitado:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="metodo0" id="metodo0" required="true"
                                                     data-title="Selecciona un método..."
                                                     data-style="btn-default btn-outline"
                                                     data-menu-style="dropdown-blue"
-                                                    onchange="cantidadMuestrasFunction()">
+                                                    onchange="chequeo()">
                                                 <option th:each="item : ${metodos}"
                                                         th:value="${item.cantidadMuestraEnsayo}"
                                                         th:text="${item.codigoMetodo}"></option>
                                             </select>
                                         </div>
                                     </div>
-                                    <label class="col-sm-2 control-label">Cantidad de Muestra:</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group" id="textbox">
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-2 control-label">Número de ensayos solicitados: </label>
+                                    <label class="col-sm-2 control-label">Condiciones Especiales:</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Número de ensayos">
+                                            <input type="text" class="form-control" placeholder="">
                                         </div>
                                     </div>
-                                    <label class="col-sm-2 control-label">Descripción de la muestra:</label>
+                                    <label class="col-sm-2 control-label">Cantidad de Muestra:</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   placeholder="Descripción de la Muestra">
+                                                   name="cantidadMuestra0"
+                                                   id="cantidadMuestra0" required="true" disabled>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-2 control-label">Observaciones y condiciones especiales:</label>
+                                    <label class="col-sm-2 control-label">Observaciones: </label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Observaciones">
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
 
-                                <!--ASDASDASDASD-->
-                                <div id="muestraExtra">
+                                <div id="muestraExtra"></div>
 
+                                <div class="row">
+                                    <label class="col-sm-8 control-label">Favor de responder si requiere devolución de las muestras analizadas: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <form method="get" action="/" class="form-horizontal">
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="exampleRadio" id="exampleRadios7" value="option1">
+                                                    <span class="form-check-sign"></span>
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="exampleRadio" id="exampleRadios8" value="option2" checked>
+                                                    <span class="form-check-sign"></span>
+                                                    No
+                                                </label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <br>
+                                <br>
+
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <p class="text-muted">
+                                            En caso de ser afirmativa la respuesta se le informa que las muestras a devolver se cobrará gastos de envío.
+                                        </p>
+                                        <p class="text-danger">
+                                            Nota: La mayoría de los ensayos son destructivos.
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <div class="card-footer ">
@@ -156,6 +277,7 @@
                                         Solicitud
                                     </button>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -166,23 +288,78 @@
     </div>
 </div>
 </body>
-<script src="../assets/js/actions/ordenServicio.js" type="text/javascript"></script>
+<script src="../assets/js/actions/solicitudServicioCliente.js" type="text/javascript"></script>
 <th:block th:include="/dependences/_RequiredScripts"></th:block>
 <script>
     $('#fechaEnvioMuestras').datetimepicker({
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
     });
     $('#fechaPago').datetimepicker({
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
     });
     $('#fechaRecepcionMuestra').datetimepicker({
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
     });
     $('#fechaCompromisoEntregaResultados').datetimepicker({
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
     });
     $('#fechaOrdenServicio').datetimepicker({
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaRecepcionMuestras').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaCompromisoEntrega').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
     });
 
     $(document).on("change", "#metodo", function () {
