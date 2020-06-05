@@ -35,7 +35,7 @@ function agregarMuestra() {
         "                                                    data-menu-style=\"dropdown-blue\"" +
         "                                                    onchange=\"chequeo()\">";
 
-    $.getJSON("http://localhost:8080/method", function (result) {
+    $.getJSON("https://localhost:8444/method", function (result) {
         $.each(result, function (i, field) {
             muestraAdicional += "<option value = \"" + field.cantidadMuestraEnsayo + "\">" + field.codigoMetodo + "</option>";
         });

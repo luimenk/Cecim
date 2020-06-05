@@ -89,7 +89,7 @@ function save(obj){
 
     $.ajax({
         type:'POST',
-        url:'http://localhost:8080/client',
+        url:'https://localhost:8444/client',
         data:myjson,
         cache:false,
         contentType: "application/json" ,
@@ -134,7 +134,7 @@ function validaEliminar(valor) {
     }, function () {
         $.ajax({
             type:'DELETE',
-            url:'http://localhost:8080/client/'+valor,
+            url:'https://localhost:8444/client/'+valor,
             cache:false,
             contentType: "application/json",
             processData: false,
@@ -291,7 +291,7 @@ function cargarTabla() {
         '</tr>' +
         '</tfoot>' +
         '<tbody>';
-    $.getJSON("http://localhost:8080/client", function (result) {
+    $.getJSON("https://localhost:8444/client", function (result) {
         $.each(result, function (i, field) {
             datos[field.clientId]=field.contactosDatos;
             tbl +=

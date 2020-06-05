@@ -90,7 +90,7 @@ function save(obj){
 
     $.ajax({
         type:'POST',
-        url:'http://localhost:8080/client',
+        url:'/client',
         data:myjson,
         cache:false,
         contentType: "application/json" ,
@@ -135,7 +135,7 @@ function validaEliminar(valor) {
     }, function () {
         $.ajax({
             type:'DELETE',
-            url:'http://localhost:8080/client/'+valor,
+            url:'/client/'+valor,
             cache:false,
             contentType: "application/json",
             processData: false,
@@ -357,7 +357,7 @@ function eliminarContacto(posicionArray,valor,jsonArray,idCliente) {
 function editarContactos(jsonArray,idCliente,texto,titulo) {
     $.ajax({
         type:'POST',
-        url:'http://localhost:8080/client/borrarContacto/'+idCliente,
+        url:'/client/borrarContacto/'+idCliente,
         data:jsonArray,
         cache:false,
         contentType: "application/json",
@@ -457,7 +457,7 @@ function cargarTabla() {
         '</tr>' +
         '</tfoot>' +
         '<tbody>';
-    $.getJSON("http://localhost:8080/client", function (result) {
+    $.getJSON("/client", function (result) {
         $.each(result, function (i, field) {
             datos[field.clientId]=stringToJSON(field.contactosDatos);
             tbl +=

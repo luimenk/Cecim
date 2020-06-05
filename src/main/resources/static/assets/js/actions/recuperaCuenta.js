@@ -15,7 +15,7 @@ function save(username){
 
     $.ajax({
         type:'POST',
-        url:'http://localhost:8080/recuperaCuenta/correo',
+        url:'https://localhost:8444/recuperaCuenta/correo',
         data:myjson,
         cache:false,
         contentType: "application/json",
@@ -63,7 +63,7 @@ function save2(codigo, password, password2){
 
     $.ajax({
         type:'POST',
-        url:'http://localhost:8080/recuperaCuenta/codigo',
+        url:'https://localhost:8444/recuperaCuenta/codigo',
         data:myjson,
         cache:false,
         contentType: "application/json",
@@ -80,7 +80,7 @@ function save2(codigo, password, password2){
                 confirmButtonText: "Ok",
                 closeOnConfirm: false,
             }, function () {
-                window.location.href = "http://localhost:8080/";
+                window.location.href = "https://localhost:8444/";
             });
         },
         error: function(data){
