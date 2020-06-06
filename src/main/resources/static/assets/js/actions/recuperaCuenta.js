@@ -15,14 +15,14 @@ function save(username){
 
     $.ajax({
         type:'POST',
-        url:'https://localhost:8444/recuperaCuenta/correo',
+        url:'/recuperaCuenta/correo',
         data:myjson,
         cache:false,
         contentType: "application/json",
         processData: false,
         success: function(data){
             console.log("success");
-            console.log(data);
+            console.log(data.status);
             swal({
                 title: "Código generado!",
                 text: "Se ha generado un código para recuperar la contraseña. Revise su correo electrónico por favor.",
@@ -37,8 +37,13 @@ function save(username){
         },
         error: function(data){
             console.log("error");
-            console.log(data);
-            swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+            console.log(data.status);
+            if (data.status === 404){
+                swal("Alerta!", " El correo no existe, favor de contactar al administrador del laboratorio.", "warning");
+            } else{
+                swal("Error!", "Ha ocurrido un error. Favor de contactar a la Mesa de Ayuda y Servicios.", "error");
+            }
+
         }
     });
 }
@@ -63,7 +68,7 @@ function save2(codigo, password, password2){
 
     $.ajax({
         type:'POST',
-        url:'https://localhost:8444/recuperaCuenta/codigo',
+        url:'/recuperaCuenta/codigo',
         data:myjson,
         cache:false,
         contentType: "application/json",
@@ -80,7 +85,7 @@ function save2(codigo, password, password2){
                 confirmButtonText: "Ok",
                 closeOnConfirm: false,
             }, function () {
-                window.location.href = "https://localhost:8444/";
+                window.location.href = "/";
             });
         },
         error: function(data){

@@ -31,7 +31,7 @@ function save(codigoMetodo, cantidadMuestraEnsayo, cantidadMuestraRetencion, dim
 
     $.ajax({
         type:'POST',
-        url:'https://localhost:8444/method',
+        url:'/method',
         data:myjson,
         cache:false,
         contentType: "application/json",
@@ -72,7 +72,7 @@ function validaEliminar(valor) {
     }, function () {
         $.ajax({
             type:'DELETE',
-            url:'https://localhost:8444/method/'+valor,
+            url:'/method/'+valor,
             cache:false,
             contentType: "application/json",
             processData: false,
@@ -129,7 +129,7 @@ function cargarTabla() {
         '</tr>' +
         '</tfoot>' +
         '<tbody>';
-    $.getJSON("https://localhost:8444/method", function (result) {
+    $.getJSON("/method", function (result) {
         $.each(result, function (i, field) {
             tbl +=
                 '<tr>' +

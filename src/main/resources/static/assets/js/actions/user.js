@@ -48,7 +48,7 @@ function save(userName, password, nombreUsuario, apellidoUsuario, nacimiento, pu
 
     $.ajax({
         type:'POST',
-        url:'https://localhost:8444/user',
+        url:'/user',
         data:myjson,
         cache:false,
         contentType: "application/json",
@@ -89,7 +89,7 @@ function validaEliminar(valor) {
     }, function () {
         $.ajax({
             type:'DELETE',
-            url:'https://localhost:8444/user/'+valor,
+            url:'/user/'+valor,
             cache:false,
             contentType: "application/json",
             processData: false,
@@ -138,7 +138,7 @@ function cargarTabla() {
         '</tr>' +
         '</tfoot>' +
         '<tbody>';
-    $.getJSON("https://localhost:8444/user", function (result) {
+    $.getJSON("/user", function (result) {
         $.each(result, function (i, field) {
             tbl +=
                 '<tr>' +

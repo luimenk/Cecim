@@ -25,7 +25,7 @@ function valida(e){
 function save(myjson){
     $.ajax({
         type:'POST',
-        url:'https://localhost:8444/machine',
+        url:'/machine',
         data:myjson,
         cache:false,
         contentType: "application/json",
@@ -66,7 +66,7 @@ function validaEliminar(valor) {
     }, function () {
         $.ajax({
             type:'DELETE',
-            url:'https://localhost:8444/machine/'+valor,
+            url:'/machine/'+valor,
             cache:false,
             contentType: "application/json",
             processData: false,
@@ -147,7 +147,7 @@ var tbl =
     '</tfoot>' +
     '<tbody>';
 function cargarTabla() {
-    $.getJSON("https://localhost:8444/machine", function (result) {
+    $.getJSON("/machine", function (result) {
         $.each(result, function (i, field) {
             tbl +=
                 '<tr>' +

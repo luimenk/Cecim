@@ -6,6 +6,7 @@ import com.demo.model.AppUser;
 import com.demo.model.UserRole;
 import com.demo.model.RecuperaCuenta;
 import com.demo.service.AppUserService;
+import com.demo.service.MailService;
 import com.demo.service.UserRoleService;
 import com.demo.service.RecuperaCuentaService;
 import com.demo.utils.EncryptedPasswordUtils;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,9 @@ import java.math.BigInteger;
 @RestController
 @RequestMapping(path = "/recuperaCuenta")
 public class RecuperaCuentaController {
+
+    @Autowired
+    private MailService mailService;
 
     @Autowired
     private UserRoleService userRoleService;
@@ -51,15 +56,19 @@ public class RecuperaCuentaController {
     @RequestMapping(path = "/correo",method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public String create(@RequestBody Map<String, String> request) throws Exception {
+    public ResponseEntity<?> create(@RequestBody Map<String, String> request) throws Exception {
 
         System.out.println(request.get("username"));
 
         SecureRandom random = new SecureRandom();
-        String text = new BigInteger(130, random).toString(32);
+        String text = new BigInteger(30, random).toString(32);
         System.out.println(text);
 
         UserRole userRole = userRoleService.findByAppUserUserName(request.get("username"));
+
+        if (userRole == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         System.out.println(userRole.getAppUser().getNombreUsuario());
         System.out.println(userRole.getAppUser().getUserId());
 
@@ -69,27 +78,9 @@ public class RecuperaCuentaController {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         recuperaCuenta.setCreatedAt(timestamp);
         recuperaCuentaService.save(recuperaCuenta);
-
-        /** ENVÍO DE CORREOS. FUNCIONAL, COMENTADO PARA EJECUCIÓN DE PRUEBAS **/
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setFrom("cecim.sistema@gmail.com"); //Se indica de donde (quién) saldrá el Correo
-        message.setTo(request.get("username")); //Se indica el destinatario
-        message.setSubject("Recuperación de contraseña"); //Se indica el asunto del Correo
-        String cuerpoMensaje = "Se ha generado el código para continuar con el proceso: "
-                + "\n\nCódigo:  " + text + ""
-                + "\n\nSi no lo ha hecho favor de hacer caso omiso."
-                + "\n\nEs un placer atenderlo.";
-        message.setText(cuerpoMensaje); //Se indica el detalle del mensaje
-
-        try {
-            mailSender.send(message);
-            return "";
-        } catch (Exception e) {
-            e.printStackTrace();
-            //return "Error al enviar el mensaje";
-        }
-        return "";
+        mailService.codigoMail(request.get("username"), text);
+        return new ResponseEntity<>(HttpStatus.OK);
+        //return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //Valida el código y envía a nueva contraseña
@@ -110,24 +101,7 @@ public class RecuperaCuentaController {
             appUser.setPassword(encryptedPasswordUtils.encryte(request.get("password")));
             appUserService.save(appUser);
 
-            /** ENVÍO DE CORREOS. FUNCIONAL, COMENTADO PARA EJECUCIÓN DE PRUEBAS **/
-            SimpleMailMessage message = new SimpleMailMessage();
-
-            message.setFrom("soporte_datasix@hotmail.com"); //Se indica de donde (quién) saldrá el Correo
-            message.setTo(recuperaCuenta.getCorreo()); //Se indica el destinatario
-            message.setSubject("Contraseña Cambiada"); //Se indica el asunto del Correo
-            String cuerpoMensaje = "Se ha cambiado la contraseña. A continuación se describe el detalle de su cuenta: "
-                    + "\n\nUsuario: " + recuperaCuenta.getCorreo() + "\n\nContraseña: " + request.get("password") + ""
-                    + "\n\nEs un placer atenderlo.";
-            message.setText(cuerpoMensaje); //Se indica el detalle del mensaje
-
-            try {
-                mailSender.send(message);
-                //return "";
-            } catch (Exception e) {
-                e.printStackTrace();
-                //return "Error al enviar el mensaje";
-            }
+            mailService.recuperaContrasena(recuperaCuenta.getCorreo(), request.get("password"));
 
             recuperaCuentaService.delete(recuperaCuenta.getRecuperaId());
 
