@@ -34,6 +34,12 @@
                             <div class="card-footer ml-auto mr-auto">
                                 <button type="submit" class="btn-fill btn-wd btn btn-info">Login</button>
                             </div>
+                            <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                                Usuario y/o contraseña no válidos.
+                            </div>
+                            <div th:if="${param.logout}" class="alert alert-success" role="alert">
+                                Sesión finalizada.
+                            </div>
                         </div>
                     </form>
                 </div>

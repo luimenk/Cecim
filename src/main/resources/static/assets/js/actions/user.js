@@ -1,4 +1,5 @@
 function valida(e){
+    var userId = document.getElementById('userId').value;
     var userName = document.getElementById('userName').value;
     var password = document.getElementById('password').value;
     var password1 = document.getElementById('password1').value;
@@ -28,13 +29,14 @@ function valida(e){
     if (password != password1) {
         swal("Error!", "Las contraseñas no coinciden. Favor de verificar", "error");
     } else if (userName != "" && password != "" && nombreUsuario != "" && apellidoUsuario != "" && nacimiento != "" && puesto != "" && rolUsuario != ""){
-        save(userName, password, nombreUsuario, apellidoUsuario, nacimiento, puesto, rolUsuario);
+        save(userId, userName, password, nombreUsuario, apellidoUsuario, nacimiento, puesto, rolUsuario);
     }
 }
 
-function save(userName, password, nombreUsuario, apellidoUsuario, nacimiento, puesto, rolUsuario){
+function save(userId, userName, password, nombreUsuario, apellidoUsuario, nacimiento, puesto, rolUsuario){
 
     var obj = {
+        "userId":""+userId+"",
         "userName":""+userName+"",
         "password":""+password+"",
         "nombreUsuario":""+nombreUsuario+"",
@@ -55,7 +57,7 @@ function save(userName, password, nombreUsuario, apellidoUsuario, nacimiento, pu
         processData: false,
         success: function(data){
             console.log("success");
-            console.log(data);
+            console.log(data.status);
             swal({
                 title: "Registrado!",
                 text: "Tu registro ha sido registrado exitosamente.",
@@ -70,8 +72,12 @@ function save(userName, password, nombreUsuario, apellidoUsuario, nacimiento, pu
         },
         error: function(data){
             console.log("error");
-            console.log(data);
-            swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+            console.log(data.status);
+            if (data.status === 409){
+                swal("Alerta!", " El correo capturado ya ha sido utilizado. Favor de validar la información.", "warning");
+            } else{
+                swal("Error!", "Ha ocurrido un error. Favor de contactar a la Mesa de Ayuda y Servicios.", "error");
+            }
         }
     });
 }
@@ -117,23 +123,25 @@ function validaEliminar(valor) {
     });
 }
 
-function validaModificar() {
-    alert("Modificará un almacen");
+function validaModificar(valor) {
+    window.location = "/registroUsuario/" + valor;
 }
 
 function cargarTabla() {
     var tbl =
         '<thead>' +
         '<tr>' +
-        '<th>Código Interno</th>' +
-        '<th>Nombre del Equipo o Instrumento</th>' +
+        '<th>Correo electrónico</th>' +
+        '<th>Rol de usuario</th>' +
+        '<th>Nombre de Usuario</th>' +
         '<th class="disabled-sorting text-right">Acciones</th>' +
         '</tr>' +
         '</thead>' +
         '<tfoot>' +
         '<tr>' +
-        '<th>Código Interno</th>' +
-        '<th>Nombre del Equipo o Instrumento</th>' +
+        '<th>Correo electrónico</th>' +
+        '<th>Rol de usuario</th>' +
+        '<th>Nombre de Usuario</th>' +
         '<th class="text-right">Acciones</th>' +
         '</tr>' +
         '</tfoot>' +
@@ -144,6 +152,7 @@ function cargarTabla() {
                 '<tr>' +
                 '<td>' + field.appUser.userName + '</td>' +
                 '<td>' + field.appRole.roleName + '</td>' +
+                '<td>' + field.appUser.nombreUsuario + ' ' + field.appUser.apellidoUsuario +'</td>' +
                 '<td class="text-right">' +
                 '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar('+field.appUser.userId+')"><i class="fa fa-edit"></i></button>' +
                 '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar('+field.appUser.userId+')"><i class="fa fa-times"></i></a>' +

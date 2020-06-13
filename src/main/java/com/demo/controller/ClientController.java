@@ -100,7 +100,8 @@ public class ClientController {
         }
 
         nombre = "" + mes + dia + anio + "_";
-        structureFolio = nombre+consecutivo;
+        //structureFolio = nombre+consecutivo;
+        structureFolio = consecutivo;
         cont = Integer.parseInt(folios.getConsecutivo());
         cont++;
         folios.setConsecutivo(cont+"");

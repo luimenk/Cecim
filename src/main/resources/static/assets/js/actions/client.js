@@ -74,7 +74,11 @@ function valida(e){
 
     console.log("AQUI SE IMPRIME EL OBJ COMPLETO")
     console.log(obj);
-    save(obj);
+    if (nombreRazonSocial != "" && nombreComunEmpresa != "" && calle != "" && numero != "" && colonia != "" &&
+        municipio != "" && estado != "" && codigoPostal != "" && rfc != "" && nombrePersonaContacto != "" && email != ""){
+        save(obj);
+    }
+    //save(obj);
 }
 
 function save(obj){

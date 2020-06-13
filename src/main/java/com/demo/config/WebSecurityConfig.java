@@ -19,6 +19,12 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
+    //Necesario para evitar que la seguridad se aplique a los resources
+    //como los css, imagenes y javascripts
+    String[] resources = new String[]{
+            "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/**","/dist/**","plugins/**","assets/**"
+    };
+
     @Autowired
     private UserDetailService userDetailService;
 
@@ -39,11 +45,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        /*http
+                .authorizeRequests()
+                .antMatchers(resources).permitAll()
+                .antMatchers("/","/login", "logout").permitAll()
+                .antMatchers("/user*","/recuperaCuenta*","/method*","/machine*","/folio*", "/documento*",
+                        "/client*", "/appRole*").access("hasRole('SUPERUSUARIO')")
+                .antMatchers("/user*").access("hasRole('SUPERUSUARIO') or hasRole('LABORATORISTA') or hasRole('ADMINISTRADOR') or hasRole('ESPECIALISTA')")
+                .anyRequest().authenticated()
+                .and().exceptionHandling().accessDeniedPage("/403")
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .defaultSuccessUrl("/dashboard")
+                .failureUrl("/login?error=true")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .and()
+                .logout()
+                .permitAll()
+                .logoutSuccessUrl("/login?logout");*/
         http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
         http.authorizeRequests().antMatchers("/grafica1").access("hasAnyRole('SUPERUSUARIO', 'LABORATORISTA', 'ADMINISTRADOR', 'ESPECIALISTA')");
         http.authorizeRequests().antMatchers("/dashboard1").access("hasRole('SUPERUSUARIO')");
-        //http.authorizeRequests().antMatchers("/partner/*").access("hasRole('PARTNER')");
-        //http.authorizeRequests().antMatchers("/user/*").access("hasRole('USUARIO')");
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
         http.authorizeRequests().and().formLogin()
                 .loginProcessingUrl("/j_spring_security_check")

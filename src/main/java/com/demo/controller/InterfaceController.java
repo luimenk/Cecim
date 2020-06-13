@@ -158,7 +158,7 @@ public class InterfaceController {
             if (a.getAuthority().equals("GERENCIA TECNICA")) {
                 rol = "content/dashboard/dashboardLabo";
             }
-            if (a.getAuthority().equals("JEFE DE CONTROL DE CALIDAD")) {
+            if (a.getAuthority().equals("CONTROL DE CALIDAD")) {
                 rol = "content/dashboard/dashboardAdmin";
             }
             if (a.getAuthority().equals("TECNICO")) {
@@ -659,4 +659,40 @@ public class InterfaceController {
 
         return "content/solicitudServicioCliente/listSolicitudServicio";
     }*/
+
+    @RequestMapping("/registroUsuario/{id}")
+    public String modificarUsuario(@PathVariable Long id, Model model, Principal principal) {
+
+        // After user login successfully.
+        String userName = principal.getName();
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        AppUser appUser = appUserService.findById(id);
+
+        model.addAttribute("userId", appUser.getUserId());
+        model.addAttribute("userName", appUser.getUserName());
+        System.out.println(appUser.getUserName());
+        //model.addAttribute("password", appUser.getPassword());
+        model.addAttribute("nombreUsuario", appUser.getNombreUsuario());
+        model.addAttribute("apellidoUsuario", appUser.getApellidoUsuario());
+        model.addAttribute("nacimiento", appUser.getNacimiento());
+        System.out.println(appUser.getNacimiento());
+        model.addAttribute("puesto", appUser.getPuesto());
+        List<AppRole> lista = appRoleService.findAll();
+        model.addAttribute("roles", lista);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+
+        return "content/usuarios/formUsuario";
+    }
 }

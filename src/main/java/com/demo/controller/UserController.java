@@ -1,11 +1,10 @@
 package com.demo.controller;
 
-//import com.pmisys.admin.api.service.TokenValidator;
-
 import com.demo.model.AppRole;
 import com.demo.repository.AppRoleRepository;
 import com.demo.repository.UserRoleRepository;
 import com.demo.service.AppRoleService;
+import com.demo.service.MailService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.demo.model.AppUser;
 import com.demo.model.UserRole;
@@ -15,15 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.http.MediaType;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/user")
@@ -39,7 +36,9 @@ public class UserController {
     private UserRoleRepository userRoleRepository;
 
     @Autowired
-    private JavaMailSender mailSender;
+    private MailService mailService;
+
+    Calendar calendario = new GregorianCalendar();
 
     private static final Logger APP = LoggerFactory.getLogger("info");
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -56,13 +55,51 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public AppUser create(@RequestBody Map<String, String> request) throws Exception {
+    public ResponseEntity<?> create(@RequestBody Map<String, String> request) throws Exception {
 
         EncryptedPasswordUtils encryptedPasswordUtils = new EncryptedPasswordUtils();
 
-        System.out.println(encryptedPasswordUtils.encryte(request.get("password")));
+        AppUser valida = appUserService.findByUserName(request.get("userName"));
+
+        System.out.println(request.get("userId"));
+        System.out.println(request.get("userName"));
+
+        if (valida != null){
+            if (request.get("userId") == ""){
+                APP.debug("Intento de registro de correo existente" + calendario.getTime());
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            } else {
+                APP.debug("Apartado de modificación" + calendario.getTime());
+                System.out.println("Contraseña encriptada: " + encryptedPasswordUtils.encryte(request.get("password")));
+                AppUser appUser = appUserService.findById(Long.parseLong(request.get("userId")));
+                appUser.setUserName(request.get("userName"));
+                appUser.setPassword(encryptedPasswordUtils.encryte(request.get("password")));
+                appUser.setEnabled(true);
+                appUser.setNombreUsuario(request.get("nombreUsuario"));
+                appUser.setApellidoUsuario(request.get("apellidoUsuario"));
+                appUser.setNacimiento(request.get("nacimiento"));
+                appUser.setPuesto(request.get("puesto"));
+                appUserService.save(appUser);
+
+                AppRole appRole = appRoleService.findById(Long.parseLong(request.get("rolUsuario")));
+                UserRole userRole = userRoleRepository.findByAppUser_UserName(appUser.getUserName());
+
+                userRole.setAppRole(appRole);
+                userRole.setAppUser(appUser);
+
+                userRoleRepository.save(userRole);
+
+                mailService.modificacionUsuario(appUser.getUserName(), request.get("password"));
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+        }
+
+        APP.debug("Apartado de modificación" + calendario.getTime());
 
         AppUser appUser = new AppUser();
+
+        System.out.println("Contraseña encriptada: " + encryptedPasswordUtils.encryte(request.get("password")));
+
         appUser.setUserName(request.get("userName"));
         appUser.setPassword(encryptedPasswordUtils.encryte(request.get("password")));
         appUser.setEnabled(true);
@@ -81,25 +118,9 @@ public class UserController {
         userRole.setAppUser(nuevaUnion);
 
         userRoleRepository.save(userRole);
+        mailService.registroUsuario(nuevaUnion.getUserName(), request.get("password"));
 
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setFrom("soporte_datasix@hotmail.com"); //Se indica de donde (quién) saldrá el Correo
-        message.setTo(nuevaUnion.getUserName()); //Se indica el destinatario
-        message.setSubject("Detalles de su cuenta de la aplicación"); //Se indica el asunto del Correo
-        String cuerpoMensaje = "A continuación se describe el detalle de su cuenta: "
-                + "\n\nUsuario: " + nuevaUnion.getUserName() + "\n\nContraseña: " + request.get("password") + ""
-                + "\n\nEs un placer atenderlo.";
-        message.setText(cuerpoMensaje); //Se indica el detalle del mensaje
-
-        try {
-            mailSender.send(message);
-            return appUser;
-        } catch (Exception e) {
-            e.printStackTrace();
-            //return "Error al enviar el mensaje";
-        }
-        return appUser;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //EliminarElemento

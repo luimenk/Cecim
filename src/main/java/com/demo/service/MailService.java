@@ -67,4 +67,43 @@ public class MailService {
         }
     }
 
+    @Async
+    public void registroUsuario(String username, String password){
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom("cecim.sistema@gmail.com"); //Se indica de donde (quién) saldrá el Correo
+        message.setTo(username); //Se indica el destinatario
+        message.setSubject("Detalles de su cuenta de la aplicación"); //Se indica el asunto del Correo
+        String cuerpoMensaje = "A continuación se describe el detalle de su cuenta: "
+                + "\n\nUsuario: " + username + "\n\nContraseña: " + password + ""
+                + "\n\nEs un placer atenderlo.";
+        message.setText(cuerpoMensaje); //Se indica el detalle del mensaje
+
+        try {
+            mailSender.send(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Async
+    public void modificacionUsuario(String username, String password){
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom("cecim.sistema@gmail.com"); //Se indica de donde (quién) saldrá el Correo
+        message.setTo(username); //Se indica el destinatario
+        message.setReplyTo("luimenk@gmail.com");
+        message.setSubject("Detalles de su cuenta de la aplicación. Estatus: Modificado"); //Se indica el asunto del Correo
+        String cuerpoMensaje = "A continuación se describe el detalle de su cuenta: "
+                + "\n\nUsuario: " + username + "\n\nContraseña: " + password + ""
+                + "\n\nEs un placer atenderlo.";
+        message.setText(cuerpoMensaje); //Se indica el detalle del mensaje
+
+        try {
+            mailSender.send(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
