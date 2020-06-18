@@ -3,8 +3,9 @@
 <head>
     <title>Panel de Administración</title>
     <th:block th:include="/dependences/_HeadInside"></th:block>
+    <link rel="stylesheet" href="/assets/css/custom_css.css">
 </head>
-<body>
+<body th:onload="javascript:events();">
 <div class="wrapper">
     <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
     <div class="main-panel">
@@ -42,11 +43,10 @@
                                                         <label class="control-label">Método
                                                             <star>*</star>
                                                         </label>
-                                                        <select class="selectpicker" name="metodo" id="metodo" required="true"
+                                                        <select class="selectpicker" name="metodo" id="metodo" required
                                                                 data-title="Selecciona un método..."
                                                                 data-style="btn-default btn-outline"
-                                                                data-menu-style="dropdown-blue"
-                                                                onchange="cantidadMuestrasFunction()">
+                                                                data-menu-style="dropdown-blue">
                                                             <option th:each="item : ${metodos}"
                                                                     th:value="${item.cantidadMuestraEnsayo}"
                                                                     th:text="${item.codigoMetodo}"></option>
@@ -58,13 +58,13 @@
                                                 <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label class="control-label">Número de días</label>
-                                                        <input class="form-control" type="number" name="first_name" />
+                                                        <input class="form-control" type="number" name="numDias" id="numDias" required />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label class="control-label">Tipo muestra</label>
-                                                        <input class="form-control" type="text" name="first_name" />
+                                                        <input class="form-control" type="text" name="tipoMuestra" id="tipoMuestra" required/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -72,27 +72,27 @@
                                                 <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label class="control-label">Número de repeticiones</label>
-                                                        <input class="form-control" type="number" name="last_name" required="true" />
+                                                        <input class="form-control" type="number" name="numRepeticiones" id="numRepeticiones" required />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
                                                     <div class="form-group">
-                                                        <label class="control-label">Cantidad de Muestra</label>
-                                                        <input class="form-control" type="number" name="first_name" />
+                                                        <label class="control-label">Número de Muestra</label>
+                                                        <input class="form-control" type="number" name="numMuestra" id="numMuestra" required />
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row justify-content-center">
                                                 <div class="col-md-5">
                                                     <div class="form-group">
-                                                        <label class="control-label">Número de muestras</label>
-                                                        <input class="form-control" type="number" name="first_name" />
+                                                        <label class="control-label">Número de mediciones</label>
+                                                        <input class="form-control" type="number" name="numMuestras" id="numMuestras" required />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label class="control-label">Descripción de la muestra</label>
-                                                        <input class="form-control" type="text" name="first_name" />
+                                                        <input class="form-control" type="text" name="descripcionMuestra" id="descripcionMuestra"  required/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -100,13 +100,13 @@
                                                 <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label class="control-label">Número de analistas</label>
-                                                        <input class="form-control" type="number" name="last_name" required="true" />
+                                                        <input class="form-control" type="number" name="numAnalistas" id="numAnalistas" required />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label class="control-label">Tipo de material</label>
-                                                        <input class="form-control" type="text" name="first_name" />
+                                                        <input class="form-control" type="text" name="tipoMaterial" id="tipoMaterial" required />
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,13 +114,13 @@
                                                 <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label class="control-label">Proveedor</label>
-                                                        <input class="form-control" type="text" name="last_name" required="true" />
+                                                        <input class="form-control" type="text" name="provedor" id="provedor" required />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
                                                     <div class="form-group">
                                                         <label class="control-label">Valor de Referencia</label>
-                                                        <input class="form-control" type="number" name="first_name" />
+                                                        <input class="form-control" type="number" name="valorReferencia" id="valorReferencia" required />
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,9 +130,12 @@
                                                         <label class="control-label">Equipo
                                                             <star>*</star>
                                                         </label>
-                                                        <select class="selectpicker" name="maquina" id="equipo" required="true"
+                                                        <select class="selectpicker" name="maquina" id="equipo"
+                                                                oninvalid="this.setCustomValidity('Debe seleccionar un equipo')"
+                                                                oninput="setCustomValidity('')"
                                                                 data-title="Selecciona un equipo..."
                                                                 data-style="btn-default btn-outline"
+                                                                required
                                                                 data-menu-style="dropdown-blue">
                                                             <option th:each="item : ${maquinas}"
                                                                     th:value="${item.nombreEquipoInstrumento}"
@@ -144,20 +147,25 @@
                                         </div>
                                         <div class="tab-pane fade" id="tab2" role="tabpanel">
                                             <h5 class="text-center">Por favor complete la siguiente información.</h5>
-                                            <div class="row justify-content-center">
-                                            </div>
-                                            <div class="row justify-content-center">
-                                            </div>
-                                            <div class="row justify-content-center">
+                                            <!--<div id="contenedor">
+                                            </div>-->
+                                            <div class="card">
+                                                <div class="card-body style-1" style="overflow-y: scroll; height: 60vh" id="contenedor">
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="tab3" role="tabpanel">
+                                            <h2 class="text-center text-space">Haz completado los pasos!
+                                                <br>
+                                                <small>Click en "<b>Generar</b>" para generar el reporte</small>
+                                            </h2>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer text-center">
                                     <button type="button" class="btn btn-default btn-wd btn-back pull-left">Anterior</button>
                                     <button type="button" class="btn btn-info btn-wd btn-next pull-right">Siguiente</button>
+                                    <button type="button" class="btn btn-info btn-wd btn-finish pull-right" onclick="generarReporte()">Generar</button>
                                     <!--<button type="button" class="btn btn-info btn-wd btn-finish pull-right" onclick="onFinishWizard()">Finish</button>-->
                                     <div class="clearfix"></div>
                                 </div>
@@ -172,5 +180,12 @@
 </div>
 </body>
 <script src="../assets/js/actions/method.js" type="text/javascript"></script>
+<script src="../assets/js/actions/report.js" type="text/javascript"></script>
 <th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Init Wizard
+        demo.initLBDWizard();
+    });
+</script>
 </html>
