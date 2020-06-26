@@ -62,3 +62,11 @@ function listCotizacionContrato(e) {
     window.location = "/listCotizacionContrato";
 }
 
+function registerEtiquetas(e) {
+    window.location = "/registerEtiquetas";
+}
+
+function listEtiquetas(e) {
+    window.location = "/listEtiquetas";
+}
+

@@ -4,6 +4,7 @@ package com.demo.controller;
 
 import com.demo.model.ClientAux;
 import com.demo.service.FoliosService;
+import com.demo.service.LabReporteService;
 import com.demo.utils.FixContactsJson;
 import com.demo.utils.GeneratePDFReport;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.*;
 
 @RestController
@@ -34,6 +36,9 @@ public class ClientController {
 
     @Autowired
     private FoliosService foliosService;
+
+    @Autowired
+    private LabReporteService labReporteService;
 
     private static final Logger APP = LoggerFactory.getLogger("info");
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -148,7 +153,7 @@ public class ClientController {
         return clientService.actualizarContactos(FixContactsJson.fixJsonContacts(contactos).toString(),clientId);
     }
 
-    @RequestMapping(value = "/generadorReporte", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
+    /*@RequestMapping(value = "/generadorReporte", method = RequestMethod.POST, produces = MediaType.APPLICATION_PDF_VALUE)
     //public ResponseEntity<InputStreamResource> reporteEncuesta(@RequestParam String param) throws IOException {
     public ResponseEntity<InputStreamResource> reporteEncuesta() throws IOException {
 
@@ -165,5 +170,36 @@ public class ClientController {
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(bis));
+
+    }*/
+    /*
+    * private ResponseEntity<InputStreamResource> generateFile() throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=reporte.xlsx");
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        workbook.write(byteArrayOutputStream);
+        MediaType excel=MediaType.valueOf("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(excel)
+                .body(new InputStreamResource(byteArrayInputStream));
+    }*/
+    @RequestMapping(value = "/generarListaCliente", method = RequestMethod.GET)
+    //public ResponseEntity<InputStreamResource> reporteEncuesta(@RequestParam String param) throws IOException {
+    public ResponseEntity<InputStreamResource> reporteClientes() throws Exception {
+        System.out.println("Se generó LCC-SOC");
+        System.out.println(LocalTime.now());
+
+        return labReporteService.createDocFormTemplate();
+    }
+
+    @RequestMapping(value = "/imprimirCliente/{clientId}", method = RequestMethod.GET)
+    //public ResponseEntity<InputStreamResource> reporteEncuesta(@RequestParam String param) throws IOException {
+    public ResponseEntity<InputStreamResource> reporteCliente(@PathVariable("clientId") Long clientId) throws Exception {
+        System.out.println("Se generó FCC-SOC");
+        System.out.println(LocalTime.now());
+
+        return labReporteService.createDocFCC_SOC(clientId);
     }
 }

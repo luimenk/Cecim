@@ -25,8 +25,8 @@
                                 </div>
                             </div>
                         </div>
-                        <form th:action="@{/client/generadorReporte}" th:object="${client}" method="post">
-                            <button type="submit" class="btn btn-fill btn-primary">Generar PDF</button>
+                        <form th:action="@{/client/generarListaCliente}" th:object="${client}" method="GET">
+                            <button type="submit" class="btn btn-fill btn-primary">Generar LCC-SOC <i class="fa fa-print"></i></button>
                         </form>
                     </div>
                 </div>

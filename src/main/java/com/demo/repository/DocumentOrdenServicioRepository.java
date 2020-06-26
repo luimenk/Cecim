@@ -7,6 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public interface DocumentRepositoryOrdenServicio extends JpaRepository<DocumentOrdenServicio,Long> {
+public interface DocumentOrdenServicioRepository extends JpaRepository<DocumentOrdenServicio,Long> {
     DocumentOrdenServicio findByOrdenServicioId(Long id);
 }

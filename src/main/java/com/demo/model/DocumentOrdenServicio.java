@@ -12,21 +12,30 @@ public class DocumentOrdenServicio {
     @Column(name = "folioOrden", nullable = false)
     private String folioOrden;
 
+    @Column(name = "fecha_orden_servicio", nullable = false)
+    private String fechaOrdenServicio;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Client_Id")
     private Client client;
 
-    @Column(name = "listaMuestras", nullable = false)
-    private String listaMuestras;
+    @Column(name = "asesoria", nullable = true)
+    private boolean asesoria;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "User_Id")
+    private AppUser appUser;
 
     public DocumentOrdenServicio() {
     }
 
-    public DocumentOrdenServicio(String folioOrden, Client client, String listaMuestras) {
+    public DocumentOrdenServicio(Long ordenServicioId, String folioOrden, String fechaOrdenServicio, Client client, boolean asesoria, AppUser appUser) {
+        this.ordenServicioId = ordenServicioId;
         this.folioOrden = folioOrden;
+        this.fechaOrdenServicio = fechaOrdenServicio;
         this.client = client;
-        this.listaMuestras = listaMuestras;
+        this.asesoria = asesoria;
+        this.appUser = appUser;
     }
 
     public Long getOrdenServicioId() {
@@ -41,9 +50,16 @@ public class DocumentOrdenServicio {
         return folioOrden;
     }
 
-
     public void setFolioOrden(String folioOrden) {
         this.folioOrden = folioOrden;
+    }
+
+    public String getFechaOrdenServicio() {
+        return fechaOrdenServicio;
+    }
+
+    public void setFechaOrdenServicio(String fechaOrdenServicio) {
+        this.fechaOrdenServicio = fechaOrdenServicio;
     }
 
     public Client getClient() {
@@ -54,21 +70,19 @@ public class DocumentOrdenServicio {
         this.client = client;
     }
 
-    public String getListaMuestras() {
-        return listaMuestras;
+    public boolean isAsesoria() {
+        return asesoria;
     }
 
-    public void setListaMuestras(String listaMuestras) {
-        this.listaMuestras = listaMuestras;
+    public void setAsesoria(boolean asesoria) {
+        this.asesoria = asesoria;
     }
 
-    @Override
-    public String toString() {
-        return "DocumentOrdenServicio{" +
-                "ordenServicioId=" + ordenServicioId +
-                ", folioOrden='" + folioOrden + '\'' +
-                ", client=" + client +
-                ", listaMuestras='" + listaMuestras + '\'' +
-                '}';
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 }

@@ -39,12 +39,12 @@ public class DocumentController {
     }
 
     //GuardarElemento
-    @RequestMapping(method = RequestMethod.POST)
+    /*@RequestMapping(method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<?> create(@RequestBody Map<String, String> request) throws Exception {
         return documentServiceOrdenServicio.save( request);
-    }
+    }*/
 
     //EliminarElemento
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")

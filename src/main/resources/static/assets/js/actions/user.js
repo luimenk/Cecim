@@ -28,9 +28,9 @@ function valida(e){
 
     if (password != password1) {
         swal("Error!", "Las contraseñas no coinciden. Favor de verificar", "error");
-    } else if (userName != "" && password != "" && nombreUsuario != "" && apellidoUsuario != "" && nacimiento != "" && puesto != "" && rolUsuario != ""){
-        save(userId, userName, password, nombreUsuario, apellidoUsuario, nacimiento, puesto, rolUsuario);
-    }
+        } else if (userName != "" && password != "" && nombreUsuario != "" && apellidoUsuario != "" && nacimiento != "" && puesto != "" && rolUsuario != ""){
+            save(userId, userName, password, nombreUsuario, apellidoUsuario, nacimiento, puesto, rolUsuario);
+        }
 }
 
 function save(userId, userName, password, nombreUsuario, apellidoUsuario, nacimiento, puesto, rolUsuario){

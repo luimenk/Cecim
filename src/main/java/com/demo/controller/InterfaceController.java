@@ -53,6 +53,12 @@ public class InterfaceController {
     @Autowired
     private FoliosService foliosService;
 
+    @Autowired
+    private DocumentServiceOrdenServicio documentServiceOrdenServicio;
+
+    @Autowired
+    private EtiquetaService etiquetaService;
+
     /**
      ************************************************
      *      CARGA PRINCIPAL E INICIO DE SESIÓN      *
@@ -426,6 +432,9 @@ public class InterfaceController {
         List<Method> lista2 = methodService.findAll();
         model.addAttribute("metodos", lista2);
 
+        List<AppUser> lista3 = appUserService.findAll();
+        model.addAttribute("personal", lista3);
+
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());
         }
@@ -449,11 +458,14 @@ public class InterfaceController {
         List<Machine> lista = machineService.findAll();
         model.addAttribute("maquinas", lista);
 
+        List<DocumentOrdenServicio> lista2 = documentServiceOrdenServicio.findAll();
+        model.addAttribute("ordenServicios", lista2);
+
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/odernServicio/listOrdenServicio";
+        return "content/ordenServicio/listOrdenServicio";
     }
 
     //SOLICITUD DE SERVICIO DEL CLIENTE
@@ -694,5 +706,93 @@ public class InterfaceController {
         }
 
         return "content/usuarios/formUsuario";
+    }
+
+    @RequestMapping("/registroEtiqueta/{id}")
+    public String modificarEtiqueta(@PathVariable Long id, Model model, Principal principal) {
+
+        // After user login successfully.
+        String userName = principal.getName();
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        Etiqueta etiqueta = etiquetaService.findById(id);
+
+        List<Client> lista = clientService.findAll();
+        model.addAttribute("empresas", lista);
+
+        List<Method> lista2 = methodService.findAll();
+        model.addAttribute("metodos", lista2);
+
+        model.addAttribute("etiquetaId", etiqueta.getEtiquetaId());
+        model.addAttribute("fecha", etiqueta.getFecha());
+//        System.out.println(appUser.getUserName());
+        //model.addAttribute("password", appUser.getPassword());
+        model.addAttribute("descripcionMuestra", etiqueta.getDescripcionMuestra());
+        model.addAttribute("tipoMaterial", etiqueta.getTipoMaterial());
+        model.addAttribute("cantidadMuestra", etiqueta.getCantidadMuestra());
+        model.addAttribute("lote", etiqueta.getLote());
+        model.addAttribute("observaciones", etiqueta.getObservaciones());
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+
+        return "content/etiquetas/formEtiqueta";
+    }
+
+    //Etiquetas
+    @RequestMapping(value = "/registerEtiquetas")
+    public String registerEtiquetas(Model model, Principal principal) {
+        // After user login successfully.
+        String userName = principal.getName();
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        List<Client> lista = clientService.findAll();
+        model.addAttribute("empresas", lista);
+
+        List<Method> lista2 = methodService.findAll();
+        model.addAttribute("metodos", lista2);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+        return "content/etiquetas/formEtiqueta";
+    }
+
+    @RequestMapping("/listEtiquetas")
+    public String listEtiquetas(Model model, Principal principal) {
+        // After user login successfully.
+        String userName = principal.getName();
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        List<Machine> lista = machineService.findAll();
+        model.addAttribute("maquinas", lista);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+
+        return "content/etiquetas/listEtiqueta";
     }
 }

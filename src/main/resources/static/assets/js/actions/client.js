@@ -426,6 +426,10 @@ function validaModificar(valor) {
     window.location = "/registroCliente/" + valor;
 }
 
+function validaImprimir(valor) {
+    window.location = "/client/imprimirCliente/" + valor;
+}
+
 function cargarTabla() {
     var tbl =
         '<thead>' +
@@ -479,6 +483,7 @@ function cargarTabla() {
                 '<td class="text-center">' +
                 '<button type="button" class="btn btn-success edit" onclick="tablaContactos('+field.clientId+')"><i class=""></i>Ver contactos</button>' + '</td>' +
                 '<td class="text-center">' +
+                '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir('+field.clientId+')"><i class="fa fa-print"></i></button>' +
                 '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar('+field.clientId+')"><i class="fa fa-edit"></i></button>' +
                 '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar('+field.clientId+')"><i class="fa fa-times"></i></button>' +
                 '</td>' +
