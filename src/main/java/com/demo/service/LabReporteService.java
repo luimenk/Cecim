@@ -13,11 +13,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
 @Service
 public class LabReporteService {
@@ -26,7 +28,11 @@ public class LabReporteService {
     private ClientService clientService;
 
     public ResponseEntity<InputStreamResource> createDocFormTemplate() throws InvalidFormatException, IOException{
-        XWPFDocument doc = new XWPFDocument(new FileInputStream("/home/luimenk/IdeaProjects/Cecim/src/main/resources/documentos/LCC-SOC-004.docx"));
+        //XWPFDocument doc = new XWPFDocument(new FileInputStream("/home/luimenk/IdeaProjects/Cecim/src/main/resources/documentos/LCC-SOC-004.docx"));
+        //File file = ResourceUtils.getFile("classpath:documentos/LCC-SOC-004.docx");
+        ClassPathResource resource = new ClassPathResource("/documentos/LCC-SOC-004.docx");
+        XWPFDocument doc = new XWPFDocument(resource.getInputStream());
+        //XWPFDocument doc = new XWPFDocument(OPCPackage.open(file));
 
         List<Client> lista = clientService.findAll();
 
@@ -71,7 +77,12 @@ public class LabReporteService {
     }
 
     public ResponseEntity<InputStreamResource> createDocFCC_SOC(Long clientId) throws InvalidFormatException, IOException{
-        XWPFDocument doc = new XWPFDocument(new FileInputStream("/home/luimenk/IdeaProjects/Cecim/src/main/resources/documentos/FCC-SOC-002.docx"));
+        //XWPFDocument doc = new XWPFDocument(new FileInputStream("/home/luimenk/IdeaProjects/Cecim/src/main/resources/documentos/FCC-SOC-002.docx"));
+        //File file = ResourceUtils.getFile("classpath:documentos/FCC-SOC-002.docx");
+        //XWPFDocument doc = new XWPFDocument(OPCPackage.open(file));
+
+        ClassPathResource resource = new ClassPathResource("/documentos/FCC-SOC-002.docx");
+        XWPFDocument doc = new XWPFDocument(resource.getInputStream());
 
         List<Client> lista = clientService.findAll();
         Client client = clientService.findById(clientId);
