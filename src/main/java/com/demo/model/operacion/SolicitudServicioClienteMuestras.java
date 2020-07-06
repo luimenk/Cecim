@@ -10,7 +10,7 @@ public class SolicitudServicioClienteMuestras {
 
     @Id
     @GeneratedValue
-    @Column(name = "Solicitud_Servicio_Cliente_Id", nullable = false)
+    @Column(name = "Solicitud_Servicio_Cliente_Muestras_Id", nullable = false)
     private Long solicitudServicioClienteMuestrasId;
 
     @Column(name = "Id_Cliente_Muestra", length = 250, nullable = false)

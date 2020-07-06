@@ -43,13 +43,13 @@ public class SolicitudServicioCliente {
     private Client client;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Solicitud_Servicio_Cliente_Id")
-    private SolicitudServicioCliente solicitudServicioCliente;
+    @JoinColumn(name = "Solicitud_Servicio_Cliente_Muestras_Id")
+    private SolicitudServicioClienteMuestras solicitudServicioClienteMuestras;
 
     public SolicitudServicioCliente() {
     }
 
-    public SolicitudServicioCliente(Long solicitudServicioClienteId, String folioSolitudServicioCliente, String fechaEnvioMuestras, String fechaPago, String nombreFirmaEmisor, boolean almacenamientoEspecial, String fechaRecepcionMuestras, String fechaCompromisoEntrega, String nombreFirmaReceptor, String nombreFirmaCalidad, Client client, SolicitudServicioCliente solicitudServicioCliente) {
+    public SolicitudServicioCliente(Long solicitudServicioClienteId, String folioSolitudServicioCliente, String fechaEnvioMuestras, String fechaPago, String nombreFirmaEmisor, boolean almacenamientoEspecial, String fechaRecepcionMuestras, String fechaCompromisoEntrega, String nombreFirmaReceptor, String nombreFirmaCalidad, Client client, SolicitudServicioClienteMuestras solicitudServicioClienteMuestras) {
         this.solicitudServicioClienteId = solicitudServicioClienteId;
         this.folioSolitudServicioCliente = folioSolitudServicioCliente;
         this.fechaEnvioMuestras = fechaEnvioMuestras;
@@ -61,7 +61,7 @@ public class SolicitudServicioCliente {
         this.nombreFirmaReceptor = nombreFirmaReceptor;
         this.nombreFirmaCalidad = nombreFirmaCalidad;
         this.client = client;
-        this.solicitudServicioCliente = solicitudServicioCliente;
+        this.solicitudServicioClienteMuestras = solicitudServicioClienteMuestras;
     }
 
     public Long getSolicitudServicioClienteId() {
@@ -152,12 +152,12 @@ public class SolicitudServicioCliente {
         this.client = client;
     }
 
-    public SolicitudServicioCliente getSolicitudServicioCliente() {
-        return solicitudServicioCliente;
+    public SolicitudServicioClienteMuestras getSolicitudServicioClienteMuestras() {
+        return solicitudServicioClienteMuestras;
     }
 
-    public void setSolicitudServicioCliente(SolicitudServicioCliente solicitudServicioCliente) {
-        this.solicitudServicioCliente = solicitudServicioCliente;
+    public void setSolicitudServicioClienteMuestras(SolicitudServicioClienteMuestras solicitudServicioClienteMuestras) {
+        this.solicitudServicioClienteMuestras = solicitudServicioClienteMuestras;
     }
 
     @Override
@@ -174,7 +174,7 @@ public class SolicitudServicioCliente {
                 ", nombreFirmaReceptor='" + nombreFirmaReceptor + '\'' +
                 ", nombreFirmaCalidad='" + nombreFirmaCalidad + '\'' +
                 ", client=" + client +
-                ", solicitudServicioCliente=" + solicitudServicioCliente +
+                ", solicitudServicioClienteMuestras=" + solicitudServicioClienteMuestras +
                 '}';
     }
 }
