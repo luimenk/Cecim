@@ -32,10 +32,14 @@ public class SolicitudServicioClienteMuestras {
     @Column(name = "Observaciones", length = 250, nullable = false)
     private String observaciones;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Solicitud_Servicio_Cliente_Id")
+    private SolicitudServicioCliente solicitudServicioCliente;
+
     public SolicitudServicioClienteMuestras() {
     }
 
-    public SolicitudServicioClienteMuestras(Long solicitudServicioClienteMuestrasId, String idClienteMuestra, String tipoMuestra, String descripcionMuestra, Method method, String condicionesEspeciales, String observaciones) {
+    public SolicitudServicioClienteMuestras(Long solicitudServicioClienteMuestrasId, String idClienteMuestra, String tipoMuestra, String descripcionMuestra, Method method, String condicionesEspeciales, String observaciones, SolicitudServicioCliente solicitudServicioCliente) {
         this.solicitudServicioClienteMuestrasId = solicitudServicioClienteMuestrasId;
         this.idClienteMuestra = idClienteMuestra;
         this.tipoMuestra = tipoMuestra;
@@ -43,6 +47,7 @@ public class SolicitudServicioClienteMuestras {
         this.method = method;
         this.condicionesEspeciales = condicionesEspeciales;
         this.observaciones = observaciones;
+        this.solicitudServicioCliente = solicitudServicioCliente;
     }
 
     public Long getSolicitudServicioClienteMuestrasId() {
@@ -101,4 +106,11 @@ public class SolicitudServicioClienteMuestras {
         this.observaciones = observaciones;
     }
 
+    public SolicitudServicioCliente getSolicitudServicioCliente() {
+        return solicitudServicioCliente;
+    }
+
+    public void setSolicitudServicioCliente(SolicitudServicioCliente solicitudServicioCliente) {
+        this.solicitudServicioCliente = solicitudServicioCliente;
+    }
 }

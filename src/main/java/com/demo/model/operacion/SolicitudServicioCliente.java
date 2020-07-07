@@ -14,6 +14,9 @@ public class SolicitudServicioCliente {
     @Column(name = "Folio_Solicitud_Servicio_Cliente", length = 250, nullable = false)
     private String folioSolitudServicioCliente;
 
+    @Column(name = "Servicio_Urgente", length = 250, nullable = false)
+    private String servicioUrgente;
+
     @Column(name = "Fecha_Envio_Muestras", length = 250, nullable = false)
     private String fechaEnvioMuestras;
 
@@ -24,7 +27,10 @@ public class SolicitudServicioCliente {
     private String nombreFirmaEmisor;
 
     @Column(name = "Almacenamiento_Especial", length = 250, nullable = false)
-    private boolean almacenamientoEspecial;
+    private String almacenamientoEspecial;
+
+    @Column(name = "Especifique", length = 250, nullable = false)
+    private String especifique;
 
     @Column(name = "Fecha_Recepcion_Muestras", length = 250, nullable = false)
     private String fechaRecepcionMuestras;
@@ -38,30 +44,31 @@ public class SolicitudServicioCliente {
     @Column(name = "Nombre_Firma_Calidad", length = 250, nullable = false)
     private String nombreFirmaCalidad;
 
+    @Column(name = "Devolucion_Muestras", length = 250, nullable = false)
+    private String devolucionMuestras;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Client_Id")
     private Client client;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Solicitud_Servicio_Cliente_Muestras_Id")
-    private SolicitudServicioClienteMuestras solicitudServicioClienteMuestras;
-
     public SolicitudServicioCliente() {
     }
 
-    public SolicitudServicioCliente(Long solicitudServicioClienteId, String folioSolitudServicioCliente, String fechaEnvioMuestras, String fechaPago, String nombreFirmaEmisor, boolean almacenamientoEspecial, String fechaRecepcionMuestras, String fechaCompromisoEntrega, String nombreFirmaReceptor, String nombreFirmaCalidad, Client client, SolicitudServicioClienteMuestras solicitudServicioClienteMuestras) {
+    public SolicitudServicioCliente(Long solicitudServicioClienteId, String folioSolitudServicioCliente, String servicioUrgente, String fechaEnvioMuestras, String fechaPago, String nombreFirmaEmisor, String almacenamientoEspecial, String especifique, String fechaRecepcionMuestras, String fechaCompromisoEntrega, String nombreFirmaReceptor, String nombreFirmaCalidad, String devolucionMuestras, Client client) {
         this.solicitudServicioClienteId = solicitudServicioClienteId;
         this.folioSolitudServicioCliente = folioSolitudServicioCliente;
+        this.servicioUrgente = servicioUrgente;
         this.fechaEnvioMuestras = fechaEnvioMuestras;
         this.fechaPago = fechaPago;
         this.nombreFirmaEmisor = nombreFirmaEmisor;
         this.almacenamientoEspecial = almacenamientoEspecial;
+        this.especifique = especifique;
         this.fechaRecepcionMuestras = fechaRecepcionMuestras;
         this.fechaCompromisoEntrega = fechaCompromisoEntrega;
         this.nombreFirmaReceptor = nombreFirmaReceptor;
         this.nombreFirmaCalidad = nombreFirmaCalidad;
+        this.devolucionMuestras = devolucionMuestras;
         this.client = client;
-        this.solicitudServicioClienteMuestras = solicitudServicioClienteMuestras;
     }
 
     public Long getSolicitudServicioClienteId() {
@@ -78,6 +85,14 @@ public class SolicitudServicioCliente {
 
     public void setFolioSolitudServicioCliente(String folioSolitudServicioCliente) {
         this.folioSolitudServicioCliente = folioSolitudServicioCliente;
+    }
+
+    public String getServicioUrgente() {
+        return servicioUrgente;
+    }
+
+    public void setServicioUrgente(String servicioUrgente) {
+        this.servicioUrgente = servicioUrgente;
     }
 
     public String getFechaEnvioMuestras() {
@@ -104,12 +119,20 @@ public class SolicitudServicioCliente {
         this.nombreFirmaEmisor = nombreFirmaEmisor;
     }
 
-    public boolean isAlmacenamientoEspecial() {
+    public String getAlmacenamientoEspecial() {
         return almacenamientoEspecial;
     }
 
-    public void setAlmacenamientoEspecial(boolean almacenamientoEspecial) {
+    public void setAlmacenamientoEspecial(String almacenamientoEspecial) {
         this.almacenamientoEspecial = almacenamientoEspecial;
+    }
+
+    public String getEspecifique() {
+        return especifique;
+    }
+
+    public void setEspecifique(String especifique) {
+        this.especifique = especifique;
     }
 
     public String getFechaRecepcionMuestras() {
@@ -144,6 +167,14 @@ public class SolicitudServicioCliente {
         this.nombreFirmaCalidad = nombreFirmaCalidad;
     }
 
+    public String getDevolucionMuestras() {
+        return devolucionMuestras;
+    }
+
+    public void setDevolucionMuestras(String devolucionMuestras) {
+        this.devolucionMuestras = devolucionMuestras;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -152,29 +183,23 @@ public class SolicitudServicioCliente {
         this.client = client;
     }
 
-    public SolicitudServicioClienteMuestras getSolicitudServicioClienteMuestras() {
-        return solicitudServicioClienteMuestras;
-    }
-
-    public void setSolicitudServicioClienteMuestras(SolicitudServicioClienteMuestras solicitudServicioClienteMuestras) {
-        this.solicitudServicioClienteMuestras = solicitudServicioClienteMuestras;
-    }
-
     @Override
     public String toString() {
         return "SolicitudServicioCliente{" +
                 "solicitudServicioClienteId=" + solicitudServicioClienteId +
                 ", folioSolitudServicioCliente='" + folioSolitudServicioCliente + '\'' +
+                ", servicioUrgente='" + servicioUrgente + '\'' +
                 ", fechaEnvioMuestras='" + fechaEnvioMuestras + '\'' +
                 ", fechaPago='" + fechaPago + '\'' +
                 ", nombreFirmaEmisor='" + nombreFirmaEmisor + '\'' +
-                ", almacenamientoEspecial=" + almacenamientoEspecial +
+                ", almacenamientoEspecial='" + almacenamientoEspecial + '\'' +
+                ", especifique='" + especifique + '\'' +
                 ", fechaRecepcionMuestras='" + fechaRecepcionMuestras + '\'' +
                 ", fechaCompromisoEntrega='" + fechaCompromisoEntrega + '\'' +
                 ", nombreFirmaReceptor='" + nombreFirmaReceptor + '\'' +
                 ", nombreFirmaCalidad='" + nombreFirmaCalidad + '\'' +
+                ", devolucionMuestras='" + devolucionMuestras + '\'' +
                 ", client=" + client +
-                ", solicitudServicioClienteMuestras=" + solicitudServicioClienteMuestras +
                 '}';
     }
 }

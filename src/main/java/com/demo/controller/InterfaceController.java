@@ -489,7 +489,7 @@ public class InterfaceController {
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());
         }
-        return "content/solicitudServicio/formSolicitudServicio";
+        return "content/operacion/solicitudServicioCliente/formSolicitudServicio";
     }
 
     @RequestMapping("/listSolicitudServicio")
@@ -513,7 +513,7 @@ public class InterfaceController {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/solicitudServicio/listSolicitudServicio";
+        return "content/operacion/solicitudServicioCliente/listSolicitudServicio";
     }
 
     //COTIZACION Y CONTRATO
