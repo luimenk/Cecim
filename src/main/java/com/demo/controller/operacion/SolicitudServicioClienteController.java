@@ -92,20 +92,12 @@ public class SolicitudServicioClienteController {
                 solicitudServicioCliente.setClient(client);
                 solicitudServicioClienteService.save(solicitudServicioCliente);
 
-                /*AppRole appRole = appRoleService.findById(Long.parseLong(request.get("rolUsuario")));
-                UserRole userRole = userRoleRepository.findByAppUser_UserName(appUser.getUserName());
 
-                userRole.setAppRole(appRole);
-                userRole.setAppUser(appUser);
-
-                userRoleRepository.save(userRole);
-
-                mailService.modificacionUsuario(appUser.getUserName(), request.get("password"));*/
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         }
 
-        APP.debug("Apartado de modificación" + calendario.getTime());
+        APP.debug("Apartado de registro nuevo" + calendario.getTime());
 
         SolicitudServicioCliente solicitudServicioCliente = new SolicitudServicioCliente();
         Client client = clientService.findById(Long.parseLong(request.get("empresa")));
@@ -127,12 +119,12 @@ public class SolicitudServicioClienteController {
 
         for (int i=0;i<=Integer.parseInt(request.get("contMuestra")); i++){
             SolicitudServicioClienteMuestras solicitudServicioClienteMuestras = new SolicitudServicioClienteMuestras();
-            solicitudServicioClienteMuestras.setIdClienteMuestra(request.get("idClienteMuestra"));
-            solicitudServicioClienteMuestras.setTipoMuestra(request.get("tipoMuestra"));
-            solicitudServicioClienteMuestras.setDescripcionMuestra(request.get("descripcionMuestra"));
-            solicitudServicioClienteMuestras.setCondicionesEspeciales(request.get("condicionesEspeciales"));
-            solicitudServicioClienteMuestras.setObservaciones(request.get("observaciones"));
-            solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("method"))));
+            solicitudServicioClienteMuestras.setIdClienteMuestra(request.get("idClienteMuestra"+i));
+            solicitudServicioClienteMuestras.setTipoMuestra(request.get("tipoMuestra"+i));
+            solicitudServicioClienteMuestras.setDescripcionMuestra(request.get("descripcionMuestra"+i));
+            solicitudServicioClienteMuestras.setCondicionesEspeciales(request.get("condicionesEspeciales"+i));
+            solicitudServicioClienteMuestras.setObservaciones(request.get("observaciones"+i));
+            solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("metodo"+i))));
             solicitudServicioClienteMuestras.setSolicitudServicioCliente(solicitudServicioCliente);
             solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
         }

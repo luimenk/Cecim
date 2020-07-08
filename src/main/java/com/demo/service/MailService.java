@@ -28,7 +28,7 @@ public class MailService {
         /** ENVÍO DE CORREOS. FUNCIONAL, COMENTADO PARA EJECUCIÓN DE PRUEBAS **/
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setFrom("cecim.sistema@gmail.com"); //Se indica de donde (quién) saldrá el Correo
+        message.setFrom("sistema@cecim.com.mx"); //Se indica de donde (quién) saldrá el Correo
         message.setTo(username); //Se indica el destinatario
         message.setSubject("Recuperación de contraseña"); //Se indica el asunto del Correo
         String cuerpoMensaje = "Se ha generado el código para continuar con el proceso: "
@@ -50,7 +50,7 @@ public class MailService {
         /** ENVÍO DE CORREOS. FUNCIONAL, COMENTADO PARA EJECUCIÓN DE PRUEBAS **/
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setFrom("cecim.sistema@gmail.com"); //Se indica de donde (quién) saldrá el Correo
+        message.setFrom("sistema@cecim.com.mx"); //Se indica de donde (quién) saldrá el Correo
         message.setTo(username); //Se indica el destinatario
         message.setSubject("Contraseña Cambiada"); //Se indica el asunto del Correo
         String cuerpoMensaje = "Se ha cambiado la contraseña. A continuación se describe el detalle de su cuenta: "
@@ -71,7 +71,7 @@ public class MailService {
     public void registroUsuario(String username, String password){
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setFrom("cecim.sistema@gmail.com"); //Se indica de donde (quién) saldrá el Correo
+        message.setFrom("sistema@cecim.com.mx"); //Se indica de donde (quién) saldrá el Correo
         message.setTo(username); //Se indica el destinatario
         message.setSubject("Detalles de su cuenta de la aplicación"); //Se indica el asunto del Correo
         String cuerpoMensaje = "A continuación se describe el detalle de su cuenta: "
@@ -90,7 +90,7 @@ public class MailService {
     public void modificacionUsuario(String username, String password){
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setFrom("cecim.sistema@gmail.com"); //Se indica de donde (quién) saldrá el Correo
+        message.setFrom("sistema@cecim.com.mx"); //Se indica de donde (quién) saldrá el Correo
         message.setTo(username); //Se indica el destinatario
         message.setReplyTo("luimenk@gmail.com");
         message.setSubject("Detalles de su cuenta de la aplicación. Estatus: Modificado"); //Se indica el asunto del Correo

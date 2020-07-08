@@ -40,7 +40,7 @@ function agregarMuestra() {
 
     $.getJSON("/method", function (result) {
         $.each(result, function (i, field) {
-            muestraAdicional += "<option value = \"" + field.cantidadMuestraEnsayo + "\">" + field.codigoMetodo + "</option>";
+            muestraAdicional += "<option value = \"" + field.methodId + "\">" + field.codigoMetodo + "</option>";
         });
         
         muestraAdicional += "</select>" +
@@ -142,5 +142,61 @@ function save(myjson){
             console.log(data);
             swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
         }
+    });
+}
+
+function cargarTabla() {
+    var tbl =
+        '<thead>' +
+        '<tr>' +
+        '<th class="text-center">Folio</th>' +
+        '<th class="text-center">Fecha de envio de muestras</th>' +
+        '<th class="text-center">Fecha de pago</th>' +
+        '<th class="text-center">Fecha compromiso</th>' +
+        '<th class="text-center">Etiquetas</th>' +
+        '<th class="disabled-sorting text-center">Acciones</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tfoot>' +
+        '<tr>' +
+        '<th class="text-center">Folio</th>' +
+        '<th class="text-center">Fecha de envio de muestras</th>' +
+        '<th class="text-center">Fecha de pago</th>' +
+        '<th class="text-center">Fecha compromiso</th>' +
+        '<th class="text-center">Etiquetas</th>' +
+        '<th class="disabled-sorting text-center">Acciones</th>' +
+        '</tr>' +
+        '</tfoot>' +
+        '<tbody>';
+    $.getJSON("/solicitudServicioCliente", function (result) {
+        $.each(result, function (i, field) {
+            tbl +=
+                '<tr>' +
+                '<td class="text-center">' + field.folioSolitudServicioCliente + '</td>' +
+                '<td class="text-center">' + field.fechaEnvioMuestras + '</td>' +
+                '<td class="text-center">' + field.fechaPago + '</td>' +
+                '<td class="text-center">' + field.fechaCompromisoEntrega + '</td>' +
+                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir('+field.solicitudServicioClienteId+')"><i class="fa fa-print"></i></button>' + '</td>' +
+                '<td class="text-center">' +
+                '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir('+field.solicitudServicioClienteId+')"><i class="fa fa-print"></i></button>' +
+                '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-edit"></i></button>' +
+                '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-times"></i></a>' +
+                '</td>' +
+                '</tr>';
+        });
+        tbl += '</tbody>';
+        $("#solicitudServicioClienteTable").append(tbl);
+        $('#solicitudServicioClienteTable').DataTable({
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Buscar Registros",
+            }
+        });
     });
 }
