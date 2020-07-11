@@ -1,5 +1,5 @@
 package com.demo.controller.operacion;
-
+;
 import com.demo.model.Client;
 import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
@@ -130,5 +130,17 @@ public class SolicitudServicioClienteController {
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //EliminarElemento
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{userId}")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.DELETE})
+    public void delete(@PathVariable("userId") Long id){
+        //solicitudServicioClienteId
+        /*AppUser appUser = appUserService.findById(userId);
+        UserRole userRole = userRoleRepository.findByAppUser_UserName(appUser.getUserName());
+
+        userRoleRepository.delete(userRole);
+        appUserService.delete(userId);*/
     }
 }

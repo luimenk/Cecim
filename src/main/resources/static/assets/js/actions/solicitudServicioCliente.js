@@ -145,6 +145,22 @@ function save(myjson){
     });
 }
 
+function validaEliminar() {
+
+}
+
+function validaModificar() {
+
+}
+
+function validaImprimir() {
+
+}
+
+function validaImprimirEtiquetas() {
+
+}
+
 function cargarTabla() {
     var tbl =
         '<thead>' +
@@ -176,7 +192,7 @@ function cargarTabla() {
                 '<td class="text-center">' + field.fechaEnvioMuestras + '</td>' +
                 '<td class="text-center">' + field.fechaPago + '</td>' +
                 '<td class="text-center">' + field.fechaCompromisoEntrega + '</td>' +
-                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir('+field.solicitudServicioClienteId+')"><i class="fa fa-print"></i></button>' + '</td>' +
+                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirEtiquetas('+field.solicitudServicioClienteId+')"><i class="fa fa-print"></i></button>' + '</td>' +
                 '<td class="text-center">' +
                 '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir('+field.solicitudServicioClienteId+')"><i class="fa fa-print"></i></button>' +
                 '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-edit"></i></button>' +
