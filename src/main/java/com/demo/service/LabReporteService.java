@@ -6,6 +6,7 @@ import java.util.*;
 
 import com.demo.model.Client;
 import com.demo.model.Folios;
+import com.demo.utils.EstructuraNombres;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.*;
@@ -26,6 +27,8 @@ public class LabReporteService {
 
     @Autowired
     private ClientService clientService;
+
+    EstructuraNombres estructuraNombres = new EstructuraNombres();
 
     public ResponseEntity<InputStreamResource> createDocFormTemplate() throws InvalidFormatException, IOException{
         //XWPFDocument doc = new XWPFDocument(new FileInputStream("/home/luimenk/IdeaProjects/Cecim/src/main/resources/documentos/LCC-SOC-004.docx"));
@@ -64,7 +67,7 @@ public class LabReporteService {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=LCC-SOC-"+getNombre()+".docx");
+        headers.add("Content-Disposition", "inline; filename=LCC-SOC-"+estructuraNombres.getNombre()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();
@@ -132,7 +135,7 @@ public class LabReporteService {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=FCC-SOC-"+getNombre()+".docx");
+        headers.add("Content-Disposition", "inline; filename=FCC-SOC-"+estructuraNombres.getNombre()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();
@@ -186,38 +189,5 @@ public class LabReporteService {
             }
         }
         return contacto.toString();
-    }
-
-    private String getNombre(){
-        String dia, mes, sec, nombre;
-        int anio, me, di, ho, mi, se;
-        Calendar calendario = new GregorianCalendar();
-
-        anio = calendario.get(Calendar.YEAR);
-        me = calendario.get(Calendar.MONTH);
-        di = calendario.get(Calendar.DAY_OF_MONTH);
-        ho = calendario.get(Calendar.HOUR_OF_DAY);
-        mi = calendario.get(Calendar.MINUTE);
-        se = calendario.get(Calendar.SECOND);
-
-        me++;
-
-        if (di < 10) {
-            dia = "0" + di;
-        } else {
-            dia = "" + di;
-        }
-        if (me < 10) {
-            mes = "0" + me;
-        } else {
-            mes = "" + me;
-        }
-        if (se < 10) {
-            sec = "0" + se;
-        } else {
-            sec = "" + se;
-        }
-
-        return "" + anio + mes + dia + "_" + ho + mi + sec;
     }
 }

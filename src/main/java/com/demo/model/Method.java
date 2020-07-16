@@ -22,6 +22,9 @@ public class Method {
     @Column(name = "Cantidad_Muestra_Retencion", length = 250, nullable = false)
     private String cantidadMuestraRetencion;
 
+    @Column(name = "Cantidad_Total", length = 250, nullable = false)
+    private String cantidadTotal;
+
     @Column(name = "Dimensiones_Corte_Probeta", length = 250, nullable = false)
     private String dimensionesCorteProbeta;
 
@@ -34,10 +37,12 @@ public class Method {
     public Method() {
     }
 
-    public Method(String codigoMetodo, String cantidadMuestraEnsayo, String cantidadMuestraRetencion, String dimensionesCorteProbeta, String numeroProbetasMuestras, String condicionesEspecialesAcondicionamiento) {
+    public Method(Long methodId, String codigoMetodo, String cantidadMuestraEnsayo, String cantidadMuestraRetencion, String cantidadTotal, String dimensionesCorteProbeta, String numeroProbetasMuestras, String condicionesEspecialesAcondicionamiento) {
+        this.methodId = methodId;
         this.codigoMetodo = codigoMetodo;
         this.cantidadMuestraEnsayo = cantidadMuestraEnsayo;
         this.cantidadMuestraRetencion = cantidadMuestraRetencion;
+        this.cantidadTotal = cantidadTotal;
         this.dimensionesCorteProbeta = dimensionesCorteProbeta;
         this.numeroProbetasMuestras = numeroProbetasMuestras;
         this.condicionesEspecialesAcondicionamiento = condicionesEspecialesAcondicionamiento;
@@ -73,6 +78,14 @@ public class Method {
 
     public void setCantidadMuestraRetencion(String cantidadMuestraRetencion) {
         this.cantidadMuestraRetencion = cantidadMuestraRetencion;
+    }
+
+    public String getCantidadTotal() {
+        return cantidadTotal;
+    }
+
+    public void setCantidadTotal(String cantidadTotal) {
+        this.cantidadTotal = cantidadTotal;
     }
 
     public String getDimensionesCorteProbeta() {

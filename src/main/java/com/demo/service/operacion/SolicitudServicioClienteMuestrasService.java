@@ -33,6 +33,10 @@ public class SolicitudServicioClienteMuestrasService {
         return solicitudServicioClienteMuestrasRepository.findBySolicitudServicioClienteMuestrasId(id);
     }
 
+    public List<SolicitudServicioClienteMuestras> findAllBySolicitud(Long id){
+        return solicitudServicioClienteMuestrasRepository.findAllBySolicitudServicioCliente_SolicitudServicioClienteId(id);
+    }
+
     public void delete(Long id) {
         solicitudServicioClienteMuestrasRepository.deleteById(id);
     }

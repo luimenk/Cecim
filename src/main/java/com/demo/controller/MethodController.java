@@ -60,6 +60,7 @@ public class MethodController {
         method.setCodigoMetodo(request.get("codigoMetodo"));
         method.setCantidadMuestraEnsayo(request.get("cantidadMuestraEnsayo"));
         method.setCantidadMuestraRetencion(request.get("cantidadMuestraRetencion"));
+        method.setCantidadMuestraRetencion(request.get("cantidadTotal"));
         method.setDimensionesCorteProbeta(request.get("dimensionesCorteProbeta"));
         method.setNumeroProbetasMuestras(request.get("numeroProbetasMuestras"));
         method.setCondicionesEspecialesAcondicionamiento(request.get("condicionesEspecialesAcondicionamiento"));

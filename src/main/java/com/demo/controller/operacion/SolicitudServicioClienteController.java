@@ -6,18 +6,20 @@ import com.demo.model.operacion.SolicitudServicioClienteMuestras;
 import com.demo.service.ClientService;
 import com.demo.service.FoliosService;
 import com.demo.service.MethodService;
+import com.demo.service.formatos.FSS_SOC_001_Service;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
-import com.demo.utils.EncryptedPasswordUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalTime;
 import java.util.*;
 
 @RestController
@@ -42,6 +44,9 @@ public class SolicitudServicioClienteController {
 
     @Autowired
     private MethodService methodService;
+
+    @Autowired
+    private FSS_SOC_001_Service fss_soc_001_service;
 
     //ListarTodo
     @RequestMapping(method = RequestMethod.GET)
@@ -124,11 +129,24 @@ public class SolicitudServicioClienteController {
             solicitudServicioClienteMuestras.setDescripcionMuestra(request.get("descripcionMuestra"+i));
             solicitudServicioClienteMuestras.setCondicionesEspeciales(request.get("condicionesEspeciales"+i));
             solicitudServicioClienteMuestras.setObservaciones(request.get("observaciones"+i));
+            /*for (int j = 0; i<Integer.parseInt(request.get("numeroMetodo")); i++){*/
+                //solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("metodo"+i))));
+                //variable bandera controladora de número de métodos funcion numero de muestras metodo -> muestra
+            //}
             solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("metodo"+i))));
             solicitudServicioClienteMuestras.setSolicitudServicioCliente(solicitudServicioCliente);
             solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/imprimirSolicitud/{id}", method = RequestMethod.GET)
+    //public ResponseEntity<InputStreamResource> reporteEncuesta(@RequestParam String param) throws IOException {
+    public ResponseEntity<InputStreamResource> reporteCliente(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FCC-SOC");
+        System.out.println(LocalTime.now());
+
+        return fss_soc_001_service.crearFormato(id);
     }
 }

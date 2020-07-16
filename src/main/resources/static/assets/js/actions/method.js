@@ -2,6 +2,7 @@ function valida(e){
     var codigoMetodo = document.getElementById('codigoMetodo').value;
     var cantidadMuestraEnsayo = document.getElementById('cantidadMuestraEnsayo').value;
     var cantidadMuestraRetencion = document.getElementById('cantidadMuestraRetencion').value;
+    var cantidadTotal = document.getElementById('cantidadTotal').value;
     var dimensionesCorteProbeta = document.getElementById('dimensionesCorteProbeta').value;
     var numeroProbetasMuestras = document.getElementById('numeroProbetasMuestras').value;
     var condicionesEspecialesAcondicionamiento = document.getElementById('condicionesEspecialesAcondicionamiento').value;
@@ -9,20 +10,22 @@ function valida(e){
     if (codigoMetodo != "" &&
         cantidadMuestraEnsayo != "" &&
         cantidadMuestraRetencion != "" &&
+        cantidadTotal != "" &&
         dimensionesCorteProbeta != "" &&
         numeroProbetasMuestras != "" &&
         condicionesEspecialesAcondicionamiento != "") {
 
-        save(codigoMetodo, cantidadMuestraEnsayo, cantidadMuestraRetencion, dimensionesCorteProbeta, numeroProbetasMuestras, condicionesEspecialesAcondicionamiento);
+        save(codigoMetodo, cantidadMuestraEnsayo, cantidadMuestraRetencion, cantidadTotal, dimensionesCorteProbeta, numeroProbetasMuestras, condicionesEspecialesAcondicionamiento);
     }
 }
 
-function save(codigoMetodo, cantidadMuestraEnsayo, cantidadMuestraRetencion, dimensionesCorteProbeta, numeroProbetasMuestras, condicionesEspecialesAcondicionamiento){
+function save(codigoMetodo, cantidadMuestraEnsayo, cantidadMuestraRetencion, cantidadTotal, dimensionesCorteProbeta, numeroProbetasMuestras, condicionesEspecialesAcondicionamiento){
 
     var obj = {
         "codigoMetodo":""+codigoMetodo+"",
         "cantidadMuestraEnsayo":""+cantidadMuestraEnsayo+"",
         "cantidadMuestraRetencion":""+cantidadMuestraRetencion+"",
+        "cantidadTotal":""+cantidadTotal+"",
         "dimensionesCorteProbeta":""+dimensionesCorteProbeta+"",
         "numeroProbetasMuestras":""+numeroProbetasMuestras+"",
         "condicionesEspecialesAcondicionamiento":""+condicionesEspecialesAcondicionamiento+""

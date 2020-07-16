@@ -55,10 +55,10 @@ function agregarMuestra() {
             "                                                   name=\"condicionesEspeciales" + contMuestra + "\"  id=\"condicionesEspeciales" + contMuestra + "\" required=\"true\">" +
             "                                        </div>" +
             "                                    </div>" +
-            "                                    <label class=\"col-sm-2 control-label\">Cantidad de Muestra:</label>" +
+          //  "                                    <label class=\"col-sm-2 control-label\">Cantidad de Muestra:</label>" +
             "                                    <div class=\"col-sm-4 col-sm-offset-1\">" +
             "                                        <div class=\"form-group\">" +
-            "                                            <input type=\"text\" class=\"form-control\"" +
+            "                                            <input type=\"hidden\" class=\"form-control\"" +
             "                                                   name=\"cantidadMuestra" + contMuestra + "\"" +
             "                                                   id=\"cantidadMuestra" + contMuestra + "\" required=\"true\" disabled>" +
             "                                        </div>" +
@@ -145,6 +145,24 @@ function save(myjson){
     });
 }
 
+function validaEliminar(){
+
+}
+
+function validaModificar(valor) {
+    //window.location = "/registroCliente/" + valor;
+}
+
+function validaImprimir(valor) {
+    //solicitudServicioCliente
+    //window.location = "/client/imprimirCliente/" + valor;
+    window.location = "/solicitudServicioCliente/imprimirSolicitud/" + valor;
+}
+
+function validaImprimirEtiqueta(valor) {
+    window.location = "/client/imprimirCliente/" + valor;
+}
+
 function cargarTabla() {
     var tbl =
         '<thead>' +
@@ -176,7 +194,7 @@ function cargarTabla() {
                 '<td class="text-center">' + field.fechaEnvioMuestras + '</td>' +
                 '<td class="text-center">' + field.fechaPago + '</td>' +
                 '<td class="text-center">' + field.fechaCompromisoEntrega + '</td>' +
-                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir('+field.solicitudServicioClienteId+')"><i class="fa fa-print"></i></button>' + '</td>' +
+                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirEtiqueta('+field.solicitudServicioClienteId+')"><i class="fa fa-print"></i></button>' + '</td>' +
                 '<td class="text-center">' +
                 '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir('+field.solicitudServicioClienteId+')"><i class="fa fa-print"></i></button>' +
                 '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-edit"></i></button>' +

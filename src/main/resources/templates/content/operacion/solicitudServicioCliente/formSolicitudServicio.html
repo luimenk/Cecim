@@ -193,6 +193,11 @@
                                     <label class="col-sm-2 control-label">Método Solicitado:</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
+                                            <!--<select multiple class="selectpicker" name="metodo0" id="metodo0" required="true"
+                                                    data-title="Selecciona un método..."
+                                                    data-style="btn-info btn-fill btn-block"
+                                                    data-menu-style="dropdown-blue"
+                                                    onchange="chequeo()">-->
                                             <select class="selectpicker" name="metodo0" id="metodo0" required="true"
                                                     data-title="Selecciona un método..."
                                                     data-style="btn-default btn-outline"
@@ -214,10 +219,10 @@
                                                    name="condicionesEspeciales0" id="condicionesEspeciales0" required="true">
                                         </div>
                                     </div>
-                                    <label class="col-sm-2 control-label">Cantidad de Muestra:</label>
+                                    <!--<label class="col-sm-2 control-label">Cantidad de Muestra:</label>-->
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
+                                            <input type="hidden" class="form-control"
                                                    name="cantidadMuestra0"
                                                    id="cantidadMuestra0" required="true" disabled>
                                         </div>
@@ -381,11 +386,11 @@
     });
 
     $('#radioUrgente input').on('change', function() {
-        document.getElementById("servicioUrgente").value = $('input[name=radioNameEspecial]:checked', '#radioUrgente').val();
+        document.getElementById("servicioUrgente").value = $('input[name=radioNameUrgente]:checked', '#radioUrgente').val();
     });
 
     $('#radioMuestras input').on('change', function() {
-        document.getElementById("devolucionMuestras").value = $('input[name=radioNameEspecial]:checked', '#radioMuestras').val();
+        document.getElementById("devolucionMuestras").value = $('input[name=radioNameMuestras]:checked', '#radioMuestras').val();
     });
 </script>
 </html>
