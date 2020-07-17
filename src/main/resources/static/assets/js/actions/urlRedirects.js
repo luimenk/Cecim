@@ -70,3 +70,6 @@ function listEtiquetas(e) {
     window.location = "/listEtiquetas";
 }
 
+function registerValidacion(e) {
+    window.location = "/registerValidacion";
+}

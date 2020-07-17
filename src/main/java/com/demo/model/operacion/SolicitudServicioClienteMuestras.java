@@ -32,6 +32,9 @@ public class SolicitudServicioClienteMuestras {
     @Column(name = "Observaciones", length = 250, nullable = false)
     private String observaciones;
 
+    @Column(name = "Path_Qr_Identificacion", length = 250, nullable = false)
+    private String pathQRIdentificacion;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Solicitud_Servicio_Cliente_Id")
     private SolicitudServicioCliente solicitudServicioCliente;
@@ -39,7 +42,7 @@ public class SolicitudServicioClienteMuestras {
     public SolicitudServicioClienteMuestras() {
     }
 
-    public SolicitudServicioClienteMuestras(Long solicitudServicioClienteMuestrasId, String idClienteMuestra, String tipoMuestra, String descripcionMuestra, Method method, String condicionesEspeciales, String observaciones, SolicitudServicioCliente solicitudServicioCliente) {
+    public SolicitudServicioClienteMuestras(Long solicitudServicioClienteMuestrasId, String idClienteMuestra, String tipoMuestra, String descripcionMuestra, Method method, String condicionesEspeciales, String observaciones, String pathQRIdentificacion, SolicitudServicioCliente solicitudServicioCliente) {
         this.solicitudServicioClienteMuestrasId = solicitudServicioClienteMuestrasId;
         this.idClienteMuestra = idClienteMuestra;
         this.tipoMuestra = tipoMuestra;
@@ -47,6 +50,7 @@ public class SolicitudServicioClienteMuestras {
         this.method = method;
         this.condicionesEspeciales = condicionesEspeciales;
         this.observaciones = observaciones;
+        this.pathQRIdentificacion = pathQRIdentificacion;
         this.solicitudServicioCliente = solicitudServicioCliente;
     }
 
@@ -104,6 +108,14 @@ public class SolicitudServicioClienteMuestras {
 
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    public String getPathQRIdentificacion() {
+        return pathQRIdentificacion;
+    }
+
+    public void setPathQRIdentificacion(String pathQRIdentificacion) {
+        this.pathQRIdentificacion = pathQRIdentificacion;
     }
 
     public SolicitudServicioCliente getSolicitudServicioCliente() {

@@ -1,5 +1,6 @@
 package com.demo.repository.operacion;
 
+import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
 
 import org.springframework.data.jpa.repository.JpaRepository;

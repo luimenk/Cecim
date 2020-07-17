@@ -154,13 +154,11 @@ function validaModificar(valor) {
 }
 
 function validaImprimir(valor) {
-    //solicitudServicioCliente
-    //window.location = "/client/imprimirCliente/" + valor;
     window.location = "/solicitudServicioCliente/imprimirSolicitud/" + valor;
 }
 
 function validaImprimirEtiqueta(valor) {
-    window.location = "/client/imprimirCliente/" + valor;
+    window.location = "/solicitudServicioCliente/imprimirEtiquetasIdentificacion/" + valor;
 }
 
 function cargarTabla() {

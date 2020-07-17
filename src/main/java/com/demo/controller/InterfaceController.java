@@ -795,4 +795,52 @@ public class InterfaceController {
 
         return "content/etiquetas/listEtiqueta";
     }
+
+    //VideoQR
+    @RequestMapping(value = "/registerValidacion")
+    public String registerValidacion(Model model, Principal principal) {
+        // After user login successfully.
+        String userName = principal.getName();
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        List<Client> lista = clientService.findAll();
+        model.addAttribute("empresas", lista);
+
+        List<Method> lista2 = methodService.findAll();
+        model.addAttribute("metodos", lista2);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+        return "content/operacion/recepcionValidacion/formRecepcionValidacion";
+    }
+
+    /*@RequestMapping("/listEtiquetas")
+    public String listEtiquetas(Model model, Principal principal) {
+        // After user login successfully.
+        String userName = principal.getName();
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        List<Machine> lista = machineService.findAll();
+        model.addAttribute("maquinas", lista);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+
+        return "content/etiquetas/listEtiqueta";
+    }*/
 }

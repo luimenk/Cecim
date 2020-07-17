@@ -3,6 +3,35 @@
 <head>
     <title>Panel de Administración</title>
     <th:block th:include="/dependences/_HeadInside"></th:block>
+    <script src="../assets/js/jsQR.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
+    <style>
+        #loadingMessage {
+            text-align: center;
+            padding: 40px;
+            background-color: #eee;
+        }
+
+        #canvas {
+            width: 80%;
+        }
+
+        #output {
+            margin-top: 20px;
+            background: #eee;
+            padding: 10px;
+            padding-bottom: 0;
+        }
+
+        #output div {
+            padding-bottom: 10px;
+            word-wrap: break-word;
+        }
+
+        #noQRFound {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <!--<body>-->
@@ -14,385 +43,100 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="card ">
                             <div class="card-header ">
-                                <h4 class="card-title">Solicitud de Servicio del cliente</h4>
+                                <h4 class="card-title">Recepción, verificación, registro y codificacion de la
+                                    muestra</h4>
                             </div>
                             <div class="card-body ">
-                                <!--Radios-->
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Servicio Urgente: </label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <form id="radioUrgente" class="form-horizontal">
-                                            <div class="form-check form-check-radio checkbox-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="radioNameUrgente" id="radioNameUrgenteSi" value="Si">
-                                                    <span class="form-check-sign"></span>
-                                                    Si
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-radio checkbox-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="radioNameUrgente" id="radioNameUrgenteNo" value="No" checked>
-                                                    <span class="form-check-sign"></span>
-                                                    No
-                                                </label>
-                                            </div>
-                                            <input type="hidden" class="form-control"
-                                                   name="servicioUrgente" id="servicioUrgente" value="No">
-                                        </form>
+                                <div class="form-group">
+                                    <label>Favor de escanear el código QR de la etiqueta.</label>
+                                    <div id="loadingMessage">No se puede acceder a la transmisión de video. Favor de
+                                        contactar a soporte técnico.
+                                    </div>
+                                    <canvas id="canvas" hidden></canvas>
+                                    <br>
+                                    <div id="output" hidden><br>
+                                        <div id="outputMessage">No se ha detectado QR.</div>
+                                        <br>
+                                        <div hidden><b>Data:</b> <span id="outputData"></span></div>
                                     </div>
                                 </div>
+                                <script>
+                                    var video = document.createElement("video");
+                                    var canvasElement = document.getElementById("canvas");
+                                    var canvas = canvasElement.getContext("2d");
+                                    var loadingMessage = document.getElementById("loadingMessage");
+                                    var outputContainer = document.getElementById("output");
+                                    var outputMessage = document.getElementById("outputMessage");
+                                    var outputData = document.getElementById("outputData");
 
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Fecha de Envío de Muestras</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control datepicker"
-                                                   name="fechaEnvioMuestras" id="fechaEnvioMuestras" required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Fecha de Pago</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control datepicker"
-                                                   name="fechaPago" id="fechaPago" required="true">
-                                        </div>
-                                    </div>
-                                </div>
+                                    function drawLine(begin, end, color) {
+                                        canvas.beginPath();
+                                        canvas.moveTo(begin.x, begin.y);
+                                        canvas.lineTo(end.x, end.y);
+                                        canvas.lineWidth = 4;
+                                        canvas.strokeStyle = color;
+                                        canvas.stroke();
+                                    }
 
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Nombre y Firma de Quién Envía las
-                                        Muestras</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="nombreFirmaEmisor" id="nombreFirmaEmisor" required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">¿Las muestras requieren un almacenamiento especial?</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <form id="radioEspecial" class="form-horizontal">
-                                            <div class="form-check form-check-radio checkbox-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="radioNameEspecial" id="radioNameEspecialSi" value="Si">
-                                                    <span class="form-check-sign"></span>
-                                                    Si
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-radio checkbox-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="radioNameEspecial" id="radioNameEspecialNo" value="No" checked>
-                                                    <span class="form-check-sign"></span>
-                                                    No
-                                                </label>
-                                            </div>
-                                            <input type="hidden" class="form-control"
-                                                   name="almacenamientoEspecial" id="almacenamientoEspecial" value="No">
-                                        </form>
-                                    </div>
-                                </div>
+                                    // Use facingMode: environment to attemt to get the front camera on phones
+                                    navigator.mediaDevices.getUserMedia({video: {facingMode: "environment"}}).then(function (stream) {
+                                        video.srcObject = stream;
+                                        video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+                                        video.play();
+                                        requestAnimationFrame(tick);
+                                    });
 
-                                <div class="row">
-                                    <label class="col-sm-2 control-label"></label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group"></div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Especifique: </label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="especifique" id="especifique" required="true" disabled>
-                                        </div>
-                                    </div>
-                                </div>
+                                    function tick() {
+                                        loadingMessage.innerText = "⌛ Loading video..."
+                                        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                                            loadingMessage.hidden = true;
+                                            canvasElement.hidden = false;
+                                            outputContainer.hidden = false;
 
-                                <!--ESPECIFICO-->
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Cliente: </label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <select class="selectpicker" name="empresa" id="empresa" required="true"
-                                                    data-title="Selecciona una empresa..."
-                                                    data-style="btn-default btn-outline"
-                                                    data-menu-style="dropdown-blue">
-                                                <option th:each="item : ${empresas}"
-                                                        th:value="${item.clientId}"
-                                                        th:text="${item.nombreRazonSocial}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Fecha de Recepción de Muestras</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control datepicker"
-                                                   name="fechaRecepcionMuestras" id="fechaRecepcionMuestras" required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Fecha compromiso entrega de resultados</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control datepicker"
-                                                   name="fechaCompromisoEntrega" id="fechaCompromisoEntrega" required="true">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Nombre y firma de quien recibe las muestras:</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="nombreFirmaReceptor" id="nombreFirmaReceptor" required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Nombre y firma del jefe de control de calidad:</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="nombreFirmaCalidad" id="nombreFirmaCalidad" required="true">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="card-header ">
-                                        <h5 class="card-title">Información de las muestras</h5>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">ID cliente de la muestra:</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="idClienteMuestra0" id="idClienteMuestra0" required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Tipo de muestra:</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="tipoMuestra0" id="tipoMuestra0" required="true">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Descripción de la muestra:</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="descripcionMuestra0" id="descripcionMuestra0" required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Método Solicitado:</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <select class="selectpicker" name="metodo0" id="metodo0" required="true"
-                                                    data-title="Selecciona un método..."
-                                                    data-style="btn-default btn-outline"
-                                                    data-menu-style="dropdown-blue"
-                                                    onchange="chequeo()">
-                                                <option th:each="item : ${metodos}"
-                                                        th:value="${item.methodId}"
-                                                        th:text="${item.codigoMetodo}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Condiciones Especiales:</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="condicionesEspeciales0" id="condicionesEspeciales0" required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Cantidad de Muestra:</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="cantidadMuestra0"
-                                                   id="cantidadMuestra0" required="true" disabled>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Observaciones: </label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="observaciones0" id="observaciones0" required="true">
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div id="muestraExtra">
-                                    <!--Lo que sea necesario para no perder el id de los registros-->
-                                    <!--<div id="metodoExtra">-->
-                                        <!--AGREGAR UN METODO VACIO PARA EL METODO EXTRA-->
-                                    <!--</div>-->
-                                    <!--Lo que sea necesario para no perder el id de los registros (para finalizar) -->
-                                </div>
-
-                                <div class="row">
-                                    <label class="col-sm-8 control-label">Favor de responder si requiere devolución de las muestras analizadas: </label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <form id="radioMuestras" class="form-horizontal">
-                                            <div class="form-check form-check-radio checkbox-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="radioNameMuestras" id="radioNameMuestrasSi" value="Si">
-                                                    <span class="form-check-sign"></span>
-                                                    Si
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-radio checkbox-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="radioNameMuestras" id="radioNameMuestrasNo" value="No" checked>
-                                                    <span class="form-check-sign"></span>
-                                                    No
-                                                </label>
-                                            </div>
-                                            <input type="hidden" class="form-control"
-                                                   name="devolucionMuestras" id="devolucionMuestras" value="No">
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <br>
-                                <br>
-                                <br>
-
-                                <div class="row">
-                                    <div class="col-sm-10">
-                                        <p class="text-muted">
-                                            En caso de ser afirmativa la respuesta se le informa que las muestras a devolver se cobrará gastos de envío.
-                                        </p>
-                                        <p class="text-danger">
-                                            Nota: La mayoría de los ensayos son destructivos.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="card-footer ">
-                                    <button type="submit" class="btn btn-fill btn-default" onclick="agregarMuestra()">
-                                        Agregar otra Muestra
-                                    </button>
-                                </div>
-                                <div class="card-footer ">
-                                    <button type="submit" class="btn btn-fill btn-primary" onclick="valida()">Generar
-                                        Solicitud
-                                    </button>
-                                </div>
-
+                                            canvasElement.height = video.videoHeight;
+                                            canvasElement.width = video.videoWidth;
+                                            canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+                                            var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                                            var code = jsQR(imageData.data, imageData.width, imageData.height, {
+                                                inversionAttempts: "dontInvert",
+                                            });
+                                            if (code) {
+                                                drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
+                                                drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
+                                                drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
+                                                drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
+                                                outputMessage.hidden = true;
+                                                outputData.parentElement.hidden = false;
+                                                outputData.innerText = code.data;
+                                            } else {
+                                                outputMessage.hidden = false;
+                                                outputData.parentElement.hidden = true;
+                                            }
+                                        }
+                                        requestAnimationFrame(tick);
+                                    }
+                                </script>
                             </div>
+
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-fill btn-primary" onclick="valida()">Validar
+                                </button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <th:block th:include="/dependences/_Footer"></th:block>
         </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
     </div>
+</div>
 </div>
 </body>
 <script src="../assets/js/actions/solicitudServicioCliente.js" type="text/javascript"></script>
 <th:block th:include="/dependences/_RequiredScripts"></th:block>
-<script>
-    $('#fechaEnvioMuestras').datetimepicker({
-        format: 'YYYY-MM-DD',
-        sideBySide: true,
-        icons: {
-            up: "fa fa-chevron-circle-up",
-            down: "fa fa-chevron-circle-down",
-            next: 'fa fa-chevron-circle-right',
-            previous: 'fa fa-chevron-circle-left'
-        }
-    });
-    $('#fechaPago').datetimepicker({
-        format: 'YYYY-MM-DD',
-        sideBySide: true,
-        icons: {
-            up: "fa fa-chevron-circle-up",
-            down: "fa fa-chevron-circle-down",
-            next: 'fa fa-chevron-circle-right',
-            previous: 'fa fa-chevron-circle-left'
-        }
-    });
-    $('#fechaRecepcionMuestra').datetimepicker({
-        format: 'YYYY-MM-DD',
-        sideBySide: true,
-        icons: {
-            up: "fa fa-chevron-circle-up",
-            down: "fa fa-chevron-circle-down",
-            next: 'fa fa-chevron-circle-right',
-            previous: 'fa fa-chevron-circle-left'
-        }
-    });
-    $('#fechaCompromisoEntregaResultados').datetimepicker({
-        format: 'YYYY-MM-DD',
-        sideBySide: true,
-        icons: {
-            up: "fa fa-chevron-circle-up",
-            down: "fa fa-chevron-circle-down",
-            next: 'fa fa-chevron-circle-right',
-            previous: 'fa fa-chevron-circle-left'
-        }
-    });
-    $('#fechaOrdenServicio').datetimepicker({
-        format: 'YYYY-MM-DD',
-        sideBySide: true,
-        icons: {
-            up: "fa fa-chevron-circle-up",
-            down: "fa fa-chevron-circle-down",
-            next: 'fa fa-chevron-circle-right',
-            previous: 'fa fa-chevron-circle-left'
-        }
-    });
-    $('#fechaRecepcionMuestras').datetimepicker({
-        format: 'YYYY-MM-DD',
-        sideBySide: true,
-        icons: {
-            up: "fa fa-chevron-circle-up",
-            down: "fa fa-chevron-circle-down",
-            next: 'fa fa-chevron-circle-right',
-            previous: 'fa fa-chevron-circle-left'
-        }
-    });
-    $('#fechaCompromisoEntrega').datetimepicker({
-        format: 'YYYY-MM-DD',
-        sideBySide: true,
-        icons: {
-            up: "fa fa-chevron-circle-up",
-            down: "fa fa-chevron-circle-down",
-            next: 'fa fa-chevron-circle-right',
-            previous: 'fa fa-chevron-circle-left'
-        }
-    });
 
-    $('#radioEspecial input').on('change', function() {
-        var discounted = document.getElementById('especifique');
-        document.getElementById("almacenamientoEspecial").value = $('input[name=radioNameEspecial]:checked', '#radioEspecial').val();
-        if ($('input[name=radioNameEspecial]:checked', '#radioEspecial').val() === "Si"){
-            document.getElementById("especifique").disabled = false;
-        } else if ($('input[name=radioNameEspecial]:checked', '#radioEspecial').val() === "No"){
-            document.getElementById("especifique").disabled = true;
-        }
-    });
-
-    $('#radioUrgente input').on('change', function() {
-        document.getElementById("servicioUrgente").value = $('input[name=radioNameEspecial]:checked', '#radioUrgente').val();
-    });
-
-    $('#radioMuestras input').on('change', function() {
-        document.getElementById("devolucionMuestras").value = $('input[name=radioNameEspecial]:checked', '#radioMuestras').val();
-    });
-</script>
 </html>
