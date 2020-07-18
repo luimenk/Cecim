@@ -62,7 +62,7 @@ public class FEIM_SOC_005_Service {
 
             XWPFParagraph paragraph = table.getRow(9).getCell(1).addParagraph();
             XWPFRun run = paragraph.createRun();
-            FileInputStream fis = new FileInputStream(generateQR.generate(lista.get(i).getSolicitudServicioClienteMuestrasId()));
+            FileInputStream fis = new FileInputStream(lista.get(i).getPathQRIdentificacion());
 
             XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(150), Units.pixelToEMU(150));
 

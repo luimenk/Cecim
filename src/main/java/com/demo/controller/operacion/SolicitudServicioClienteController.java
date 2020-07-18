@@ -6,6 +6,7 @@ import com.demo.model.operacion.SolicitudServicioClienteMuestras;
 import com.demo.service.ClientService;
 import com.demo.service.FoliosService;
 import com.demo.service.MethodService;
+import com.demo.service.QR.QRService;
 import com.demo.service.formatos.FEIM_SOC_005_Service;
 import com.demo.service.formatos.FSS_SOC_001_Service;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
@@ -51,6 +52,9 @@ public class SolicitudServicioClienteController {
 
     @Autowired
     private FEIM_SOC_005_Service feim_soc_005_service;
+
+    @Autowired
+    private QRService qrService;
 
     //ListarTodo
     @RequestMapping(method = RequestMethod.GET)
@@ -133,12 +137,9 @@ public class SolicitudServicioClienteController {
             solicitudServicioClienteMuestras.setDescripcionMuestra(request.get("descripcionMuestra"+i));
             solicitudServicioClienteMuestras.setCondicionesEspeciales(request.get("condicionesEspeciales"+i));
             solicitudServicioClienteMuestras.setObservaciones(request.get("observaciones"+i));
-            /*for (int j = 0; i<Integer.parseInt(request.get("numeroMetodo")); i++){*/
-                //solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("metodo"+i))));
-                //variable bandera controladora de número de métodos funcion numero de muestras metodo -> muestra
-            //}
             solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("metodo"+i))));
             solicitudServicioClienteMuestras.setSolicitudServicioCliente(solicitudServicioCliente);
+            solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate());
             solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
         }
 

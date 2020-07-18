@@ -1,4 +1,4 @@
-package com.demo.utils;
+package com.demo.service.QR;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
+import com.demo.utils.EstructuraNombres;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -22,12 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GenerateQR {
-
-    /*@Autowired
-    private SolicitudServicioClienteMuestrasService solicitudServicioClienteMuestrasService;*/
-
-    /*public String generate() {
+public class QRService {
+    public String generate() {
         EstructuraNombres estructuraNombres = new EstructuraNombres();
 
         String archivo = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
@@ -43,7 +40,7 @@ public class GenerateQR {
             hintMap.put(EncodeHintType.CHARACTER_SET, "UTF-8");
 
             // Now with zxing version 3.2.1 you could change border size (white border size to just 1)
-            hintMap.put(EncodeHintType.MARGIN, 1); *//* default = 4 *//*
+            hintMap.put(EncodeHintType.MARGIN, 1); /* default = 4 */
 
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
 
@@ -86,5 +83,5 @@ public class GenerateQR {
         //  System.out.println("El QR ya existe, se encuentra en: " + solicitudServicioClienteMuestras.getPathQRIdentificacion());
         //return solicitudServicioClienteMuestras.getPathQRIdentificacion();
         //}
-    }*/
+    }
 }
