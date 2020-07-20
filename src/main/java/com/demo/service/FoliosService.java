@@ -77,7 +77,8 @@ public class FoliosService {
             mes = "" + me;
         }
 
-        nombre = "" + mes + dia + anio + "_";
+        //nombre = "" + mes + dia + anio + "_";
+        nombre = "" + mes + anio + "_";
 
         structureFolio = nombre+consecutivo;
 
