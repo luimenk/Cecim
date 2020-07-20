@@ -27,7 +27,9 @@ public class QRService {
     public String generate() {
         EstructuraNombres estructuraNombres = new EstructuraNombres();
 
-        String archivo = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
+        //String archivo = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
+        String archivo = "/home/adpmx/java/laboratorio.cecim.com.mx/QR/" + estructuraNombres.getNombreQR() + ".png";
+        // /home/adpmx/java/laboratorio.cecim.com.mx/QR
 
         String myCodeText = "test";
         String filePath = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
