@@ -32,7 +32,8 @@ public class QRService {
         // /home/adpmx/java/laboratorio.cecim.com.mx/QR
 
         String myCodeText = "test";
-        String filePath = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
+        //String filePath = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
+        String filePath = "/home/adpmx/java/laboratorio.cecim.com.mx/QR/" + estructuraNombres.getNombreQR() + ".png";
         int size = 250;
         String fileType = "png";
         File myFile = new File(filePath);
