@@ -64,9 +64,9 @@ public class SolicitudServicioClienteController {
     }
 
     //ListarUnElemento
-    @RequestMapping(method = RequestMethod.GET, value = "/{machineId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
-    public SolicitudServicioCliente get(@PathVariable("machineId") Long machineId) {
+    public SolicitudServicioCliente get(@PathVariable("id") Long machineId) {
         SolicitudServicioCliente machine = solicitudServicioClienteService.findById(machineId);
 
         if (machine == null) {
@@ -139,7 +139,10 @@ public class SolicitudServicioClienteController {
             solicitudServicioClienteMuestras.setObservaciones(request.get("observaciones"+i));
             solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("metodo"+i))));
             solicitudServicioClienteMuestras.setSolicitudServicioCliente(solicitudServicioCliente);
-            solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate());
+            solicitudServicioClienteMuestras.setPathQRIdentificacion("");
+            solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
+            System.out.println(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId());
+            solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId()));
             solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
         }
 

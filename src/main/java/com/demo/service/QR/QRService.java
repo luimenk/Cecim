@@ -24,16 +24,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class QRService {
-    public String generate() {
+    public String generate(Long id) {
         EstructuraNombres estructuraNombres = new EstructuraNombres();
 
-        //String archivo = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
-        String archivo = "/home/adpmx/java/laboratorio.cecim.com.mx/QR/" + estructuraNombres.getNombreQR() + ".png";
-        // /home/adpmx/java/laboratorio.cecim.com.mx/QR
+        //CAMBIAR CUANDO LAS PRUEBAS SEAN EN WINDOWS / LINUX (SERVIDOR)
+        String archivo = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
+        //String archivo = "/home/adpmx/java/laboratorio.cecim.com.mx/QR/" + estructuraNombres.getNombreQR() + ".png";
 
-        String myCodeText = "test";
-        //String filePath = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
-        String filePath = "/home/adpmx/java/laboratorio.cecim.com.mx/QR/" + estructuraNombres.getNombreQR() + ".png";
+        //CAMBIAR CUANDO LAS PRUEBAS SEAN EN WINDOWS / LINUX (SERVIDOR)
+        String filePath = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
+        //String filePath = "/home/adpmx/java/laboratorio.cecim.com.mx/QR/" + estructuraNombres.getNombreQR() + ".png";
+
+        String myCodeText = id.toString();
         int size = 250;
         String fileType = "png";
         File myFile = new File(filePath);
