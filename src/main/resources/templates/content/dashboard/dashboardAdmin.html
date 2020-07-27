@@ -65,6 +65,31 @@
                                 </div>
                             </div>
 
+                            <!--<div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-single-02 text-danger"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">USUARIOS</p>
+                                                    <h4 class="card-title"><span th:text="${contarUsuario}"></span></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-danger btn-wd" onclick="registerUserDirect()">Registrar</button>
+                                        <button class="btn btn-danger btn-wd" onclick="listUserDirect()">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>-->
+
                             <div class="col-lg-3 col-sm-6">
                                 <div class="card card-stats">
                                     <div class="card-body ">
@@ -89,14 +114,16 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="row">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="card card-stats">
                                     <div class="card-body ">
                                         <div class="row">
                                             <div class="col-5">
                                                 <div class="icon-big text-center icon-warning">
-                                                    <i class="nc-icon nc-single-copy-04 text-success"></i>
+                                                    <i class="nc-icon nc-single-copy-04 text-primary"></i>
                                                 </div>
                                             </div>
                                             <div class="col-7">
@@ -108,21 +135,19 @@
                                     </div>
                                     <div class="card-footer " align="center">
                                         <hr>
-                                        <button class="btn btn-success btn-wd"  onclick="registerOrdenServicio()">Registrar</button>
-                                        <button class="btn btn-success btn-wd"  onclick="listOrdenServicio()">Consultar</button>
+                                        <button class="btn btn-primary btn-wd"  onclick="registerOrdenServicio()">Registrar</button>
+                                        <button class="btn btn-primary btn-wd"  onclick="listOrdenServicio()">Consultar</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="card card-stats">
                                     <div class="card-body ">
                                         <div class="row">
                                             <div class="col-5">
                                                 <div class="icon-big text-center icon-warning">
-                                                    <i class="nc-icon nc-single-copy-04 text-success"></i>
+                                                    <i class="nc-icon nc-single-copy-04 text-info"></i>
                                                 </div>
                                             </div>
                                             <div class="col-7">
@@ -134,18 +159,19 @@
                                     </div>
                                     <div class="card-footer " align="center">
                                         <hr>
-                                        <button class="btn btn-success btn-wd"  onclick="registerSolicitudServicio()">Registrar</button>
-                                        <button class="btn btn-success btn-wd"  onclick="listSolicitudServicio()">Consultar</button>
+                                        <button class="btn btn-info btn-wd"  onclick="registerSolicitudServicio()">Registrar</button>
+                                        <button class="btn btn-info btn-wd"  onclick="listSolicitudServicio()">Consultar</button>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-lg-3 col-sm-6">
                                 <div class="card card-stats">
                                     <div class="card-body ">
                                         <div class="row">
                                             <div class="col-5">
                                                 <div class="icon-big text-center icon-warning">
-                                                    <i class="nc-icon nc-single-copy-04 text-success"></i>
+                                                    <i class="nc-icon nc-single-copy-04 text-danger"></i>
                                                 </div>
                                             </div>
                                             <div class="col-7">
@@ -157,8 +183,32 @@
                                     </div>
                                     <div class="card-footer " align="center">
                                         <hr>
-                                        <button class="btn btn-success btn-wd"  onclick="registerCotizacionContrato()">Registrar</button>
-                                        <button class="btn btn-success btn-wd"  onclick="listCotizacionContrato()">Consultar</button>
+                                        <button class="btn btn-danger btn-wd"  onclick="registerCotizacionContrato()">Registrar</button>
+                                        <button class="btn btn-danger btn-wd"  onclick="listCotizacionContrato()">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-grid-45 text-warning"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">ETIQUETAS</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-warning btn-wd"  onclick="registerEtiquetas()">Registrar</button>
+                                        <button class="btn btn-warning btn-wd"  onclick="listEtiquetas()">Consultar</button>
                                     </div>
                                 </div>
                             </div>
@@ -166,6 +216,32 @@
 
                         <h4 class="card-title">Operación</h4>
                         <div class="row">
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">Recepción, verificacion, registro y codificación de la muestra</p>
+                                                    <!--<h4 class="card-title">12</h4>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-success btn-wd" onclick="registerValidacion()">Registrar</button>
+                                        <button class="btn btn-success btn-wd">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-lg-3 col-sm-6">
                                 <div class="card card-stats">
                                     <div class="card-body ">
@@ -242,6 +318,7 @@
                                     </div>
                                 </div>
                             </div>
+
 
                         </div>
                     </div>

@@ -3,7 +3,7 @@ var contMuestra = 0;
 function agregarMuestra() {
     contMuestra++;
     var muestraAdicional = "";
-    
+
     muestraAdicional += " <div class=\"row\">" +
         "                                    <label class=\"col-sm-2 control-label\">ID cliente de la muestra:</label>" +
         "                                    <div class=\"col-sm-4 col-sm-offset-1\">" +
@@ -42,7 +42,7 @@ function agregarMuestra() {
         $.each(result, function (i, field) {
             muestraAdicional += "<option value = \"" + field.methodId + "\">" + field.codigoMetodo + "</option>";
         });
-        
+
         muestraAdicional += "</select>" +
             "                                        </div>" +
             "                                    </div>" +
@@ -161,6 +161,158 @@ function validaImprimirEtiqueta(valor) {
     window.location = "/solicitudServicioCliente/imprimirEtiquetasIdentificacion/" + valor;
 }
 
+function cargarHTML(valor){
+    var tabla = '<table id="muestraTable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">' +
+        '<thead>' +
+        '<tr>' +
+        '<th class="text-center">Folio</th>' +
+        '<th class="text-center">Fecha de envio de muestras</th>' +
+        '<th class="text-center">Fecha de pago</th>' +
+        '<th class="text-center">Fecha compromiso</th>' +
+        '<th class="text-center">Etiquetas</th>' +
+        '<th class="text-center">Ver Muestras</th>' +
+        '<th class="disabled-sorting text-center">Acciones</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tfoot>' +
+        '<tr>' +
+        '<th class="text-center">ID cliente de la muestra</th>' +
+        '<th class="text-center">Tipo de muestra</th>' +
+        '<th class="text-center">Método solicitado</th>' +
+        '<th class="text-center">Cantidad total muestra</th>' +
+        '<th class="text-center">Etiqueta individual</th>' +
+        '<th class="text-center">Recepción y verificación</th>' +
+        '<th class="disabled-sorting text-center">Acciones</th>' +
+        '</tr>' +
+        '</tfoot>' +
+        '<tbody>';
+    $.getJSON("/solicitudServicioClienteMuestras", function (result) {
+        console.log(result);
+        $.each(result, function (i, field) {
+            tabla +=
+                '<tr>' +
+                '<td class="text-center">' + field.idClienteMuestra + '</td>' +
+                '<td class="text-center">' + field.tipoMuestra + '</td>' +
+                '<td class="text-center">' + field.method.codigoMetodo + '</td>' +
+                '<td class="text-center">' + field.cantidadTotal + '</td>' +
+                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
+                '<td class="text-center">' + '<button type="submit" class="btn btn-info btn-wd"><i class="fa fa-eye"></i> Ver muestras</button>' + '</td>' +
+                '<td class="text-center">' +
+                '<button type="submit" class="btn btn-link btn-info edit"><i class="fa fa-print"></i></button>' +
+                '<button type="submit" class="btn btn-link btn-warning edit"><i class="fa fa-edit"></i></button>' +
+                '<button type="submit" class="btn btn-link btn-danger remove"><i class="fa fa-times"></i></a>' +
+                '</td>' +
+                '</tr>';
+        });
+
+        tabla += '</tbody></table>';
+        //$("#solicitudServicioClienteTable").append(tbl);
+    });
+    console.log(tabla);
+    return tabla;
+}
+
+function verMuestras(valor){
+    /*var jsonMuestras;
+    /!*var jsonMuestras = $.getJSON("/solicitudServicioClienteMuestras/" + valor, function (result) {
+
+    });*!/
+    $.getJSON("/solicitudServicioClienteMuestras/" + valor, function (result) {
+        jsonMuestras=result;
+    });
+    console.log("este es el valor de las muestras");
+    console.log(jsonMuestras);*/
+
+
+    var tabla = '<table id="muestraTable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">' +
+        '<thead>' +
+        '<tr>' +
+        '<th class="text-center">ID cliente de la muestra</th>' +
+        '<th class="text-center">Tipo de muestra</th>' +
+        '<th class="text-center">Método solicitado</th>' +
+        '<th class="text-center">Cantidad total muestra</th>' +
+        '<th class="text-center">Etiqueta individual</th>' +
+        '<th class="text-center">Recepción y verificación</th>' +
+        '<th class="disabled-sorting text-center">Acciones</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tfoot>' +
+        '<tr>' +
+        '<th class="text-center">ID cliente de la muestra</th>' +
+        '<th class="text-center">Tipo de muestra</th>' +
+        '<th class="text-center">Método solicitado</th>' +
+        '<th class="text-center">Cantidad total muestra</th>' +
+        '<th class="text-center">Etiqueta individual</th>' +
+        '<th class="text-center">Recepción y verificación</th>' +
+        '<th class="disabled-sorting text-center">Acciones</th>' +
+        '</tr>' +
+        '</tfoot>' +
+        '<tbody>';
+    $.getJSON("/solicitudServicioClienteMuestras/"+valor, function (result) {
+        console.log(result);
+        $.each(result, function (i, field) {
+            tabla +=
+                '<tr>' +
+                '<td class="text-center">' + field.idClienteMuestra + '</td>' +
+                '<td class="text-center">' + field.tipoMuestra + '</td>' +
+                '<td class="text-center">' + field.method.codigoMetodo + '</td>' +
+                '<td class="text-center">' + field.method.cantidadTotal + '</td>' +
+                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
+                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
+                '<td class="text-center">' +
+                '<button type="submit" class="btn btn-link btn-info edit"><i class="fa fa-print"></i></button>' +
+                '<button type="submit" class="btn btn-link btn-warning edit"><i class="fa fa-edit"></i></button>' +
+                '<button type="submit" class="btn btn-link btn-danger remove"><i class="fa fa-times"></i></a>' +
+                '</td>' +
+                '</tr>';
+        });
+        tabla += '</tbody></table>';
+        swal({
+            title: 'Detalle de las muestras',
+            html: tabla,
+            width: '1200px',
+            height:'1200px'
+        });
+
+        $('#muestraTable').DataTable({
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Buscar Registros",
+            }
+        });
+
+    });
+    console.log(tabla);
+
+
+
+    /*swal({
+        title: 'Detalle de las muestras',
+        html: cargarHTML(valor),
+        width: '1200px',
+        height:'1200px'
+    });*/
+
+    /*$('#muestraTable').DataTable({
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Buscar Registros",
+        }
+    });*/
+}
+
 function cargarTabla() {
     var tbl =
         '<thead>' +
@@ -170,6 +322,7 @@ function cargarTabla() {
         '<th class="text-center">Fecha de pago</th>' +
         '<th class="text-center">Fecha compromiso</th>' +
         '<th class="text-center">Etiquetas</th>' +
+        '<th class="text-center">Ver Muestras</th>' +
         '<th class="disabled-sorting text-center">Acciones</th>' +
         '</tr>' +
         '</thead>' +
@@ -180,6 +333,7 @@ function cargarTabla() {
         '<th class="text-center">Fecha de pago</th>' +
         '<th class="text-center">Fecha compromiso</th>' +
         '<th class="text-center">Etiquetas</th>' +
+        '<th class="text-center">Ver Muestras</th>' +
         '<th class="disabled-sorting text-center">Acciones</th>' +
         '</tr>' +
         '</tfoot>' +
@@ -192,7 +346,8 @@ function cargarTabla() {
                 '<td class="text-center">' + field.fechaEnvioMuestras + '</td>' +
                 '<td class="text-center">' + field.fechaPago + '</td>' +
                 '<td class="text-center">' + field.fechaCompromisoEntrega + '</td>' +
-                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirEtiqueta('+field.solicitudServicioClienteId+')"><i class="fa fa-print"></i></button>' + '</td>' +
+                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirEtiqueta('+field.solicitudServicioClienteId+')"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
+                '<td class="text-center">' + '<button type="submit" class="btn btn-info btn-wd" onclick="verMuestras('+field.solicitudServicioClienteId+')"><i class="fa fa-eye"></i> Ver muestras</button>' + '</td>' +
                 '<td class="text-center">' +
                 '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir('+field.solicitudServicioClienteId+')"><i class="fa fa-print"></i></button>' +
                 '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-edit"></i></button>' +

@@ -140,6 +140,7 @@ public class SolicitudServicioClienteController {
             solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("metodo"+i))));
             solicitudServicioClienteMuestras.setSolicitudServicioCliente(solicitudServicioCliente);
             solicitudServicioClienteMuestras.setPathQRIdentificacion("");
+            //solicitudServicioClienteMuestras.setEstatus("PENDIENTE");
             solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
             System.out.println(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId());
             solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId()));

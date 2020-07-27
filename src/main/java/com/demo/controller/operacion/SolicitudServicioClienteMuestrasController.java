@@ -57,4 +57,11 @@ public class SolicitudServicioClienteMuestrasController {
     public List<SolicitudServicioClienteMuestras> getAll() {
         return solicitudServicioClienteMuestrasService.findAll();
     }
+
+    //ListarUnElemento
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
+    public List<SolicitudServicioClienteMuestras> getbyidsolicitud(@PathVariable("id") Long id) {
+        return solicitudServicioClienteMuestrasService.findAllBySolicitud(id);
+    }
 }

@@ -91,7 +91,7 @@
                             </div>
 
                             <div class="card-footer ">
-                                <button type="submit" class="btn btn-fill btn-primary" onclick="deteccion()">Iniciar
+                                <button type="submit" class="btn btn-fill btn-primary" onclick="cargarTabla()">Iniciar
                                     cámara
                                 </button>
                             </div>
@@ -99,124 +99,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h4 class="card-title">Lista de muestras por confirmar</h4>
-                            </div>
-                            <div class="card-body ">
-                                <div class="table-full-width">
-                                    <table class="table" id="muestraTable">
-
-                                        <!--<tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                            </td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Read "Following makes Medium better"</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="" checked>
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>Unfollow 5 enemies from twitter</td>
-                                            <td class="td-actions text-right">
-                                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>-->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="card-footer ">
-                                <button type="submit" class="btn btn-fill btn-primary" onclick="deteccion()">Iniciar
-                                    cámara
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div id="medianteQR">
                 </div>
+
+                <div id="mediantefolio">
+                </div>
+
             </div>
         </div>
         <th:block th:include="/dependences/_Footer"></th:block>
@@ -224,9 +112,26 @@
 </div>
 </div>
 </body>
-<script src="../assets/js/actions/recepcionValidacion.js">
-    console.log("Ya salí de todo!");
-</script>
+<script src="../assets/js/actions/recepcionValidacion.js"></script>
 <th:block th:include="/dependences/_RequiredScripts"></th:block>
-
+<script>
+    $('#radioSolicitada input').on('change', function() {
+        var discounted = document.getElementById('sinoEspecifiqueCantidad');
+        document.getElementById("cumpleCantidad").value = $('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val();
+        if ($('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val() === "No"){
+            document.getElementById("sinoEspecifiqueCantidad").disabled = false;
+        } else if ($('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val() === "Si"){
+            document.getElementById("sinoEspecifiqueCantidad").disabled = true;
+        }
+    });
+    $('#radioEtiqueta input').on('change', function() {
+        document.getElementById("cuentaConEtiqueta").value = $('input[name=radioNameEtiqueta]:checked', '#radioEtiqueta').val();
+    });
+    $('#radioEtiqueta input').on('change', function() {
+        document.getElementById("cuentaConEtiqueta").value = $('input[name=radioNameEtiqueta]:checked', '#radioEtiqueta').val();
+    });
+    $('#radioFormato input').on('change', function() {
+        document.getElementById("utilizoFeim").value = $('input[name=radioNameFormato]:checked', '#radioFormato').val();
+    });
+</script>
 </html>

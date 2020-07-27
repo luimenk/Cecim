@@ -47,6 +47,18 @@ public class FoliosService {
         return estructuraFolio(folio);
     }
 
+    public String folioRecepcionValidacion() {
+        Folios folio = foliosRepository.findByNombreFolio("RecepcionValidacion");
+
+        return estructuraFolio(folio);
+    }
+
+    public String IdConsecutivos(){
+        Folios folio = foliosRepository.findByNombreFolio("RecepcionValidacion");
+
+        return estructuraFolio2(folio);
+    }
+
     public String estructuraFolio(Folios folio){
         String structureFolio, dia, mes, nombre, consecutivo;
         int cont, anio, me, di;
@@ -81,6 +93,30 @@ public class FoliosService {
         nombre = "" + mes + anio + "_";
 
         structureFolio = nombre+consecutivo;
+
+        cont = Integer.parseInt(folio.getConsecutivo());
+        cont++;
+        folio.setConsecutivo(cont+"");
+        foliosRepository.save(folio);
+
+        return structureFolio;
+    }
+
+    public String estructuraFolio2(Folios folio){
+        String structureFolio, consecutivo;
+        int cont;
+
+        if (folio.getConsecutivo().length() == 1) {
+            consecutivo = "000"+folio.getConsecutivo();
+        } else if (folio.getConsecutivo().length() == 2) {
+            consecutivo = "00"+folio.getConsecutivo();
+        } else if (folio.getConsecutivo().length() == 3) {
+            consecutivo = "0"+folio.getConsecutivo();
+        } else {
+            consecutivo = folio.getConsecutivo();
+        }
+
+        structureFolio = consecutivo;
 
         cont = Integer.parseInt(folio.getConsecutivo());
         cont++;

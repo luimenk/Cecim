@@ -35,6 +35,9 @@ public class SolicitudServicioClienteMuestras {
     @Column(name = "Path_Qr_Identificacion", length = 250, nullable = false)
     private String pathQRIdentificacion;
 
+    /*@Column(name = "Estatus", length = 250, nullable = false)
+    private String estatus;*/
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Solicitud_Servicio_Cliente_Id")
     private SolicitudServicioCliente solicitudServicioCliente;
@@ -51,6 +54,7 @@ public class SolicitudServicioClienteMuestras {
         this.condicionesEspeciales = condicionesEspeciales;
         this.observaciones = observaciones;
         this.pathQRIdentificacion = pathQRIdentificacion;
+        //this.estatus = estatus;
         this.solicitudServicioCliente = solicitudServicioCliente;
     }
 
@@ -117,6 +121,14 @@ public class SolicitudServicioClienteMuestras {
     public void setPathQRIdentificacion(String pathQRIdentificacion) {
         this.pathQRIdentificacion = pathQRIdentificacion;
     }
+
+    /*public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }*/
 
     public SolicitudServicioCliente getSolicitudServicioCliente() {
         return solicitudServicioCliente;
