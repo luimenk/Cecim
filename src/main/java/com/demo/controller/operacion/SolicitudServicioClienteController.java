@@ -8,7 +8,9 @@ import com.demo.service.FoliosService;
 import com.demo.service.MethodService;
 import com.demo.service.QR.QRService;
 import com.demo.service.formatos.FEIM_SOC_005_Service;
+import com.demo.service.formatos.FRM_SOC_005_Service;
 import com.demo.service.formatos.FSS_SOC_001_Service;
+import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,10 +50,16 @@ public class SolicitudServicioClienteController {
     private MethodService methodService;
 
     @Autowired
+    private RecepcionVerificacionRegistroCodificacionService recepcionVerificacionRegistroCodificacionService;
+
+    @Autowired
     private FSS_SOC_001_Service fss_soc_001_service;
 
     @Autowired
     private FEIM_SOC_005_Service feim_soc_005_service;
+
+    @Autowired
+    private FRM_SOC_005_Service frm_soc_005_service;
 
     @Autowired
     private QRService qrService;
@@ -160,11 +168,18 @@ public class SolicitudServicioClienteController {
     }
 
     @RequestMapping(value = "/imprimirEtiquetasIdentificacion/{id}", method = RequestMethod.GET)
-    //public ResponseEntity<InputStreamResource> reporteEncuesta(@RequestParam String param) throws IOException {
     public ResponseEntity<InputStreamResource> imprimir2(@PathVariable("id") Long id) throws Exception {
         System.out.println("Se generó FEIM-SOC-005");
         System.out.println(LocalTime.now());
 
         return feim_soc_005_service.crearFormato(id);
+    }
+
+    @RequestMapping(value = "/imprimirRecepcion/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FRM-SOC-005");
+        System.out.println(LocalTime.now());
+
+        return frm_soc_005_service.crearFormato(id);
     }
 }

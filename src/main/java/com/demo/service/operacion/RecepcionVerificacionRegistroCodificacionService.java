@@ -28,9 +28,9 @@ public class RecepcionVerificacionRegistroCodificacionService {
         return recepcionVerificacionRegistroCodificacionRepository.findAll();
     }
 
-    /*public RecepcionVerificacionRegistroCodificacion findById(Long id) {
+    public RecepcionVerificacionRegistroCodificacion findById(Long id) {
         return recepcionVerificacionRegistroCodificacionRepository.findByRecepcionVerificacionRegistroCodificacionId(id);
-    }*/
+    }
 
     /*public List<RecepcionVerificacionRegistroCodificacion> findAllBySolicitud(Long id){
         return recepcionVerificacionRegistroCodificacionRepository.findAllBySolicitudServicioCliente_SolicitudServicioClienteId(id);

@@ -8,6 +8,8 @@ import com.demo.service.ClientService;
 import com.demo.service.FoliosService;
 import com.demo.service.MethodService;
 import com.demo.service.QR.QRService;
+import com.demo.service.formatos.BRMR_MIE_001_Service;
+import com.demo.service.formatos.BRM_MIE_001_Service;
 import com.demo.service.formatos.FEIM_SOC_005_Service;
 import com.demo.service.formatos.FSS_SOC_001_Service;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
@@ -57,6 +59,12 @@ public class RecepcionVerificacionRegistroCodificacionController {
 
     @Autowired
     private FEIM_SOC_005_Service feim_soc_005_service;
+
+    @Autowired
+    private BRM_MIE_001_Service brm_mie_001_service;
+
+    @Autowired
+    private BRMR_MIE_001_Service brmr_mie_001_service;
 
     @Autowired
     private QRService qrService;
@@ -124,5 +132,21 @@ public class RecepcionVerificacionRegistroCodificacionController {
         recepcionVerificacionRegistroCodificacionService.save(recepcionVerificacionRegistroCodificacion);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/imprimirRegistroMuestras", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3() throws Exception {
+        System.out.println("Se generó BRM-MIE-001");
+        System.out.println(LocalTime.now());
+
+        return brm_mie_001_service.crearFormato();
+    }
+
+    @RequestMapping(value = "/imprimirRegistroRecepcion", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir4() throws Exception {
+        System.out.println("Se generó BRMR-MIE-003");
+        System.out.println(LocalTime.now());
+
+        return brmr_mie_001_service.crearFormato();
     }
 }

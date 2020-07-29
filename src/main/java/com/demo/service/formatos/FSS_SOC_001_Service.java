@@ -8,9 +8,11 @@ import com.demo.model.Client;
 import com.demo.model.Folios;
 import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
+import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 import com.demo.service.ClientService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
+import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.utils.EstructuraNombres;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -36,28 +38,26 @@ public class FSS_SOC_001_Service {
     @Autowired
     private SolicitudServicioClienteMuestrasService solicitudServicioClienteMuestrasService;
 
+    @Autowired
+    private RecepcionVerificacionRegistroCodificacionService recepcionVerificacionRegistroCodificacionService;
+
     EstructuraNombres estructuraNombres = new EstructuraNombres();
 
     public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException{
         ClassPathResource resource = new ClassPathResource("/documentos/FSS-SOC-001.docx");
         XWPFDocument doc = new XWPFDocument(resource.getInputStream());
-
         List<SolicitudServicioClienteMuestras> lista = solicitudServicioClienteMuestrasService.findAllBySolicitud(id);
         SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(id);
-
         List<String>contactosAux;
         int bandera=0;
-
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
-
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(solicitudServicioCliente.getFechaEnvioMuestras());
         table1.getRow(0).getCell(3).setText(solicitudServicioCliente.getFechaPago());
         table1.getRow(2).getCell(0).setText(solicitudServicioCliente.getNombreFirmaEmisor());
         table1.getRow(2).getCell(1).setText(solicitudServicioCliente.getAlmacenamientoEspecial());
         table1.getRow(3).getCell(1).setText("Especifique: "+ solicitudServicioCliente.getEspecifique());
-
         XWPFTable table2 = doc.getTables().get(2);
         table2.getRow(0).getCell(1).setText(solicitudServicioCliente.getClient().getNombreRazonSocial());
         String direccion =  solicitudServicioCliente.getClient().getCalle() + " " +
@@ -67,7 +67,6 @@ public class FSS_SOC_001_Service {
                 solicitudServicioCliente.getClient().getEstado() + " " +
                 solicitudServicioCliente.getClient().getCodigoPostal();
         table2.getRow(1).getCell(1).setText(direccion);
-
         try {
             JSONArray jsonArray = new JSONArray(solicitudServicioCliente.getClient().getContactosDatos());
             table2.getRow(2).getCell(1).setText(getAttributeContacto(bandera, jsonArray,"nombrePersonaContacto"));
@@ -78,16 +77,13 @@ public class FSS_SOC_001_Service {
         } catch (JSONException e) {
             System.out.println("e: " + e);
         }
-
         XWPFTable table3 = doc.getTables().get(3);
         table3.getRow(0).getCell(1).setText(solicitudServicioCliente.getFechaRecepcionMuestras());
         table3.getRow(0).getCell(3).setText(solicitudServicioCliente.getFechaCompromisoEntrega());
         table3.getRow(2).getCell(0).setText(solicitudServicioCliente.getNombreFirmaReceptor());
         table3.getRow(2).getCell(1).setText(solicitudServicioCliente.getNombreFirmaCalidad());
-
         XWPFTable table4 = doc.getTables().get(4);
         table4.getRow(0).getCell(1).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
-
         XWPFTable table5 = doc.getTables().get(5);
         for (int i = 0; i<lista.size(); i++) {
             XWPFTableRow tableRow = table5.createRow();
@@ -100,10 +96,8 @@ public class FSS_SOC_001_Service {
             tableRow.getCell(6).setText(lista.get(i).getMethod().getCantidadTotal());
             tableRow.getCell(7).setText(lista.get(i).getObservaciones());
         }
-
         XWPFTable table6 = doc.getTables().get(6);
         table6.getRow(1).getCell(1).setText(solicitudServicioCliente.getDevolucionMuestras());
-
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=FCC-SOC-"+estructuraNombres.getNombre()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();

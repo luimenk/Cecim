@@ -75,32 +75,6 @@ function tick() {
                     swal("Rechazada", "Tu muestra fue rechazada", "error");
                     deteccion();
                 }
-                /*$.ajax({
-                    type:'DELETE',
-                    url:'/method/'+valor,
-                    cache:false,
-                    contentType: "application/json",
-                    processData: false,
-                    success: function(data){
-                        console.log("success");
-                        console.log(data);
-                        swal({
-                            title: "Eliminado!",
-                            text: "Tu registro ha sido eliminado exitosamente",
-                            type: "success",
-                            showCancelButton: false,
-                            confirmButtonClass: "btn btn-info btn-fill",
-                            confirmButtonText: "Ok",
-                            closeOnConfirm: false,
-                        }, function () {
-                            window.location = "/mostrarMetodos";
-                        });
-                    },
-                    error: function(data){
-                        console.log("error");
-                        console.log(data);
-                        swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
-                    }*/
             });
             return "algo";
         } else {
@@ -394,7 +368,7 @@ function cargarMedianteQR(valor){
         '                                                       name="nombrePersonaAcondicionara" id="nombrePersonaAcondicionara" required>' +
         '                                            </div>' +
         '                                        </div>' +
-        '                                        <label class="col-sm-2 control-label">Cantidad de muestra para retención</label>' +
+        '                                        <label class="col-sm-2 control-label">Ubicación de la muestra de retención</label>' +
         '                                        <div class="col-sm-4 col-sm-offset-1">' +
         '                                            <div class="form-group">' +
         '                                                <input type="text" class="form-control"' +
@@ -404,8 +378,8 @@ function cargarMedianteQR(valor){
         '                                    </div>' +
         '                                </div>' +
         '                                <div class="card-footer ">' +
-        '                                    <button type="submit" class="btn btn-fill btn-primary" onclick="valida()">Iniciar' +
-        '                                        cámara' +
+        '                                    <button type="submit" class="btn btn-fill btn-primary" onclick="valida()">Cargar' +
+        '                                        información' +
         '                                    </button>' +
         '                                </div>' +
         '                            </div>' +
