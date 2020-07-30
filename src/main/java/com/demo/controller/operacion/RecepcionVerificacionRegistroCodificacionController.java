@@ -8,10 +8,7 @@ import com.demo.service.ClientService;
 import com.demo.service.FoliosService;
 import com.demo.service.MethodService;
 import com.demo.service.QR.QRService;
-import com.demo.service.formatos.BRMR_MIE_001_Service;
-import com.demo.service.formatos.BRM_MIE_001_Service;
-import com.demo.service.formatos.FEIM_SOC_005_Service;
-import com.demo.service.formatos.FSS_SOC_001_Service;
+import com.demo.service.formatos.*;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
@@ -67,7 +64,17 @@ public class RecepcionVerificacionRegistroCodificacionController {
     private BRMR_MIE_001_Service brmr_mie_001_service;
 
     @Autowired
+    private FRM_SOC_005_Service frm_soc_005_service;
+
+    @Autowired
     private QRService qrService;
+
+    //ListarTodo
+    @RequestMapping(method = RequestMethod.GET)
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
+    public List<RecepcionVerificacionRegistroCodificacion> getAll() {
+        return recepcionVerificacionRegistroCodificacionService.findAll();
+    }
 
     //GuardarElemento
     @RequestMapping(method = RequestMethod.POST)
@@ -148,5 +155,16 @@ public class RecepcionVerificacionRegistroCodificacionController {
         System.out.println(LocalTime.now());
 
         return brmr_mie_001_service.crearFormato();
+    }
+
+    @RequestMapping(value = "/imprimirRecepcion/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FRM-SOC-005");
+        System.out.println(LocalTime.now());
+
+        //RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findById(id);
+
+
+        return frm_soc_005_service.crearFormato(id);
     }
 }

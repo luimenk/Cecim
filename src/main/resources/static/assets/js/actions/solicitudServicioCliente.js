@@ -162,10 +162,10 @@ function validaImprimirEtiqueta(valor) {
 }
 
 function validaImprimirFormato(valor) {
-    //window.location = "/solicitudServicioCliente/imprimirRecepcion/" + valor;
+    //window.location = "/solicitudServicioCliente/imprimirEtiquetasIdentificacionIndividual/" + valor;
 }
 
-function cargarHTML(valor) {
+/*function cargarHTML(valor) {
     var tabla = '<table id="muestraTable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">' +
         '<thead>' +
         '<tr>' +
@@ -210,11 +210,10 @@ function cargarHTML(valor) {
         });
 
         tabla += '</tbody></table>';
-        //$("#solicitudServicioClienteTable").append(tbl);
     });
     console.log(tabla);
     return tabla;
-}
+}*/
 
 function verMuestras(valor) {
     var tabla = '<table id="muestraTable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">' +
@@ -225,7 +224,6 @@ function verMuestras(valor) {
         '<th class="text-center">Método solicitado</th>' +
         '<th class="text-center">Cantidad total muestra</th>' +
         '<th class="text-center">Etiqueta individual</th>' +
-        '<th class="text-center">Recepción y verificación</th>' +
         '<th class="disabled-sorting text-center">Acciones</th>' +
         '</tr>' +
         '</thead>' +
@@ -236,7 +234,6 @@ function verMuestras(valor) {
         '<th class="text-center">Método solicitado</th>' +
         '<th class="text-center">Cantidad total muestra</th>' +
         '<th class="text-center">Etiqueta individual</th>' +
-        '<th class="text-center">Recepción y verificación</th>' +
         '<th class="disabled-sorting text-center">Acciones</th>' +
         '</tr>' +
         '</tfoot>' +
@@ -250,7 +247,6 @@ function verMuestras(valor) {
                 '<td class="text-center">' + field.tipoMuestra + '</td>' +
                 '<td class="text-center">' + field.method.codigoMetodo + '</td>' +
                 '<td class="text-center">' + field.method.cantidadTotal + '</td>' +
-                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
                 '<td class="text-center">' + '<button type="button" class="btn btn-link btn-info edit" data-valida data-url="' + field.solicitudServicioClienteMuestrasId + '"><span class="btn-label"><i class="fa fa-print" data-url="' + field.solicitudServicioClienteMuestrasId + '"></i></span></button>' + '</td>' +
                 '<td class="text-center">' +
                 '<button type="submit" class="btn btn-link btn-info edit"><i class="fa fa-print"></i></button>' +
@@ -279,12 +275,6 @@ function verMuestras(valor) {
                 searchPlaceholder: "Buscar Registros",
             }
         });
-
-        /*$('[data-valida]').on('click', () => {
-            //console.log($(this).data('url'));
-            console.log($(this));
-            //validaImprimirFormato($(this).data('url'));
-        });*/
 
         $('[data-valida]').on('click', (event, selector) => {
             console.log($(event.target).data('url'));

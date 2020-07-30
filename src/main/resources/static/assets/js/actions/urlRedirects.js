@@ -73,3 +73,23 @@ function listEtiquetas(e) {
 function registerValidacion(e) {
     window.location = "/registerValidacion";
 }
+
+function listValidacion(e) {
+    window.location = "/listRecepcionValidacion";
+}
+
+function registerEspesor(e) {
+    window.location = "/registerEspesor";
+}
+
+function listEspesor(e) {
+    window.location = "/listEspesor";
+}
+
+function registerDimension(e) {
+    window.location = "/registerDimension";
+}
+
+function listDimension(e) {
+    window.location = "/listDimension";
+}

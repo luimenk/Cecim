@@ -58,10 +58,10 @@ public class BRMR_MIE_001_Service {
             tableRow.getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
             tableRow.getCell(2).setText(lista.get(i).getIdInternoMuestra1());
             tableRow.getCell(3).setText(lista.get(i).getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-            tableRow.getCell(4).setText(lista.get(i).getCantidadMuestraAnalisis());
-            tableRow.getCell(7).setText(lista.get(i).getSolicitudServicioClienteMuestras().getCondicionesEspeciales());
-            tableRow.getCell(8).setText(lista.get(i).getCantidadMuestraEntregada());
-            tableRow.getCell(9).setText(lista.get(i).getSolicitudServicioClienteMuestras().getObservaciones());
+            tableRow.getCell(4).setText(lista.get(i).getUbicacionMuestraRetencion());
+            tableRow.getCell(5).setText(lista.get(i).getSolicitudServicioClienteMuestras().getCondicionesEspeciales());
+            tableRow.getCell(6).setText(lista.get(i).getCantidadMuestraEntregada());
+            tableRow.getCell(7).setText(lista.get(i).getSolicitudServicioClienteMuestras().getObservaciones());
         }
 
         HttpHeaders headers = new HttpHeaders();

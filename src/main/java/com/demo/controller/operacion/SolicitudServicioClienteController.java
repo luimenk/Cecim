@@ -1,6 +1,7 @@
 package com.demo.controller.operacion;
 
 import com.demo.model.Client;
+import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
 import com.demo.service.ClientService;
@@ -57,9 +58,6 @@ public class SolicitudServicioClienteController {
 
     @Autowired
     private FEIM_SOC_005_Service feim_soc_005_service;
-
-    @Autowired
-    private FRM_SOC_005_Service frm_soc_005_service;
 
     @Autowired
     private QRService qrService;
@@ -159,7 +157,6 @@ public class SolicitudServicioClienteController {
     }
 
     @RequestMapping(value = "/imprimirSolicitud/{id}", method = RequestMethod.GET)
-    //public ResponseEntity<InputStreamResource> reporteEncuesta(@RequestParam String param) throws IOException {
     public ResponseEntity<InputStreamResource> imprimir1(@PathVariable("id") Long id) throws Exception {
         System.out.println("Se generó FSS-SOC-001");
         System.out.println(LocalTime.now());
@@ -175,11 +172,11 @@ public class SolicitudServicioClienteController {
         return feim_soc_005_service.crearFormato(id);
     }
 
-    @RequestMapping(value = "/imprimirRecepcion/{id}", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/imprimirEtiquetasIdentificacionIndividual/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> imprimir3(@PathVariable("id") Long id) throws Exception {
-        System.out.println("Se generó FRM-SOC-005");
+        System.out.println("Se generó FEIM-SOC-005");
         System.out.println(LocalTime.now());
 
-        return frm_soc_005_service.crearFormato(id);
-    }
+        return feim_soc_005_service.crearFormatoIndividual(id);
+    }*/
 }

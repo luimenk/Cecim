@@ -28,12 +28,12 @@ public class QRService {
         EstructuraNombres estructuraNombres = new EstructuraNombres();
 
         //CAMBIAR CUANDO LAS PRUEBAS SEAN EN WINDOWS / LINUX (SERVIDOR)
-        //String archivo = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
-        String archivo = "/home/adpmx/java/laboratorio.cecim.com.mx/QR/" + estructuraNombres.getNombreQR() + ".png";
+        String archivo = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
+        //String archivo = "/home/adpmx/java/laboratorio.cecim.com.mx/QR/" + estructuraNombres.getNombreQR() + ".png";
 
         //CAMBIAR CUANDO LAS PRUEBAS SEAN EN WINDOWS / LINUX (SERVIDOR)
-        //String filePath = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
-        String filePath = "/home/adpmx/java/laboratorio.cecim.com.mx/QR/" + estructuraNombres.getNombreQR() + ".png";
+        String filePath = System.getProperty("user.home") + "/" + estructuraNombres.getNombreQR() + ".png";
+        //String filePath = "/home/adpmx/java/laboratorio.cecim.com.mx/QR/" + estructuraNombres.getNombreQR() + ".png";
 
         String myCodeText = id.toString();
         int size = 250;

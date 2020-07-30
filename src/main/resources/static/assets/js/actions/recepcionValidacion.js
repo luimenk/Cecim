@@ -84,7 +84,6 @@ function tick() {
             console.log("En el else del IF CODE");
         }
     }
-    //video.stop();
     requestAnimationFrame(tick);
 }
 
@@ -135,35 +134,52 @@ if (isConfirm){
 });*/
 //});
 
+function validaImprimirRecepcion(valor){
+    window.location = "/recepcionVerificacion/imprimirRecepcion/" + valor;
+}
+
 function cargarTabla() {
     var tbl =
+        '<thead>' +
+        '<tr>' +
+        '<th class="text-center">Folio</th>' +
+        '<th class="text-center">Fecha recepción</th>' +
+        '<th class="text-center">Nombre de la persona que recibe</th>' +
+        '<th class="text-center">Nombre de la presona que entrega</th>' +
+        '<th class="text-center">Imprimir recepción</th>' +
+        '<th class="disabled-sorting text-center">Acciones</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tfoot>' +
+        '<tr>' +
+        '<th class="text-center">Folio</th>' +
+        '<th class="text-center">Fecha recepción</th>' +
+        '<th class="text-center">Nombre de la persona que recibe</th>' +
+        '<th class="text-center">Nombre de la presona que entrega</th>' +
+        '<th class="text-center">Imprimir recepción</th>' +
+        '<th class="disabled-sorting text-center">Acciones</th>' +
+        '</tr>' +
+        '</tfoot>' +
         '<tbody>';
-    $.getJSON("/solicitudServicioClienteMuestras", function (result) {
+    $.getJSON("/recepcionVerificacion", function (result) {
         $.each(result, function (i, field) {
             tbl +=
                 '<tr>' +
-                '<td>' +
-                '<div class="form-check">' +
-                '<label class="form-check-label">' +
-                '<input class="form-check-input" type="checkbox" value="">' +
-                '<span class="form-check-sign"></span>' +
-                '</label>' +
-                '</div>' +
-                '</td>' +
-                '<td>' + field.solicitudServicioCliente.folioSolitudServicioCliente + ' ' + field.method.codigoMetodo + '</td>' +
-                '<td class="td-actions text-right">' +
-                '<button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">' +
-                '<i class="fa fa-edit"></i>' +
-                '</button>' +
-                '<button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">' +
-                '<i class="fa fa-times"></i>' +
-                '</button>' +
+                '<td class="text-center">' + field.folioRecepcionVerificacion + '</td>' +
+                '<td class="text-center">' + field.fechaRecepcion + '</td>' +
+                '<td class="text-center">' + field.nombrePersonaRecibe + '</td>' +
+                '<td class="text-center">' + field.nombrePersonaEntrega + '</td>' +
+                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirRecepcion(' + field.recepcionVerificacionRegistroCodificacionId + ')"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
+                '<td class="text-center">' +
+                '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir(' + field.solicitudServicioClienteId + ')"><i class="fa fa-print"></i></button>' +
+                '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-edit"></i></button>' +
+                '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-times"></i></a>' +
                 '</td>' +
                 '</tr>';
         });
         tbl += '</tbody>';
-        $("#mediantefolio").empty().append(tbl);
-        $('#muestraTable').DataTable({
+        $("#recepcionValidacionTable").append(tbl);
+        $('#recepcionValidacionTable').DataTable({
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],

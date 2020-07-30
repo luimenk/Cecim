@@ -150,11 +150,9 @@ public class InterfaceController {
         }
         System.out.println("AQUI TERMINA LA PRUEBA");*/
 
-        //System.out.println("AQUI EMPIEZA LA PRUEBA");
-
-
-
-        //System.out.println("AQUI TERMINA LA PRUEBA");
+        System.out.println("AQUI EMPIEZA LA PRUEBA");
+        System.out.println(System.getProperty("os.name"));
+        System.out.println("AQUI TERMINA LA PRUEBA");
 
         for (GrantedAuthority a : review) {
             System.out.println(a.getAuthority());
@@ -599,7 +597,7 @@ public class InterfaceController {
     @RequestMapping(value = "/grafica")
     public String graficas(Model model, Principal principal) {
 
-        // After user login successfully.
+        /*// After user login successfully.
         String userName = principal.getName();
 
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
@@ -614,7 +612,7 @@ public class InterfaceController {
         for (GrantedAuthority a : review) {
             System.out.println(a.getAuthority());
             model.addAttribute("role", a.getAuthority());
-        }
+        }*/
 
         return "content/grafica";
     }
@@ -818,6 +816,116 @@ public class InterfaceController {
             model.addAttribute("role", a.getAuthority());
         }
         return "content/operacion/recepcionValidacion/formRecepcionValidacion";
+    }
+
+    @RequestMapping("/listRecepcionValidacion")
+    public String listRecepcionValidacion(Model model, Principal principal) {
+        // After user login successfully.
+        String userName = principal.getName();
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+
+        return "content/operacion/recepcionValidacion/listRecepcionValidacion";
+    }
+
+    //METODOS
+    @RequestMapping(value = "/registerEspesor")
+    public String registerEspesor(Model model, Principal principal) {
+        // After user login successfully.
+        String userName = principal.getName();
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        List<Client> lista = clientService.findAll();
+        model.addAttribute("empresas", lista);
+
+        List<Method> lista2 = methodService.findAll();
+        model.addAttribute("metodos", lista2);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+        return "content/operacion/metodos/determinacionEspesor/formDeterminacionEspesor";
+    }
+
+    @RequestMapping("/listEspesor")
+    public String listEspesor(Model model, Principal principal) {
+        // After user login successfully.
+        String userName = principal.getName();
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+
+        return "content/operacion/metodos/determinacionEspesor/listDeterminacionEspesor";
+    }
+
+    @RequestMapping(value = "/registerDimension")
+    public String registerDimension(Model model, Principal principal) {
+        // After user login successfully.
+        String userName = principal.getName();
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        List<Client> lista = clientService.findAll();
+        model.addAttribute("empresas", lista);
+
+        List<Method> lista2 = methodService.findAll();
+        model.addAttribute("metodos", lista2);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+        return "content/operacion/metodos/determinacionDimension/formDeterminacionDimension";
+    }
+
+    @RequestMapping("/listDimension")
+    public String listDimension(Model model, Principal principal) {
+        // After user login successfully.
+        String userName = principal.getName();
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+
+        return "content/operacion/metodos/determinacionDimension/listDeterminacionDimension";
     }
 
     /*@RequestMapping("/listEtiquetas")

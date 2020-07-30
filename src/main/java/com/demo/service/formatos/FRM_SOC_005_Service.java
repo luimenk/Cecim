@@ -47,8 +47,6 @@ public class FRM_SOC_005_Service {
         ClassPathResource resource = new ClassPathResource("/documentos/FRM-SOC-005.docx");
         XWPFDocument doc = new XWPFDocument(resource.getInputStream());
 
-        List<SolicitudServicioClienteMuestras> lista = solicitudServicioClienteMuestrasService.findAllBySolicitud(id);
-        SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(id);
         RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findById(id);
 
         List<String>contactosAux;
