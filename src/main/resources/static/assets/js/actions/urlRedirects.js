@@ -78,6 +78,10 @@ function listValidacion(e) {
     window.location = "/listRecepcionValidacion";
 }
 
+function lecturaQR(){
+    window.location = "/lecturaQR";
+}
+
 function registerEspesor(e) {
     window.location = "/registerEspesor";
 }
@@ -92,4 +96,68 @@ function registerDimension(e) {
 
 function listDimension(e) {
     window.location = "/listDimension";
+}
+
+function registerSelladoTemperatura(e) {
+    window.location = "/registerSelladoTemperatura";
+}
+
+function listSelladoTemperatura(e) {
+    window.location = "/listSelladoTemperatura";
+}
+
+function registerEspectrometriaInfrarroja(e) {
+    window.location = "/registerEspectrometriaInfrarroja";
+}
+
+function listEspectrometriaInfrarroja(e) {
+    window.location = "/listEspectrometriaInfrarroja";
+}
+
+function registerElongacionRuptura(e) {
+    window.location = "/registerElongacionRuptura";
+}
+
+function listElongacionRuptura(e) {
+    window.location = "/listElongacionRuptura";
+}
+
+function registerFRAPRR(e) {
+    window.location = "/registerFRAPRR";
+}
+
+function listFRAPRR(e) {
+    window.location = "/listFRAPRR";
+}
+
+function registerFRADSC(e) {
+    window.location = "/registerFRADSC";
+}
+
+function listFRADSC(e) {
+    window.location = "/listFRADSC";
+}
+
+function registerFRAGR(e) {
+    window.location = "/registerFRAGR";
+}
+
+function listFRAGR(e) {
+    window.location = "/listFRAGR";
+}
+
+function registerFRAHUM(e) {
+    window.location = "/registerFRAHUM";
+}
+
+function listFRAHUM(e) {
+    window.location = "/listFRAHUM";
+}
+
+function registerFRAPPG(e) {
+    window.location = "/registerFRAPPG";
+}
+
+function listFRAPPG(e) {
+    window.location = "/listFRAPPG";
 }

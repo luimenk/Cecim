@@ -4,12 +4,10 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
 
-import com.demo.model.Client;
-import com.demo.model.Folios;
+import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
-import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
-import com.demo.service.ClientService;
+import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
@@ -39,7 +37,7 @@ public class FSS_SOC_001_Service {
     private SolicitudServicioClienteMuestrasService solicitudServicioClienteMuestrasService;
 
     @Autowired
-    private RecepcionVerificacionRegistroCodificacionService recepcionVerificacionRegistroCodificacionService;
+    private MetodoMuestraService metodoMuestraService;
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
 
@@ -82,24 +80,44 @@ public class FSS_SOC_001_Service {
         table3.getRow(0).getCell(3).setText(solicitudServicioCliente.getFechaCompromisoEntrega());
         table3.getRow(2).getCell(0).setText(solicitudServicioCliente.getNombreFirmaReceptor());
         table3.getRow(2).getCell(1).setText(solicitudServicioCliente.getNombreFirmaCalidad());
+
         XWPFTable table4 = doc.getTables().get(4);
         table4.getRow(0).getCell(1).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
+
         XWPFTable table5 = doc.getTables().get(5);
+
         for (int i = 0; i<lista.size(); i++) {
+
             XWPFTableRow tableRow = table5.createRow();
             tableRow.getCell(0).setText((i+1)+"");
             tableRow.getCell(1).setText(lista.get(i).getIdClienteMuestra());
             tableRow.getCell(2).setText(lista.get(i).getTipoMuestra());
             tableRow.getCell(3).setText(lista.get(i).getDescripcionMuestra());
-            tableRow.getCell(4).setText(lista.get(i).getMethod().getCodigoMetodo());
-            tableRow.getCell(5).setText(lista.get(i).getCondicionesEspeciales());
-            tableRow.getCell(6).setText(lista.get(i).getMethod().getCantidadTotal());
-            tableRow.getCell(7).setText(lista.get(i).getObservaciones());
+            tableRow.getCell(4).setText(lista.get(i).getLote());
+
+            List<MetodoMuestra> lista2 = metodoMuestraService.findAllByMuestra(lista.get(i).getSolicitudServicioClienteMuestrasId());
+
+            XWPFParagraph paragraph1 = tableRow.getCell(7).addParagraph();
+            XWPFParagraph paragraph2 = tableRow.getCell(5).addParagraph();
+
+            XWPFRun run1 = paragraph1.createRun();
+            XWPFRun run2 = paragraph2.createRun();
+
+            for (MetodoMuestra metodoMuestra : lista2) {
+                run1.setText(metodoMuestra.getMethod().getCantidadTotal());
+                run2.setText(metodoMuestra.getMethod().getCodigoMetodo());
+                run1.addBreak();
+                run2.addBreak();
+            }
+            tableRow.getCell(6).setText(lista.get(i).getCondicionesEspeciales());
+            tableRow.getCell(8).setText(lista.get(i).getObservaciones());
         }
+
         XWPFTable table6 = doc.getTables().get(6);
         table6.getRow(1).getCell(1).setText(solicitudServicioCliente.getDevolucionMuestras());
+
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=FCC-SOC-"+estructuraNombres.getNombre()+".docx");
+        headers.add("Content-Disposition", "inline; filename="+solicitudServicioCliente.getFolioSolitudServicioCliente()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();

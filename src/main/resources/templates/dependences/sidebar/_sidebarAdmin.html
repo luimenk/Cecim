@@ -16,7 +16,8 @@
             </div>
             <div class="info ">
                 <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                    <span th:text="${userName}"></span>
+                    <!--<span th:text="${userName}"></span>-->
+                    <span>[[${#httpServletRequest.remoteUser}]]</span>
                 </a>
             </div>
         </div>

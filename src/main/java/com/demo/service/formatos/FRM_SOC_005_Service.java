@@ -6,10 +6,12 @@ import java.util.*;
 
 import com.demo.model.Client;
 import com.demo.model.Folios;
+import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
 import com.demo.service.ClientService;
+import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
@@ -41,6 +43,9 @@ public class FRM_SOC_005_Service {
     @Autowired
     private RecepcionVerificacionRegistroCodificacionService recepcionVerificacionRegistroCodificacionService;
 
+    @Autowired
+    private MetodoMuestraService metodoMuestraService;
+
     EstructuraNombres estructuraNombres = new EstructuraNombres();
 
     public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException{
@@ -60,10 +65,25 @@ public class FRM_SOC_005_Service {
         table0.getRow(2).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getDescripcionMuestra());
         table0.getRow(3).getCell(1).setText("por definir");
         table0.getRow(3).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getTipoMuestra());
-        table0.getRow(4).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getMethod().getCantidadTotal());
         table0.getRow(4).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getCantidadMuestraEntregada());
-        table0.getRow(5).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getMethod().getCodigoMetodo());
-        table0.getRow(5).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getObservaciones());
+        table0.getRow(6).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getObservaciones());
+        //table0.getRow(4).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getMethod().getCantidadTotal());
+        //table0.getRow(5).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getMethod().getCodigoMetodo());
+        //List<MetodoMuestra> lista2 = metodoMuestraService.findAllByMuestra(lista.get(i).getSolicitudServicioClienteMuestrasId());
+        List<MetodoMuestra> lista2 = metodoMuestraService.findAllByMuestra(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
+
+        XWPFParagraph paragraph1 = table0.getRow(4).getCell(1).addParagraph();
+        XWPFParagraph paragraph2 = table0.getRow(5).getCell(1).addParagraph();
+
+        XWPFRun run1 = paragraph1.createRun();
+        XWPFRun run2 = paragraph2.createRun();
+
+        for (MetodoMuestra metodoMuestra : lista2) {
+            run1.setText(metodoMuestra.getMethod().getCantidadTotal()+"  ");
+            run2.setText(metodoMuestra.getMethod().getCodigoMetodo()+ "  ");
+            //run1.addBreak();
+            //run2.addBreak();
+        }
 
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getFechaRecepcion());

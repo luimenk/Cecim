@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Determinación de la resistencia a la tensión y elongación a la
+                                    ruptura</h4>
+                            </div>
+                            <div class="card-body ">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio de solicitud de servicio interno</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioSolicitudServicioInterno"
+                                                   id="folioSolicitudServicioInterno" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">ID Interno de muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="idInternoMuestra" id="idInternoMuestra" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha final de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaFinalAnalisis" id="fechaFinalAnalisis" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperatura" id="temperatura" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Humedad relativa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Código del equipo universal</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoEquipoUniversal" id="codigoEquipoUniversal"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Código del micrómetro</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoMicrometro" id="codigoMicrometro" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Velocidad de las mordazas:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="velocidadMordazas" id="velocidadMordazas" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Distancia entre mordazas:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="distanciaEntreMordazas" id="distanciaEntreMordazas"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer ">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Resultados dirección máquina (MD)</h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Repetición</th>
+                                            <th class="text-center">Espesor (mm)</th>
+                                            <th class="text-center">Fuerza de fluencia a la tensión (MPa)</th>
+                                            <th class="text-center">Elongación a la ruptura (%)</th>
+                                            <th class="text-center">Resistencia a la tensión (MPa)</th>
+                                            <th class="text-center">Módulo elástico (MPa)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDespesor1" id="MDespesor1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDfuerzaFluencia1"
+                                                                           id="MDfuerzaFluencia1" required="required">
+                                            </td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDelongacionRuptura1"
+                                                                           id="MDelongacionRuptura1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDresistenciaTension1"
+                                                                           id="MDresistenciaTension1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDmoduloElastico1"
+                                                                           id="MDmoduloElastico1" required="required">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDespesor2" id="MDespesor2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDfuerzaFluencia2"
+                                                                           id="MDfuerzaFluencia2" required="required">
+                                            </td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDelongacionRuptura2"
+                                                                           id="MDelongacionRuptura2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDresistenciaTension2"
+                                                                           id="MDresistenciaTension2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDmoduloElastico2"
+                                                                           id="MDmoduloElastico2" required="required">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDespesor3" id="MDespesor3"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDfuerzaFluencia3"
+                                                                           id="MDfuerzaFluencia3" required="required">
+                                            </td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDelongacionRuptura3"
+                                                                           id="MDelongacionRuptura3"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDresistenciaTension3"
+                                                                           id="MDresistenciaTension3"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDmoduloElastico3"
+                                                                           id="MDmoduloElastico3" required="required">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">4</td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDespesor4" id="MDespesor4"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDfuerzaFluencia4"
+                                                                           id="MDfuerzaFluencia4" required="required">
+                                            </td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDelongacionRuptura4"
+                                                                           id="MDelongacionRuptura4"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDresistenciaTension4"
+                                                                           id="MDresistenciaTension4"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDmoduloElastico4"
+                                                                           id="MDmoduloElastico4" required="required">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">5
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDespesor5" id="MDespesor5"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDfuerzaFluencia5"
+                                                                           id="MDfuerzaFluencia5" required="required">
+                                            </td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDelongacionRuptura5"
+                                                                           id="MDelongacionRuptura5"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDresistenciaTension5"
+                                                                           id="MDresistenciaTension5"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="MDmoduloElastico5"
+                                                                           id="MDmoduloElastico5" required="required">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Resultados dirección transversal (TD)</h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Repetición</th>
+                                            <th class="text-center">Espesor (mm)</th>
+                                            <th class="text-center">Fuerza de fluencia a la tensión (MPa)</th>
+                                            <th class="text-center">Elongación a la ruptura (%)</th>
+                                            <th class="text-center">Resistencia a la tensión (MPa)</th>
+                                            <th class="text-center">Módulo elástico (MPa)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDespesor1" id="TDespesor1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDfuerzaFluencia1"
+                                                                           id="TDfuerzaFluencia1" required="required">
+                                            </td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDelongacionRuptura1"
+                                                                           id="TDelongacionRuptura1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDresistenciaTension1"
+                                                                           id="TDresistenciaTension1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDmoduloElastico1"
+                                                                           id="TDmoduloElastico1" required="required">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDespesor2" id="TDespesor2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDfuerzaFluencia2"
+                                                                           id="TDfuerzaFluencia2" required="required">
+                                            </td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDelongacionRuptura2"
+                                                                           id="TDelongacionRuptura2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDresistenciaTension2"
+                                                                           id="TDresistenciaTension2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDmoduloElastico2"
+                                                                           id="TDmoduloElastico2" required="required">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">3</td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDespesor3" id="TDespesor3"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDfuerzaFluencia3"
+                                                                           id="TDfuerzaFluencia3" required="required">
+                                            </td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDelongacionRuptura3"
+                                                                           id="TDelongacionRuptura3"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDresistenciaTension3"
+                                                                           id="TDresistenciaTension3"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDmoduloElastico3"
+                                                                           id="TDmoduloElastico3" required="required">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">4</td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDespesor4" id="TDespesor4"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDfuerzaFluencia4"
+                                                                           id="TDfuerzaFluencia4" required="required">
+                                            </td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDelongacionRuptura4"
+                                                                           id="TDelongacionRuptura4"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDresistenciaTension4"
+                                                                           id="TDresistenciaTension4"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDmoduloElastico4"
+                                                                           id="TDmoduloElastico4" required="required">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">5
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDespesor5" id="TDespesor5"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDfuerzaFluencia5"
+                                                                           id="TDfuerzaFluencia5" required="required">
+                                            </td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDelongacionRuptura5"
+                                                                           id="TDelongacionRuptura5"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDresistenciaTension5"
+                                                                           id="TDresistenciaTension5"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="TDmoduloElastico5"
+                                                                           id="TDmoduloElastico5" required="required">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Observaciones</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Observaciones</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="observaciones" id="observaciones" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Realizó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="realizo" id="realizo" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Supervisó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="supervisor" id="supervisor" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-fill btn-success" onclick="valida()">Registrar
+                                    Datos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <th:block th:include="/dependences/_Footer"></th:block>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/metodoElongacionRuptura.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaInicioAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaFinalAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+</script>
+</html>a

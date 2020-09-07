@@ -254,16 +254,15 @@
                                     </div>
                                     <div class="col-7">
                                         <div class="numbers">
-                                            <p class="card-category">ETIQUETAR QR</p>
-                                            <h4 class="card-title">22</h4>
+                                            <p class="card-category">LECTURA DE QR</p>
+<!--                                            <h4 class="card-title">22</h4>-->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer " align="center">
                                 <hr>
-                                <button class="btn btn-primary btn-wd">Registrar</button>
-                                <button class="btn btn-primary btn-wd">Consultar</button>
+                                <button class="btn btn-primary btn-wd" onclick="lecturaQR()">Registrar</button>
                             </div>
                         </div>
                     </div>
@@ -456,27 +455,28 @@
                         </div>
                     </div>
 
-                    <!--<div class="col-lg-3 col-sm-6">
+                    <div class="col-lg-3 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-body ">
                                 <div class="row">
                                     <div class="col-5">
                                         <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-notes text-info"></i>
+                                            <i class="nc-icon nc-grid-45 text-primary "></i>
+
                                         </div>
                                     </div>
                                     <div class="col-7">
                                         <div class="numbers">
-                                            <p class="card-category">ÓRDEN DE LAB</p>
-                                            <h4 class="card-title">8</h4>
+                                            <p class="card-category">Curva de sellado en función de la temperatura</p>
+                                            <!--<h4 class="card-title">22</h4>-->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer " align="center">
                                 <hr>
-                                <button class="btn btn-info btn-wd">Registrar</button>
-                                <button class="btn btn-info btn-wd">Consultar</button>
+                                <button class="btn btn-primary btn-wd" onclick="registerSelladoTemperatura()">Registrar</button>
+                                <button class="btn btn-primary btn-wd" onclick="listSelladoTemperatura()">Consultar</button>
                             </div>
                         </div>
                     </div>
@@ -487,26 +487,165 @@
                                 <div class="row">
                                     <div class="col-5">
                                         <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-single-copy-04 text-danger"></i>
+                                            <i class="nc-icon nc-grid-45 text-primary "></i>
 
                                         </div>
                                     </div>
                                     <div class="col-7">
                                         <div class="numbers">
-                                            <p class="card-category">RECEPCIÓN DE MUESTRAS</p>
-                                            <h4 class="card-title">43</h4>
+                                            <p class="card-category">Espectrometría Infrarroja</p>
+                                            <!--<h4 class="card-title">22</h4>-->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer " align="center">
                                 <hr>
-                                <button class="btn btn-danger btn-wd">Registrar</button>
-                                <button class="btn btn-danger btn-wd">Consultar</button>
+                                <button class="btn btn-primary btn-wd" onclick="registerEspectrometriaInfrarroja()">Registrar</button>
+                                <button class="btn btn-primary btn-wd" onclick="listEspectrometriaInfrarroja()">Consultar</button>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
 
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="numbers">
+                                            <p class="card-category">Elongación de la ruptura</p>
+                                            <!--<h4 class="card-title">12</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerElongacionRuptura()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listElongacionRuptura()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="numbers">
+                                            <p class="card-category">Registro de análisis de determinación a la propagación de la resistencia al rasgado</p>
+                                            <!--<h4 class="card-title">12</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRAPRR()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRAPRR()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="numbers">
+                                            <p class="card-category">Registro análisis de determinación de transiciones térmicas de polímeros</p>
+                                            <!--<h4 class="card-title">12</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRADSC()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRADSC()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <h4 class="card-title">FRA-GR-001</h4>
+                                            <p class="card-category">Determinación de gramaje</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRAGR()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRAGR()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <h4 class="card-title">FRA-HUM-001</h4>
+                                            <p class="card-category">Registro de análisis de determinación de humedad</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRAHUM()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRAHUM()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <h4 class="card-title">FRA-PPG-001</h4>
+                                            <p class="card-category">Registro de análisis de determinación de pellets por gramo</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRAPPG()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRAPPG()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 

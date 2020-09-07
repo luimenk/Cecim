@@ -13,55 +13,32 @@
                 <!--Contenido de página-->
                 <div class="content">
                     <div class="container-fluid">
-                        <h4 class="card-title">Operación</h4>
+                        <h4 class="card-title">Cálculos</h4>
 
                         <div class="row">
+
                             <div class="col-lg-3 col-sm-6">
                                 <div class="card card-stats">
                                     <div class="card-body ">
                                         <div class="row">
                                             <div class="col-5">
                                                 <div class="icon-big text-center icon-warning">
-                                                    <i class="nc-icon nc-bullet-list-67 text-warning"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-7">
-                                                <div class="numbers">
-                                                    <p class="card-category">RESULTADOS</p>
-                                                    <h4 class="card-title">4</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer " align="center">
-                                        <hr>
-                                        <button class="btn btn-warning btn-wd">Registrar</button>
-                                        <button class="btn btn-warning btn-wd">Consultar</button>
-                                    </div>
-                                </div>
-                            </div>
+                                                    <i class="nc-icon nc-single-copy-04 text-danger"></i>
 
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="card card-stats">
-                                    <div class="card-body ">
-                                        <div class="row">
-                                            <div class="col-5">
-                                                <div class="icon-big text-center icon-purple">
-                                                    <i class="nc-icon nc-backpack text-dark"></i>
                                                 </div>
                                             </div>
                                             <div class="col-7">
                                                 <div class="numbers">
-                                                    <p class="card-category">ALMACÉN DE MUESTRAS</p>
-                                                    <h4 class="card-title">4</h4>
+                                                    <p class="card-category">Generador de Reporte de Cálculos</p>
+                                                    <h4 class="card-title"></h4>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-footer " align="center">
                                         <hr>
-                                        <button class="btn btn-dark btn-wd">Registrar</button>
-                                        <button class="btn btn-dark btn-wd">Consultar</button>
+                                        <button class="btn btn-danger btn-wd" onclick="generadorReporteDirect()">Generar</button>
+                                        <!--<button class="btn btn-danger btn-wd">Consultar</button>-->
                                     </div>
                                 </div>
                             </div>
@@ -75,4 +52,5 @@
         </div>
     </body>
     <th:block th:include="/dependences/_RequiredScripts"></th:block>
+    <script src="../assets/js/actions/urlRedirects.js" type="text/javascript"></script>
 </html>

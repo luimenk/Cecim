@@ -1,6 +1,7 @@
 package com.demo.controller.operacion;
 
 import com.demo.model.Client;
+import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
@@ -9,6 +10,7 @@ import com.demo.service.FoliosService;
 import com.demo.service.MethodService;
 import com.demo.service.QR.QRService;
 import com.demo.service.formatos.*;
+import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
@@ -65,6 +67,11 @@ public class RecepcionVerificacionRegistroCodificacionController {
 
     @Autowired
     private FRM_SOC_005_Service frm_soc_005_service;
+
+    @Autowired
+    private FEIL_MIE_007_Service feil_mie_007_service;
+    @Autowired
+    private MetodoMuestraService metodoMuestraService;
 
     @Autowired
     private QRService qrService;
@@ -138,6 +145,16 @@ public class RecepcionVerificacionRegistroCodificacionController {
         recepcionVerificacionRegistroCodificacion.setUbicacionMuestraRetencion(request.get("ubicacionMuestraRetencion"));
         recepcionVerificacionRegistroCodificacionService.save(recepcionVerificacionRegistroCodificacion);
 
+        List<MetodoMuestra> lista = metodoMuestraService.findAllByMuestra(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
+
+        solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId()));
+
+        for (int j = 0; j< lista.size(); j++){
+            MetodoMuestra metodoMuestra = metodoMuestraService.findById(lista.get(j).getMetodoMuestraId());
+            metodoMuestra.setPathQRLab(qrService.generateToLab(lista.get(j).getMetodoMuestraId()));
+            metodoMuestraService.save(metodoMuestra);
+        }
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -164,7 +181,14 @@ public class RecepcionVerificacionRegistroCodificacionController {
 
         //RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findById(id);
 
-
         return frm_soc_005_service.crearFormato(id);
+    }
+
+    @RequestMapping(value = "/imprimirEtiquetasLaboratorio/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir14(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FEIL-MIE-007");
+        System.out.println(LocalTime.now());
+
+        return feil_mie_007_service.crearFormato(id);
     }
 }

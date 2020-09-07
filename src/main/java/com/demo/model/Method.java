@@ -34,10 +34,13 @@ public class Method {
     @Column(name = "Condiciones_Especiales_Acondicionamiento", length = 250, nullable = false)
     private String condicionesEspecialesAcondicionamiento;
 
+    @Column(name = "Ruta", length = 250, nullable = false)
+    private String ruta;
+
     public Method() {
     }
 
-    public Method(Long methodId, String codigoMetodo, String cantidadMuestraEnsayo, String cantidadMuestraRetencion, String cantidadTotal, String dimensionesCorteProbeta, String numeroProbetasMuestras, String condicionesEspecialesAcondicionamiento) {
+    public Method(Long methodId, String codigoMetodo, String cantidadMuestraEnsayo, String cantidadMuestraRetencion, String cantidadTotal, String dimensionesCorteProbeta, String numeroProbetasMuestras, String condicionesEspecialesAcondicionamiento, String ruta) {
         this.methodId = methodId;
         this.codigoMetodo = codigoMetodo;
         this.cantidadMuestraEnsayo = cantidadMuestraEnsayo;
@@ -46,6 +49,7 @@ public class Method {
         this.dimensionesCorteProbeta = dimensionesCorteProbeta;
         this.numeroProbetasMuestras = numeroProbetasMuestras;
         this.condicionesEspecialesAcondicionamiento = condicionesEspecialesAcondicionamiento;
+        this.ruta = ruta;
     }
 
     public Long getMethodId() {
@@ -110,5 +114,13 @@ public class Method {
 
     public void setCondicionesEspecialesAcondicionamiento(String condicionesEspecialesAcondicionamiento) {
         this.condicionesEspecialesAcondicionamiento = condicionesEspecialesAcondicionamiento;
+    }
+
+    public String getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
     }
 }

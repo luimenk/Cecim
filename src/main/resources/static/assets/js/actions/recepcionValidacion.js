@@ -138,6 +138,10 @@ function validaImprimirRecepcion(valor){
     window.location = "/recepcionVerificacion/imprimirRecepcion/" + valor;
 }
 
+function validaImprimirLab(valor){
+    window.location = "/recepcionVerificacion/imprimirEtiquetasLaboratorio/" + valor;
+}
+
 function cargarTabla() {
     var tbl =
         '<thead>' +
@@ -147,6 +151,7 @@ function cargarTabla() {
         '<th class="text-center">Nombre de la persona que recibe</th>' +
         '<th class="text-center">Nombre de la presona que entrega</th>' +
         '<th class="text-center">Imprimir recepción</th>' +
+        '<th class="text-center">Imprimir Etiquetas Laboratorio</th>' +
         '<th class="disabled-sorting text-center">Acciones</th>' +
         '</tr>' +
         '</thead>' +
@@ -157,6 +162,7 @@ function cargarTabla() {
         '<th class="text-center">Nombre de la persona que recibe</th>' +
         '<th class="text-center">Nombre de la presona que entrega</th>' +
         '<th class="text-center">Imprimir recepción</th>' +
+        '<th class="text-center">Imprimir Etiquetas Laboratorio</th>' +
         '<th class="disabled-sorting text-center">Acciones</th>' +
         '</tr>' +
         '</tfoot>' +
@@ -170,6 +176,7 @@ function cargarTabla() {
                 '<td class="text-center">' + field.nombrePersonaRecibe + '</td>' +
                 '<td class="text-center">' + field.nombrePersonaEntrega + '</td>' +
                 '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirRecepcion(' + field.recepcionVerificacionRegistroCodificacionId + ')"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
+                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirLab(' + field.recepcionVerificacionRegistroCodificacionId + ')"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
                 '<td class="text-center">' +
                 '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir(' + field.solicitudServicioClienteId + ')"><i class="fa fa-print"></i></button>' +
                 '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-edit"></i></button>' +

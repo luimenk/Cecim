@@ -193,16 +193,16 @@
                                     <label class="col-sm-2 control-label">Método Solicitado:</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <!--<select multiple class="selectpicker" name="metodo0" id="metodo0" required="true"
+                                            <select multiple class="selectpicker" name="metodo0" id="metodo0" required="required"
                                                     data-title="Selecciona un método..."
                                                     data-style="btn-info btn-fill btn-block"
                                                     data-menu-style="dropdown-blue"
-                                                    onchange="chequeo()">-->
-                                            <select class="selectpicker" name="metodo0" id="metodo0" required="true"
+                                                    onchange="chequeo()">
+                                            <!--<select class="selectpicker" name="metodo0" id="metodo0" required=required
                                                     data-title="Selecciona un método..."
                                                     data-style="btn-default btn-outline"
                                                     data-menu-style="dropdown-blue"
-                                                    onchange="chequeo()">
+                                                    onchange="chequeo()">-->
                                                 <option th:each="item : ${metodos}"
                                                         th:value="${item.methodId}"
                                                         th:text="${item.codigoMetodo}"></option>
@@ -212,6 +212,13 @@
                                 </div>
 
                                 <div class="row">
+                                    <label class="col-sm-2 control-label">Lote:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="lote0" id="lote0" required="true">
+                                        </div>
+                                    </div>
                                     <label class="col-sm-2 control-label">Condiciones Especiales:</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">

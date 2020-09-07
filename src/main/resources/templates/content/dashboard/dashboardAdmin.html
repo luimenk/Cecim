@@ -65,30 +65,29 @@
                                 </div>
                             </div>
 
-                            <!--<div class="col-lg-3 col-sm-6">
+                            <div class="col-lg-3 col-sm-6">
                                 <div class="card card-stats">
                                     <div class="card-body ">
                                         <div class="row">
                                             <div class="col-5">
                                                 <div class="icon-big text-center icon-warning">
-                                                    <i class="nc-icon nc-single-02 text-danger"></i>
+                                                    <i class="nc-icon nc-single-copy-04 text-info"></i>
                                                 </div>
                                             </div>
                                             <div class="col-7">
                                                 <div class="numbers">
-                                                    <p class="card-category">USUARIOS</p>
-                                                    <h4 class="card-title"><span th:text="${contarUsuario}"></span></h4>
+                                                    <p class="card-category">SOLICITUD DE SERVICIO DEL CLIENTE</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-footer " align="center">
                                         <hr>
-                                        <button class="btn btn-danger btn-wd" onclick="registerUserDirect()">Registrar</button>
-                                        <button class="btn btn-danger btn-wd" onclick="listUserDirect()">Consultar</button>
+                                        <button class="btn btn-info btn-wd"  onclick="registerSolicitudServicio()">Registrar</button>
+                                        <button class="btn btn-info btn-wd"  onclick="listSolicitudServicio()">Consultar</button>
                                     </div>
                                 </div>
-                            </div>-->
+                            </div>
 
                             <div class="col-lg-3 col-sm-6">
                                 <div class="card card-stats">
@@ -116,7 +115,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-lg-3 col-sm-6">
                                 <div class="card card-stats">
                                     <div class="card-body ">
@@ -212,7 +211,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
 
                         <h4 class="card-title">Operación</h4>
                         <div class="row">
@@ -237,7 +236,7 @@
                                     <div class="card-footer " align="center">
                                         <hr>
                                         <button class="btn btn-success btn-wd" onclick="registerValidacion()">Registrar</button>
-                                        <button class="btn btn-success btn-wd">Consultar</button>
+                                        <button class="btn btn-success btn-wd" onclick="listValidacion()">Consultar</button>
                                     </div>
                                 </div>
                             </div>
@@ -254,21 +253,20 @@
                                             </div>
                                             <div class="col-7">
                                                 <div class="numbers">
-                                                    <p class="card-category">ETIQUETAR QR</p>
-                                                    <h4 class="card-title">22</h4>
+                                                    <p class="card-category">LECTURA DE QR</p>
+                                                    <!--                                            <h4 class="card-title">22</h4>-->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-footer " align="center">
                                         <hr>
-                                        <button class="btn btn-primary btn-wd">Registrar</button>
-                                        <button class="btn btn-primary btn-wd">Consultar</button>
+                                        <button class="btn btn-primary btn-wd" onclick="lecturaQR()">Registrar</button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-3 col-sm-6">
+                            <!--<div class="col-lg-3 col-sm-6">
                                 <div class="card card-stats">
                                     <div class="card-body ">
                                         <div class="row">
@@ -317,9 +315,328 @@
                                         <button class="btn btn-danger btn-wd">Consultar</button>
                                     </div>
                                 </div>
+                            </div>-->
+
+
+                        </div>
+
+                        <div class="row">
+
+                            <!--<div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-bulb-63 text-success"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">LABORATORIO</p>
+                                                    <h4 class="card-title">12</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-success btn-wd">Registrar</button>
+                                        <button class="btn btn-success btn-wd">Consultar</button>
+                                    </div>
+                                </div>
                             </div>
 
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-bullet-list-67 text-warning"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">RESULTADOS</p>
+                                                    <h4 class="card-title">4</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-warning btn-wd">Registrar</button>
+                                        <button class="btn btn-warning btn-wd">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-purple">
+                                                    <i class="nc-icon nc-backpack text-dark"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">ALMACÉN DE MUESTRAS</p>
+                                                    <h4 class="card-title">4</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-dark btn-wd">Registrar</button>
+                                        <button class="btn btn-dark btn-wd">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>-->
+
+                        </div>
+
+                        <h4 class="card-title">Métodos</h4>
+                        <div class="row">
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">Espesor</p>
+                                                    <!--<h4 class="card-title">12</h4>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-success btn-wd" onclick="registerEspesor()">Registrar</button>
+                                        <button class="btn btn-success btn-wd" onclick="listEspesor()">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-grid-45 text-primary "></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">Dimensión</p>
+                                                    <!--<h4 class="card-title">22</h4>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-primary btn-wd" onclick="registerDimension()">Registrar</button>
+                                        <button class="btn btn-primary btn-wd" onclick="listDimension()">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-grid-45 text-primary "></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">Curva de sellado en función de la temperatura</p>
+                                                    <!--<h4 class="card-title">22</h4>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-primary btn-wd" onclick="registerSelladoTemperatura()">Registrar</button>
+                                        <button class="btn btn-primary btn-wd" onclick="listSelladoTemperatura()">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-grid-45 text-primary "></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">Espectrometría Infrarroja</p>
+                                                    <!--<h4 class="card-title">22</h4>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-primary btn-wd" onclick="registerEspectrometriaInfrarroja()">Registrar</button>
+                                        <button class="btn btn-primary btn-wd" onclick="listEspectrometriaInfrarroja()">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">Elongación de la ruptura</p>
+                                                    <!--<h4 class="card-title">12</h4>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-success btn-wd" onclick="registerElongacionRuptura()">Registrar</button>
+                                        <button class="btn btn-success btn-wd" onclick="listElongacionRuptura()">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">Registro de análisis de determinación a la propagación de la resistencia al rasgado</p>
+                                                    <!--<h4 class="card-title">12</h4>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-success btn-wd" onclick="registerFRAPRR()">Registrar</button>
+                                        <button class="btn btn-success btn-wd" onclick="listFRAPRR()">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-preferences-circle-rotate text-success"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">Registro análisis de determinación de transiciones térmicas de polímeros</p>
+                                                    <!--<h4 class="card-title">12</h4>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-success btn-wd" onclick="registerFRADSC()">Registrar</button>
+                                        <button class="btn btn-success btn-wd" onclick="listFRADSC()">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="card-title">Sistema</h4>
+                        <div class="row">
+                            <!--<div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-single-02 text-primary "></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">Roles de Usuario</p>
+                                                    <h4 class="card-title">22</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-primary btn-wd">Registrar</button>
+                                        <button class="btn btn-primary btn-wd">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>-->
+
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="icon-big text-center icon-warning">
+                                                    <i class="nc-icon nc-single-copy-04 text-danger"></i>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="numbers">
+                                                    <p class="card-category">Generador de Reporte de Cálculos</p>
+                                                    <h4 class="card-title"></h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer " align="center">
+                                        <hr>
+                                        <button class="btn btn-danger btn-wd" onclick="generadorReporteDirect()">Generar</button>
+                                        <!--<button class="btn btn-danger btn-wd">Consultar</button>-->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

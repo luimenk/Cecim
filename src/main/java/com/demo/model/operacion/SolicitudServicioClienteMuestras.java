@@ -22,9 +22,8 @@ public class SolicitudServicioClienteMuestras {
     @Column(name = "Descripcion_Muestra", length = 250, nullable = false)
     private String descripcionMuestra;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Method_Id")
-    private Method method;
+    @Column(name = "Lote", length = 250, nullable = false)
+    private String lote;
 
     @Column(name = "Condiciones_Especiales", length = 250, nullable = false)
     private String condicionesEspeciales;
@@ -45,16 +44,15 @@ public class SolicitudServicioClienteMuestras {
     public SolicitudServicioClienteMuestras() {
     }
 
-    public SolicitudServicioClienteMuestras(Long solicitudServicioClienteMuestrasId, String idClienteMuestra, String tipoMuestra, String descripcionMuestra, Method method, String condicionesEspeciales, String observaciones, String pathQRIdentificacion, SolicitudServicioCliente solicitudServicioCliente) {
+    public SolicitudServicioClienteMuestras(Long solicitudServicioClienteMuestrasId, String idClienteMuestra, String tipoMuestra, String descripcionMuestra, String lote, String condicionesEspeciales, String observaciones, String pathQRIdentificacion, SolicitudServicioCliente solicitudServicioCliente) {
         this.solicitudServicioClienteMuestrasId = solicitudServicioClienteMuestrasId;
         this.idClienteMuestra = idClienteMuestra;
         this.tipoMuestra = tipoMuestra;
         this.descripcionMuestra = descripcionMuestra;
-        this.method = method;
+        this.lote = lote;
         this.condicionesEspeciales = condicionesEspeciales;
         this.observaciones = observaciones;
         this.pathQRIdentificacion = pathQRIdentificacion;
-        //this.estatus = estatus;
         this.solicitudServicioCliente = solicitudServicioCliente;
     }
 
@@ -90,12 +88,12 @@ public class SolicitudServicioClienteMuestras {
         this.descripcionMuestra = descripcionMuestra;
     }
 
-    public Method getMethod() {
-        return method;
+    public String getLote() {
+        return lote;
     }
 
-    public void setMethod(Method method) {
-        this.method = method;
+    public void setLote(String lote) {
+        this.lote = lote;
     }
 
     public String getCondicionesEspeciales() {
@@ -121,14 +119,6 @@ public class SolicitudServicioClienteMuestras {
     public void setPathQRIdentificacion(String pathQRIdentificacion) {
         this.pathQRIdentificacion = pathQRIdentificacion;
     }
-
-    /*public String getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(String estatus) {
-        this.estatus = estatus;
-    }*/
 
     public SolicitudServicioCliente getSolicitudServicioCliente() {
         return solicitudServicioCliente;

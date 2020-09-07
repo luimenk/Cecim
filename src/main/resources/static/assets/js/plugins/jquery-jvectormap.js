@@ -1559,7 +1559,7 @@ jvm.Legend.prototype.render = function() {
     }
     inner.append(jvm.$('<div/>').css('clear', 'both'));
 }
-/**
+valoresMultiples/**
  * Creates data series.
  * @constructor
  * @param {Object} params Parameters to initialize series with.

@@ -1,6 +1,7 @@
 package com.demo.controller.operacion;
 
 import com.demo.model.Client;
+import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
@@ -11,6 +12,7 @@ import com.demo.service.QR.QRService;
 import com.demo.service.formatos.FEIM_SOC_005_Service;
 import com.demo.service.formatos.FRM_SOC_005_Service;
 import com.demo.service.formatos.FSS_SOC_001_Service;
+import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
@@ -62,6 +64,9 @@ public class SolicitudServicioClienteController {
     @Autowired
     private QRService qrService;
 
+    @Autowired
+    private MetodoMuestraService metodoMuestraService;
+
     //ListarTodo
     @RequestMapping(method = RequestMethod.GET)
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
@@ -86,31 +91,30 @@ public class SolicitudServicioClienteController {
     @RequestMapping(method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> create(@RequestBody Map<String, String> request) throws Exception {
-        SolicitudServicioCliente valida = solicitudServicioClienteService.findByIdFolio(request.get("folioSolitudServicioCliente"));
+    public ResponseEntity<?> create(@RequestBody Map<String, Object> request) throws Exception {
+        SolicitudServicioCliente valida = solicitudServicioClienteService.findByIdFolio(request.get("folioSolitudServicioCliente")+"");
         if (valida != null){
-            if (request.get("userId") == ""){
+            if (request.get("userId").equals("")){
                 APP.debug("Intento de registro de correo existente" + calendario.getTime());
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             } else {
-                APP.debug("Apartado de modificación" + calendario.getTime());
-                Client client = clientService.findById(Long.parseLong(request.get("empresa")));
-                SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(Long.parseLong(request.get("solicitudServicioClienteId")));
+                /*APP.debug("Apartado de modificación" + calendario.getTime());
+                Client client = clientService.findById(Long.parseLong(request.get("empresa").toString()));
+                SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(Long.parseLong(request.get("solicitudServicioClienteId").toString()));
                 solicitudServicioCliente.setFolioSolitudServicioCliente(foliosService.folioSolicitudServicioCliente());
-                solicitudServicioCliente.setFechaEnvioMuestras(request.get("fechaEnvioMuestras"));
-                solicitudServicioCliente.setFechaPago(request.get("fechaPago"));
-                solicitudServicioCliente.setServicioUrgente(request.get("servicioUrgente"));
-                solicitudServicioCliente.setNombreFirmaEmisor(request.get("nombreFirmaEmisor"));
-                solicitudServicioCliente.setAlmacenamientoEspecial(request.get("almacenamientoEspecial"));
-                solicitudServicioCliente.setEspecifique(request.get("especifique"));
-                solicitudServicioCliente.setFechaRecepcionMuestras(request.get("fechaRecepcionMuestras"));
-                solicitudServicioCliente.setFechaCompromisoEntrega(request.get("fechaCompromisoEntrega"));
-                solicitudServicioCliente.setNombreFirmaReceptor(request.get("nombreFirmaReceptor"));
-                solicitudServicioCliente.setNombreFirmaCalidad(request.get("nombreFirmaCalidad"));
-                solicitudServicioCliente.setDevolucionMuestras(request.get("devolucionMuestras"));
+                solicitudServicioCliente.setFechaEnvioMuestras(request.get("fechaEnvioMuestras").toString());
+                solicitudServicioCliente.setFechaPago(request.get("fechaPago").toString());
+                solicitudServicioCliente.setServicioUrgente(request.get("servicioUrgente").toString());
+                solicitudServicioCliente.setNombreFirmaEmisor(request.get("nombreFirmaEmisor").toString());
+                solicitudServicioCliente.setAlmacenamientoEspecial(request.get("almacenamientoEspecial").toString());
+                solicitudServicioCliente.setEspecifique(request.get("especifique").toString());
+                solicitudServicioCliente.setFechaRecepcionMuestras(request.get("fechaRecepcionMuestras").toString());
+                solicitudServicioCliente.setFechaCompromisoEntrega(request.get("fechaCompromisoEntrega").toString());
+                solicitudServicioCliente.setNombreFirmaReceptor(request.get("nombreFirmaReceptor").toString());
+                solicitudServicioCliente.setNombreFirmaCalidad(request.get("nombreFirmaCalidad").toString());
+                solicitudServicioCliente.setDevolucionMuestras(request.get("devolucionMuestras").toString());
                 solicitudServicioCliente.setClient(client);
-                solicitudServicioClienteService.save(solicitudServicioCliente);
-
+                solicitudServicioClienteService.save(solicitudServicioCliente);*/
 
                 return new ResponseEntity<>(HttpStatus.OK);
             }
@@ -119,31 +123,32 @@ public class SolicitudServicioClienteController {
         APP.debug("Apartado de registro nuevo" + calendario.getTime());
 
         SolicitudServicioCliente solicitudServicioCliente = new SolicitudServicioCliente();
-        Client client = clientService.findById(Long.parseLong(request.get("empresa")));
+        Client client = clientService.findById(Long.parseLong(request.get("empresa").toString()));
 
         solicitudServicioCliente.setFolioSolitudServicioCliente(foliosService.folioSolicitudServicioCliente());
-        solicitudServicioCliente.setFechaEnvioMuestras(request.get("fechaEnvioMuestras"));
-        solicitudServicioCliente.setFechaPago(request.get("fechaPago"));
-        solicitudServicioCliente.setServicioUrgente(request.get("servicioUrgente"));
-        solicitudServicioCliente.setNombreFirmaEmisor(request.get("nombreFirmaEmisor"));
-        solicitudServicioCliente.setAlmacenamientoEspecial(request.get("almacenamientoEspecial"));
-        solicitudServicioCliente.setEspecifique(request.get("especifique"));
-        solicitudServicioCliente.setFechaRecepcionMuestras(request.get("fechaRecepcionMuestras"));
-        solicitudServicioCliente.setFechaCompromisoEntrega(request.get("fechaCompromisoEntrega"));
-        solicitudServicioCliente.setNombreFirmaReceptor(request.get("nombreFirmaReceptor"));
-        solicitudServicioCliente.setNombreFirmaCalidad(request.get("nombreFirmaCalidad"));
-        solicitudServicioCliente.setDevolucionMuestras(request.get("devolucionMuestras"));
+        solicitudServicioCliente.setFechaEnvioMuestras(request.get("fechaEnvioMuestras").toString());
+        solicitudServicioCliente.setFechaPago(request.get("fechaPago").toString());
+        solicitudServicioCliente.setServicioUrgente(request.get("servicioUrgente").toString());
+        solicitudServicioCliente.setNombreFirmaEmisor(request.get("nombreFirmaEmisor").toString());
+        solicitudServicioCliente.setAlmacenamientoEspecial(request.get("almacenamientoEspecial").toString());
+        solicitudServicioCliente.setEspecifique(request.get("especifique").toString());
+        solicitudServicioCliente.setFechaRecepcionMuestras(request.get("fechaRecepcionMuestras").toString());
+        solicitudServicioCliente.setFechaCompromisoEntrega(request.get("fechaCompromisoEntrega").toString());
+        solicitudServicioCliente.setNombreFirmaReceptor(request.get("nombreFirmaReceptor").toString());
+        solicitudServicioCliente.setNombreFirmaCalidad(request.get("nombreFirmaCalidad").toString());
+        solicitudServicioCliente.setDevolucionMuestras(request.get("devolucionMuestras").toString());
         solicitudServicioCliente.setClient(client);
         solicitudServicioClienteService.save(solicitudServicioCliente);
 
-        for (int i=0;i<=Integer.parseInt(request.get("contMuestra")); i++){
+        for (int i=0;i<=Integer.parseInt(request.get("contMuestra").toString()); i++){
             SolicitudServicioClienteMuestras solicitudServicioClienteMuestras = new SolicitudServicioClienteMuestras();
-            solicitudServicioClienteMuestras.setIdClienteMuestra(request.get("idClienteMuestra"+i));
-            solicitudServicioClienteMuestras.setTipoMuestra(request.get("tipoMuestra"+i));
-            solicitudServicioClienteMuestras.setDescripcionMuestra(request.get("descripcionMuestra"+i));
-            solicitudServicioClienteMuestras.setCondicionesEspeciales(request.get("condicionesEspeciales"+i));
-            solicitudServicioClienteMuestras.setObservaciones(request.get("observaciones"+i));
-            solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("metodo"+i))));
+            solicitudServicioClienteMuestras.setIdClienteMuestra(request.get("idClienteMuestra"+i).toString());
+            solicitudServicioClienteMuestras.setTipoMuestra(request.get("tipoMuestra"+i).toString());
+            solicitudServicioClienteMuestras.setDescripcionMuestra(request.get("descripcionMuestra"+i).toString());
+            solicitudServicioClienteMuestras.setLote(request.get("lote"+i).toString());
+            solicitudServicioClienteMuestras.setCondicionesEspeciales(request.get("condicionesEspeciales"+i).toString());
+            solicitudServicioClienteMuestras.setObservaciones(request.get("observaciones"+i).toString());
+            //solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("metodo"+i).toString())));
             solicitudServicioClienteMuestras.setSolicitudServicioCliente(solicitudServicioCliente);
             solicitudServicioClienteMuestras.setPathQRIdentificacion("");
             //solicitudServicioClienteMuestras.setEstatus("PENDIENTE");
@@ -151,6 +156,16 @@ public class SolicitudServicioClienteController {
             System.out.println(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId());
             solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId()));
             solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
+
+            List lista = (List) request.get("metodo"+i);
+
+            for (int j = 0; j< lista.size(); j++){
+                MetodoMuestra metodoMuestra = new MetodoMuestra();
+                metodoMuestra.setPathQRLab("");
+                metodoMuestra.setSolicitudServicioClienteMuestras(solicitudServicioClienteMuestras);
+                metodoMuestra.setMethod(methodService.findById(Long.parseLong(lista.get(j).toString())));
+                metodoMuestraService.save(metodoMuestra);
+            }
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -172,11 +187,14 @@ public class SolicitudServicioClienteController {
         return feim_soc_005_service.crearFormato(id);
     }
 
-    /*@RequestMapping(value = "/imprimirEtiquetasIdentificacionIndividual/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/imprimirEtiquetasRetencion/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> imprimir3(@PathVariable("id") Long id) throws Exception {
-        System.out.println("Se generó FEIM-SOC-005");
+        System.out.println("Se generó FERI-MIE-002");
         System.out.println(LocalTime.now());
 
-        return feim_soc_005_service.crearFormatoIndividual(id);
-    }*/
+        return feim_soc_005_service.crearFormato(id);
+    }
+
+
+
 }
