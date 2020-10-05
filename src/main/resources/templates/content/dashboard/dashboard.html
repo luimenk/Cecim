@@ -10,10 +10,12 @@
     <div class="main-panel">
         <th:block th:include="/dependences/_Header"></th:block>
 
-        <!--Contenido de páginaasdasd-->
+        <!--Contenido de páginas-->
         <div class="content">
             <div class="container-fluid">
+
                 <h4 class="card-title">Catálogos</h4>
+
                 <div class="row">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card card-stats">
@@ -215,8 +217,8 @@
                 </div>
 
                 <h4 class="card-title">Operación</h4>
-                <div class="row">
 
+                <div class="row">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-body ">
@@ -317,12 +319,9 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
 
                 <div class="row">
-
                     <div class="col-lg-3 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-body ">
@@ -398,12 +397,11 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <h4 class="card-title">Métodos</h4>
-                <div class="row">
 
+                <div class="row">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-body ">
@@ -506,7 +504,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="row">
@@ -647,9 +644,177 @@
                         </div>
                     </div>
 
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <h4 class="card-title">FRA-AT-001</h4>
+                                            <p class="card-category">Registro de análisis de adhesión de tintas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRAAT()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRAAT()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <h4 class="card-title">FRA-IF-001</h4>
+                                            <p class="card-category">Registro de análisis de determinación del índice de fluidez</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRAIF()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRAIF()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <h4 class="card-title">FRA-PO-001</h4>
+                                            <p class="card-category">Registro de análisis de determinación
+                                                de permeabilidad al oxígeno
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRAPO()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRAPO()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <h4 class="card-title">FRA-TGA-001</h4>
+                                            <p class="card-category">Registro de análisis de determinación compuestos por termogravimetría</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRATGA()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRATGA()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <h4 class="card-title">FRA-NCP-001</h4>
+                                            <p class="card-category">Registro de determinación de número de capas en películas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRANCP()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRANCP()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <h4 class="card-title">FRA-EAT-001</h4>
+                                            <p class="card-category">Registro de análisis de envejecimiento acelerado térmico</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRAEAT()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRAEAT()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <h4 class="card-title">FRA-EAUV-001</h4>
+                                            <p class="card-category">Registro de análisis de envejecimiento acelerado por UV
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRAEAUV()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRAEAUV()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <div class="numbers">
+                                            <h4 class="card-title">MET-EAXE-013</h4>
+                                            <p class="card-category">Registro de análisis de envejecimiento acelerado por Xe</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                                <hr>
+                                <button class="btn btn-success btn-wd" onclick="registerFRAEAXE()">Registrar</button>
+                                <button class="btn btn-success btn-wd" onclick="listFRAEAXE()">Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <h4 class="card-title">Sistema</h4>
+
                 <div class="row">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card card-stats">

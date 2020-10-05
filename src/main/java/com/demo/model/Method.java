@@ -16,6 +16,12 @@ public class Method {
     @Column(name = "Codigo_Metodo", length = 250, nullable = false)
     private String codigoMetodo;
 
+    @Column(name = "Nombre_Metodo", length = 250, nullable = false)
+    private String nombreMetodo;
+
+    @Column(name = "Norma_Referencia", length = 250, nullable = false)
+    private String normaReferencia;
+
     @Column(name = "Cantidad_Muestra_Ensayo", length = 250, nullable = false)
     private String cantidadMuestraEnsayo;
 
@@ -40,9 +46,11 @@ public class Method {
     public Method() {
     }
 
-    public Method(Long methodId, String codigoMetodo, String cantidadMuestraEnsayo, String cantidadMuestraRetencion, String cantidadTotal, String dimensionesCorteProbeta, String numeroProbetasMuestras, String condicionesEspecialesAcondicionamiento, String ruta) {
+    public Method(Long methodId, String codigoMetodo, String nombreMetodo, String normaReferencia, String cantidadMuestraEnsayo, String cantidadMuestraRetencion, String cantidadTotal, String dimensionesCorteProbeta, String numeroProbetasMuestras, String condicionesEspecialesAcondicionamiento, String ruta) {
         this.methodId = methodId;
         this.codigoMetodo = codigoMetodo;
+        this.nombreMetodo = nombreMetodo;
+        this.normaReferencia = normaReferencia;
         this.cantidadMuestraEnsayo = cantidadMuestraEnsayo;
         this.cantidadMuestraRetencion = cantidadMuestraRetencion;
         this.cantidadTotal = cantidadTotal;
@@ -66,6 +74,22 @@ public class Method {
 
     public void setCodigoMetodo(String codigoMetodo) {
         this.codigoMetodo = codigoMetodo;
+    }
+
+    public String getNombreMetodo() {
+        return nombreMetodo;
+    }
+
+    public void setNombreMetodo(String nombreMetodo) {
+        this.nombreMetodo = nombreMetodo;
+    }
+
+    public String getNormaReferencia() {
+        return normaReferencia;
+    }
+
+    public void setNormaReferencia(String normaReferencia) {
+        this.normaReferencia = normaReferencia;
     }
 
     public String getCantidadMuestraEnsayo() {

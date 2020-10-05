@@ -134,7 +134,6 @@ public class InterfaceController {
         /*GenerateQR generateQR = new GenerateQR();
         generateQR.generate();*/
 
-        System.out.println("AQUI EMPIEZA LA PRUEBA");
         //List<UserRole> algo = userRoleService.findBySomething("SUPERUSUARIO");
         List<UserRole> algo = userRoleService.findAll();
         for (int i = 0; i <algo.size(); i++) {
@@ -143,14 +142,9 @@ public class InterfaceController {
                 System.out.println(algo.get(i).getAppRole().getRoleName());
             }
         }
-        System.out.println("AQUI TERMINA LA PRUEBA");
-
-        System.out.println("AQUI EMPIEZA LA PRUEBA");
-        System.out.println(System.getProperty("os.name"));
-        System.out.println("AQUI TERMINA LA PRUEBA");
 
         for (GrantedAuthority a : review) {
-            System.out.println(a.getAuthority());
+            //System.out.println(a.getAuthority());
             if (a.getAuthority().equals("ROLE_SUPERUSUARIO") || a.getAuthority().equals("ROLE_DIRECTORGENERAL")) {
                 rol = "content/dashboard/dashboard";
             }
@@ -683,12 +677,12 @@ public class InterfaceController {
 
         model.addAttribute("userId", appUser.getUserId());
         model.addAttribute("userName", appUser.getUserName());
-        System.out.println(appUser.getUserName());
+        //System.out.println(appUser.getUserName());
         //model.addAttribute("password", appUser.getPassword());
         model.addAttribute("nombreUsuario", appUser.getNombreUsuario());
         model.addAttribute("apellidoUsuario", appUser.getApellidoUsuario());
         model.addAttribute("nacimiento", appUser.getNacimiento());
-        System.out.println(appUser.getNacimiento());
+        //System.out.println(appUser.getNacimiento());
         model.addAttribute("puesto", appUser.getPuesto());
         List<AppRole> lista = appRoleService.findAll();
         model.addAttribute("roles", lista);

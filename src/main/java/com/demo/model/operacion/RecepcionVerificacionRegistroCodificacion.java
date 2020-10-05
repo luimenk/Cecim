@@ -2,6 +2,7 @@ package com.demo.model.operacion;
 
 import com.demo.model.Client;
 import com.demo.model.Method;
+import lombok.*;
 
 import javax.persistence.*;
 

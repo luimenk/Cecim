@@ -195,6 +195,12 @@ public class SolicitudServicioClienteController {
         return feim_soc_005_service.crearFormato(id);
     }
 
+    @RequestMapping(value = "/imprimirInforme/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir4(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FIR-ERAI-002");
+        System.out.println(LocalTime.now());
 
+        return solicitudServicioClienteService.crearFormato(id);
+    }
 
 }

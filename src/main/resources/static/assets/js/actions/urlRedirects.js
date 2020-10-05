@@ -161,3 +161,67 @@ function registerFRAPPG(e) {
 function listFRAPPG(e) {
     window.location = "/listFRAPPG";
 }
+
+function registerFRAAT(e) {
+    window.location = "/registerFRAAT";
+}
+
+function listFRAAT(e) {
+    window.location = "/listFRAAT";
+}
+
+function registerFRAIF(e) {
+    window.location = "/registerFRAIF";
+}
+
+function listFRAIF(e) {
+    window.location = "/listFRAIF";
+}
+
+function registerFRAPO(e) {
+    window.location = "/registerFRAPO";
+}
+
+function listFRAPO(e) {
+    window.location = "/listFRAPO";
+}
+
+function registerFRATGA(e) {
+    window.location = "/registerFRATGA";
+}
+
+function listFRATGA(e) {
+    window.location = "/listFRATGA";
+}
+
+function registerFRANCP(e) {
+    window.location = "/registerFRANCP";
+}
+
+function listFRANCP(e) {
+    window.location = "/listFRANCP";
+}
+
+function registerFRAEAT(e) {
+    window.location = "/registerFRAEAT";
+}
+
+function listFRAEAT(e) {
+    window.location = "/listFRAEAT";
+}
+
+function registerFRAEAUV(e) {
+    window.location = "/registerFRAEAUV";
+}
+
+function listFRAEAUV(e) {
+    window.location = "/listFRAEAUV";
+}
+
+function registerFRAEAXE(e) {
+    window.location = "/registerFRAEAXE";
+}
+
+function listFRAEAXE(e) {
+    window.location = "/listFRAEAXE";
+}

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Registro de análisis de envejecimiento acelerado térmico</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio de solicitud de servicio interno</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioSolicitudServicioInterno"
+                                                   id="folioSolicitudServicioInterno" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">ID Interno de muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="idInternoMuestra" id="idInternoMuestra" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha final de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaFinalAnalisis" id="fechaFinalAnalisis" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperatura" id="temperatura" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Humedad relativa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura de ensayo</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaEnsayo" id="temperaturaEnsayo"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Código del horno</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoHorno" id="codigoHorno"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-fill btn-success" onclick="valida()">Registrar
+                                    Datos
+                                </button>
+                            </div>
+                        </div>
+                        <!--<div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Resultados</h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Tiempo de exposición (h)</h5>
+                                    </div>
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th class="text-center">1</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te1" id="te1"
+                                                                           required="required"></td>
+                                            <th class="text-center">15</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te15" id="te15"
+                                                                           required="required"></td>
+                                            <th class="text-center">29</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te29" id="te29"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file1" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file15" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file29" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">2</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te2" id="te2"
+                                                                           required="required"></td>
+                                            <th class="text-center">16</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te16" id="te16"
+                                                                           required="required"></td>
+                                            <th class="text-center">30</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te30" id="te30"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file2" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file16" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file30" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">3</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te3" id="te3"
+                                                                           required="required"></td>
+                                            <th class="text-center">17</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te17" id="te17"
+                                                                           required="required"></td>
+                                            <th class="text-center">31</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te31" id="te31"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file3" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file17" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file31" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">4</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te4" id="te4"
+                                                                           required="required"></td>
+                                            <th class="text-center">18</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te18" id="te18"
+                                                                           required="required"></td>
+                                            <th class="text-center">32</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te32" id="te32"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file4" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file18" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file32" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">5</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te5" id="te5"
+                                                                           required="required"></td>
+                                            <th class="text-center">19</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te19" id="te19"
+                                                                           required="required"></td>
+                                            <th class="text-center">33</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te33" id="te33"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file5" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file19" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file33" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">6</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te6" id="te6"
+                                                                           required="required"></td>
+                                            <th class="text-center">20</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te20" id="te20"
+                                                                           required="required"></td>
+                                            <th class="text-center">34</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te34" id="te34"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file6" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file20" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file34" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">7</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te7" id="te7"
+                                                                           required="required"></td>
+                                            <th class="text-center">21</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te21" id="te21"
+                                                                           required="required"></td>
+                                            <th class="text-center">35</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te35" id="te35"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file7" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file21" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file35" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">8</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te8" id="te8"
+                                                                           required="required"></td>
+                                            <th class="text-center">22</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te22" id="te22"
+                                                                           required="required"></td>
+                                            <th class="text-center">36</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te36" id="te36"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file8" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file22" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file36" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">9</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te9" id="te9"
+                                                                           required="required"></td>
+                                            <th class="text-center">23</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te23" id="te23"
+                                                                           required="required"></td>
+                                            <th class="text-center">37</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te37" id="te37"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file9" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file23" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file37" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">10</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te10" id="te10"
+                                                                           required="required"></td>
+                                            <th class="text-center">24</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te24" id="te24"
+                                                                           required="required"></td>
+                                            <th class="text-center">38</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te38" id="te38"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file10" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file24" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file38" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">11</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te11" id="te11"
+                                                                           required="required"></td>
+                                            <th class="text-center">25</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te25" id="te25"
+                                                                           required="required"></td>
+                                            <th class="text-center">39</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te39" id="te39"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file11" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file25" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file39" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">12</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te12" id="te12"
+                                                                           required="required"></td>
+                                            <th class="text-center">26</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te26" id="te26"
+                                                                           required="required"></td>
+                                            <th class="text-center">40</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te40" id="te40"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file12" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file26" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file40" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">13</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te13" id="te13"
+                                                                           required="required"></td>
+                                            <th class="text-center">27</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te27" id="te27"
+                                                                           required="required"></td>
+                                            <th class="text-center">41</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te41" id="te41"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file13" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file27" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file41" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">14</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te14" id="te14"
+                                                                           required="required"></td>
+                                            <th class="text-center">28</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te28" id="te28"
+                                                                           required="required"></td>
+                                            <th class="text-center">42</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te42" id="te42"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file14" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file28" accept="image/*"
+                                                                           /></td>
+                                            <th class="text-center"></th>
+                                            <td class="text-center"><input type="file" id="file42" accept="image/*"
+                                                                           /></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th class="text-center">Tiempo total de exposición (h):</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="te1"
+                                                                           required="required"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>-->
+                        <!--                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Observaciones</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Observaciones</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="observaciones" id="observaciones" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Realizó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="realizo" id="realizo" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Supervisó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="supervisor" id="supervisor" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-fill btn-success" onclick="valida()">Registrar
+                                    Datos
+                                </button>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/metodoFRAEAT.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaInicioAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaFinalAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+</script>
+</html>
