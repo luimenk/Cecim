@@ -33,6 +33,10 @@ public class FRA_CST_001_Service {
         return fra_cst_001_repository.findByCurvaSelladoId(id);
     }
 
+    public FRA_CST_001 findByMuestra(Long id) {
+        return fra_cst_001_repository.findByMetodoMuestra_MetodoMuestraId(id);
+    }
+
     public void delete(Long id) {
         fra_cst_001_repository.deleteById(id);
     }

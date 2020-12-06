@@ -103,7 +103,7 @@
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="especifique" id="especifique" required="true" disabled>
+                                                   name="especifique" id="especifique" required="true" value="N/A" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -387,8 +387,10 @@
         document.getElementById("almacenamientoEspecial").value = $('input[name=radioNameEspecial]:checked', '#radioEspecial').val();
         if ($('input[name=radioNameEspecial]:checked', '#radioEspecial').val() === "Si"){
             document.getElementById("especifique").disabled = false;
+            document.getElementById("especifique").value = "";
         } else if ($('input[name=radioNameEspecial]:checked', '#radioEspecial').val() === "No"){
             document.getElementById("especifique").disabled = true;
+            document.getElementById("especifique").value = "N/A";
         }
     });
 

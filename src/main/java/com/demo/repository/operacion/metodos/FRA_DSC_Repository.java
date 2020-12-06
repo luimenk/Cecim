@@ -9,4 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface FRA_DSC_Repository extends JpaRepository<FRA_DSC, Long>{
     FRA_DSC findByIdFRADSC(Long id);
+    FRA_DSC findByMetodoMuestra_MetodoMuestraId(Long id);
 }

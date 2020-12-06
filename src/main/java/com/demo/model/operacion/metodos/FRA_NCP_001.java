@@ -1,5 +1,6 @@
 package com.demo.model.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -78,10 +79,14 @@ public class FRA_NCP_001 {
     //Path de Imagen
     private String pathImagen;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Metodo_Muestra_Id")
+    private MetodoMuestra metodoMuestra;
+
     public FRA_NCP_001() {
     }
 
-    public FRA_NCP_001(Long idFRANCP, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoMicroscopio, String cpc, String codigoMicrometro, String espesorTotalMuestra, String espesor1, String espesor2, String espesor3, String espesor4, String espesor5, String espesor6, String total, String observaciones, String realizo, String supervisor, String pathImagen) {
+    public FRA_NCP_001(Long idFRANCP, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoMicroscopio, String cpc, String codigoMicrometro, String espesorTotalMuestra, String espesor1, String espesor2, String espesor3, String espesor4, String espesor5, String espesor6, String total, String observaciones, String realizo, String supervisor, String pathImagen, MetodoMuestra metodoMuestra) {
         this.idFRANCP = idFRANCP;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
@@ -104,6 +109,7 @@ public class FRA_NCP_001 {
         this.realizo = realizo;
         this.supervisor = supervisor;
         this.pathImagen = pathImagen;
+        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getIdFRANCP() {
@@ -280,5 +286,13 @@ public class FRA_NCP_001 {
 
     public void setPathImagen(String pathImagen) {
         this.pathImagen = pathImagen;
+    }
+
+    public MetodoMuestra getMetodoMuestra() {
+        return metodoMuestra;
+    }
+
+    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
+        this.metodoMuestra = metodoMuestra;
     }
 }

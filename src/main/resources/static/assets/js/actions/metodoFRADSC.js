@@ -1,4 +1,6 @@
 function valida() {
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
     var obj = {};
     var clave;
     var valor;
@@ -9,6 +11,8 @@ function valida() {
         valor = document.getElementById(clave).value;
         obj[clave] = valor;
     }
+
+    obj["id"] = id;
 
     var myjson = JSON.stringify(obj);
     console.log(myjson);

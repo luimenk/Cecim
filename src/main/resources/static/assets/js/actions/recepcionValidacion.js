@@ -55,24 +55,23 @@ function tick() {
             outputData.innerText = code.data;
 
             swal({
-                title: "¿Confirmar prueba?",
-                text: "¿Deseas aceptar la prueba o rechazarla?",
+                title: "¿Confirmar codigo QR?",
+                text: "¿Deseas aceptar el código QR o rechazarlo?",
                 type: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Aceptar la muestra",
-                cancelButtonText: "Rechazar la muestra",
+                confirmButtonText: "Aceptar el código QR",
+                cancelButtonText: "Rechazar el código QR",
                 closeOnConfirm: false,
                 closeOnCancel: false
             }, function (isConfirm) {
                 if (isConfirm) {
-                    console.log("Aceptada. El código es: " + code.data);
                     cargarMedianteQR(code.data);
-                    swal("Aceptado!", "Tu muestra fue aceptada.", "success");
+                    swal("Aceptado!", "Tu código QR fue aceptado.", "success");
                     deteccion();
                 } else {
-                    console.log("Muestra rechazada.");
+                    console.log("Código QR rechazado.");
                     //cargarTabla();
-                    swal("Rechazada", "Tu muestra fue rechazada", "error");
+                    swal("Rechazado", "Tu Código QR fue rechazado", "error");
                     deteccion();
                 }
             });
@@ -132,10 +131,15 @@ if (isConfirm){
         swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
     }
 });*/
-//});
 
 function validaImprimirRecepcion(valor){
     window.location = "/recepcionVerificacion/imprimirRecepcion/" + valor;
+}
+
+function validaImprimirRecepcion2(valor){
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    window.location = "/recepcionVerificacion/imprimirRecepcion/" + id;
 }
 
 function validaImprimirLab(valor){
@@ -171,7 +175,7 @@ function cargarTabla() {
         $.each(result, function (i, field) {
             tbl +=
                 '<tr>' +
-                '<td class="text-center">' + field.folioRecepcionVerificacion + '</td>' +
+                '<td class="text-center">' + field.solicitudServicioClienteMuestras.solicitudServicioCliente.folioSolitudServicioCliente + '</td>' +
                 '<td class="text-center">' + field.fechaRecepcion + '</td>' +
                 '<td class="text-center">' + field.nombrePersonaRecibe + '</td>' +
                 '<td class="text-center">' + field.nombrePersonaEntrega + '</td>' +
@@ -262,7 +266,7 @@ function cargarMedianteQR(valor){
         '                                            <div class="form-group">' +
         '                                                <input type="text" class="form-control"' +
         '                                                       name="cantidadMuestraEntregada" id="cantidadMuestraEntregada" required>' +
-        '                                                <input type="text" class="form-control"' +
+        '                                                <input type="hidden" class="form-control"' +
         '                                                       name="idMuestra" id="idMuestra" value="' + valor + '">' +
         '                                            </div>' +
         '                                        </div>' +
@@ -361,7 +365,7 @@ function cargarMedianteQR(valor){
         '                                        <div class="col-sm-4 col-sm-offset-1">' +
         '                                            <div class="form-group">' +
         '                                                <input type="text" class="form-control"' +
-        '                                                       name="sinoEspecifiqueCantidad" id="sinoEspecifiqueCantidad" disabled>' +
+        '                                                       name="sinoEspecifiqueCantidad" id="sinoEspecifiqueCantidad" value="N/A" disabled>' +
         '                                            </div>' +
         '                                        </div>' +
         '                                    </div>' +
@@ -454,25 +458,79 @@ function valida(){
     var valor;
     var test = document.getElementsByTagName("input");
     var test2 = document.getElementsByTagName("select");
+    var contador = 0;
 
     for (var i=0; i < test.length; i++){
         clave=test[i].getAttribute("id");
         valor=document.getElementById(clave).value;
-        obj[clave]=valor;
+        if (valor === ""){
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
     }
+
+    console.log(obj["idMuestra"]);
+
+    //idMuestra
 
     for (var i=0; i < test2.length; i++){
         clave=test2[i].getAttribute("id");
         valor=document.getElementById(clave).value;
-        obj[clave]=valor;
+        if (valor === ""){
+            console.log("Esto está mal");
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
     }
 
-    var myjson = JSON.stringify(obj);
-    console.log(myjson);
-    save(myjson);
+    // $.getJSON("/recepcionVerificacion/muestra/" + obj["idMuestra"], function (result) {
+    //     var idRecepcion = result.recepcionVerificacionRegistroCodificacionId;
+    //
+    //     console.log(idRecepcion);
+    // });
+
+    // $.getJSON("/solicitudServicioClienteMuestras/uno/" + obj["idMuestra"], function (result) {
+    //     var idSolicitudServicioCliente = result.solicitudServicioCliente.solicitudServicioClienteId;
+    //
+    //     var myjson = JSON.stringify(obj);
+    //
+    //     save(myjson, idSolicitudServicioCliente);
+    // });
+
+
+    $.getJSON("/recepcionVerificacion/muestra/" + obj["idMuestra"], function (result) {
+        swal({
+            title: "Error!",
+            text: "Esta muestra ya fue acondicionada.",
+            type: "error",
+            showCancelButton: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            confirmButtonText: "Ok",
+            closeOnConfirm: false,
+        }, function () {
+            $.getJSON("/solicitudServicioClienteMuestras/uno/" + obj["idMuestra"], function (result) {
+                var idSolicitudServicioCliente = result.solicitudServicioCliente.solicitudServicioClienteId;
+                window.location = "/detalleSolicitudServicio/" + idSolicitudServicioCliente;
+            });
+        });
+    }).fail(function(){
+        $.getJSON("/solicitudServicioClienteMuestras/uno/" + obj["idMuestra"], function (result) {
+            var idSolicitudServicioCliente = result.solicitudServicioCliente.solicitudServicioClienteId;
+
+            var myjson = JSON.stringify(obj);
+
+            save(myjson, idSolicitudServicioCliente);
+        });
+    });
+
+
 }
 
-function save(myjson){
+function save(myjson, idSolicitud){
     $.ajax({
         type:'POST',
         url:'/recepcionVerificacion',
@@ -492,7 +550,7 @@ function save(myjson){
                 confirmButtonText: "Ok",
                 closeOnConfirm: false,
             }, function () {
-                window.location = "/listSolicitudServicio";
+                window.location = "/detalleSolicitudServicio/" + idSolicitud;
             });
         },
         error: function(data){

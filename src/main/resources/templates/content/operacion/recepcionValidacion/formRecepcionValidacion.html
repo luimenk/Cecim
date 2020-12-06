@@ -73,31 +73,31 @@
 
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card ">
-                            <div class="card-header ">
-                                <h4 class="card-title">Recepción, verificación, registro y codificacion de la
-                                    muestra</h4>
-                            </div>
-                            <div class="card-body ">
-                                <div class="form-group">
-                                    <label>Favor de escribir el folio de la "solicitud del servicio del
-                                        cliente."</label>
-                                    <input type="text" class="form-control"
-                                           name="folioSolicitudServicioCliente" id="folioSolicitudServicioCliente"
-                                           required>
-                                </div>
+<!--                    <div class="col-md-6">-->
+<!--                        <div class="card ">-->
+<!--                            <div class="card-header ">-->
+<!--                                <h4 class="card-title">Recepción, verificación, registro y codificacion de la-->
+<!--                                    muestra</h4>-->
+<!--                            </div>-->
+<!--                            <div class="card-body ">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label>Favor de escribir el folio de la "solicitud del servicio del-->
+<!--                                        cliente."</label>-->
+<!--                                    <input type="text" class="form-control"-->
+<!--                                           name="folioSolicitudServicioCliente" id="folioSolicitudServicioCliente"-->
+<!--                                           required>-->
+<!--                                </div>-->
 
-                            </div>
+<!--                            </div>-->
 
-                            <div class="card-footer ">
-                                <button type="submit" class="btn btn-fill btn-primary" onclick="cargarTabla()">Iniciar
-                                    cámara
-                                </button>
-                            </div>
+<!--                            <div class="card-footer ">-->
+<!--                                <button type="submit" class="btn btn-fill btn-primary" onclick="cargarTabla()">Iniciar-->
+<!--                                    cámara-->
+<!--                                </button>-->
+<!--                            </div>-->
 
-                        </div>
-                    </div>
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
                 <div id="medianteQR">
                 </div>
@@ -120,8 +120,10 @@
         document.getElementById("cumpleCantidad").value = $('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val();
         if ($('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val() === "No"){
             document.getElementById("sinoEspecifiqueCantidad").disabled = false;
+            document.getElementById("sinoEspecifiqueCantidad").value = "";
         } else if ($('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val() === "Si"){
             document.getElementById("sinoEspecifiqueCantidad").disabled = true;
+            document.getElementById("sinoEspecifiqueCantidad").value = "No Aplica";
         }
     });
     $('#radioEtiqueta input').on('change', function() {

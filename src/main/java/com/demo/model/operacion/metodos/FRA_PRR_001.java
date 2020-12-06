@@ -1,5 +1,7 @@
 package com.demo.model.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+
 import javax.persistence.*;
 
 @Entity
@@ -351,20 +353,42 @@ public class FRA_PRR_001 {
     @Column(length = 15, nullable = false)
     private String TDPromedio;
 
+    @Column(length = 30, nullable = false)
+    private String desvEstandarMD;
+
+    @Column(length = 30, nullable = false)
+    private String desvEstandarTD;
+
+    @Column(length = 30, nullable = false)
+    private String minMD;
+
+    @Column(length = 30, nullable = false)
+    private String maxMD;
+
+    @Column(length = 30, nullable = false)
+    private String minTD;
+
+    @Column(length = 30, nullable = false)
+    private String maxTD;
+
     /** Generales **/
     @Column(length = 250, nullable = false)
     private String observaciones;
 
-    @Column(length = 250, nullable = false)
+    @Column(length = 100, nullable = false)
     private String realizo;
 
-    @Column(length = 250, nullable = false)
+    @Column(length = 100, nullable = false)
     private String supervisor;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Metodo_Muestra_Id")
+    private MetodoMuestra metodoMuestra;
 
     public FRA_PRR_001() {
     }
 
-    public FRA_PRR_001(Long idFRAPRR, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoPendulo, String codigoManometro, String prensaEnsayo, String MDespesor11, String MDespesor12, String MDespesor13, String MDEspesorPromedio1, String MDResistenciaRasgado1, String MDespesor21, String MDespesor22, String MDespesor23, String MDEspesorPromedio2, String MDResistenciaRasgado2, String MDespesor31, String MDespesor32, String MDespesor33, String MDEspesorPromedio3, String MDResistenciaRasgado3, String MDespesor41, String MDespesor42, String MDespesor43, String MDEspesorPromedio4, String MDResistenciaRasgado4, String MDespesor51, String MDespesor52, String MDespesor53, String MDEspesorPromedio5, String MDResistenciaRasgado5, String MDespesor61, String MDespesor62, String MDespesor63, String MDEspesorPromedio6, String MDResistenciaRasgado6, String MDespesor71, String MDespesor72, String MDespesor73, String MDEspesorPromedio7, String MDResistenciaRasgado7, String MDespesor81, String MDespesor82, String MDespesor83, String MDEspesorPromedio8, String MDResistenciaRasgado8, String MDespesor91, String MDespesor92, String MDespesor93, String MDEspesorPromedio9, String MDResistenciaRasgado9, String MDespesor101, String MDespesor102, String MDespesor103, String MDEspesorPromedio10, String MDResistenciaRasgado10, String MDPromedio, String TDespesor11, String TDespesor12, String TDespesor13, String TDEspesorPromedio1, String TDResistenciaRasgado1, String TDespesor21, String TDespesor22, String TDespesor23, String TDEspesorPromedio2, String TDResistenciaRasgado2, String TDespesor31, String TDespesor32, String TDespesor33, String TDEspesorPromedio3, String TDResistenciaRasgado3, String TDespesor41, String TDespesor42, String TDespesor43, String TDEspesorPromedio4, String TDResistenciaRasgado4, String TDespesor51, String TDespesor52, String TDespesor53, String TDEspesorPromedio5, String TDResistenciaRasgado5, String TDespesor61, String TDespesor62, String TDespesor63, String TDEspesorPromedio6, String TDResistenciaRasgado6, String TDespesor71, String TDespesor72, String TDespesor73, String TDEspesorPromedio7, String TDResistenciaRasgado7, String TDespesor81, String TDespesor82, String TDespesor83, String TDEspesorPromedio8, String TDResistenciaRasgado8, String TDespesor91, String TDespesor92, String TDespesor93, String TDEspesorPromedio9, String TDResistenciaRasgado9, String TDespesor101, String TDespesor102, String TDespesor103, String TDEspesorPromedio10, String TDResistenciaRasgado10, String TDPromedio, String observaciones, String realizo, String supervisor) {
+    public FRA_PRR_001(Long idFRAPRR, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoPendulo, String codigoManometro, String prensaEnsayo, String MDespesor11, String MDespesor12, String MDespesor13, String MDEspesorPromedio1, String MDResistenciaRasgado1, String MDespesor21, String MDespesor22, String MDespesor23, String MDEspesorPromedio2, String MDResistenciaRasgado2, String MDespesor31, String MDespesor32, String MDespesor33, String MDEspesorPromedio3, String MDResistenciaRasgado3, String MDespesor41, String MDespesor42, String MDespesor43, String MDEspesorPromedio4, String MDResistenciaRasgado4, String MDespesor51, String MDespesor52, String MDespesor53, String MDEspesorPromedio5, String MDResistenciaRasgado5, String MDespesor61, String MDespesor62, String MDespesor63, String MDEspesorPromedio6, String MDResistenciaRasgado6, String MDespesor71, String MDespesor72, String MDespesor73, String MDEspesorPromedio7, String MDResistenciaRasgado7, String MDespesor81, String MDespesor82, String MDespesor83, String MDEspesorPromedio8, String MDResistenciaRasgado8, String MDespesor91, String MDespesor92, String MDespesor93, String MDEspesorPromedio9, String MDResistenciaRasgado9, String MDespesor101, String MDespesor102, String MDespesor103, String MDEspesorPromedio10, String MDResistenciaRasgado10, String MDPromedio, String TDespesor11, String TDespesor12, String TDespesor13, String TDEspesorPromedio1, String TDResistenciaRasgado1, String TDespesor21, String TDespesor22, String TDespesor23, String TDEspesorPromedio2, String TDResistenciaRasgado2, String TDespesor31, String TDespesor32, String TDespesor33, String TDEspesorPromedio3, String TDResistenciaRasgado3, String TDespesor41, String TDespesor42, String TDespesor43, String TDEspesorPromedio4, String TDResistenciaRasgado4, String TDespesor51, String TDespesor52, String TDespesor53, String TDEspesorPromedio5, String TDResistenciaRasgado5, String TDespesor61, String TDespesor62, String TDespesor63, String TDEspesorPromedio6, String TDResistenciaRasgado6, String TDespesor71, String TDespesor72, String TDespesor73, String TDEspesorPromedio7, String TDResistenciaRasgado7, String TDespesor81, String TDespesor82, String TDespesor83, String TDEspesorPromedio8, String TDResistenciaRasgado8, String TDespesor91, String TDespesor92, String TDespesor93, String TDEspesorPromedio9, String TDResistenciaRasgado9, String TDespesor101, String TDespesor102, String TDespesor103, String TDEspesorPromedio10, String TDResistenciaRasgado10, String TDPromedio, String desvEstandarMD, String desvEstandarTD, String minMD, String maxMD, String minTD, String maxTD, String observaciones, String realizo, String supervisor, MetodoMuestra metodoMuestra) {
         this.idFRAPRR = idFRAPRR;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
@@ -477,9 +501,16 @@ public class FRA_PRR_001 {
         this.TDEspesorPromedio10 = TDEspesorPromedio10;
         this.TDResistenciaRasgado10 = TDResistenciaRasgado10;
         this.TDPromedio = TDPromedio;
+        this.desvEstandarMD = desvEstandarMD;
+        this.desvEstandarTD = desvEstandarTD;
+        this.minMD = minMD;
+        this.maxMD = maxMD;
+        this.minTD = minTD;
+        this.maxTD = maxTD;
         this.observaciones = observaciones;
         this.realizo = realizo;
         this.supervisor = supervisor;
+        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getIdFRAPRR() {
@@ -1400,5 +1431,61 @@ public class FRA_PRR_001 {
 
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public MetodoMuestra getMetodoMuestra() {
+        return metodoMuestra;
+    }
+
+    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
+        this.metodoMuestra = metodoMuestra;
+    }
+
+    public String getDesvEstandarMD() {
+        return desvEstandarMD;
+    }
+
+    public void setDesvEstandarMD(String desvEstandarMD) {
+        this.desvEstandarMD = desvEstandarMD;
+    }
+
+    public String getDesvEstandarTD() {
+        return desvEstandarTD;
+    }
+
+    public void setDesvEstandarTD(String desvEstandarTD) {
+        this.desvEstandarTD = desvEstandarTD;
+    }
+
+    public String getMinMD() {
+        return minMD;
+    }
+
+    public void setMinMD(String minMD) {
+        this.minMD = minMD;
+    }
+
+    public String getMaxMD() {
+        return maxMD;
+    }
+
+    public void setMaxMD(String maxMD) {
+        this.maxMD = maxMD;
+    }
+
+    public String getMinTD() {
+        return minTD;
+    }
+
+    public void setMinTD(String minTD) {
+        this.minTD = minTD;
+    }
+
+    public String getMaxTD() {
+        return maxTD;
+    }
+
+    public void setMaxTD(String maxTD) {
+        this.maxTD = maxTD;
     }
 }

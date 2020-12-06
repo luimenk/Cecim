@@ -1,6 +1,8 @@
 package com.demo.controller.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.metodos.*;
+import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.*;
 import com.demo.utils.SaveInServer;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,6 +33,9 @@ public class FRA_NCP_001_Controller {
     @Autowired
     private FRA_NCP_001_Service fra_ncp_001_service;
 
+    @Autowired
+    private MetodoMuestraService metodoMuestraService;
+
     //ListarTodo
     @RequestMapping(method = RequestMethod.GET)
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
@@ -55,11 +60,13 @@ public class FRA_NCP_001_Controller {
     @RequestMapping(method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> create(@RequestPart("francp") FRA_NCP_001 fra_ncp_001,
+    public ResponseEntity<?> create(@RequestPart("francp") Map<String, String> request,
                                     @RequestPart("imagen") MultipartFile file,
                                     Principal principal) {
         APP.debug("Registro FRA_NCP a las: " + calendario.getTime());
         String filePath = "";
+        FRA_NCP_001 fra_ncp_001 = new FRA_NCP_001();
+        MetodoMuestra metodoMuestra = metodoMuestraService.findById(Long.parseLong(request.get("id")));
 
         if ("Linux".equals(System.getProperty("os.name"))){
             filePath = "/home/adpmx/java/laboratorio.cecim.com.mx/QR/";
@@ -69,8 +76,34 @@ public class FRA_NCP_001_Controller {
 
         SaveInServer saveInServer = new SaveInServer();
         try {
+            fra_ncp_001.setFolioSolicitudServicioInterno(request.get("folioSolicitudServicioInterno"));
+            fra_ncp_001.setIdInternoMuestra(request.get("idInternoMuestra"));
+            fra_ncp_001.setFechaInicioAnalisis(request.get("fechaInicioAnalisis"));
+            fra_ncp_001.setFechaFinalAnalisis(request.get("fechaFinalAnalisis"));
+            fra_ncp_001.setTemperatura(request.get("temperatura"));
+            fra_ncp_001.setHumedadRelativa(request.get("humedadRelativa"));
+            fra_ncp_001.setCodigoMicroscopio(request.get("codigoMicroscopio"));
+            fra_ncp_001.setCpc(request.get("cpc"));
+            fra_ncp_001.setCodigoMicrometro(request.get("codigoMicrometro"));
+            fra_ncp_001.setEspesorTotalMuestra(request.get("espesorTotalMuestra"));
+            fra_ncp_001.setEspesor1(request.get("espesor1"));
+            fra_ncp_001.setEspesor2(request.get("espesor2"));
+            fra_ncp_001.setEspesor3(request.get("espesor3"));
+            fra_ncp_001.setEspesor4(request.get("espesor4"));
+            fra_ncp_001.setEspesor5(request.get("espesor5"));
+            fra_ncp_001.setEspesor6(request.get("espesor6"));
+            fra_ncp_001.setTotal(request.get("total"));
+            fra_ncp_001.setObservaciones(request.get("observaciones"));
+            fra_ncp_001.setRealizo(request.get("realizo"));
+            fra_ncp_001.setSupervisor(request.get("supervisor"));
             fra_ncp_001.setPathImagen(filePath+saveInServer.SaveInServer(file, filePath));
+            fra_ncp_001.setMetodoMuestra(metodoMuestra);
+
             fra_ncp_001_service.save(fra_ncp_001);
+
+            metodoMuestra.setEstatus("OK");
+            metodoMuestraService.save(metodoMuestra);
+
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -82,6 +115,13 @@ public class FRA_NCP_001_Controller {
     public ResponseEntity<InputStreamResource> imprimir1(@PathVariable("id") Long id) throws Exception {
         APP.debug("Impresion de FRA_NCP a las: " + calendario.getTime() + calendario.getTimeZone());
 
-        return fra_ncp_001_service.crearFormato(id);
+        return fra_ncp_001_service.crearFormato(id,1);
+    }
+
+    @RequestMapping(value = "/imprimir2/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir2(@PathVariable("id") Long id) throws Exception {
+        APP.debug("Impresion de FRA_NCP a las: " + calendario.getTime() + calendario.getTimeZone());
+
+        return fra_ncp_001_service.crearFormato(id,2);
     }
 }

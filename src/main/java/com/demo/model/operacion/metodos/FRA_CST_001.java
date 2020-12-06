@@ -1,5 +1,7 @@
 package com.demo.model.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+
 import javax.persistence.*;
 
 @Entity
@@ -82,10 +84,14 @@ public class FRA_CST_001 {
     @Column(length = 250, nullable = false)
     private String supervisor;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Metodo_Muestra_Id")
+    private MetodoMuestra metodoMuestra;
+
     public FRA_CST_001() {
     }
 
-    public FRA_CST_001(Long curvaSelladoId, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String codigoMicrometro, String humedadRelativa, String codigoLaboratorioSello, String largoMuestra, String anchoMuestra, String numeroRepeticionesMuestra, String rangoTemperatura, String tasaCalentamiento, String tempoSellado, String tiempoRetraso, String presion, String tipoMordazas, String velocidadEnsayo, String temperaturaOptima1, String fuerzaSello, String desviacionEstandar, String observaciones, String realizo, String supervisor) {
+    public FRA_CST_001(Long curvaSelladoId, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String codigoMicrometro, String humedadRelativa, String codigoLaboratorioSello, String largoMuestra, String anchoMuestra, String numeroRepeticionesMuestra, String rangoTemperatura, String tasaCalentamiento, String tempoSellado, String tiempoRetraso, String presion, String tipoMordazas, String velocidadEnsayo, String temperaturaOptima1, String fuerzaSello, String desviacionEstandar, String observaciones, String realizo, String supervisor, MetodoMuestra metodoMuestra) {
         this.curvaSelladoId = curvaSelladoId;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
@@ -111,6 +117,7 @@ public class FRA_CST_001 {
         this.observaciones = observaciones;
         this.realizo = realizo;
         this.supervisor = supervisor;
+        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getCurvaSelladoId() {
@@ -311,5 +318,13 @@ public class FRA_CST_001 {
 
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public MetodoMuestra getMetodoMuestra() {
+        return metodoMuestra;
+    }
+
+    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
+        this.metodoMuestra = metodoMuestra;
     }
 }

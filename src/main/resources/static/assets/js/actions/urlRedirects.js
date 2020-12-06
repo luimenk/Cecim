@@ -1,3 +1,7 @@
+function dashboard(e){
+    window.location = "/dashboard";
+}
+
 function registerMachineDirect(e) {
     window.location = "/registroMaquina";
 }
@@ -224,4 +228,20 @@ function registerFRAEAXE(e) {
 
 function listFRAEAXE(e) {
     window.location = "/listFRAEAXE";
+}
+
+function registerFRAICO(e) {
+    window.location = "/registerFRAICO";
+}
+
+function listFRAICO(e) {
+    window.location = "/listFRAICO";
+}
+
+function registerFRAOIT(e) {
+    window.location = "/registerFRAOIT";
+}
+
+function listFRAOIT(e) {
+    window.location = "/listFRAOIT";
 }

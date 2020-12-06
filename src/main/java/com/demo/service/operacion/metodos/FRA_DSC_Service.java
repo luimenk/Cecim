@@ -1,5 +1,6 @@
 package com.demo.service.operacion.metodos;
 
+import com.demo.model.operacion.metodos.FRA_CST_001;
 import com.demo.utils.EstructuraNombres;
 import com.demo.model.operacion.metodos.FRA_DSC;
 import com.demo.repository.operacion.metodos.FRA_DSC_Repository;
@@ -56,11 +57,16 @@ public class FRA_DSC_Service {
         return fra_dsc_repository.count();
     }
 
-    public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException{
+    public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException{
         ClassPathResource resource = new ClassPathResource("/documentos/METODOS/FRA-DSC-001.docx");
         XWPFDocument doc = new XWPFDocument(resource.getInputStream());
+        FRA_DSC fra_dsc;
 
-        FRA_DSC fra_dsc = fra_dsc_repository.findByIdFRADSC(id);
+        if (band == 1){
+            fra_dsc = fra_dsc_repository.findByIdFRADSC(id);
+        }else {
+            fra_dsc = fra_dsc_repository.findByMetodoMuestra_MetodoMuestraId(id);
+        }
 
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(fra_dsc.getFolioSolicitudServicioInterno());

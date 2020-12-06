@@ -45,10 +45,18 @@ public class FEIL_MIE_007_Service {
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
 
-    public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException {
-        RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findById(id);
-        List <MetodoMuestra> lista = metodoMuestraService.findAllByMuestra(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
-        //SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(id);
+    public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException {
+        List<MetodoMuestra> lista;
+        RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion;
+        if (band == 1){
+            recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findById(id);
+            lista = metodoMuestraService.findAllByMuestra(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
+            //SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(id);
+        } else {
+            lista = metodoMuestraService.findAllById(id);
+            recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findBySolicitudServicioClienteMuestrasId(lista.get(0).getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
+        }
+
 
         String pathLista = "/documentos/FEIL_MIE_007/FEIL-MIE-007-" + lista.size() + ".docx";
         ClassPathResource resource = new ClassPathResource(pathLista);

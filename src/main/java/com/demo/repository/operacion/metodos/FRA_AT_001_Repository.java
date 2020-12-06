@@ -9,4 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface FRA_AT_001_Repository extends JpaRepository<FRA_AT_001, Long>{
     FRA_AT_001 findByIdFRAAT(Long id);
+    FRA_AT_001 findByMetodoMuestra_MetodoMuestraId(Long id);
 }

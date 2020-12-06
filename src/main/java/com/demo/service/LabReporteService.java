@@ -41,7 +41,7 @@ public class LabReporteService {
 
         List<String>contactosAux;
 
-        XWPFTable table = doc.getTables().get(2);
+        XWPFTable table = doc.getTables().get(0);
         for (int i = 0; i<lista.size(); i++) {
             XWPFTableRow tableRow = table.createRow();
             tableRow.getCell(0).setText(lista.get(i).getFolioCliente());
@@ -80,11 +80,8 @@ public class LabReporteService {
     }
 
     public ResponseEntity<InputStreamResource> createDocFCC_SOC(Long clientId) throws InvalidFormatException, IOException{
-        //XWPFDocument doc = new XWPFDocument(new FileInputStream("/home/luimenk/IdeaProjects/Cecim/src/main/resources/documentos/FCC-SOC-002.docx"));
-        //File file = ResourceUtils.getFile("classpath:documentos/FCC-SOC-002.docx");
-        //XWPFDocument doc = new XWPFDocument(OPCPackage.open(file));
-
         ClassPathResource resource = new ClassPathResource("/documentos/FCC-SOC-002.docx");
+        //XWPFDocument doc = new XWPFDocument(new FileInputStream("C:/xampp/htdocs/resources/FCC-SOC-002.docx"));
         XWPFDocument doc = new XWPFDocument(resource.getInputStream());
 
         List<Client> lista = clientService.findAll();
@@ -92,7 +89,7 @@ public class LabReporteService {
 
         List<String>contactosAux;
 
-        XWPFTable table3 = doc.getTables().get(3);
+        XWPFTable table3 = doc.getTables().get(1);
         table3.getRow(0).getCell(1).setText(client.getNombreRazonSocial());
         table3.getRow(1).getCell(1).setText(client.getNombreComunEmpresa());
         String direccion =  client.getCalle() + " " +
@@ -108,7 +105,7 @@ public class LabReporteService {
 
         int bandera = 0;
 
-        XWPFTable table4 = doc.getTables().get(4);
+        XWPFTable table4 = doc.getTables().get(2);
         try {
             JSONArray jsonArray = new JSONArray(client.getContactosDatos());
             table4.getRow(0).getCell(1).setText(getAttributeContacto(bandera, jsonArray,"nombrePersonaContacto"));
@@ -122,7 +119,7 @@ public class LabReporteService {
 
         bandera++;
 
-        XWPFTable table5 = doc.getTables().get(5);
+        XWPFTable table5 = doc.getTables().get(3);
         try {
             JSONArray jsonArray = new JSONArray(client.getContactosDatos());
             table5.getRow(0).getCell(1).setText(getAttributeContacto(bandera, jsonArray,"nombrePersonaContacto"));

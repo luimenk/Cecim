@@ -33,6 +33,10 @@ public class FRA_FTIR_001_Service {
         return fra_ftir_001_repository.findByCompuestosEspectrometriaInfrarrojaId(id);
     }
 
+    public FRA_FTIR_001 findByMuestra(Long id) {
+        return fra_ftir_001_repository.findByMetodoMuestra_MetodoMuestraId(id);
+    }
+
     public void delete(Long id) {
         fra_ftir_001_repository.deleteById(id);
     }

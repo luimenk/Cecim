@@ -12,6 +12,7 @@ import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.utils.EstructuraNombres;
+import com.demo.utils.FormatoFechas;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.*;
@@ -40,6 +41,7 @@ public class FSS_SOC_001_Service {
     private MetodoMuestraService metodoMuestraService;
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
+    FormatoFechas formatoFechas = new FormatoFechas();
 
     public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException{
         ClassPathResource resource = new ClassPathResource("/documentos/FSS-SOC-001.docx");
@@ -51,8 +53,8 @@ public class FSS_SOC_001_Service {
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
         XWPFTable table1 = doc.getTables().get(1);
-        table1.getRow(0).getCell(1).setText(solicitudServicioCliente.getFechaEnvioMuestras());
-        table1.getRow(0).getCell(3).setText(solicitudServicioCliente.getFechaPago());
+        table1.getRow(0).getCell(1).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaEnvioMuestras()));
+        table1.getRow(0).getCell(3).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaPago()));
         table1.getRow(2).getCell(0).setText(solicitudServicioCliente.getNombreFirmaEmisor());
         table1.getRow(2).getCell(1).setText(solicitudServicioCliente.getAlmacenamientoEspecial());
         table1.getRow(3).getCell(1).setText("Especifique: "+ solicitudServicioCliente.getEspecifique());
@@ -76,8 +78,8 @@ public class FSS_SOC_001_Service {
             System.out.println("e: " + e);
         }
         XWPFTable table3 = doc.getTables().get(3);
-        table3.getRow(0).getCell(1).setText(solicitudServicioCliente.getFechaRecepcionMuestras());
-        table3.getRow(0).getCell(3).setText(solicitudServicioCliente.getFechaCompromisoEntrega());
+        table3.getRow(0).getCell(1).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaRecepcionMuestras()));
+        table3.getRow(0).getCell(3).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaCompromisoEntrega()));
         table3.getRow(2).getCell(0).setText(solicitudServicioCliente.getNombreFirmaReceptor());
         table3.getRow(2).getCell(1).setText(solicitudServicioCliente.getNombreFirmaCalidad());
 
@@ -117,7 +119,7 @@ public class FSS_SOC_001_Service {
         table6.getRow(1).getCell(1).setText(solicitudServicioCliente.getDevolucionMuestras());
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename="+solicitudServicioCliente.getFolioSolitudServicioCliente()+".docx");
+        headers.add("Content-Disposition", "inline; filename=FSS_"+solicitudServicioCliente.getFolioSolitudServicioCliente()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();

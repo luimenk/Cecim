@@ -1,5 +1,7 @@
 package com.demo.model.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+
 import javax.persistence.*;
 
 @Entity
@@ -115,10 +117,14 @@ public class FRA_DI_001 {
     @Column(length = 250, nullable = false)
     private String supervisor;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Metodo_Muestra_Id")
+    private MetodoMuestra metodoMuestra;
+
     public FRA_DI_001() {
     }
 
-    public FRA_DI_001(Long determinacionDimensionesId, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoRegla, String largo1, String ancho1, String fuelle11, String fuelle21, String largo2, String ancho2, String fuelle12, String fuelle22, String largo3, String ancho3, String fuelle13, String fuelle23, String largo4, String ancho4, String fuelle14, String fuelle24, String largo5, String ancho5, String fuelle15, String fuelle25, String promedioLargo, String promedioAncho, String promedioFuelle1, String promedioFuelle2, String sumatoriaFuellePromedio, String observaciones, String realizo, String supervisor) {
+    public FRA_DI_001(Long determinacionDimensionesId, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoRegla, String largo1, String ancho1, String fuelle11, String fuelle21, String largo2, String ancho2, String fuelle12, String fuelle22, String largo3, String ancho3, String fuelle13, String fuelle23, String largo4, String ancho4, String fuelle14, String fuelle24, String largo5, String ancho5, String fuelle15, String fuelle25, String promedioLargo, String promedioAncho, String promedioFuelle1, String promedioFuelle2, String sumatoriaFuellePromedio, String observaciones, String realizo, String supervisor, MetodoMuestra metodoMuestra) {
         this.determinacionDimensionesId = determinacionDimensionesId;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
@@ -155,6 +161,7 @@ public class FRA_DI_001 {
         this.observaciones = observaciones;
         this.realizo = realizo;
         this.supervisor = supervisor;
+        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getDeterminacionDimensionesId() {
@@ -443,5 +450,13 @@ public class FRA_DI_001 {
 
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public MetodoMuestra getMetodoMuestra() {
+        return metodoMuestra;
+    }
+
+    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
+        this.metodoMuestra = metodoMuestra;
     }
 }

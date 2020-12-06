@@ -10,6 +10,7 @@ import com.demo.service.FoliosService;
 import com.demo.service.MethodService;
 import com.demo.service.QR.QRService;
 import com.demo.service.formatos.FEIM_SOC_005_Service;
+import com.demo.service.formatos.FERI_MIE_002_Service;
 import com.demo.service.formatos.FRM_SOC_005_Service;
 import com.demo.service.formatos.FSS_SOC_001_Service;
 import com.demo.service.operacion.MetodoMuestraService;
@@ -60,6 +61,9 @@ public class SolicitudServicioClienteController {
 
     @Autowired
     private FEIM_SOC_005_Service feim_soc_005_service;
+
+    @Autowired
+    private FERI_MIE_002_Service feri_mie_002_service;
 
     @Autowired
     private QRService qrService;
@@ -151,7 +155,7 @@ public class SolicitudServicioClienteController {
             //solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("metodo"+i).toString())));
             solicitudServicioClienteMuestras.setSolicitudServicioCliente(solicitudServicioCliente);
             solicitudServicioClienteMuestras.setPathQRIdentificacion("");
-            //solicitudServicioClienteMuestras.setEstatus("PENDIENTE");
+            solicitudServicioClienteMuestras.setEstatus("NO");
             solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
             System.out.println(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId());
             solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId()));
@@ -164,6 +168,7 @@ public class SolicitudServicioClienteController {
                 metodoMuestra.setPathQRLab("");
                 metodoMuestra.setSolicitudServicioClienteMuestras(solicitudServicioClienteMuestras);
                 metodoMuestra.setMethod(methodService.findById(Long.parseLong(lista.get(j).toString())));
+                metodoMuestra.setEstatus("RECEPCION");
                 metodoMuestraService.save(metodoMuestra);
             }
         }
@@ -179,12 +184,28 @@ public class SolicitudServicioClienteController {
         return fss_soc_001_service.crearFormato(id);
     }
 
+    @RequestMapping(value = "/imprimirCotizacionContrato/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimirCotizacion(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FCO-SOC-003");
+        System.out.println(LocalTime.now());
+
+        return solicitudServicioClienteService.crearCotizacion(id);
+    }
+
     @RequestMapping(value = "/imprimirEtiquetasIdentificacion/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> imprimir2(@PathVariable("id") Long id) throws Exception {
         System.out.println("Se generó FEIM-SOC-005");
         System.out.println(LocalTime.now());
 
-        return feim_soc_005_service.crearFormato(id);
+        return feim_soc_005_service.crearFormato(id,1);
+    }
+
+    @RequestMapping(value = "/imprimirEtiquetasIdentificacionIndividual/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimirIdentificacion(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FEIM-SOC-005");
+        System.out.println(LocalTime.now());
+
+        return feim_soc_005_service.crearFormato(id,2);
     }
 
     @RequestMapping(value = "/imprimirEtiquetasRetencion/{id}", method = RequestMethod.GET)
@@ -192,7 +213,7 @@ public class SolicitudServicioClienteController {
         System.out.println("Se generó FERI-MIE-002");
         System.out.println(LocalTime.now());
 
-        return feim_soc_005_service.crearFormato(id);
+        return feri_mie_002_service.crearFormato(id);
     }
 
     @RequestMapping(value = "/imprimirInforme/{id}", method = RequestMethod.GET)
@@ -201,6 +222,22 @@ public class SolicitudServicioClienteController {
         System.out.println(LocalTime.now());
 
         return solicitudServicioClienteService.crearFormato(id);
+    }
+
+    @RequestMapping(value = "/generarListaCotizacion", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir5() throws Exception {
+        System.out.println("Se generó LFC-SOC-002");
+        System.out.println(LocalTime.now());
+
+        return solicitudServicioClienteService.generarListaCotizacion();
+    }
+
+    @RequestMapping(value = "/generarListaSolicitud", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir6() throws Exception {
+        System.out.println("Se generó LFS-SOC-001");
+        System.out.println(LocalTime.now());
+
+        return solicitudServicioClienteService.generarListaSolicitud();
     }
 
 }

@@ -1,5 +1,7 @@
 package com.demo.model.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+
 import javax.persistence.*;
 
 @Entity
@@ -103,10 +105,10 @@ public class FRA_TGA_001 {
     private String fnpp5;
 
     @Column(length = 30, nullable = false)
-    private String TasaCalentamiento;
+    private String tasaCalentamiento;
 
     @Column(length = 30, nullable = false)
-    private String TasaEnfriamiento;
+    private String tasaEnfriamiento;
 
     //Resultados
     @Column(length = 30, nullable = false)
@@ -146,10 +148,14 @@ public class FRA_TGA_001 {
     //Path de Imagen
     private String pathImagen;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Metodo_Muestra_Id")
+    private MetodoMuestra metodoMuestra;
+
     public FRA_TGA_001() {
     }
 
-    public FRA_TGA_001(Long idFRATGA, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoTGA, String codigoBalanza, String peso, String ppmTGA, String temperatura1, String flujoOxigeno1, String fnpa1, String fnpp1, String temperatura2, String flujoOxigeno2, String fnpa2, String fnpp2, String temperatura3, String flujoOxigeno3, String fnpa3, String fnpp3, String temperatura4, String flujoOxigeno4, String fnpa4, String fnpp4, String temperatura5, String flujoOxigeno5, String fnpa5, String fnpp5, String tasaCalentamiento, String tasaEnfriamiento, String rangoTemperatura1, String cambioMasa1, String rangoTemperatura2, String cambioMasa2, String rangoTemperatura3, String cambioMasa3, String rangoTemperatura4, String cambioMasa4, String observaciones, String realizo, String supervisor, String pathImagen) {
+    public FRA_TGA_001(Long idFRATGA, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoTGA, String codigoBalanza, String peso, String ppmTGA, String temperatura1, String flujoOxigeno1, String fnpa1, String fnpp1, String temperatura2, String flujoOxigeno2, String fnpa2, String fnpp2, String temperatura3, String flujoOxigeno3, String fnpa3, String fnpp3, String temperatura4, String flujoOxigeno4, String fnpa4, String fnpp4, String temperatura5, String flujoOxigeno5, String fnpa5, String fnpp5, String tasaCalentamiento, String tasaEnfriamiento, String rangoTemperatura1, String cambioMasa1, String rangoTemperatura2, String cambioMasa2, String rangoTemperatura3, String cambioMasa3, String rangoTemperatura4, String cambioMasa4, String observaciones, String realizo, String supervisor, String pathImagen, MetodoMuestra metodoMuestra) {
         this.idFRATGA = idFRATGA;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
@@ -181,8 +187,8 @@ public class FRA_TGA_001 {
         this.flujoOxigeno5 = flujoOxigeno5;
         this.fnpa5 = fnpa5;
         this.fnpp5 = fnpp5;
-        TasaCalentamiento = tasaCalentamiento;
-        TasaEnfriamiento = tasaEnfriamiento;
+        this.tasaCalentamiento = tasaCalentamiento;
+        this.tasaEnfriamiento = tasaEnfriamiento;
         this.rangoTemperatura1 = rangoTemperatura1;
         this.cambioMasa1 = cambioMasa1;
         this.rangoTemperatura2 = rangoTemperatura2;
@@ -195,6 +201,7 @@ public class FRA_TGA_001 {
         this.realizo = realizo;
         this.supervisor = supervisor;
         this.pathImagen = pathImagen;
+        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getIdFRATGA() {
@@ -446,19 +453,19 @@ public class FRA_TGA_001 {
     }
 
     public String getTasaCalentamiento() {
-        return TasaCalentamiento;
+        return tasaCalentamiento;
     }
 
     public void setTasaCalentamiento(String tasaCalentamiento) {
-        TasaCalentamiento = tasaCalentamiento;
+        this.tasaCalentamiento = tasaCalentamiento;
     }
 
     public String getTasaEnfriamiento() {
-        return TasaEnfriamiento;
+        return tasaEnfriamiento;
     }
 
     public void setTasaEnfriamiento(String tasaEnfriamiento) {
-        TasaEnfriamiento = tasaEnfriamiento;
+        this.tasaEnfriamiento = tasaEnfriamiento;
     }
 
     public String getRangoTemperatura1() {
@@ -555,5 +562,13 @@ public class FRA_TGA_001 {
 
     public void setPathImagen(String pathImagen) {
         this.pathImagen = pathImagen;
+    }
+
+    public MetodoMuestra getMetodoMuestra() {
+        return metodoMuestra;
+    }
+
+    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
+        this.metodoMuestra = metodoMuestra;
     }
 }

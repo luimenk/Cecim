@@ -1,5 +1,7 @@
 package com.demo.model.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+
 import javax.persistence.*;
 
 @Entity
@@ -48,10 +50,14 @@ public class FRA_EAT_001 {
 
     private String estatus;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Metodo_Muestra_Id")
+    private MetodoMuestra metodoMuestra;
+
     public FRA_EAT_001() {
     }
 
-    public FRA_EAT_001(Long idFRAEAT, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String temperaturaEnsayo, String codigoHorno, String tiempoTotalExposicion, String observaciones, String realizo, String supervisor, String estatus) {
+    public FRA_EAT_001(Long idFRAEAT, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String temperaturaEnsayo, String codigoHorno, String tiempoTotalExposicion, String observaciones, String realizo, String supervisor, String estatus, MetodoMuestra metodoMuestra) {
         this.idFRAEAT = idFRAEAT;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
@@ -66,6 +72,7 @@ public class FRA_EAT_001 {
         this.realizo = realizo;
         this.supervisor = supervisor;
         this.estatus = estatus;
+        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getIdFRAEAT() {
@@ -178,5 +185,13 @@ public class FRA_EAT_001 {
 
     public void setEstatus(String estatus) {
         this.estatus = estatus;
+    }
+
+    public MetodoMuestra getMetodoMuestra() {
+        return metodoMuestra;
+    }
+
+    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
+        this.metodoMuestra = metodoMuestra;
     }
 }

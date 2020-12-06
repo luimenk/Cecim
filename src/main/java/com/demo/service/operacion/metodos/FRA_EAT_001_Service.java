@@ -3,15 +3,13 @@ package com.demo.service.operacion.metodos;
 import com.demo.model.operacion.metodos.*;
 import com.demo.repository.operacion.metodos.FRA_EAT_001_DATA_Repository;
 import com.demo.repository.operacion.metodos.FRA_EAT_001_Repository;
-import com.demo.repository.operacion.metodos.FRA_HUM_001_Repository;
 import com.demo.utils.EstructuraNombres;
-import com.demo.model.operacion.metodos.FRA_AT_001;
-import com.demo.repository.operacion.metodos.FRA_AT_001_Repository;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.util.Units;
@@ -64,12 +62,21 @@ public class FRA_EAT_001_Service {
         return fra_eat_001_repository.count();
     }
 
-    public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException{
+    public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException{
         ClassPathResource resource = new ClassPathResource("/documentos/METODOS/FRA-EAT-001.docx");
         XWPFDocument doc = new XWPFDocument(resource.getInputStream());
+        FRA_EAT_001 fra_eat_001;
+        List<FRA_EAT_001_DATA> lista;
+        if (band == 1){
+            fra_eat_001 = fra_eat_001_repository.findByIdFRAEAT(id);
+            lista = fra_eat_001_data_repository.findRandPreguntas(id);
+        }else {
+            fra_eat_001 = fra_eat_001_repository.findByMetodoMuestra_MetodoMuestraId(id);
+            lista = fra_eat_001_data_repository.findRandPreguntas(fra_eat_001.getIdFRAEAT());
+        }
 
-        FRA_EAT_001 fra_eat_001 = fra_eat_001_repository.findByIdFRAEAT(id);
-        List<FRA_EAT_001_DATA> lista = fra_eat_001_data_repository.findRandPreguntas(id);
+        //FRA_EAT_001 fra_eat_001 = fra_eat_001_repository.findByIdFRAEAT(id);
+        //List<FRA_EAT_001_DATA> lista = fra_eat_001_data_repository.findRandPreguntas(id);
 
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(fra_eat_001.getFolioSolicitudServicioInterno());
@@ -94,6 +101,7 @@ public class FRA_EAT_001_Service {
             }
             table.getRow(contadorRow).getCell(contadorCell).setText(lista.get(i).getTiempoExposicion());
         }
+        table.getRow(15).getCell(1).setText(fra_eat_001.getTiempoTotalExposicion());
 
         XWPFTable table5 = doc.getTables().get(3);
         table5.getRow(0).getCell(1).setText(fra_eat_001.getObservaciones());
@@ -101,6 +109,68 @@ public class FRA_EAT_001_Service {
         XWPFTable table6 = doc.getTables().get(4);
         table6.getRow(1).getCell(0).setText(fra_eat_001.getRealizo());
         table6.getRow(1).getCell(1).setText(fra_eat_001.getSupervisor());
+
+        XWPFTable tablaImagenes = doc.createTable();
+
+        int cont = 0;
+        int cont2 = 0;
+        XWPFTableRow rowPicture;
+
+        while (true){
+            if (cont2==0){
+                rowPicture = tablaImagenes.getRow(cont2);
+                tablaImagenes.removeBorders();
+            } else {
+                rowPicture = tablaImagenes.createRow();
+                tablaImagenes.removeBorders();
+            }
+            for (int j = 0; j<4; j++){
+                if (j==0 && cont2 == 0){
+                    XWPFParagraph paragraph = rowPicture.getCell(0).addParagraph();
+                    XWPFRun run = paragraph.createRun();
+                    FileInputStream fis = new FileInputStream(lista.get(cont).getPathImage());
+
+                    XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(150), Units.pixelToEMU(100));
+                    run.addBreak();
+                    run.setText(lista.get(cont).getTiempoExposicion());
+                }
+                if (j!=0 && cont2 == 0){
+                    XWPFParagraph paragraph = rowPicture.addNewTableCell().addParagraph();
+                    XWPFRun run = paragraph.createRun();
+                    FileInputStream fis = new FileInputStream(lista.get(cont).getPathImage());
+
+                    XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(150), Units.pixelToEMU(100));
+                    run.addBreak();
+                    run.setText(lista.get(cont).getTiempoExposicion());
+                }
+                if (j==0 && cont2 != 0){
+                    XWPFParagraph paragraph = rowPicture.getCell(j).addParagraph();
+                    XWPFRun run = paragraph.createRun();
+                    FileInputStream fis = new FileInputStream(lista.get(cont).getPathImage());
+
+                    XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(150), Units.pixelToEMU(100));
+                    run.addBreak();
+                    run.setText(lista.get(cont).getTiempoExposicion());
+                }
+                if (j!=0 && cont2 != 0) {
+                    XWPFParagraph paragraph = rowPicture.getCell(j).addParagraph();
+                    XWPFRun run = paragraph.createRun();
+                    FileInputStream fis = new FileInputStream(lista.get(cont).getPathImage());
+
+                    XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(150), Units.pixelToEMU(100));
+                    run.addBreak();
+                    run.setText(lista.get(cont).getTiempoExposicion());
+                }
+                cont++;
+                if (cont >= lista.size()){
+                    break;
+                }
+            }
+            if (cont >= lista.size()){
+                break;
+            }
+            cont2++;
+        }
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=FRA-EAT-"+estructuraNombres.getNombre()+".docx");

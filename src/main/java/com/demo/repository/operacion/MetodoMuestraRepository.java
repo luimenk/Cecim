@@ -18,4 +18,6 @@ public interface MetodoMuestraRepository extends JpaRepository<MetodoMuestra, Lo
     List<MetodoMuestra> findAllBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(Long id);
     //List<MetodoMuestra> findAllBySolicitudServicioClienteSolicitudServicioClienteIdMuestras_SolicitudServicioCliente(SolicitudServicioCliente solicitudServicioCliente);
     List<MetodoMuestra> findAllBySolicitudServicioClienteMuestras_SolicitudServicioCliente(SolicitudServicioCliente solicitudServicioCliente);
+    List<MetodoMuestra> findAllByMetodoMuestraId(Long id);
+    Long countBySolicitudServicioClienteMuestras_SolicitudServicioClienteAndEstatus(SolicitudServicioCliente solicitudServicioCliente, String Estatus);
 }

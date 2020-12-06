@@ -33,6 +33,10 @@ public class MethodService {
         return methodRepository.findByMethodId(methodId);
     }
 
+    public Method findByCodigo(String codigo){
+        return methodRepository.findByCodigoMetodo(codigo);
+    }
+
     public void delete(Long methodId) {
         methodRepository.deleteById(methodId);
     }

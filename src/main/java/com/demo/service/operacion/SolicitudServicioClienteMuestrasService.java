@@ -1,5 +1,6 @@
 package com.demo.service.operacion;
 
+import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
 import com.demo.repository.operacion.SolicitudServicioClienteMuestrasRepository;
 
@@ -37,11 +38,23 @@ public class SolicitudServicioClienteMuestrasService {
         return solicitudServicioClienteMuestrasRepository.findAllBySolicitudServicioCliente_SolicitudServicioClienteId(id);
     }
 
+    public List<SolicitudServicioClienteMuestras> findAllByMuestra(Long id){
+        return solicitudServicioClienteMuestrasRepository.findAllBySolicitudServicioClienteMuestrasId(id);
+    }
+
     public void delete(Long id) {
         solicitudServicioClienteMuestrasRepository.deleteById(id);
     }
 
     public long contar() {
         return solicitudServicioClienteMuestrasRepository.count();
+    }
+
+    public long contarMuestras(SolicitudServicioCliente solicitudServicioCliente){
+        return solicitudServicioClienteMuestrasRepository.countSolicitudServicioClienteMuestrasBySolicitudServicioCliente(solicitudServicioCliente);
+    }
+
+    public long contarAcondicionadas(Long id, String estatus){
+        return solicitudServicioClienteMuestrasRepository.countBySolicitudServicioCliente_SolicitudServicioClienteIdAndEstatus(id, estatus);
     }
 }

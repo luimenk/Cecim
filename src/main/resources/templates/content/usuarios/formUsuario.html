@@ -73,14 +73,14 @@
                                                 data-title="Selecciona un método..."
                                                 data-style="btn-default btn-outline"
                                                 data-menu-style="dropdown-blue">
-                                            <option th:each="item : ${roles}"
-                                                    th:value="${item.roleId}"
-                                                    th:text="${item.roleName}"></option>
+                                            <th:block th:object="${roles}" th:each="item:${roles}">
+                                                <div th:switch="${item.roleId}">
+                                                    <p th:case="${rolSeleccionado}"><option th:value="${item.roleId}" th:text="${item.roleName}" selected></option></p>
+                                                    <p th:case="*"><option th:value="${item.roleId}" th:text="${item.roleName}"></option></p>
+                                                </div>
+                                            </th:block>
                                         </select>
                                     </div>
-                                    <!--<div class="form-group">
-                                        <button type="submit" class="btn btn-fill btn-info">Submit23</button>
-                                    </div>-->
                                 </form>
                             </div>
                             <div class="card-footer ">

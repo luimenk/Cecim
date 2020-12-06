@@ -1,7 +1,9 @@
 package com.demo.controller.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.metodos.FRA_DI_001;
 import com.demo.service.formatos.metodos.IMPRIMIR_FRA_DI_001_Service;
+import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.FRA_DI_001_Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -29,6 +31,9 @@ public class FRA_DI_001_Controller {
 
     @Autowired
     private IMPRIMIR_FRA_DI_001_Service imprimir_fra_di_001_service;
+
+    @Autowired
+    private MetodoMuestraService metodoMuestraService;
 
     //ListarTodo
     @RequestMapping(method = RequestMethod.GET)
@@ -83,6 +88,8 @@ public class FRA_DI_001_Controller {
         }*/
 
         APP.debug("Apartado de registro nuevo" + calendario.getTime());
+
+        MetodoMuestra metodoMuestra = metodoMuestraService.findById(Long.parseLong(request.get("id")));
 
         FRA_DI_001 fra_di_001 = new FRA_DI_001();
 
@@ -159,7 +166,12 @@ public class FRA_DI_001_Controller {
         fra_di_001.setRealizo(request.get("realizo"));
         fra_di_001.setSupervisor(request.get("supervisor"));
 
+        fra_di_001.setMetodoMuestra(metodoMuestra);
+
         fra_di_001_service.save(fra_di_001);
+
+        metodoMuestra.setEstatus("OK");
+        metodoMuestraService.save(metodoMuestra);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -169,6 +181,14 @@ public class FRA_DI_001_Controller {
         System.out.println("Se generó FRA-DI-001");
         System.out.println(LocalTime.now());
 
-        return imprimir_fra_di_001_service.crearFormato(id);
+        return imprimir_fra_di_001_service.crearFormato(id, 1);
+    }
+
+    @RequestMapping(value = "/imprimirDeterminacionDimensiones2/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir2(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FRA-DI-001");
+        System.out.println(LocalTime.now());
+
+        return imprimir_fra_di_001_service.crearFormato(id, 2);
     }
 }

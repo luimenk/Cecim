@@ -1,5 +1,7 @@
 package com.demo.model.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+
 import javax.persistence.*;
 
 @Entity
@@ -67,6 +69,24 @@ public class FRA_ES_001 {
     private String promedioAncho;
 
     @Column(length = 250, nullable = false)
+    private String desvEstandarLargo;
+
+    @Column(length = 250, nullable = false)
+    private String desvEstandarAncho;
+
+    @Column(length = 50, nullable = false)
+    private String minLargo;
+
+    @Column(length = 50, nullable = false)
+    private String maxLargo;
+
+    @Column(length = 50, nullable = false)
+    private String minAncho;
+
+    @Column(length = 50, nullable = false)
+    private String maxAncho;
+
+    @Column(length = 250, nullable = false)
     private String observaciones;
 
     @Column(length = 250, nullable = false)
@@ -75,10 +95,14 @@ public class FRA_ES_001 {
     @Column(length = 250, nullable = false)
     private String supervisor;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Metodo_Muestra_Id")
+    private MetodoMuestra metodoMuestra;
+
     public FRA_ES_001() {
     }
 
-    public FRA_ES_001(Long determinacionEspesorId, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String codigoMicrometro, String humedadRelativa, String metodo, String largo1, String ancho1, String largo2, String ancho2, String largo3, String ancho3, String largo4, String ancho4, String promedioLargo, String promedioAncho, String observaciones, String realizo, String supervisor) {
+    public FRA_ES_001(Long determinacionEspesorId, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String codigoMicrometro, String humedadRelativa, String metodo, String largo1, String ancho1, String largo2, String ancho2, String largo3, String ancho3, String largo4, String ancho4, String promedioLargo, String promedioAncho, String desvEstandarLargo, String desvEstandarAncho, String minLargo, String maxLargo, String minAncho, String maxAncho, String observaciones, String realizo, String supervisor, MetodoMuestra metodoMuestra) {
         this.determinacionEspesorId = determinacionEspesorId;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
@@ -98,9 +122,16 @@ public class FRA_ES_001 {
         this.ancho4 = ancho4;
         this.promedioLargo = promedioLargo;
         this.promedioAncho = promedioAncho;
+        this.desvEstandarLargo = desvEstandarLargo;
+        this.desvEstandarAncho = desvEstandarAncho;
+        this.minLargo = minLargo;
+        this.maxLargo = maxLargo;
+        this.minAncho = minAncho;
+        this.maxAncho = maxAncho;
         this.observaciones = observaciones;
         this.realizo = realizo;
         this.supervisor = supervisor;
+        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getDeterminacionEspesorId() {
@@ -255,6 +286,54 @@ public class FRA_ES_001 {
         this.promedioAncho = promedioAncho;
     }
 
+    public String getDesvEstandarLargo() {
+        return desvEstandarLargo;
+    }
+
+    public void setDesvEstandarLargo(String desvEstandarLargo) {
+        this.desvEstandarLargo = desvEstandarLargo;
+    }
+
+    public String getDesvEstandarAncho() {
+        return desvEstandarAncho;
+    }
+
+    public void setDesvEstandarAncho(String desvEstandarAncho) {
+        this.desvEstandarAncho = desvEstandarAncho;
+    }
+
+    public String getMinLargo() {
+        return minLargo;
+    }
+
+    public void setMinLargo(String minLargo) {
+        this.minLargo = minLargo;
+    }
+
+    public String getMaxLargo() {
+        return maxLargo;
+    }
+
+    public void setMaxLargo(String maxLargo) {
+        this.maxLargo = maxLargo;
+    }
+
+    public String getMinAncho() {
+        return minAncho;
+    }
+
+    public void setMinAncho(String minAncho) {
+        this.minAncho = minAncho;
+    }
+
+    public String getMaxAncho() {
+        return maxAncho;
+    }
+
+    public void setMaxAncho(String maxAncho) {
+        this.maxAncho = maxAncho;
+    }
+
     public String getObservaciones() {
         return observaciones;
     }
@@ -277,5 +356,13 @@ public class FRA_ES_001 {
 
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public MetodoMuestra getMetodoMuestra() {
+        return metodoMuestra;
+    }
+
+    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
+        this.metodoMuestra = metodoMuestra;
     }
 }

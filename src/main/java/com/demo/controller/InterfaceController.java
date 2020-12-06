@@ -454,53 +454,53 @@ public class InterfaceController {
         return "content/ordenServicio/listOrdenServicio";
     }
 
-    //SOLICITUD DE SERVICIO DEL CLIENTE
-    @RequestMapping(value = "/registerSolicituedServicio")
-    public String registerSolicitudServicio(Model model, Principal principal) {
-        // After user login successfully.
-        String userName = principal.getName();
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String userInfo = WebUtils.toString(loginedUser);
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
-
-        model.addAttribute("userName", userName);
-        model.addAttribute("userInfo", userInfo);
-
-        List<Client> lista = clientService.findAll();
-        model.addAttribute("empresas", lista);
-
-        List<Method> lista2 = methodService.findAll();
-        model.addAttribute("metodos", lista2);
-
-        for (GrantedAuthority a : review) {
-            model.addAttribute("role", a.getAuthority());
-        }
-        return "content/operacion/solicitudServicioCliente/formSolicitudServicio";
-    }
-
-    @RequestMapping("/listSolicitudServicio")
-    public String listSolicitudServicio(Model model, Principal principal) {
-        // After user login successfully.
-        String userName = principal.getName();
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
-        String userInfo = WebUtils.toString(loginedUser);
-
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
-
-        model.addAttribute("userName", userName);
-        model.addAttribute("userInfo", userInfo);
-
-        List<Machine> lista = machineService.findAll();
-        model.addAttribute("maquinas", lista);
-
-        for (GrantedAuthority a : review) {
-            model.addAttribute("role", a.getAuthority());
-        }
-
-        return "content/operacion/solicitudServicioCliente/listSolicitudServicio";
-    }
+//    //SOLICITUD DE SERVICIO DEL CLIENTE
+//    @RequestMapping(value = "/registerSolicituedServicio")
+//    public String registerSolicitudServicio(Model model, Principal principal) {
+//        // After user login successfully.
+//        String userName = principal.getName();
+//        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+//        String userInfo = WebUtils.toString(loginedUser);
+//        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+//
+//        model.addAttribute("userName", userName);
+//        model.addAttribute("userInfo", userInfo);
+//
+//        List<Client> lista = clientService.findAll();
+//        model.addAttribute("empresas", lista);
+//
+//        List<Method> lista2 = methodService.findAll();
+//        model.addAttribute("metodos", lista2);
+//
+//        for (GrantedAuthority a : review) {
+//            model.addAttribute("role", a.getAuthority());
+//        }
+//        return "content/operacion/solicitudServicioCliente/formSolicitudServicio";
+//    }
+//
+//    @RequestMapping("/listSolicitudServicio")
+//    public String listSolicitudServicio(Model model, Principal principal) {
+//        // After user login successfully.
+//        String userName = principal.getName();
+//
+//        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+//
+//        String userInfo = WebUtils.toString(loginedUser);
+//
+//        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+//
+//        model.addAttribute("userName", userName);
+//        model.addAttribute("userInfo", userInfo);
+//
+//        List<Machine> lista = machineService.findAll();
+//        model.addAttribute("maquinas", lista);
+//
+//        for (GrantedAuthority a : review) {
+//            model.addAttribute("role", a.getAuthority());
+//        }
+//
+//        return "content/operacion/solicitudServicioCliente/listSolicitudServicio";
+//    }
 
     //COTIZACION Y CONTRATO
     @RequestMapping(value = "/registerCotizacionContrato")
@@ -673,17 +673,22 @@ public class InterfaceController {
         model.addAttribute("userName", userName);
         model.addAttribute("userInfo", userInfo);
 
-        AppUser appUser = appUserService.findById(id);
+        UserRole userRole = userRoleService.findByIdUser(id);
 
-        model.addAttribute("userId", appUser.getUserId());
-        model.addAttribute("userName", appUser.getUserName());
+        //AppUser appUser = appUserService.findById(id);
+
+        model.addAttribute("userId", userRole.getAppUser().getUserId());
+        model.addAttribute("userName", userRole.getAppUser().getUserName());
         //System.out.println(appUser.getUserName());
         //model.addAttribute("password", appUser.getPassword());
-        model.addAttribute("nombreUsuario", appUser.getNombreUsuario());
-        model.addAttribute("apellidoUsuario", appUser.getApellidoUsuario());
-        model.addAttribute("nacimiento", appUser.getNacimiento());
+        model.addAttribute("nombreUsuario", userRole.getAppUser().getNombreUsuario());
+        model.addAttribute("apellidoUsuario", userRole.getAppUser().getApellidoUsuario());
+        model.addAttribute("nacimiento", userRole.getAppUser().getNacimiento());
         //System.out.println(appUser.getNacimiento());
-        model.addAttribute("puesto", appUser.getPuesto());
+        model.addAttribute("puesto", userRole.getAppUser().getPuesto());
+
+        model.addAttribute("rolSeleccionado", userRole.getAppRole().getRoleId());
+
         List<AppRole> lista = appRoleService.findAll();
         model.addAttribute("roles", lista);
 

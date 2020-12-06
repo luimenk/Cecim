@@ -10,6 +10,7 @@ import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
 import com.demo.utils.EstructuraNombres;
+import com.demo.utils.FormatoFechas;
 import com.demo.utils.GenerateQR;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -39,11 +40,20 @@ public class FEIM_SOC_005_Service {
     private MetodoMuestraService metodoMuestraService;
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
+    FormatoFechas formatoFechas = new FormatoFechas();
 
-    public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException {
-
-        List<SolicitudServicioClienteMuestras> lista = solicitudServicioClienteMuestrasService.findAllBySolicitud(id);
-        SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(id);
+    public ResponseEntity<InputStreamResource> crearFormato(Long id, int origen) throws InvalidFormatException, IOException {
+        List<SolicitudServicioClienteMuestras> lista;
+        SolicitudServicioCliente solicitudServicioCliente;
+        if (origen == 1){
+            lista = solicitudServicioClienteMuestrasService.findAllBySolicitud(id);
+            solicitudServicioCliente = solicitudServicioClienteService.findById(id);
+        } else {
+            lista = solicitudServicioClienteMuestrasService.findAllByMuestra(id);
+            solicitudServicioCliente = lista.get(0).getSolicitudServicioCliente();
+        }
+        //List<SolicitudServicioClienteMuestras> lista = solicitudServicioClienteMuestrasService.findAllBySolicitud(id);
+        //SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(id);
 
         String pathLista = "/documentos/FEIM_SOC_005/FEIM-SOC-005-" + lista.size() + ".docx";
         ClassPathResource resource = new ClassPathResource(pathLista);
@@ -52,8 +62,8 @@ public class FEIM_SOC_005_Service {
         XWPFTable table;
         for (int i = 0; i < lista.size(); i++) {
             table = doc.getTables().get(i);
-            table.getRow(1).getCell(1).setText(solicitudServicioCliente.getFechaEnvioMuestras());
-            table.getRow(2).getCell(1).setText(solicitudServicioCliente.getClient().getFolioCliente());
+            table.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioCliente().getFechaEnvioMuestras()));
+            table.getRow(2).getCell(1).setText(lista.get(i).getIdClienteMuestra());
             table.getRow(3).getCell(1).setText(lista.get(i).getDescripcionMuestra());
             table.getRow(4).getCell(1).setText(lista.get(i).getTipoMuestra());
 
@@ -83,7 +93,7 @@ public class FEIM_SOC_005_Service {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=FEIM_SOC-" + estructuraNombres.getNombre() + ".docx");
+            headers.add("Content-Disposition", "inline; filename=FEIM_"+ solicitudServicioCliente.getFolioSolitudServicioCliente() + ".docx");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();

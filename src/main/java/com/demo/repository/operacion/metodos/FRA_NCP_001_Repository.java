@@ -9,4 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface FRA_NCP_001_Repository extends JpaRepository<FRA_NCP_001, Long> {
     FRA_NCP_001 findByIdFRANCP(Long id);
+    FRA_NCP_001 findByMetodoMuestra_MetodoMuestraId(Long id);
 }

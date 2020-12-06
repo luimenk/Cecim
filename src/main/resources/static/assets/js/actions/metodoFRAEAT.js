@@ -9,6 +9,8 @@ function valida() {
         valor = document.getElementById(clave).value;
         obj[clave] = valor;
     }
+    const url = document.URL;
+    obj["id"] = url.substring(url.lastIndexOf('/') + 1);
 
     var myjson = JSON.stringify(obj);
     console.log(myjson);

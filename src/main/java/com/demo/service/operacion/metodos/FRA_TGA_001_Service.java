@@ -1,5 +1,6 @@
 package com.demo.service.operacion.metodos;
 
+import com.demo.model.operacion.metodos.FRA_AT_001;
 import com.demo.model.operacion.metodos.FRA_DSC;
 import com.demo.model.operacion.metodos.FRA_TGA_001;
 import com.demo.repository.operacion.metodos.FRA_TGA_001_Repository;
@@ -59,11 +60,18 @@ public class FRA_TGA_001_Service {
         return fra_tga_001_repository.count();
     }
 
-    public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException{
+    public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException{
         ClassPathResource resource = new ClassPathResource("/documentos/METODOS/FRA-TGA-001.docx");
         XWPFDocument doc = new XWPFDocument(resource.getInputStream());
 
-        FRA_TGA_001 fra_tga_001 = fra_tga_001_repository.findByIdFRATGA(id);
+        FRA_TGA_001 fra_tga_001;
+        if (band == 1){
+            fra_tga_001 = fra_tga_001_repository.findByIdFRATGA(id);
+        } else {
+            fra_tga_001 = fra_tga_001_repository.findByMetodoMuestra_MetodoMuestraId(id);
+        }
+
+        //FRA_TGA_001 fra_tga_001 = fra_tga_001_repository.findByIdFRATGA(id);
 
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(fra_tga_001.getFolioSolicitudServicioInterno());

@@ -36,19 +36,7 @@ public class UserRoleService {
         return userRoleRepository.findByAppUser_UserName(username);
     }
 
-    /*public List<Method> findAll() {
-        return methodRepository.findAll();
+    public UserRole findByIdUser(Long id){
+        return userRoleRepository.findByAppUser_UserId(id);
     }
-
-    public Method findById(Long methodId) {
-        return methodRepository.findByMethodId(methodId);
-    }
-
-    public void delete(Long methodId) {
-        methodRepository.deleteById(methodId);
-    }
-
-    public long contar() {
-        return methodRepository.count();
-    }*/
 }

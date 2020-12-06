@@ -1,12 +1,9 @@
 package com.demo.service.operacion.metodos;
 
-import com.demo.model.operacion.metodos.FRA_DSC;
-import com.demo.model.operacion.metodos.FRA_HUM_001;
-import com.demo.model.operacion.metodos.FRA_NCP_001;
+import com.demo.model.operacion.metodos.*;
 import com.demo.repository.operacion.metodos.FRA_NCP_001_Repository;
 import com.demo.repository.operacion.metodos.FRA_PO_001_Repository;
 import com.demo.utils.EstructuraNombres;
-import com.demo.model.operacion.metodos.FRA_PO_001;
 import com.demo.repository.operacion.metodos.FRA_HUM_001_Repository;
 
 import java.io.ByteArrayInputStream;
@@ -60,11 +57,18 @@ public class FRA_NCP_001_Service {
         return fra_ncp_001_repository.count();
     }
 
-    public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException{
+    public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException{
         ClassPathResource resource = new ClassPathResource("/documentos/METODOS/FRA-NCP-001.docx");
         XWPFDocument doc = new XWPFDocument(resource.getInputStream());
 
-        FRA_NCP_001 fra_ncp_001 = fra_ncp_001_repository.findByIdFRANCP(id);
+        FRA_NCP_001 fra_ncp_001;
+        if (band == 1){
+            fra_ncp_001 = fra_ncp_001_repository.findByIdFRANCP(id);
+        } else {
+            fra_ncp_001 = fra_ncp_001_repository.findByMetodoMuestra_MetodoMuestraId(id);
+        }
+
+        //FRA_NCP_001 fra_ncp_001 = fra_ncp_001_repository.findByIdFRANCP(id);
 
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(fra_ncp_001.getFolioSolicitudServicioInterno());

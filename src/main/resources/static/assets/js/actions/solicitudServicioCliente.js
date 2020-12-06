@@ -89,7 +89,6 @@ function agregarMuestra() {
 }
 
 function chequeo() {
-    console.log("entro");
     for (var i = 0; i <= contMuestra; i++) {
         document.getElementById("cantidadMuestra" + i).value = document.getElementById("metodo" + i).value;
     }
@@ -101,13 +100,19 @@ function valida() {
     var valor;
     var test = document.getElementsByTagName("input");
     var test2 = document.getElementsByTagName("select");
+    var contador = 0;
 
     var valoresMultiples = $('#metodo0').val();
 
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        obj[clave] = valor;
+        if (valor === ""){
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
     }
 
     /*for (var i = 0; i < test2.length; i++) {
@@ -121,16 +126,25 @@ function valida() {
     for (var i = 0; i <= contMuestra; i++) {
         clave = "metodo"+i;
         valor = $('#metodo'+i).val();
-        obj[clave] = valor;
+        if (valor === ""){
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+        //obj[clave] = valor;
     }
 
     obj["contMuestra"] = contMuestra;
     //obj["valoresMultiples"] = valoresMultiples;
 
-    var myjson = JSON.stringify(obj);
-    console.log(myjson);
-    console.log(valoresMultiples);
-    save(myjson);
+    if (contador !== 0) {
+        swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+    } else {
+        var myjson = JSON.stringify(obj);
+        //console.log(valoresMultiples);
+        save(myjson);
+    }
 }
 
 function save(myjson) {
@@ -169,24 +183,31 @@ function validaEliminar() {
 }
 
 function validaModificar(valor) {
-    //window.location = "/registroCliente/" + valor;
+    window.location = "/registerSolicituedServicio/" + valor;
 }
 
 function validaImprimir(valor) {
     window.location = "/solicitudServicioCliente/imprimirSolicitud/" + valor;
 }
 
+function validaImprimir2(valor) {
+    console.log(valor);
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    window.location = "/solicitudServicioCliente/imprimirSolicitud/" + id;
+}
+
 function validaImprimirEtiqueta(valor) {
     window.location = "/solicitudServicioCliente/imprimirEtiquetasIdentificacion/" + valor;
 }
 
-function validaImprimirEtiquetaRetencion(valor) {
+/*function validaImprimirEtiquetaRetencion(valor) {
     window.location = "/solicitudServicioCliente/imprimirEtiquetasRetencion/" + valor;
 }
 
 function validaImprimirEtiquetaLaboratorio(valor) {
     window.location = "/solicitudServicioCliente/imprimirEtiquetasLaboratorio/" + valor;
-}
+}*/
 
 /*function verMuestras(valor) {
     var tabla = '<table id="muestraTable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">' +
@@ -260,6 +281,26 @@ function informe(valor){
     window.location = "/solicitudServicioCliente/imprimirInforme/" + valor;
 }
 
+function informe2(valor){
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    window.location = "/solicitudServicioCliente/imprimirInforme/" + id;
+}
+
+function cotizacion(valor){
+    window.location = "/solicitudServicioCliente/imprimirCotizacionContrato/" + valor;
+}
+
+function cotizacion2(valor){
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    window.location = "/solicitudServicioCliente/imprimirCotizacionContrato/" + id;
+}
+
+function verDetalles(valor){
+    window.location = "/detalleSolicitudServicio/" + valor;
+}
+
 function cargarTabla() {
     var tbl =
         '<thead>' +
@@ -269,7 +310,7 @@ function cargarTabla() {
         '<th class="text-center">Fecha de pago</th>' +
         '<th class="text-center">Fecha compromiso</th>' +
         '<th class="text-center">Etiquetas</th>' +
-        '<th class="text-center">Informe</th>' +
+        '<th class="text-center">Ver detalles</th>' +
 /*        '<th class="text-center">Ver Muestras</th>' +*/
         '<th class="disabled-sorting text-center">Acciones</th>' +
         '</tr>' +
@@ -281,7 +322,7 @@ function cargarTabla() {
         '<th class="text-center">Fecha de pago</th>' +
         '<th class="text-center">Fecha compromiso</th>' +
         '<th class="text-center">Etiquetas</th>' +
-        '<th class="text-center">Informe</th>' +
+        '<th class="text-center">Ver detalles</th>' +
 /*        '<th class="text-center">Etiquetas Retención</th>' +
         '<th class="text-center">Etiquetas Laboratorio</th>' +*/
         '<th class="disabled-sorting text-center">Acciones</th>' +
@@ -297,7 +338,8 @@ function cargarTabla() {
                 '<td class="text-center">' + field.fechaPago + '</td>' +
                 '<td class="text-center">' + field.fechaCompromisoEntrega + '</td>' +
                 '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirEtiqueta(' + field.solicitudServicioClienteId + ')"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
-                '<td class="text-center"><button class="btn btn-success" onclick="informe(' + field.solicitudServicioClienteId + ')"><i class="fa fa-book"></i><Informe></Informe></button></td>' +
+                '<td class="text-center"><button class="btn btn-success" onclick="verDetalles(' + field.solicitudServicioClienteId + ')"><i class="fa fa-eye"></i>Ver detalles</button></td>' +
+//                '<td class="text-center"><button class="btn btn-success" onclick="informe(' + field.solicitudServicioClienteId + ')"><i class="fa fa-book"></i><Informe></Informe></button></td>' +
 /*                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirEtiquetaRetencion(' + field.solicitudServicioClienteId + ')"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
                 '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirEtiquetaLaboratorio(' + field.solicitudServicioClienteId + ')"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +*/
 /*                '<td class="text-center">' + '<button type="submit" class="btn btn-info btn-wd" onclick="verMuestras(' + field.solicitudServicioClienteId + ')"><i class="fa fa-eye"></i> Ver muestras</button>' + '</td>' +*/

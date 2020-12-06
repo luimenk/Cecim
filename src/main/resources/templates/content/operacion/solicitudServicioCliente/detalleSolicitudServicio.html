@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2">
+                        <button class="btn btn-fill btn-success" onclick="listSolicitudServicio()"><i
+                                class="fa fa-arrow-circle-left"></i>Volver
+                        </button>
+                        <button class="btn btn-warning" onclick="dashboard()"><i class="fa fa-home"></i>Inicio</button>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="nc-icon nc-vector text-primary"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="numbers">
+                                            <p class="card-category">Total de Muestras</p>
+                                            <h4 class="card-title"><span th:text="${totalMuestras}"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="nc-icon nc-vector text-success"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="numbers">
+                                            <p class="card-category">Muestras acondicionadas</p>
+                                            <h4 class="card-title"><span th:text="${muestrasAcondicionadas}"></span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="nc-icon nc-notes text-primary"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="numbers">
+                                            <p class="card-category">Total de ensayos</p>
+                                            <h4 class="card-title"><span th:text="${totalMetodos}"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="nc-icon nc-notes text-success"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="numbers">
+                                            <p class="card-category">Ensayos elaborados</p>
+                                            <h4 class="card-title"><span th:text="${metodosRealizados}"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header ">
+                                <h4 class="card-title">Muestras</h4>
+                                <p class="card-category">Detalle de las muestras</p>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">ID Cliente muestra</th>
+                                        <th class="text-center">Recepción</th>
+                                        <th class="text-right">Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="row,iterador:${listaMuestras}">
+                                        <div th:switch="${row.estatus}">
+                                            <div th:case="'SI'">
+                                                <tr class="success">
+                                                    <td class="text-center" th:text="${iterador.index}"></td>
+                                                    <td class="text-center" th:text="${row.idClienteMuestra}"></td>
+                                                    <td class="text-center" th:text="${row.estatus}"></td>
+                                                    <td class="text-right">
+                                                        <div class="row">
+                                                            <div class="col-md-auto ml-auto">
+                                                                <a th:href="@{'/solicitudServicioCliente/imprimirEtiquetasIdentificacionIndividual/' + ${row.solicitudServicioClienteMuestrasId}}"
+                                                                   rel="tooltip" title="Etiqueta Cliente"
+                                                                   data-placement="left"
+                                                                   class="btn btn-tumblr btn-sm">
+                                                                    <i class="fa fa-qrcode"></i> Etiqueta Cliente
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-auto ml-auto">
+                                                                <a th:href="@{'/solicitudServicioCliente/imprimirEtiquetasRetencion/' + ${row.solicitudServicioClienteMuestrasId}}"
+                                                                   rel="tooltip" title="Etiqueta Recepción"
+                                                                   data-placement="left"
+                                                                   class="btn btn-tumblr btn-sm">
+                                                                    <i class="fa fa-qrcode"></i> Etiqueta Recepción
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-auto ml-auto">
+                                                                <a th:href="@{'/recepcionVerificacion/imprimirRecepcionDirecta/' + ${row.solicitudServicioClienteMuestrasId}}"
+                                                                   rel="tooltip"
+                                                                   title="Formato Recepción" data-placement="left"
+                                                                   class="btn btn-tumblr btn-sm">
+                                                                    <i class="fa fa-file-text-o"></i> Formato Recepción
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </div>
+                                            <div th:case="'NO'">
+                                                <tr class="danger">
+                                                    <td class="text-center" th:text="${iterador.index}"></td>
+                                                    <td class="text-center" th:text="${row.idClienteMuestra}"></td>
+                                                    <td class="text-center" th:text="${row.estatus}"></td>
+                                                    <td class="text-right">
+                                                        <div class="row">
+                                                            <div class="col-md-auto ml-auto">
+                                                                <a th:href="@{'/solicitudServicioCliente/imprimirEtiquetasIdentificacionIndividual/' + ${row.solicitudServicioClienteMuestrasId}}"
+                                                                   rel="tooltip" title="Etiqueta Cliente"
+                                                                   data-placement="left"
+                                                                   class="btn btn-tumblr btn-sm">
+                                                                    <i class="fa fa-qrcode"></i> Etiqueta Cliente
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-auto ml-auto">
+                                                                <a th:href="@{'/registerValidacion'}"
+                                                                   rel="tooltip" title="Acondicionar"
+                                                                   data-placement="left"
+                                                                   class="btn btn-tumblr btn-sm">
+                                                                    <i class="fa fa-pencil"></i> Acondicionar
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header ">
+                                <h4 class="card-title">Ensayos</h4>
+                                <p class="card-category">Detalle de ensayos</p>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Método solicitado</th>
+                                        <th class="text-center">Estatus</th>
+                                        <th class="text-right">Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="row,iterador:${listaMetodos}">
+                                        <div th:switch="${row.estatus}">
+                                            <div th:case="'OK'">
+                                                <tr class="success">
+                                                    <td class="text-center" th:text="${iterador.index}"></td>
+                                                    <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
+                                                    <td class="text-center" th:text="${row.estatus}"></td>
+                                                    <td class="text-right">
+                                                        <div class="row">
+                                                            <div class="col-md-auto ml-auto">
+                                                                <a th:href="@{'/recepcionVerificacion/imprimirEtiquetasLaboratorioIndividual/' + ${row.metodoMuestraId}}"
+                                                                   rel="tooltip" title="Etiqueta Laboratorio" data-placement="left"
+                                                                   class="btn btn-tumblr btn-sm">
+                                                                    <i class="fa fa-qrcode"></i> Etiqueta Laboratorio
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-auto ml-auto">
+                                                                <a th:href="@{${row.method.rutaImprimirFormato} + ${row.metodoMuestraId}}"
+                                                                   rel="tooltip" title="Formato Método" data-placement="left"
+                                                                   class="btn btn-tumblr btn-sm">
+                                                                    <i class="fa fa-file-text-o"></i> Formato Método
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </div>
+                                            <div th:case="'PENDIENTE'">
+                                                <tr class="danger">
+                                                    <td class="text-center" th:text="${iterador.index}"></td>
+                                                    <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
+                                                    <td class="text-center" th:text="${row.estatus}"></td>
+                                                    <td class="text-right">
+                                                        <div class="row">
+                                                            <div class="col-md-auto ml-auto">
+                                                                <a th:href="@{'/recepcionVerificacion/imprimirEtiquetasLaboratorioIndividual/' + ${row.metodoMuestraId}}"
+                                                                   rel="tooltip" title="Etiqueta Laboratorio" data-placement="left"
+                                                                   class="btn btn-tumblr btn-sm">
+                                                                    <i class="fa fa-qrcode"></i> Etiqueta Laboratorio
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-auto ml-auto">
+                                                                <a th:href="@{'/lecturaQR'}" rel="tooltip"
+                                                                   title="Ejecución de Ensayo" data-placement="left"
+                                                                   class="btn btn-tumblr btn-sm">
+                                                                    <i class="fa fa-pencil"></i> Ejecución de Ensayo
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </div>
+                                            <div th:case="'RECEPCION'">
+                                                <tr class="warning">
+                                                    <td class="text-center" th:text="${iterador.index}"></td>
+                                                    <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
+                                                    <td class="text-center" th:text="${row.estatus}"></td>
+                                                    <td class="text-center">.</td>
+                                                </tr>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Documentos</h4>
+                            </div>
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <button class="btn btn-info" onclick="validaImprimir2()"><i
+                                                class="fa fa-file-text-o"></i>Imprimir solicitud
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <button class="btn btn-danger" onclick="cotizacion2()"><i class="fa fa-usd"></i>Imprimir
+                                            cotización y contrato
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <button class="btn btn-primary" onclick="informe2()"><i class="fa fa-book"></i>Imprimir
+                                            informe
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script src="../assets/js/actions/urlRedirects.js" type="text/javascript"></script>
+<script src="../assets/js/actions/solicitudServicioCliente.js" type="text/javascript"></script>
+</html>

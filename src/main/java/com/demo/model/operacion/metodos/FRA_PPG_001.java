@@ -1,5 +1,7 @@
 package com.demo.model.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+
 import javax.persistence.*;
 
 @Entity
@@ -80,10 +82,14 @@ public class FRA_PPG_001 {
     @Column(length = 250, nullable = false)
     private String supervisor;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Metodo_Muestra_Id")
+    private MetodoMuestra metodoMuestra;
+
     public FRA_PPG_001() {
     }
 
-    public FRA_PPG_001(Long idFRAPPG, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoBalanzaAnalitica, String peso1, String peso2, String peso3, String peso4, String peso5, String pellet1, String pellet2, String pellet3, String pellet4, String pellet5, String promedioPeso, String promedioPellet, String pelletXGramo, String observaciones, String realizo, String supervisor) {
+    public FRA_PPG_001(Long idFRAPPG, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoBalanzaAnalitica, String peso1, String peso2, String peso3, String peso4, String peso5, String pellet1, String pellet2, String pellet3, String pellet4, String pellet5, String promedioPeso, String promedioPellet, String pelletXGramo, String observaciones, String realizo, String supervisor, MetodoMuestra metodoMuestra) {
         this.idFRAPPG = idFRAPPG;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
@@ -108,6 +114,7 @@ public class FRA_PPG_001 {
         this.observaciones = observaciones;
         this.realizo = realizo;
         this.supervisor = supervisor;
+        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getIdFRAPPG() {
@@ -300,5 +307,13 @@ public class FRA_PPG_001 {
 
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public MetodoMuestra getMetodoMuestra() {
+        return metodoMuestra;
+    }
+
+    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
+        this.metodoMuestra = metodoMuestra;
     }
 }

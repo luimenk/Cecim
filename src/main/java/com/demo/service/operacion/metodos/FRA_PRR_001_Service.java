@@ -57,11 +57,17 @@ public class FRA_PRR_001_Service {
         return fra_prr_001_repository.count();
     }
 
-    public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException{
+    public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException{
         ClassPathResource resource = new ClassPathResource("/documentos/METODOS/FRA-PRR-001.docx");
         XWPFDocument doc = new XWPFDocument(resource.getInputStream());
+        FRA_PRR_001 fra_prr_001;
 
-        FRA_PRR_001 fra_prr_001 = fra_prr_001_repository.findByIdFRAPRR(id);
+        if (band == 1){
+            fra_prr_001 = fra_prr_001_repository.findByIdFRAPRR(id);
+        } else {
+            fra_prr_001 = fra_prr_001_repository.findByMetodoMuestra_MetodoMuestraId(id);
+        }
+        //FRA_PRR_001 fra_prr_001 = fra_prr_001_repository.findByIdFRAPRR(id);
 
         List<String>contactosAux;
         int bandera=0;

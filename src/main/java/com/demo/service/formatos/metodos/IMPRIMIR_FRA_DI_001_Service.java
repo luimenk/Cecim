@@ -18,6 +18,7 @@ import com.demo.service.operacion.SolicitudServicioClienteService;
 import com.demo.service.operacion.metodos.FRA_DI_001_Service;
 import com.demo.service.operacion.metodos.FRA_ES_001_Service;
 import com.demo.utils.EstructuraNombres;
+import com.demo.utils.FormatoFechas;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.*;
@@ -40,21 +41,27 @@ public class IMPRIMIR_FRA_DI_001_Service {
     private FRA_DI_001_Service fra_di_001_service;
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
+    FormatoFechas formatoFechas = new FormatoFechas();
 
-    public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException{
+    public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException{
         ClassPathResource resource = new ClassPathResource("/documentos/METODOS/FRA-DI-001.docx");
         XWPFDocument doc = new XWPFDocument(resource.getInputStream());
 
-        FRA_DI_001 fra_di_001 = fra_di_001_service.findById(id);
+        FRA_DI_001 fra_di_001;
+        if (band == 1){
+            fra_di_001 = fra_di_001_service.findById(id);
+        }else {
+            fra_di_001 = fra_di_001_service.findByMuestra(id);
+        }
 
         List<String>contactosAux;
         int bandera=0;
 
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(fra_di_001.getFolioSolicitudServicioInterno());
-        table0.getRow(0).getCell(3).setText(fra_di_001.getFechaInicioAnalisis());
+        table0.getRow(0).getCell(3).setText(formatoFechas.formateadorFechas(fra_di_001.getFechaInicioAnalisis()));
         table0.getRow(1).getCell(1).setText(fra_di_001.getIdInternoMuestra());
-        table0.getRow(1).getCell(3).setText(fra_di_001.getFechaFinalAnalisis());
+        table0.getRow(1).getCell(3).setText(formatoFechas.formateadorFechas(fra_di_001.getFechaFinalAnalisis()));
 
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(fra_di_001.getTemperatura());

@@ -65,6 +65,7 @@ public class FRA_AT_001_Controller {
                                     @RequestPart("imagen2") MultipartFile file2,
                                     @RequestPart("imagen3") MultipartFile file3,
                                     Principal principal) {
+        APP.debug("Registro FRA_AT a las: " + calendario.getTime());
         String filePath = "";
         FRA_AT_001 fra_at_001 = new FRA_AT_001();
         MetodoMuestra metodoMuestra = metodoMuestraService.findById(Long.parseLong(request.get("id")));
@@ -100,6 +101,8 @@ public class FRA_AT_001_Controller {
 
             fra_at_001.setMetodoMuestra(metodoMuestra);
             fra_at_001_service.save(fra_at_001);
+            metodoMuestra.setEstatus("OK");
+            metodoMuestraService.save(metodoMuestra);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -111,6 +114,13 @@ public class FRA_AT_001_Controller {
     public ResponseEntity<InputStreamResource> imprimir1(@PathVariable("id") Long id) throws Exception {
         APP.debug("Impresion de FRA_AT a las: " + calendario.getTime() + calendario.getTimeZone());
 
-        return fra_at_001_service.crearFormato(id);
+        return fra_at_001_service.crearFormato(id, 1);
+    }
+
+    @RequestMapping(value = "/imprimir2/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir2(@PathVariable("id") Long id) throws Exception {
+        APP.debug("Impresion de FRA_AT a las: " + calendario.getTime() + calendario.getTimeZone());
+
+        return fra_at_001_service.crearFormato(id, 2);
     }
 }

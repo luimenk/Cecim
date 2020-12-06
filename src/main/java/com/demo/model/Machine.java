@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Machine {
@@ -21,6 +22,7 @@ public class Machine {
     private String areaResponsable;
 
     @Column(name = "Nombre_Equipo_Instrumento", length = 250, nullable = false)
+    @NotBlank(message = "Debe ingresar el nombre del instrumento")
     private String nombreEquipoInstrumento;
 
     @Column(name = "Tipo_Equipo", length = 250, nullable = false)

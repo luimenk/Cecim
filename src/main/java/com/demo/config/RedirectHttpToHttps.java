@@ -32,9 +32,11 @@ public class RedirectHttpToHttps {
     private Connector redirectConnector() {
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
-        connector.setPort(8081);
+        connector.setPort(8081); //cecim
+        //connector.setPort(8088); //tracingtest
         connector.setSecure(false);
-        connector.setRedirectPort(8444);
+        connector.setRedirectPort(8444); //cecim
+        //connector.setRedirectPort(8448); //tracingtest
         return connector;
     }
 }

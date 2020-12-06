@@ -14,4 +14,7 @@ import java.util.List;
 public interface SolicitudServicioClienteMuestrasRepository extends JpaRepository<SolicitudServicioClienteMuestras, Long>{
     SolicitudServicioClienteMuestras findBySolicitudServicioClienteMuestrasId(Long id);
     List<SolicitudServicioClienteMuestras> findAllBySolicitudServicioCliente_SolicitudServicioClienteId(Long id);
+    List<SolicitudServicioClienteMuestras> findAllBySolicitudServicioClienteMuestrasId(Long id);
+    Long countSolicitudServicioClienteMuestrasBySolicitudServicioCliente(SolicitudServicioCliente solicitudServicioCliente);
+    Long countBySolicitudServicioCliente_SolicitudServicioClienteIdAndEstatus(Long id, String estatus);
 }

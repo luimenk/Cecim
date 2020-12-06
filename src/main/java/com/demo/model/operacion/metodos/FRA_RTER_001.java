@@ -1,5 +1,7 @@
 package com.demo.model.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+
 import javax.persistence.*;
 
 @Entity
@@ -237,10 +239,14 @@ public class FRA_RTER_001 {
     @Column(length = 250, nullable = false)
     private String supervisor;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Metodo_Muestra_Id")
+    private MetodoMuestra metodoMuestra;
+
     public FRA_RTER_001() {
     }
 
-    public FRA_RTER_001(Long resistenciaTensionElongacionRupturaId, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoEquipoUniversal, String codigoMicrometro, String velocidadMordazas, String distanciaEntreMordazas, String MDespesor1, String MDfuerzaFluencia1, String MDelongacionRuptura1, String MDresistenciaTension1, String MDmoduloElastico1, String MDespesor2, String MDfuerzaFluencia2, String MDelongacionRuptura2, String MDresistenciaTension2, String MDmoduloElastico2, String MDespesor3, String MDfuerzaFluencia3, String MDelongacionRuptura3, String MDresistenciaTension3, String MDmoduloElastico3, String MDespesor4, String MDfuerzaFluencia4, String MDelongacionRuptura4, String MDresistenciaTension4, String MDmoduloElastico4, String MDespesor5, String MDfuerzaFluencia5, String MDelongacionRuptura5, String MDresistenciaTension5, String MDmoduloElastico5, String MDpromedioEspesor, String MDpromedioFuerzaFluencia, String MDpromedioElongacionRuptura, String MDpromedioResistenciaTension, String MDpromedioModuloElastico, String TDespesor1, String TDfuerzaFluencia1, String TDelongacionRuptura1, String TDresistenciaTension1, String TDmoduloElastico1, String TDespesor2, String TDfuerzaFluencia2, String TDelongacionRuptura2, String TDresistenciaTension2, String TDmoduloElastico2, String TDespesor3, String TDfuerzaFluencia3, String TDelongacionRuptura3, String TDresistenciaTension3, String TDmoduloElastico3, String TDespesor4, String TDfuerzaFluencia4, String TDelongacionRuptura4, String TDresistenciaTension4, String TDmoduloElastico4, String TDespesor5, String TDfuerzaFluencia5, String TDelongacionRuptura5, String TDresistenciaTension5, String TDmoduloElastico5, String TDpromedioEspesor, String TDpromedioFuerzaFluencia, String TDpromedioElongacionRuptura, String TDpromedioResistenciaTension, String TDpromedioModuloElastico, String observaciones, String realizo, String supervisor) {
+    public FRA_RTER_001(Long resistenciaTensionElongacionRupturaId, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoEquipoUniversal, String codigoMicrometro, String velocidadMordazas, String distanciaEntreMordazas, String MDespesor1, String MDfuerzaFluencia1, String MDelongacionRuptura1, String MDresistenciaTension1, String MDmoduloElastico1, String MDespesor2, String MDfuerzaFluencia2, String MDelongacionRuptura2, String MDresistenciaTension2, String MDmoduloElastico2, String MDespesor3, String MDfuerzaFluencia3, String MDelongacionRuptura3, String MDresistenciaTension3, String MDmoduloElastico3, String MDespesor4, String MDfuerzaFluencia4, String MDelongacionRuptura4, String MDresistenciaTension4, String MDmoduloElastico4, String MDespesor5, String MDfuerzaFluencia5, String MDelongacionRuptura5, String MDresistenciaTension5, String MDmoduloElastico5, String MDpromedioEspesor, String MDpromedioFuerzaFluencia, String MDpromedioElongacionRuptura, String MDpromedioResistenciaTension, String MDpromedioModuloElastico, String TDespesor1, String TDfuerzaFluencia1, String TDelongacionRuptura1, String TDresistenciaTension1, String TDmoduloElastico1, String TDespesor2, String TDfuerzaFluencia2, String TDelongacionRuptura2, String TDresistenciaTension2, String TDmoduloElastico2, String TDespesor3, String TDfuerzaFluencia3, String TDelongacionRuptura3, String TDresistenciaTension3, String TDmoduloElastico3, String TDespesor4, String TDfuerzaFluencia4, String TDelongacionRuptura4, String TDresistenciaTension4, String TDmoduloElastico4, String TDespesor5, String TDfuerzaFluencia5, String TDelongacionRuptura5, String TDresistenciaTension5, String TDmoduloElastico5, String TDpromedioEspesor, String TDpromedioFuerzaFluencia, String TDpromedioElongacionRuptura, String TDpromedioResistenciaTension, String TDpromedioModuloElastico, String observaciones, String realizo, String supervisor, MetodoMuestra metodoMuestra) {
         this.resistenciaTensionElongacionRupturaId = resistenciaTensionElongacionRupturaId;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
@@ -315,6 +321,7 @@ public class FRA_RTER_001 {
         this.observaciones = observaciones;
         this.realizo = realizo;
         this.supervisor = supervisor;
+        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getResistenciaTensionElongacionRupturaId() {
@@ -907,5 +914,13 @@ public class FRA_RTER_001 {
 
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public MetodoMuestra getMetodoMuestra() {
+        return metodoMuestra;
+    }
+
+    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
+        this.metodoMuestra = metodoMuestra;
     }
 }

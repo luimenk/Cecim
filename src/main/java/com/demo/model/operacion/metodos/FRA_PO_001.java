@@ -1,5 +1,7 @@
 package com.demo.model.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+
 import javax.persistence.*;
 
 @Entity
@@ -82,10 +84,14 @@ public class FRA_PO_001 {
     //Path de Imagen
     private String pathImagen;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Metodo_Muestra_Id")
+    private MetodoMuestra metodoMuestra;
+
     public FRA_PO_001() {
     }
 
-    public FRA_PO_001(Long idFRAPO, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoOXTRAN, String codigoMicrometro, String espesor1, String tiempoPurga1, String tipoMascarilla1, String espesor2, String tiempoPurga2, String tipoMascarilla2, String numeroCiclos, String tiempoCiclo, String convergencia, String permeabilidadOxigeno1, String permeabilidadOxigeno2, String observaciones, String realizo, String supervisor, String pathImagen) {
+    public FRA_PO_001(Long idFRAPO, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoOXTRAN, String codigoMicrometro, String espesor1, String tiempoPurga1, String tipoMascarilla1, String espesor2, String tiempoPurga2, String tipoMascarilla2, String numeroCiclos, String tiempoCiclo, String convergencia, String permeabilidadOxigeno1, String permeabilidadOxigeno2, String observaciones, String realizo, String supervisor, String pathImagen, MetodoMuestra metodoMuestra) {
         this.idFRAPO = idFRAPO;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
@@ -110,6 +116,7 @@ public class FRA_PO_001 {
         this.realizo = realizo;
         this.supervisor = supervisor;
         this.pathImagen = pathImagen;
+        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getIdFRAPO() {
@@ -302,5 +309,13 @@ public class FRA_PO_001 {
 
     public void setPathImagen(String pathImagen) {
         this.pathImagen = pathImagen;
+    }
+
+    public MetodoMuestra getMetodoMuestra() {
+        return metodoMuestra;
+    }
+
+    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
+        this.metodoMuestra = metodoMuestra;
     }
 }

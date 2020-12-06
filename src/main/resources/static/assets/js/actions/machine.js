@@ -1,36 +1,165 @@
-function valida(e){
-    var obj={};
+function valida(e) {
+    var obj = {};
     var clave;
     var valor;
     var test = document.getElementsByTagName("input");
     var test2 = document.getElementsByTagName("select");
+    var contador = 0;
 
-    for (var i=0; i < test.length; i++){
-        clave=test[i].getAttribute("id");
-        valor=document.getElementById(clave).value;
-        obj[clave]=valor;
+    for (var i = 0; i < test.length; i++) {
+        clave = test[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            console.log("Esto está mal");
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
     }
 
-    for (var i=0; i < test2.length; i++){
-        clave=test2[i].getAttribute("id");
-        valor=document.getElementById(clave).value;
-        obj[clave]=valor;
+    for (var i = 0; i < test2.length; i++) {
+        clave = test2[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            console.log("Esto está mal");
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
     }
 
-    var myjson = JSON.stringify(obj);
-    console.log(myjson);
-    save(myjson);
+    if (contador !== 0) {
+        swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+    } else {
+        var myjson = JSON.stringify(obj);
+        console.log(myjson);
+        save(myjson);
+    }
+
+
+    // $(function () {
+    //     $.validator.setDefaults({
+    //         submitHandler: function () {
+    //             alert("Entró al submitHandler")
+    //
+    //         }
+    //     });
+    //     $('#formMachine').validate({
+    //         rules: {
+    //             nombreEquipoInstrumento: {
+    //                 required: true
+    //             },
+    //             numeroSerie: {
+    //                 required: true
+    //             }
+    //         },
+    //         messages: {
+    //             nombreEquipoInstrumento: {
+    //                 required: "Por favor ingrese un nombre de equipo o instrumento"
+    //             },
+    //             numeroSerie: {
+    //                 required: "Por favor ingrese un número de serie"
+    //             }
+    //         },
+    //         errorElement: 'span',
+    //         errorPlacement: function (error, element) {
+    //             error.addClass('invalid-feedback');
+    //             element.closest('.form-group').append(error);
+    //         },
+    //         highlight: function (element, errorClass, validClass) {
+    //             $(element).addClass('is-invalid');
+    //         },
+    //         unhighlight: function (element, errorClass, validClass) {
+    //             $(element).removeClass('is-invalid');
+    //         }
+    //     });
+    // });
 }
 
-function save(myjson){
+// function valida() {
+//     jQuery.validator.setDefaults({
+//         debug: true,
+//         success: "valid",
+//         submitHandler: function () {
+//             var obj = {};
+//             var clave;
+//             var valor;
+//             var test = document.getElementsByTagName("input");
+//             var test2 = document.getElementsByTagName("select");
+//
+//             for (var i = 0; i < test.length; i++) {
+//                 clave = test[i].getAttribute("id");
+//                 valor = document.getElementById(clave).value;
+//                 obj[clave] = valor;
+//             }
+//
+//             for (var i = 0; i < test2.length; i++) {
+//                 clave = test2[i].getAttribute("id");
+//                 valor = document.getElementById(clave).value;
+//                 obj[clave] = valor;
+//             }
+//
+//             var myjson = JSON.stringify(obj);
+//             console.log(myjson);
+//             save(myjson);
+//             return false;
+//         }
+//     });
+//     $("#formMachine").validate({
+//         rules: {
+//             nombreEquipoInstrumento: {
+//                 required: true
+//             },
+//             numeroSerie: {
+//                 required: true
+//             },
+//         },
+//         messages: {
+//             nombreEquipoInstrumento: {
+//                 required: "Favor de escribir tu nombre de equipo o instrumento"
+//             },
+//             numeroSerie: {
+//                 required: "Favor de escribir el número de serie"
+//             },
+//         },
+//     });
+// }
+
+// function valida2() {
+//     var obj = {};
+//     var clave;
+//     var valor;
+//     var test = document.getElementsByTagName("input");
+//     var test2 = document.getElementsByTagName("select");
+//
+//     for (var i = 0; i < test.length; i++) {
+//         clave = test[i].getAttribute("id");
+//         valor = document.getElementById(clave).value;
+//         obj[clave] = valor;
+//     }
+//
+//     for (var i = 0; i < test2.length; i++) {
+//         clave = test2[i].getAttribute("id");
+//         valor = document.getElementById(clave).value;
+//         obj[clave] = valor;
+//     }
+//
+//     var myjson = JSON.stringify(obj);
+//     console.log(myjson);
+//     save(myjson);
+// }
+
+function save(myjson) {
     $.ajax({
-        type:'POST',
-        url:'/machine',
-        data:myjson,
-        cache:false,
+        type: 'POST',
+        url: '/machine',
+        data: myjson,
+        cache: false,
         contentType: "application/json",
         processData: false,
-        success: function(data){
+        success: function (data) {
             console.log("success");
             console.log(data);
             swal({
@@ -45,7 +174,7 @@ function save(myjson){
                 window.location = "/mostrarMaquinas";
             });
         },
-        error: function(data){
+        error: function (data) {
             console.log("error");
             console.log(data);
             swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
@@ -65,12 +194,12 @@ function validaEliminar(valor) {
         closeOnConfirm: false,
     }, function () {
         $.ajax({
-            type:'DELETE',
-            url:'/machine/'+valor,
-            cache:false,
+            type: 'DELETE',
+            url: '/machine/' + valor,
+            cache: false,
             contentType: "application/json",
             processData: false,
-            success: function(data){
+            success: function (data) {
                 console.log("success");
                 console.log(data);
                 swal({
@@ -85,7 +214,7 @@ function validaEliminar(valor) {
                     window.location = "/mostrarMaquinas";
                 });
             },
-            error: function(data){
+            error: function (data) {
                 console.log("error");
                 console.log(data);
                 swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
@@ -146,6 +275,7 @@ var tbl =
     '</tr>' +
     '</tfoot>' +
     '<tbody>';
+
 function cargarTabla() {
     $.getJSON("/machine", function (result) {
         $.each(result, function (i, field) {
@@ -170,8 +300,8 @@ function cargarTabla() {
                 '<td>' + field.zonaUbicacion + '</td>' +
                 '<td>' + field.planoAnexo + '</td>' +
                 '<td class="text-right">' +
-                '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar('+field.machineId+')"><i class="fa fa-edit"></i></button>' +
-                '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar('+field.machineId+')"><i class="fa fa-times"></i></a>' +
+                '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar(' + field.machineId + ')"><i class="fa fa-edit"></i></button>' +
+                '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar(' + field.machineId + ')"><i class="fa fa-times"></i></a>' +
                 '</td>' +
                 '</tr>';
         });

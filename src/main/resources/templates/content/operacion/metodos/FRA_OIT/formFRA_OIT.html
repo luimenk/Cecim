@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Determinación del tiempo de inducción a la oxidación</h4>
+                            </div>
+                            <div class="card-body ">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio de solicitud de servicio interno</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioSolicitudServicioInterno"
+                                                   id="folioSolicitudServicioInterno" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">ID Interno de muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="idInternoMuestra" id="idInternoMuestra" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha final de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaFinalAnalisis" id="fechaFinalAnalisis" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperatura" id="temperatura" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Humedad relativa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Código de DSC</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoDSC" id="codigoDSC"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Código de la balanza</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoBalanza" id="codigoBalanza"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer ">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Resultados</h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Repetición</th>
+                                            <th class="text-center">Espesor (mm)</th>
+                                            <th class="text-center">Peso (mg)</th>
+                                            <th class="text-center">Posición en el portador de muestras de DSC</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="espesor1" id="espesor1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="peso1" id="peso1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="ppmdsc1" id="ppmdsc1"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">2</td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="espesor2" id="espesor2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="peso2" id="peso2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="ppmdsc2" id="ppmdsc2"
+                                                                           required="required"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Condiciones de ensayo</h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Etapa</th>
+                                            <th class="text-center">Temperatura (°C)</th>
+                                            <th class="text-center">Tiempo (min)</th>
+                                            <th class="text-center">Tasa (K/min)</th>
+                                            <th class="text-center">Flujo de oxígeno (ml/min)</th>
+                                            <th class="text-center">Flujo de nitrógeno para atmosfera (ml/min)</th>
+                                            <th class="text-center">Flujo de nitrógeno para protección (ml/min)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">Inicio</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="40" disabled id="na1"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="N/A" disabled id="na2"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="N/A" disabled id="na3"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="0" disabled id="na4"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="50" disabled id="na5"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="100" disabled id="na6"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Dinámica</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="180" disabled id="nb2"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="7" disabled id="nb3"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="20" disabled id="nb4"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="0" disabled id="nb5"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="50" disabled id="nb6"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="100" disabled id="nb7"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Isotermica</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="180" disabled id="nc1"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="5" disabled id="nc2"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="N/A" disabled id="nc3"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="0" disabled id="nc4"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="50" disabled id="nc5"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="100" disabled id="nc6"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Isotermica</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="180" disabled id="nc7"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="" disabled id="nd1"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="N/A" disabled id="nd2"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="50" disabled id="nd3"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="0" disabled id="nd4"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="100" disabled id="nd5"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Dinámica</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="40" disabled id="nd6"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="7" disabled id="nd7"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="20" disabled id="ne1"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="0" disabled id="ne2"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="50" disabled id="ne3"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="100" disabled id="ne4"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">Temperatura de emergencia</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="190" disabled id="ne5"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="N/A" disabled id="ne6"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="N/A" disabled id="ne7"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="0" disabled id="nf1"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="50" disabled id="nf2"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           value="100" disabled id="nf3"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Resultados</h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Repetición</th>
+                                            <th class="text-center">OIT repetición 1 (min)</th>
+                                            <th class="text-center">OIT repetición 2 (min)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="repeticion1OIT" id="repeticion1OIT"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="number" class="form-control"
+                                                                           name="repeticion2OIT" id="repeticion2OIT"
+                                                                           required="required"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Observaciones</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Evidencia</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="file" id="file" accept="image/*" onchange="mostrar()"/>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Vista previa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <img id="img" style="width: 320px; height: 240px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Observaciones</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="observaciones" id="observaciones" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Realizó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="realizo" id="realizo" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Supervisó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="supervisor" id="supervisor" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-fill btn-success" onclick="valida()">Registrar
+                                    Datos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/metodoFRAOIT.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaInicioAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaFinalAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+</script>
+</html>

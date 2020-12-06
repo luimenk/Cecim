@@ -33,6 +33,10 @@ public class FRA_ES_001_Service {
         return fra_es_001_repository.findByDeterminacionEspesorId(id);
     }
 
+    public FRA_ES_001 findByMuestra(Long id) {
+        return fra_es_001_repository.findByMetodoMuestra_MetodoMuestraId(id);
+    }
+
     public void delete(Long id) {
         fra_es_001_repository.deleteById(id);
     }

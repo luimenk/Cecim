@@ -9,4 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface FRA_CST_001_Repository extends JpaRepository<FRA_CST_001, Long>{
     FRA_CST_001 findByCurvaSelladoId(Long id);
+    FRA_CST_001 findByMetodoMuestra_MetodoMuestraId(Long id);
 }

@@ -1,12 +1,9 @@
-package com.demo.controller.vistas;
+package com.demo.controller.vistas.metodos;
 
-import com.demo.model.Client;
-import com.demo.model.Method;
-import com.demo.model.operacion.metodos.FRA_EAT_001;
-import com.demo.model.operacion.metodos.FRA_EAT_001_DATA;
-import com.demo.service.operacion.metodos.FRA_EAT_001_DATA_Service;
-import com.demo.service.operacion.metodos.FRA_EAT_001_Service;
-import com.demo.utils.WebUtils;
+import com.demo.model.operacion.metodos.FRA_EAXE_013;
+import com.demo.model.operacion.metodos.FRA_EAXE_013_DATA;
+import com.demo.service.operacion.metodos.FRA_EAXE_013_DATA_Service;
+import com.demo.service.operacion.metodos.FRA_EAXE_013_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,17 +20,17 @@ import java.util.List;
 
 @Controller
 @CrossOrigin
-public class FRA_EAT_Vista {
+public class FRA_EAXE_Vista {
 
     @Autowired
-    private FRA_EAT_001_Service fra_eat_001_service;
+    private FRA_EAXE_013_Service fra_eaxe_013_service;
 
     @Autowired
-    private FRA_EAT_001_DATA_Service fra_eat_001_data_service;
+    private FRA_EAXE_013_DATA_Service fra_eaxe_013_data_service;
 
     //Muestra formulario de registro inicial
-    @RequestMapping(value = "/registerFRAEAT/{id}")
-    public String registerFRAEAT(Model model, Principal principal, @PathVariable("id") Long id) {
+    @RequestMapping(value = "/registerFRAEAXE/{id}")
+    public String registerFRAEAXE(Model model, Principal principal, @PathVariable("id") Long id) {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         Collection<GrantedAuthority> review = loginedUser.getAuthorities();
 
@@ -41,12 +38,12 @@ public class FRA_EAT_Vista {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_EAT/formFRA_EAT";
+        return "content/operacion/metodos/FRA_EAXE/formFRA_EAXE";
     }
 
     //Muestra formulario de registro de numero e imagen
-    @RequestMapping(value = "/agregarFRAEAT/{id}")
-    public String agregarFRAEAT(Model model, Principal principal, @PathVariable("id") Long id) {
+    @RequestMapping(value = "/agregarFRAEAXE/{id}")
+    public String agregarFRAEAXE(Model model, Principal principal, @PathVariable("id") Long id) {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         Collection<GrantedAuthority> review = loginedUser.getAuthorities();
 
@@ -54,12 +51,12 @@ public class FRA_EAT_Vista {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_EAT/formFRA_EAT2";
+        return "content/operacion/metodos/FRA_EAXE/formFRA_EAXE2";
     }
 
     //Muestra formulario de registro para terminar
-    @RequestMapping(value = "/terminarFRAEAT/{id}")
-    public String terminarFRAEAT(Model model, Principal principal, @PathVariable("id") Long id) {
+    @RequestMapping(value = "/terminarFRAEAXE/{id}")
+    public String terminarFRAEAXE(Model model, Principal principal, @PathVariable("id") Long id) {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         Collection<GrantedAuthority> review = loginedUser.getAuthorities();
 
@@ -67,12 +64,12 @@ public class FRA_EAT_Vista {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_EAT/formFRA_EAT3";
+        return "content/operacion/metodos/FRA_EAXE/formFRA_EAXE3";
     }
 
     //Muestra la lista principal
-    @RequestMapping("/listFRAEAT")
-    public String listFRAEAT(Model model, Principal principal) {
+    @RequestMapping("/listFRAEAXE")
+    public String listFRAEAXE(Model model, Principal principal) {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         Collection<GrantedAuthority> review = loginedUser.getAuthorities();
 
@@ -80,15 +77,15 @@ public class FRA_EAT_Vista {
             model.addAttribute("role", a.getAuthority());
         }
 
-        List<FRA_EAT_001> lista = fra_eat_001_service.findAll();
-        model.addAttribute("fraeat", lista);
+        List<FRA_EAXE_013> lista = fra_eaxe_013_service.findAll();
+        model.addAttribute("fraeaxe", lista);
 
-        return "content/operacion/metodos/FRA_EAT/listFRA_EAT";
+        return "content/operacion/metodos/FRA_EAXE/listFRA_EAXE";
     }
 
     //Muestra Lo que lleva cada uno
-    @RequestMapping(value = "/verFRAEAT/{id}")
-    public String verFRAEAT(Model model, Principal principal, @PathVariable("id") Long id) {
+    @RequestMapping(value = "/verFRAEAXE/{id}")
+    public String verFRAEAXE(Model model, Principal principal, @PathVariable("id") Long id) {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         Collection<GrantedAuthority> review = loginedUser.getAuthorities();
 
@@ -96,13 +93,12 @@ public class FRA_EAT_Vista {
             model.addAttribute("role", a.getAuthority());
         }
 
-        FRA_EAT_001 eat = fra_eat_001_service.findById(id);
-        //List<FRA_EAT_001_DATA> lista = fra_eat_001_data_service.findAllBy(eat);
-        List<FRA_EAT_001_DATA> lista = fra_eat_001_data_service.findRandPreguntas(id);
+        FRA_EAXE_013 eaxe = fra_eaxe_013_service.findById(id);
+        List<FRA_EAXE_013_DATA> lista = fra_eaxe_013_data_service.buscarPorEnsayo(id);
 
-        model.addAttribute("eat", eat);
+        model.addAttribute("eaxe", eaxe);
         model.addAttribute("lista", lista);
 
-        return "content/operacion/metodos/FRA_EAT/verFRA_EAT";
+        return "content/operacion/metodos/FRA_EAXE/verFRA_EAXE";
     }
 }

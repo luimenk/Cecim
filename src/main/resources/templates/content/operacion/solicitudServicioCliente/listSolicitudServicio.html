@@ -12,6 +12,14 @@
         <!--Contenido de página-->
         <div class="content">
             <div class="container-fluid">
+<!--                <div class="row">-->
+<!--                    <div class="col-md-4">-->
+<!--                        <button class="btn btn-fill btn-success"><i class="fa fa-arrow-circle-left" onclick="dashboard()"></i>Inicio</button>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-4">-->
+<!--                        <button class="btn btn-success"><i class="fa fa-home" onclick="dashboard()"></i>Volver</button>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card data-tables">
@@ -24,6 +32,9 @@
                                 </div>
                             </div>
                         </div>
+                        <form th:action="@{/solicitudServicioCliente/generarListaSolicitud}" method="GET">
+                            <button type="submit" class="btn btn-fill btn-primary">Generar LFS-SOC<i class="fa fa-print"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>

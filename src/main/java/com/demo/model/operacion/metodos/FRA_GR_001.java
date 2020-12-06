@@ -1,5 +1,7 @@
 package com.demo.model.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+
 import javax.persistence.*;
 
 @Entity
@@ -64,10 +66,14 @@ public class FRA_GR_001 {
     @Column(length = 250, nullable = false)
     private String supervisor;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Metodo_Muestra_Id")
+    private MetodoMuestra metodoMuestra;
+
     public FRA_GR_001() {
     }
 
-    public FRA_GR_001(Long fragr001Id, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoBalanzaAnalitica, String peso1, String peso2, String peso3, String peso4, String peso5, String promedio, String areaProbeta, String gramaje, String observaciones, String realizo, String supervisor) {
+    public FRA_GR_001(Long fragr001Id, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoBalanzaAnalitica, String peso1, String peso2, String peso3, String peso4, String peso5, String promedio, String areaProbeta, String gramaje, String observaciones, String realizo, String supervisor, MetodoMuestra metodoMuestra) {
         this.fragr001Id = fragr001Id;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
@@ -87,6 +93,7 @@ public class FRA_GR_001 {
         this.observaciones = observaciones;
         this.realizo = realizo;
         this.supervisor = supervisor;
+        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getFragr001Id() {
@@ -239,5 +246,13 @@ public class FRA_GR_001 {
 
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public MetodoMuestra getMetodoMuestra() {
+        return metodoMuestra;
+    }
+
+    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
+        this.metodoMuestra = metodoMuestra;
     }
 }

@@ -1,6 +1,7 @@
 package com.demo.service.operacion;
 
 import com.demo.model.operacion.MetodoMuestra;
+import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.repository.operacion.MetodoMuestraRepository;
 
 import org.slf4j.Logger;
@@ -41,11 +42,23 @@ public class MetodoMuestraService {
         return metodoMuestraRepository.findAllBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(id);
     }
 
+    public List<MetodoMuestra> findAllBySolicitud(SolicitudServicioCliente solicitudServicioCliente){
+        return metodoMuestraRepository.findAllBySolicitudServicioClienteMuestras_SolicitudServicioCliente(solicitudServicioCliente);
+    }
+
+    public List<MetodoMuestra> findAllById(Long id){
+        return metodoMuestraRepository.findAllByMetodoMuestraId(id);
+    }
+
     public void delete(Long id) {
         metodoMuestraRepository.deleteById(id);
     }
 
     public long contar() {
         return metodoMuestraRepository.count();
+    }
+
+    public long contarPorEstatus(SolicitudServicioCliente solicitudServicioCliente, String estatus){
+        return metodoMuestraRepository.countBySolicitudServicioClienteMuestras_SolicitudServicioClienteAndEstatus(solicitudServicioCliente, estatus);
     }
 }

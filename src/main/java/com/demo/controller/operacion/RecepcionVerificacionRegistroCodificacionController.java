@@ -83,6 +83,32 @@ public class RecepcionVerificacionRegistroCodificacionController {
         return recepcionVerificacionRegistroCodificacionService.findAll();
     }
 
+    //ListarUnElemento
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
+    public RecepcionVerificacionRegistroCodificacion get(@PathVariable("id") Long id) {
+        RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findById(id);
+
+        if (recepcionVerificacionRegistroCodificacion == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return recepcionVerificacionRegistroCodificacion;
+    }
+
+    //ListarUnElemento
+    @RequestMapping(method = RequestMethod.GET, value = "/muestra/{id}")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
+    public RecepcionVerificacionRegistroCodificacion getUnoPorMuestra(@PathVariable("id") Long id) {
+        RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findBySolicitudServicioClienteMuestrasId(id);
+
+        if (recepcionVerificacionRegistroCodificacion == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return recepcionVerificacionRegistroCodificacion;
+    }
+
     //GuardarElemento
     @RequestMapping(method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
@@ -144,6 +170,8 @@ public class RecepcionVerificacionRegistroCodificacionController {
         recepcionVerificacionRegistroCodificacion.setNombrePersonaAcondicionara(request.get("nombrePersonaAcondicionara"));
         recepcionVerificacionRegistroCodificacion.setUbicacionMuestraRetencion(request.get("ubicacionMuestraRetencion"));
         recepcionVerificacionRegistroCodificacionService.save(recepcionVerificacionRegistroCodificacion);
+        solicitudServicioClienteMuestras.setEstatus("SI");
+        solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
 
         List<MetodoMuestra> lista = metodoMuestraService.findAllByMuestra(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
 
@@ -152,6 +180,7 @@ public class RecepcionVerificacionRegistroCodificacionController {
         for (int j = 0; j< lista.size(); j++){
             MetodoMuestra metodoMuestra = metodoMuestraService.findById(lista.get(j).getMetodoMuestraId());
             metodoMuestra.setPathQRLab(qrService.generateToLab(lista.get(j).getMetodoMuestraId()));
+            metodoMuestra.setEstatus("PENDIENTE");
             metodoMuestraService.save(metodoMuestra);
         }
 
@@ -184,11 +213,29 @@ public class RecepcionVerificacionRegistroCodificacionController {
         return frm_soc_005_service.crearFormato(id);
     }
 
+    @RequestMapping(value = "/imprimirRecepcionDirecta/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimirRecepcion(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FRM-SOC-005");
+        System.out.println(LocalTime.now());
+
+        RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findBySolicitudServicioClienteMuestrasId(id);
+
+        return frm_soc_005_service.crearFormato(recepcionVerificacionRegistroCodificacion.getRecepcionVerificacionRegistroCodificacionId());
+    }
+
     @RequestMapping(value = "/imprimirEtiquetasLaboratorio/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> imprimir14(@PathVariable("id") Long id) throws Exception {
         System.out.println("Se generó FEIL-MIE-007");
         System.out.println(LocalTime.now());
 
-        return feil_mie_007_service.crearFormato(id);
+        return feil_mie_007_service.crearFormato(id, 1);
+    }
+
+    @RequestMapping(value = "/imprimirEtiquetasLaboratorioIndividual/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir15(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FEIL-MIE-007");
+        System.out.println(LocalTime.now());
+
+        return feil_mie_007_service.crearFormato(id, 2);
     }
 }

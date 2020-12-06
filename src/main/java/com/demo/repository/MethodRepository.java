@@ -14,4 +14,5 @@ import java.util.List;
 @Transactional
 public interface MethodRepository extends JpaRepository<Method, Long>{
     Method findByMethodId(Long idMethod);
+    Method findByCodigoMetodo(String codigoMetodo);
 }

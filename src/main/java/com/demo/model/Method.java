@@ -43,10 +43,17 @@ public class Method {
     @Column(name = "Ruta", length = 250, nullable = false)
     private String ruta;
 
+    private float costos;
+
+    @Column(length = 5, nullable = false)
+    private String banderaOrden;
+
+    private String rutaImprimirFormato;
+
     public Method() {
     }
 
-    public Method(Long methodId, String codigoMetodo, String nombreMetodo, String normaReferencia, String cantidadMuestraEnsayo, String cantidadMuestraRetencion, String cantidadTotal, String dimensionesCorteProbeta, String numeroProbetasMuestras, String condicionesEspecialesAcondicionamiento, String ruta) {
+    public Method(Long methodId, String codigoMetodo, String nombreMetodo, String normaReferencia, String cantidadMuestraEnsayo, String cantidadMuestraRetencion, String cantidadTotal, String dimensionesCorteProbeta, String numeroProbetasMuestras, String condicionesEspecialesAcondicionamiento, String ruta, float costos, String banderaOrden, String rutaImprimirFormato) {
         this.methodId = methodId;
         this.codigoMetodo = codigoMetodo;
         this.nombreMetodo = nombreMetodo;
@@ -58,6 +65,9 @@ public class Method {
         this.numeroProbetasMuestras = numeroProbetasMuestras;
         this.condicionesEspecialesAcondicionamiento = condicionesEspecialesAcondicionamiento;
         this.ruta = ruta;
+        this.costos = costos;
+        this.banderaOrden = banderaOrden;
+        this.rutaImprimirFormato = rutaImprimirFormato;
     }
 
     public Long getMethodId() {
@@ -146,5 +156,49 @@ public class Method {
 
     public void setRuta(String ruta) {
         this.ruta = ruta;
+    }
+
+    public float getCostos() {
+        return costos;
+    }
+
+    public void setCostos(float costos) {
+        this.costos = costos;
+    }
+
+    public String getBanderaOrden() {
+        return banderaOrden;
+    }
+
+    public void setBanderaOrden(String banderaOrden) {
+        this.banderaOrden = banderaOrden;
+    }
+
+    public String getRutaImprimirFormato() {
+        return rutaImprimirFormato;
+    }
+
+    public void setRutaImprimirFormato(String rutaImprimirFormato) {
+        this.rutaImprimirFormato = rutaImprimirFormato;
+    }
+
+    @Override
+    public String toString() {
+        return "Method{" +
+                "methodId=" + methodId +
+                ", codigoMetodo='" + codigoMetodo + '\'' +
+                ", nombreMetodo='" + nombreMetodo + '\'' +
+                ", normaReferencia='" + normaReferencia + '\'' +
+                ", cantidadMuestraEnsayo='" + cantidadMuestraEnsayo + '\'' +
+                ", cantidadMuestraRetencion='" + cantidadMuestraRetencion + '\'' +
+                ", cantidadTotal='" + cantidadTotal + '\'' +
+                ", dimensionesCorteProbeta='" + dimensionesCorteProbeta + '\'' +
+                ", numeroProbetasMuestras='" + numeroProbetasMuestras + '\'' +
+                ", condicionesEspecialesAcondicionamiento='" + condicionesEspecialesAcondicionamiento + '\'' +
+                ", ruta='" + ruta + '\'' +
+                ", costos=" + costos +
+                ", banderaOrden='" + banderaOrden + '\'' +
+                ", rutaImprimirFormato='" + rutaImprimirFormato + '\'' +
+                '}';
     }
 }

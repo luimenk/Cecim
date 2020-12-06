@@ -1,6 +1,9 @@
 package com.demo.controller.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+import com.demo.model.operacion.metodos.FRA_IF_001;
 import com.demo.model.operacion.metodos.FRA_PPG_001;
+import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.FRA_PPG_001_Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -27,6 +30,9 @@ public class FRA_PPG_001_Controller {
     @Autowired
     private FRA_PPG_001_Service fra_ppg_001_service;
 
+    @Autowired
+    private MetodoMuestraService metodoMuestraService;
+
     //ListarTodo
     @RequestMapping(method = RequestMethod.GET)
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
@@ -51,8 +57,35 @@ public class FRA_PPG_001_Controller {
     @RequestMapping(method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> create(@RequestBody FRA_PPG_001 fra_ppg_001) throws Exception {
+    public ResponseEntity<?> create(@RequestBody Map<String, String> request) throws Exception {
         APP.debug("Registro FRA_PPG a las: " + calendario.getTime());
+        MetodoMuestra metodoMuestra = metodoMuestraService.findById(Long.parseLong(request.get("id")));
+        FRA_PPG_001 fra_ppg_001 = new FRA_PPG_001();
+
+        fra_ppg_001.setFolioSolicitudServicioInterno(request.get("folioSolicitudServicioInterno"));
+        fra_ppg_001.setIdInternoMuestra(request.get("idInternoMuestra"));
+        fra_ppg_001.setFechaInicioAnalisis(request.get("fechaInicioAnalisis"));
+        fra_ppg_001.setFechaFinalAnalisis(request.get("fechaFinalAnalisis"));
+        fra_ppg_001.setTemperatura(request.get("temperatura"));
+        fra_ppg_001.setHumedadRelativa(request.get("humedadRelativa"));
+        fra_ppg_001.setCodigoBalanzaAnalitica(request.get("codigoBalanzaAnalitica"));
+        fra_ppg_001.setPeso1(request.get("peso1"));
+        fra_ppg_001.setPeso2(request.get("peso2"));
+        fra_ppg_001.setPeso3(request.get("peso3"));
+        fra_ppg_001.setPeso4(request.get("peso4"));
+        fra_ppg_001.setPeso5(request.get("peso5"));
+        fra_ppg_001.setPellet1(request.get("pellet1"));
+        fra_ppg_001.setPellet2(request.get("pellet2"));
+        fra_ppg_001.setPellet3(request.get("pellet3"));
+        fra_ppg_001.setPellet4(request.get("pellet4"));
+        fra_ppg_001.setPellet5(request.get("pellet5"));
+        //fra_ppg_001.setPromedioPeso(request.get("promedioPeso"));
+        //fra_ppg_001.setPromedioPellet(request.get("promedioPellet"));
+        //fra_ppg_001.setPelletXGramo(request.get("pelletXGramo"));
+        fra_ppg_001.setObservaciones(request.get("observaciones"));
+        fra_ppg_001.setRealizo(request.get("realizo"));
+        fra_ppg_001.setSupervisor(request.get("supervisor"));
+        fra_ppg_001.setMetodoMuestra(metodoMuestra);
 
         float p1 = Float.parseFloat(fra_ppg_001.getPeso1());
         float p2 = Float.parseFloat(fra_ppg_001.getPeso2());
@@ -77,6 +110,9 @@ public class FRA_PPG_001_Controller {
 
         fra_ppg_001_service.save(fra_ppg_001);
 
+        metodoMuestra.setEstatus("OK");
+        metodoMuestraService.save(metodoMuestra);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -84,6 +120,13 @@ public class FRA_PPG_001_Controller {
     public ResponseEntity<InputStreamResource> imprimir1(@PathVariable("id") Long id) throws Exception {
         APP.debug("Impresion de FRA_PPG a las: " + calendario.getTime());
 
-        return fra_ppg_001_service.crearFormato(id);
+        return fra_ppg_001_service.crearFormato(id,1);
+    }
+
+    @RequestMapping(value = "/imprimir2/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir2(@PathVariable("id") Long id) throws Exception {
+        APP.debug("Impresion de FRA_PPG a las: " + calendario.getTime());
+
+        return fra_ppg_001_service.crearFormato(id,2);
     }
 }

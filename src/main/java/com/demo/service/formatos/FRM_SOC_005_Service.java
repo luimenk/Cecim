@@ -16,6 +16,7 @@ import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionServi
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
 import com.demo.utils.EstructuraNombres;
+import com.demo.utils.FormatoFechas;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.*;
@@ -47,6 +48,7 @@ public class FRM_SOC_005_Service {
     private MetodoMuestraService metodoMuestraService;
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
+    FormatoFechas formatoFechas = new FormatoFechas();
 
     public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException{
         ClassPathResource resource = new ClassPathResource("/documentos/FRM-SOC-005.docx");
@@ -60,7 +62,7 @@ public class FRM_SOC_005_Service {
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getCuentaConEtiqueta());
         table0.getRow(0).getCell(5).setText(recepcionVerificacionRegistroCodificacion.getUtilizoFeim());
-        table0.getRow(1).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras());
+        table0.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras()));
         table0.getRow(1).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getIdClienteMuestra());
         table0.getRow(2).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getDescripcionMuestra());
         table0.getRow(3).getCell(1).setText("por definir");
@@ -86,8 +88,8 @@ public class FRM_SOC_005_Service {
         }
 
         XWPFTable table1 = doc.getTables().get(1);
-        table1.getRow(0).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getFechaRecepcion());
-        table1.getRow(0).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getFolioRecepcionVerificacion());
+        table1.getRow(0).getCell(1).setText(formatoFechas.formateadorFechas(recepcionVerificacionRegistroCodificacion.getFechaRecepcion()));
+        table1.getRow(0).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
         table1.getRow(1).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getNombrePersonaRecibe());
         table1.getRow(2).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getNombrePersonaEntrega());
         table1.getRow(3).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getClient().getNombreRazonSocial());

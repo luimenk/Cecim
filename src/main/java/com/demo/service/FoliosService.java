@@ -54,7 +54,7 @@ public class FoliosService {
     }
 
     public String IdConsecutivos(){
-        Folios folio = foliosRepository.findByNombreFolio("RecepcionValidacion");
+        Folios folio = foliosRepository.findByNombreFolio("IdInternoMuestraRetencion");
 
         return estructuraFolio2(folio);
     }

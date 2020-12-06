@@ -32,6 +32,14 @@ public class RecepcionVerificacionRegistroCodificacionService {
         return recepcionVerificacionRegistroCodificacionRepository.findByRecepcionVerificacionRegistroCodificacionId(id);
     }
 
+    public RecepcionVerificacionRegistroCodificacion findBySolicitudServicioClienteMuestrasId(Long id){
+        return recepcionVerificacionRegistroCodificacionRepository.findBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(id);
+    }
+
+    public List<RecepcionVerificacionRegistroCodificacion> findAllBySolicitudServicioClienteMuestrasId(Long id){
+        return recepcionVerificacionRegistroCodificacionRepository.findAllBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(id);
+    }
+
     /*public List<RecepcionVerificacionRegistroCodificacion> findAllBySolicitud(Long id){
         return recepcionVerificacionRegistroCodificacionRepository.findAllBySolicitudServicioCliente_SolicitudServicioClienteId(id);
     }*/

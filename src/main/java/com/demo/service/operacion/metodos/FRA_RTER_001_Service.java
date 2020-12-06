@@ -33,6 +33,10 @@ public class FRA_RTER_001_Service {
         return fra_rter_001_repository.findByResistenciaTensionElongacionRupturaId(id);
     }
 
+    public FRA_RTER_001 findByIdMuestra(Long id) {
+        return fra_rter_001_repository.findByMetodoMuestra_MetodoMuestraId(id);
+    }
+
     public void delete(Long id) {
         fra_rter_001_repository.deleteById(id);
     }

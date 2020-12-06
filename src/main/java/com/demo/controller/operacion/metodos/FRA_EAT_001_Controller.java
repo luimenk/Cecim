@@ -1,6 +1,8 @@
 package com.demo.controller.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.metodos.*;
+import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.*;
 import com.demo.utils.SaveInServer;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,6 +38,9 @@ public class FRA_EAT_001_Controller {
     @Autowired
     private FRA_EAT_001_DATA_Service fra_eat_001_data_service;
 
+    @Autowired
+    private MetodoMuestraService metodoMuestraService;
+
     //ListarTodo
     @RequestMapping(method = RequestMethod.GET)
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
@@ -67,10 +72,21 @@ public class FRA_EAT_001_Controller {
     @RequestMapping(method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> create1(@RequestBody FRA_EAT_001 fra_eat_001) throws Exception {
+    public ResponseEntity<?> create1(@RequestBody Map<String, String> request) throws Exception {
         APP.debug("Registro FRA_EAT a las: " + calendario.getTime());
+        FRA_EAT_001 fra_eat_001 = new FRA_EAT_001();
 
+        fra_eat_001.setFolioSolicitudServicioInterno(request.get("folioSolicitudServicioInterno"));
+        fra_eat_001.setFechaInicioAnalisis(request.get("fechaInicioAnalisis"));
+        fra_eat_001.setFechaFinalAnalisis(request.get("fechaFinalAnalisis"));
+        fra_eat_001.setIdInternoMuestra(request.get("idInternoMuestra"));
+        fra_eat_001.setTemperatura(request.get("temperatura"));
+        fra_eat_001.setHumedadRelativa(request.get("humedadRelativa"));
+        fra_eat_001.setTemperaturaEnsayo(request.get("temperaturaEnsayo"));
+        fra_eat_001.setCodigoHorno(request.get("codigoHorno"));
         fra_eat_001.setEstatus("inicio");
+        MetodoMuestra metodoMuestra = metodoMuestraService.findById(Long.parseLong(request.get("id")));
+        fra_eat_001.setMetodoMuestra(metodoMuestra);
 
         fra_eat_001_service.save(fra_eat_001);
 
@@ -144,6 +160,10 @@ public class FRA_EAT_001_Controller {
 
         fra_eat_001_service.save(fra_eat_001);
 
+        MetodoMuestra metodoMuestra = fra_eat_001.getMetodoMuestra();
+        metodoMuestra.setEstatus("OK");
+        metodoMuestraService.save(metodoMuestra);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -151,7 +171,13 @@ public class FRA_EAT_001_Controller {
     public ResponseEntity<InputStreamResource> imprimir1(@PathVariable("id") Long id) throws Exception {
         APP.debug("Impresion de FRA_EAT a las: " + calendario.getTime() + calendario.getTimeZone());
 
-        return fra_eat_001_service.crearFormato(id);
+        return fra_eat_001_service.crearFormato(id, 1);
     }
 
+    @RequestMapping(value = "/imprimir2/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir2(@PathVariable("id") Long id) throws Exception {
+        APP.debug("Impresion de FRA_EAT a las: " + calendario.getTime() + calendario.getTimeZone());
+
+        return fra_eat_001_service.crearFormato(id, 2);
+    }
 }

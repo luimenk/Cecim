@@ -34,8 +34,8 @@ public class SolicitudServicioClienteMuestras {
     @Column(name = "Path_Qr_Identificacion", length = 250, nullable = false)
     private String pathQRIdentificacion;
 
-    /*@Column(name = "Estatus", length = 250, nullable = false)
-    private String estatus;*/
+    @Column(name = "Estatus", length = 250, nullable = false)
+    private String estatus;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Solicitud_Servicio_Cliente_Id")
@@ -44,7 +44,7 @@ public class SolicitudServicioClienteMuestras {
     public SolicitudServicioClienteMuestras() {
     }
 
-    public SolicitudServicioClienteMuestras(Long solicitudServicioClienteMuestrasId, String idClienteMuestra, String tipoMuestra, String descripcionMuestra, String lote, String condicionesEspeciales, String observaciones, String pathQRIdentificacion, SolicitudServicioCliente solicitudServicioCliente) {
+    public SolicitudServicioClienteMuestras(Long solicitudServicioClienteMuestrasId, String idClienteMuestra, String tipoMuestra, String descripcionMuestra, String lote, String condicionesEspeciales, String observaciones, String pathQRIdentificacion, String estatus, SolicitudServicioCliente solicitudServicioCliente) {
         this.solicitudServicioClienteMuestrasId = solicitudServicioClienteMuestrasId;
         this.idClienteMuestra = idClienteMuestra;
         this.tipoMuestra = tipoMuestra;
@@ -53,6 +53,7 @@ public class SolicitudServicioClienteMuestras {
         this.condicionesEspeciales = condicionesEspeciales;
         this.observaciones = observaciones;
         this.pathQRIdentificacion = pathQRIdentificacion;
+        this.estatus = estatus;
         this.solicitudServicioCliente = solicitudServicioCliente;
     }
 
@@ -120,11 +121,35 @@ public class SolicitudServicioClienteMuestras {
         this.pathQRIdentificacion = pathQRIdentificacion;
     }
 
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
     public SolicitudServicioCliente getSolicitudServicioCliente() {
         return solicitudServicioCliente;
     }
 
     public void setSolicitudServicioCliente(SolicitudServicioCliente solicitudServicioCliente) {
         this.solicitudServicioCliente = solicitudServicioCliente;
+    }
+
+    @Override
+    public String toString() {
+        return "SolicitudServicioClienteMuestras{" +
+                "solicitudServicioClienteMuestrasId=" + solicitudServicioClienteMuestrasId +
+                ", idClienteMuestra='" + idClienteMuestra + '\'' +
+                ", tipoMuestra='" + tipoMuestra + '\'' +
+                ", descripcionMuestra='" + descripcionMuestra + '\'' +
+                ", lote='" + lote + '\'' +
+                ", condicionesEspeciales='" + condicionesEspeciales + '\'' +
+                ", observaciones='" + observaciones + '\'' +
+                ", pathQRIdentificacion='" + pathQRIdentificacion + '\'' +
+                ", estatus='" + estatus + '\'' +
+                ", solicitudServicioCliente=" + solicitudServicioCliente +
+                '}';
     }
 }

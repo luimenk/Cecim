@@ -33,6 +33,8 @@ public class FRA_DI_001_Service {
         return fra_di_001_repository.findByDeterminacionDimensionesId(id);
     }
 
+    public FRA_DI_001 findByMuestra(Long id){ return fra_di_001_repository.findByMetodoMuestra_MetodoMuestraId(id); }
+
     public void delete(Long id) {
         fra_di_001_repository.deleteById(id);
     }

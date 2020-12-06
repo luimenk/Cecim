@@ -1,5 +1,6 @@
 package com.demo.controller.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.metodos.*;
 import com.demo.service.ClientService;
 import com.demo.service.FoliosService;
@@ -10,6 +11,7 @@ import com.demo.service.formatos.FSS_SOC_001_Service;
 import com.demo.service.formatos.metodos.IMPRIMIR_FRA_CST_001_Service;
 import com.demo.service.formatos.metodos.IMPRIMIR_FRA_DI_001_Service;
 import com.demo.service.formatos.metodos.IMPRIMIR_FRA_PRR_001_Service;
+import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
@@ -39,6 +41,9 @@ public class FRA_HUM_001_Controller {
     @Autowired
     private FRA_HUM_001_Service fra_hum_001_service;
 
+    @Autowired
+    private MetodoMuestraService metodoMuestraService;
+
     //ListarTodo
     @RequestMapping(method = RequestMethod.GET)
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
@@ -63,8 +68,32 @@ public class FRA_HUM_001_Controller {
     @RequestMapping(method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> create(@RequestBody FRA_HUM_001 fra_hum_001) throws Exception {
+    public ResponseEntity<?> create(@RequestBody Map<String, String> request) throws Exception {
         APP.debug("Registro FRA_HUM a las: " + calendario.getTime());
+        MetodoMuestra metodoMuestra = metodoMuestraService.findById(Long.parseLong(request.get("id")));
+        FRA_HUM_001 fra_hum_001 = new FRA_HUM_001();
+
+        fra_hum_001.setFolioSolicitudServicioInterno(request.get("folioSolicitudServicioInterno"));
+        fra_hum_001.setIdInternoMuestra(request.get("idInternoMuestra"));
+        fra_hum_001.setFechaInicioAnalisis(request.get("fechaInicioAnalisis"));
+        fra_hum_001.setFechaFinalAnalisis(request.get("fechaFinalAnalisis"));
+        fra_hum_001.setTemperatura(request.get("temperatura"));
+        fra_hum_001.setHumedadRelativa(request.get("humedadRelativa"));
+        fra_hum_001.setCodigoBalanza(request.get("codigoBalanza"));
+        fra_hum_001.setCodigoHomo(request.get("codigoHomo"));
+        fra_hum_001.setTemperaturaEnsayo(request.get("temperaturaEnsayo"));
+        fra_hum_001.setNoCharola(request.get("noCharola"));
+        fra_hum_001.setPesoCharola(request.get("pesoCharola"));
+        fra_hum_001.setPesoMuestra(request.get("pesoMuestra"));
+        fra_hum_001.setPds1(request.get("pds1"));
+        fra_hum_001.setPds2(request.get("pds2"));
+        fra_hum_001.setPds3(request.get("pds3"));
+        //fra_hum_001.setPromedio(request.get("promedio"));
+        //fra_hum_001.setHumedad(request.get("humedad"));
+        fra_hum_001.setObservaciones(request.get("observaciones"));
+        fra_hum_001.setRealizo(request.get("realizo"));
+        fra_hum_001.setSupervisor(request.get("supervisor"));
+        fra_hum_001.setMetodoMuestra(metodoMuestra);
 
         float r1 = Float.parseFloat(fra_hum_001.getPds1());
         float r2 = Float.parseFloat(fra_hum_001.getPds2());
@@ -82,6 +111,9 @@ public class FRA_HUM_001_Controller {
 
         fra_hum_001_service.save(fra_hum_001);
 
+        metodoMuestra.setEstatus("OK");
+        metodoMuestraService.save(metodoMuestra);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -89,6 +121,13 @@ public class FRA_HUM_001_Controller {
     public ResponseEntity<InputStreamResource> imprimir1(@PathVariable("id") Long id) throws Exception {
         APP.debug("Impresion de FRA_HUM a las: " + calendario.getTime() + calendario.getTimeZone());
 
-        return fra_hum_001_service.crearFormato(id);
+        return fra_hum_001_service.crearFormato(id,1);
+    }
+
+    @RequestMapping(value = "/imprimir2/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir2(@PathVariable("id") Long id) throws Exception {
+        APP.debug("Impresion de FRA_HUM a las: " + calendario.getTime() + calendario.getTimeZone());
+
+        return fra_hum_001_service.crearFormato(id,2);
     }
 }
