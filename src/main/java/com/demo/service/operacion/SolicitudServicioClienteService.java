@@ -16,11 +16,15 @@ import com.demo.utils.EstructuraNombres;
 import com.demo.utils.FormatoFechas;
 import com.demo.utils.Numero_Letras;
 import com.demo.utils.WordCopyTableAfterTable;
+
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
+import org.apache.poi.xwpf.converter.pdf.PdfConverter;
+import org.apache.poi.xwpf.converter.pdf.PdfOptions;
 import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,10 +40,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -175,7 +176,7 @@ public class SolicitudServicioClienteService {
         for (int i = 0; i<lista.size(); i++) {
             XWPFTableRow tableRow = table.createRow();
             tableRow.getCell(0).setText((i+1)+"");
-            tableRow.getCell(1).setText(lista.get(i).getFechaRecepcionMuestras());
+            tableRow.getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getFechaRecepcionMuestras()));
             tableRow.getCell(2).setText(lista.get(i).getFolioSolitudServicioCliente());
             tableRow.getCell(3).setText(lista.get(i).getFolioSolitudServicioCliente());
             tableRow.getCell(4).setText(lista.get(i).getClient().getNombreRazonSocial());
@@ -196,8 +197,9 @@ public class SolicitudServicioClienteService {
             tableRow.getCell(7).setText(lista.get(i).getNombreFirmaReceptor());
         }
 
+/** ESTO FUNCIONA PARA FORMATO WORD (DOCX) */
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=LFS-SOC-"+estructuraNombres.getNombre()+".docx");
+        headers.add("Content-Disposition", "inline; filename=LFS_SOC_"+estructuraNombres.getNombre()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();
@@ -207,6 +209,7 @@ public class SolicitudServicioClienteService {
                 .headers(headers)
                 .contentType(word)
                 .body(new InputStreamResource(byteArrayInputStream));
+
     }
 
     public ResponseEntity<InputStreamResource> generarListaCotizacion() throws InvalidFormatException, IOException{
@@ -221,7 +224,7 @@ public class SolicitudServicioClienteService {
         for (int i = 0; i<lista.size(); i++) {
             XWPFTableRow tableRow = table.createRow();
             tableRow.getCell(0).setText((i+1)+"");
-            tableRow.getCell(1).setText(lista.get(i).getFechaRecepcionMuestras());
+            tableRow.getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getFechaRecepcionMuestras()));
             tableRow.getCell(2).setText(lista.get(i).getFolioSolitudServicioCliente());
             tableRow.getCell(3).setText(lista.get(i).getFolioSolitudServicioCliente());
             tableRow.getCell(4).setText(lista.get(i).getNombreFirmaReceptor());
@@ -263,14 +266,14 @@ public class SolicitudServicioClienteService {
         table0.getRow(0).getCell(1).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
         table0.getRow(0).getCell(3).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
         //table0.getRow(1).getCell(1).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
-        table0.getRow(1).getCell(3).setText(solicitudServicioCliente.getFechaRecepcionMuestras());
+        table0.getRow(1).getCell(3).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaRecepcionMuestras()));
 
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(solicitudServicioCliente.getClient().getNombreComunEmpresa());
         try {
             JSONArray jsonArray = new JSONArray(solicitudServicioCliente.getClient().getContactosDatos());
             table1.getRow(1).getCell(1).setText(getAttributeContacto(bandera, jsonArray, "nombrePersonaContacto"));
-            String telefonos = "Teléfono Oficina: " + getAttributeContacto(bandera, jsonArray, "telefonoOficina") + ", Celular: " + getAttributeContacto(bandera, jsonArray, "telefonoCelular");
+            String telefonos = "" + getAttributeContacto(bandera, jsonArray, "telefonoOficina") + ", " + getAttributeContacto(bandera, jsonArray, "telefonoCelular");
             table1.getRow(2).getCell(1).setText(telefonos);
             table1.getRow(3).getCell(1).setText(getAttributeContacto(bandera, jsonArray, "email"));
         } catch (JSONException e) {
@@ -374,7 +377,136 @@ public class SolicitudServicioClienteService {
         table8.getRow(0).getCell(1).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=FCO-SOC-" + estructuraNombres.getNombre() + ".docx");
+        headers.add("Content-Disposition", "inline; filename=FCO-SOC-" + solicitudServicioCliente.getFolioSolitudServicioCliente() + ".docx");
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        doc.write(byteArrayOutputStream);
+        doc.close();
+        MediaType word = MediaType.valueOf("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(word)
+                .body(new InputStreamResource(byteArrayInputStream));
+    }
+
+    public ResponseEntity<InputStreamResource> crearSolicitudServicioInterno(Long id) throws InvalidFormatException, IOException, XmlException {
+        ClassPathResource resource = new ClassPathResource("/documentos/FSI-SOC-006.docx");
+        ClassPathResource resource2 = new ClassPathResource("/documentos/plantillaFSI.docx");
+        XWPFDocument doc = new XWPFDocument(resource.getInputStream());
+        XWPFDocument doc2 = new XWPFDocument(resource2.getInputStream());
+
+        SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteRepository.findBySolicitudServicioClienteId(id);
+        List<SolicitudServicioClienteMuestras> solicitudServicioClienteMuestrasList = solicitudServicioClienteMuestrasRepository.findAllBySolicitudServicioCliente_SolicitudServicioClienteId(id);
+        List<MetodoMuestra> metodoMuestraList = metodoMuestraRepository.findAllBySolicitudServicioClienteMuestras_SolicitudServicioCliente(solicitudServicioCliente);
+
+        //LISTA ORDENADA OK
+        Collections.sort(metodoMuestraList, new Comparator<MetodoMuestra>() {
+            public int compare(MetodoMuestra metodoMuestra1, MetodoMuestra metodoMuestra2) {
+                return metodoMuestra1.getMethod().getBanderaOrden().compareTo(metodoMuestra2.getMethod().getBanderaOrden());
+            }
+        });
+
+        List<String> sinRepetirCodigo = metodoMuestraList.stream()
+                .map(item -> item.getMethod().getCodigoMetodo())
+                .distinct()
+                .collect(Collectors.toList());
+
+        XWPFTable table0 = doc.getTables().get(0);
+        table0.getRow(0).getCell(1).setText(solicitudServicioCliente.getServicioUrgente());
+        table0.getRow(0).getCell(3).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
+
+        XWPFTable table1 = doc.getTables().get(1);
+        table1.getRow(0).getCell(1).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaRecepcionMuestras()));
+        table1.getRow(0).getCell(3).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaCompromisoEntrega()));
+        table1.getRow(0).getCell(5).setText(formatoFechas.fechaActual());
+
+        XWPFTable table2 = doc.getTables().get(2);
+        table2.getRow(0).getCell(1).setText(solicitudServicioCliente.getNombreFirmaEmisor());
+        table2.getRow(0).getCell(3).setText(solicitudServicioCliente.getNombreFirmaReceptor());
+
+        XWPFTable table = doc.getTables().get(3);
+        for (int i = 0; i<solicitudServicioClienteMuestrasList.size(); i++) {
+            XWPFTableRow tableRow = table.createRow();
+            tableRow.getCell(0).setText((i+1)+"");
+            RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findBySolicitudServicioClienteMuestrasId(solicitudServicioClienteMuestrasList.get(i).getSolicitudServicioClienteMuestrasId());
+            tableRow.getCell(1).setText(recepcionVerificacionRegistroCodificacion.getIdInternoMuestra1());
+            List<MetodoMuestra> metodoMuestraList1 = metodoMuestraRepository.findAllBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(solicitudServicioClienteMuestrasList.get(i).getSolicitudServicioClienteMuestrasId());
+            for (int j = 0; j<metodoMuestraList1.size(); j++){
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-AT-001")){
+                    tableRow.getCell(2).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-DI-002")){
+                    tableRow.getCell(3).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-ES-003")){
+                    tableRow.getCell(4).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-GR-004")){
+                    tableRow.getCell(5).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-HUM-005")){
+                    tableRow.getCell(6).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-NCP-006")){
+                    tableRow.getCell(7).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-PPG-007")){
+                    tableRow.getCell(8).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-FTIR-008")){
+                    tableRow.getCell(9).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-TGA-009")){
+                    tableRow.getCell(10).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-ICO-010")){
+                    tableRow.getCell(11).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-EAT-011")){
+                    tableRow.getCell(12).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-EAUV-012")){
+                    tableRow.getCell(13).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-EAXE-013")){
+                    tableRow.getCell(14).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-OIT-014")){
+                    tableRow.getCell(15).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-DSC-015")){
+                    tableRow.getCell(16).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-CST-016")){
+                    tableRow.getCell(17).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-IF-017")){
+                    tableRow.getCell(18).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-PO-018")){
+                    tableRow.getCell(19).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-PRR-019")){
+                    tableRow.getCell(20).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-RTER-020")){
+                    tableRow.getCell(21).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-RCD-021")){
+                    tableRow.getCell(22).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-RI-022")){
+                    tableRow.getCell(23).setText(metodoMuestraList1.get(j).getFolioTecnica());
+                }
+            }
+            tableRow.getCell(24).setText(metodoMuestraList.get(i).getSolicitudServicioClienteMuestras().getCondicionesEspeciales());
+        }
+
+        XWPFTable table4 = doc.getTables().get(4);
+        table4.getRow(0).getCell(1).setText(solicitudServicioCliente.getDevolucionMuestras());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=FSI_SOC_" + solicitudServicioCliente.getFolioSolitudServicioCliente() + ".docx");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();
@@ -446,7 +578,7 @@ public class SolicitudServicioClienteService {
         try {
             JSONArray jsonArray = new JSONArray(solicitudServicioCliente.getClient().getContactosDatos());
             table1.getRow(2).getCell(1).setText(getAttributeContacto(bandera, jsonArray, "nombrePersonaContacto"));
-            String telefonos = "Teléfono Oficina: " + getAttributeContacto(bandera, jsonArray, "telefonoOficina") + ", Celular: " + getAttributeContacto(bandera, jsonArray, "telefonoCelular");
+            String telefonos = "" + getAttributeContacto(bandera, jsonArray, "telefonoOficina") + ", " + getAttributeContacto(bandera, jsonArray, "telefonoCelular");
             table1.getRow(3).getCell(1).setText(telefonos);
             table1.getRow(4).getCell(1).setText(getAttributeContacto(bandera, jsonArray, "email"));
 
@@ -539,6 +671,8 @@ public class SolicitudServicioClienteService {
                     tableDocumment.getRow(1).getCell(5).setText(listaAT.get(0).getHumedadRelativa() + " %");
                 } catch (NullPointerException e) {
                     System.out.println("El ensayo aún no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
+                    System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate = tableDocumment.getCTTbl();
                 table = new XWPFTable((CTTbl) cTTblTemplate.copy(), doc);
@@ -562,7 +696,7 @@ public class SolicitudServicioClienteService {
                 table_2.removeRow(3);
                 table_2.removeRow(2);
                 table_2.removeRow(1);
-                for (int k = 0; k < contador; k++) {
+             for (int k = 0; k < contador; k++) {
                     try {
                         XWPFTableRow row = tableDocumment_2.getRow(1);
                         row.getCell(0).setText(listaAT.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
@@ -626,6 +760,8 @@ public class SolicitudServicioClienteService {
                     tableDocumment.getRow(1).getCell(7).setText(listaDI.get(0).getHumedadRelativa() + " %");
                 } catch (NullPointerException e) {
                     System.out.println("El método no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
+                    System.out.println("El ensayo no ha sido desarrollado");
                 }
 
                 CTTbl cTTblTemplate = tableDocumment.getCTTbl();
@@ -709,10 +845,12 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(8);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaES.get(0).getFechaInicioAnalisis() + " al " + listaES.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaES.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaES.get(0).getFechaFinalAnalisis()));
                     tableDocumment.getRow(2).getCell(1).setText("4");
                     tableDocumment.getRow(3).getCell(1).setText("4");
                 } catch (NullPointerException e) {
+                    System.out.println("El ensayo no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate = tableDocumment.getCTTbl();
@@ -730,6 +868,8 @@ public class SolicitudServicioClienteService {
                     tableDocumment_2.getRow(1).getCell(1).setText(listaES.get(0).getTemperatura());
                     tableDocumment_2.getRow(1).getCell(3).setText(listaES.get(0).getHumedadRelativa());
                 } catch (NullPointerException e) {
+                    System.out.println("El ensayo no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate_2 = tableDocumment_2.getCTTbl();
@@ -851,12 +991,14 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(11);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaGR.get(0).getFechaInicioAnalisis() + " al " + listaGR.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaGR.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaGR.get(0).getFechaFinalAnalisis()));
                     tableDocumment.getRow(1).getCell(3).setText("5");
                     tableDocumment.getRow(1).getCell(5).setText(listaGR.get(0).getTemperatura() + " °C");
                     tableDocumment.getRow(1).getCell(7).setText(listaGR.get(0).getHumedadRelativa() + " %");
                 } catch (NullPointerException e) {
                     System.out.println("El método no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
+                    System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate = tableDocumment.getCTTbl();
                 table = new XWPFTable((CTTbl) cTTblTemplate.copy(), doc);
@@ -938,11 +1080,13 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(13);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaHUM.get(0).getFechaInicioAnalisis() + " al " + listaHUM.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaHUM.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaHUM.get(0).getFechaFinalAnalisis()));
                     //tableDocumment.getRow(1).getCell(3).setText("5");
                     tableDocumment.getRow(1).getCell(5).setText(listaHUM.get(0).getTemperatura() + " °C");
                     tableDocumment.getRow(1).getCell(7).setText(listaHUM.get(0).getHumedadRelativa() + " %");
                 } catch (NullPointerException e) {
+                    System.out.println("El ensayo no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate = tableDocumment.getCTTbl();
@@ -1024,11 +1168,13 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(15);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaNCP.get(0).getFechaInicioAnalisis() + " al " + listaNCP.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaNCP.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaNCP.get(0).getFechaFinalAnalisis()));
                     tableDocumment.getRow(1).getCell(3).setText("?");
                     tableDocumment.getRow(1).getCell(5).setText(listaNCP.get(0).getTemperatura() + " °C");
                     tableDocumment.getRow(1).getCell(7).setText(listaNCP.get(0).getHumedadRelativa() + " %");
                 } catch (NullPointerException e) {
+                    System.out.println("El ensayo no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate = tableDocumment.getCTTbl();
@@ -1113,11 +1259,13 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(17);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaPPG.get(0).getFechaInicioAnalisis() + " al " + listaPPG.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaPPG.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaPPG.get(0).getFechaFinalAnalisis()));
                     tableDocumment.getRow(1).getCell(3).setText(listaPPG.get(0).getTemperatura() + " °C");
                     tableDocumment.getRow(1).getCell(5).setText(listaPPG.get(0).getHumedadRelativa() + " %");
                 } catch (NullPointerException e) {
                     System.out.println("El ensayo no ha sido elaborado");
+                } catch (IndexOutOfBoundsException ex){
+                    System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate = tableDocumment.getCTTbl();
                 table = new XWPFTable((CTTbl) cTTblTemplate.copy(), doc);
@@ -1198,10 +1346,12 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(19);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaFTIR.get(0).getFechaInicioAnalisis() + " al " + listaFTIR.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaFTIR.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaFTIR.get(0).getFechaFinalAnalisis()));
                     tableDocumment.getRow(1).getCell(3).setText(listaFTIR.get(0).getTemperatura() + " °C");
                     tableDocumment.getRow(1).getCell(5).setText(listaFTIR.get(0).getHumedadRelativa() + " %");
                 } catch (NullPointerException e) {
+                    System.out.println("El ensayo no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate = tableDocumment.getCTTbl();
@@ -1254,6 +1404,8 @@ public class SolicitudServicioClienteService {
                     //table_2.addRow(tableDocumment_2.getRow(2));
                     //table_2.addRow(tableDocumment_2.getRow(3));
                     table_2.addRow(tableDocumment_2.getRow(4));
+                } catch (IndexOutOfBoundsException ex){
+                    System.out.println("El ensayo no ha sido desarrollado");
                 }
 
                 doc.setTable(contTabla, table_2);
@@ -1289,8 +1441,10 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(21);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaTGA.get(0).getFechaInicioAnalisis() + " al " + listaTGA.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaTGA.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaTGA.get(0).getFechaFinalAnalisis()));
                 } catch (NullPointerException e) {
+                    System.out.println("El ensayo no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate = tableDocumment.getCTTbl();
@@ -1308,6 +1462,8 @@ public class SolicitudServicioClienteService {
                     tableDocumment_2.getRow(1).getCell(1).setText(listaTGA.get(0).getTemperatura());
                     tableDocumment_2.getRow(1).getCell(3).setText(listaTGA.get(0).getHumedadRelativa());
                 } catch (NullPointerException e) {
+                    System.out.println("El ensayo no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate_2 = tableDocumment_2.getCTTbl();
@@ -1399,8 +1555,10 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(24);
                 try{
-                    tableDocumment.getRow(1).getCell(1).setText(listaICO.get(0).getFechaInicioAnalisis() + " al " + listaICO.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaICO.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaICO.get(0).getFechaFinalAnalisis()));
                 } catch (NullPointerException e){
+                    System.out.println("El ensayo no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate = tableDocumment.getCTTbl();
@@ -1418,6 +1576,8 @@ public class SolicitudServicioClienteService {
                     tableDocumment_2.getRow(1).getCell(1).setText(listaICO.get(0).getTemperatura() + "°C");
                     tableDocumment_2.getRow(1).getCell(3).setText(listaICO.get(0).getHumedadRelativa() + "%");
                 } catch (NullPointerException e){
+                    System.out.println("El ensayo no ha sido desarrollado");
+                } catch (IndexOutOfBoundsException ex){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
                 CTTbl cTTblTemplate_2 = tableDocumment_2.getCTTbl();
@@ -1487,7 +1647,7 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(27);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaEAT.get(0).getFechaInicioAnalisis() + " al " + listaEAT.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaEAT.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaEAT.get(0).getFechaFinalAnalisis()));
                     tableDocumment.getRow(2).getCell(1).setText(listaEAT.get(0).getTemperaturaEnsayo());
                     tableDocumment.getRow(3).getCell(1).setText("Cantidad muestras");
                 } catch (NullPointerException e) {
@@ -1577,7 +1737,7 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(30);
                 try{
-                    tableDocumment.getRow(1).getCell(1).setText(listaEAUV.get(0).getFechaInicioAnalisis() + " al " + listaEAUV.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaEAUV.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaEAUV.get(0).getFechaFinalAnalisis()));
                 } catch (NullPointerException e){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
@@ -1665,7 +1825,7 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(33);
                 try{
-                    tableDocumment.getRow(1).getCell(1).setText(listaEAXE.get(0).getFechaInicioAnalisis() + " al " + listaEAXE.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaEAXE.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaEAXE.get(0).getFechaFinalAnalisis()));
                 } catch (NullPointerException e){
                     System.out.println("El ensayo no ha sido desarrollado");
                 } catch (IndexOutOfBoundsException e){
@@ -1755,7 +1915,7 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(36);
                 try{
-                    tableDocumment.getRow(1).getCell(1).setText(listaOIT.get(0).getFechaInicioAnalisis() + " al " + listaOIT.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaOIT.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaOIT.get(0).getFechaFinalAnalisis()));
                 } catch (NullPointerException e){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
@@ -1849,7 +2009,7 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(39);
                 try{
-                    tableDocumment.getRow(1).getCell(1).setText(listaDSC.get(0).getFechaInicioAnalisis() + " al " + listaDSC.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaDSC.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaDSC.get(0).getFechaFinalAnalisis()));
                 } catch (NullPointerException e){
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
@@ -1944,7 +2104,7 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(42);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaCST.get(0).getFechaInicioAnalisis() + " al " + listaCST.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaCST.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaCST.get(0).getFechaFinalAnalisis()));
                 } catch (NullPointerException e) {
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
@@ -2034,7 +2194,7 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(45);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaIF.get(0).getFechaInicioAnalisis() + " al " + listaIF.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaIF.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaIF.get(0).getFechaFinalAnalisis()));
                 } catch (NullPointerException e) {
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
@@ -2123,7 +2283,7 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(48);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaPO.get(0).getFechaInicioAnalisis() + " al " + listaPO.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaPO.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaPO.get(0).getFechaFinalAnalisis()));
                     tableDocumment.getRow(2).getCell(1).setText("?");
                     tableDocumment.getRow(3).getCell(1).setText("?");
                     tableDocumment.getRow(4).getCell(1).setText("?");
@@ -2220,7 +2380,7 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(51);
                 try{
-                    tableDocumment.getRow(1).getCell(1).setText(listaPRR.get(0).getFechaInicioAnalisis() + " al " + listaPRR.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaPRR.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaPRR.get(0).getFechaFinalAnalisis()));
                     tableDocumment.getRow(2).getCell(1).setText("?");
                     tableDocumment.getRow(3).getCell(1).setText("3");
                 } catch (NullPointerException e){
@@ -2334,7 +2494,7 @@ public class SolicitudServicioClienteService {
                 table.removeRow(0); // El default row no es necesario
                 XWPFTable tableDocumment = plantilla.getTables().get(54);
                 try {
-                    tableDocumment.getRow(1).getCell(1).setText(listaRTER.get(0).getFechaInicioAnalisis() + " al " + listaRTER.get(0).getFechaFinalAnalisis());
+                    tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaRTER.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaRTER.get(0).getFechaFinalAnalisis()));
                 } catch (NullPointerException e) {
                     System.out.println("El ensayo no ha sido desarrollado");
                 }
@@ -2567,7 +2727,7 @@ public class SolicitudServicioClienteService {
         run1.setFontSize(8);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=FIR-ERAI-" + estructuraNombres.getNombre() + ".docx");
+        headers.add("Content-Disposition", "inline; filename=FIR_ERAI_" + solicitudServicioCliente.getFolioSolitudServicioCliente() + ".docx");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();

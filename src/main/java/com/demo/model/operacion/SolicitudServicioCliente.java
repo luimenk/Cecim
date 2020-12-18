@@ -23,6 +23,15 @@ public class SolicitudServicioCliente {
     @Column(name = "Fecha_Pago", length = 250, nullable = false)
     private String fechaPago;
 
+    @Column(name = "Fecha_Pago2", length = 250, nullable = false)
+    private String fechaPago2;
+
+    @Column(name = "Confirmacion", length = 250, nullable = false)
+    private String confirmacion;
+
+    @Column(name = "Confirmacion2", length = 250, nullable = false)
+    private String confirmacion2;
+
     @Column(name = "Nombre_Firma_Emisor", length = 250, nullable = false)
     private String nombreFirmaEmisor;
 
@@ -54,12 +63,15 @@ public class SolicitudServicioCliente {
     public SolicitudServicioCliente() {
     }
 
-    public SolicitudServicioCliente(Long solicitudServicioClienteId, String folioSolitudServicioCliente, String servicioUrgente, String fechaEnvioMuestras, String fechaPago, String nombreFirmaEmisor, String almacenamientoEspecial, String especifique, String fechaRecepcionMuestras, String fechaCompromisoEntrega, String nombreFirmaReceptor, String nombreFirmaCalidad, String devolucionMuestras, Client client) {
+    public SolicitudServicioCliente(Long solicitudServicioClienteId, String folioSolitudServicioCliente, String servicioUrgente, String fechaEnvioMuestras, String fechaPago, String fechaPago2, String confirmacion, String confirmacion2, String nombreFirmaEmisor, String almacenamientoEspecial, String especifique, String fechaRecepcionMuestras, String fechaCompromisoEntrega, String nombreFirmaReceptor, String nombreFirmaCalidad, String devolucionMuestras, Client client) {
         this.solicitudServicioClienteId = solicitudServicioClienteId;
         this.folioSolitudServicioCliente = folioSolitudServicioCliente;
         this.servicioUrgente = servicioUrgente;
         this.fechaEnvioMuestras = fechaEnvioMuestras;
         this.fechaPago = fechaPago;
+        this.fechaPago2 = fechaPago2;
+        this.confirmacion = confirmacion;
+        this.confirmacion2 = confirmacion2;
         this.nombreFirmaEmisor = nombreFirmaEmisor;
         this.almacenamientoEspecial = almacenamientoEspecial;
         this.especifique = especifique;
@@ -109,6 +121,30 @@ public class SolicitudServicioCliente {
 
     public void setFechaPago(String fechaPago) {
         this.fechaPago = fechaPago;
+    }
+
+    public String getFechaPago2() {
+        return fechaPago2;
+    }
+
+    public void setFechaPago2(String fechaPago2) {
+        this.fechaPago2 = fechaPago2;
+    }
+
+    public String getConfirmacion() {
+        return confirmacion;
+    }
+
+    public void setConfirmacion(String confirmacion) {
+        this.confirmacion = confirmacion;
+    }
+
+    public String getConfirmacion2() {
+        return confirmacion2;
+    }
+
+    public void setConfirmacion2(String confirmacion2) {
+        this.confirmacion2 = confirmacion2;
     }
 
     public String getNombreFirmaEmisor() {
@@ -181,25 +217,5 @@ public class SolicitudServicioCliente {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    @Override
-    public String toString() {
-        return "SolicitudServicioCliente{" +
-                "solicitudServicioClienteId=" + solicitudServicioClienteId +
-                ", folioSolitudServicioCliente='" + folioSolitudServicioCliente + '\'' +
-                ", servicioUrgente='" + servicioUrgente + '\'' +
-                ", fechaEnvioMuestras='" + fechaEnvioMuestras + '\'' +
-                ", fechaPago='" + fechaPago + '\'' +
-                ", nombreFirmaEmisor='" + nombreFirmaEmisor + '\'' +
-                ", almacenamientoEspecial='" + almacenamientoEspecial + '\'' +
-                ", especifique='" + especifique + '\'' +
-                ", fechaRecepcionMuestras='" + fechaRecepcionMuestras + '\'' +
-                ", fechaCompromisoEntrega='" + fechaCompromisoEntrega + '\'' +
-                ", nombreFirmaReceptor='" + nombreFirmaReceptor + '\'' +
-                ", nombreFirmaCalidad='" + nombreFirmaCalidad + '\'' +
-                ", devolucionMuestras='" + devolucionMuestras + '\'' +
-                ", client=" + client +
-                '}';
     }
 }

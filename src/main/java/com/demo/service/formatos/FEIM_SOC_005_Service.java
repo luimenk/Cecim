@@ -62,7 +62,7 @@ public class FEIM_SOC_005_Service {
         XWPFTable table;
         for (int i = 0; i < lista.size(); i++) {
             table = doc.getTables().get(i);
-            table.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioCliente().getFechaEnvioMuestras()));
+            //table.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioCliente().getFechaEnvioMuestras()));
             table.getRow(2).getCell(1).setText(lista.get(i).getIdClienteMuestra());
             table.getRow(3).getCell(1).setText(lista.get(i).getDescripcionMuestra());
             table.getRow(4).getCell(1).setText(lista.get(i).getTipoMuestra());

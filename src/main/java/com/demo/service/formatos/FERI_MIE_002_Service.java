@@ -62,7 +62,7 @@ public class FERI_MIE_002_Service {
             table.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras()));
             table.getRow(2).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaCompromisoEntrega()));
             table.getRow(3).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-            table.getRow(4).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId()+"");
+            table.getRow(4).getCell(1).setText(lista.get(i).getIdInternoMuestra2());
             table.getRow(5).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
             table.getRow(6).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getDescripcionMuestra());
             table.getRow(7).getCell(1).setText(lista.get(i).getCantidadMuestraRetencion());
@@ -76,7 +76,7 @@ public class FERI_MIE_002_Service {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=FERI_MIE-" + estructuraNombres.getNombre() + ".docx");
+        headers.add("Content-Disposition", "inline; filename=FERI_MIE_" + lista.get(0).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente() + ".docx");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();

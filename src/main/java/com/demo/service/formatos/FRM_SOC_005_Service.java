@@ -106,7 +106,7 @@ public class FRM_SOC_005_Service {
         table1.getRow(8).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getUbicacionMuestraRetencion());
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=FRM-SOC-"+estructuraNombres.getNombre()+".docx");
+        headers.add("Content-Disposition", "inline; filename=FRM_SOC_"+recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();

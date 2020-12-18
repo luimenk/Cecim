@@ -59,15 +59,18 @@
                                     <label class="col-sm-2 control-label">Temperatura</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="temperatura" id="temperatura" required="true">
+                                            <input type="number" class="form-control"
+                                                   name="temperatura" id="temperatura"
+                                                   min="21" max="25">
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Humedad relativa</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="humedadRelativa" id="humedadRelativa" required="true">
+                                            <input type="number" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa"
+                                                   min="40" max="60"
+                                                   onKeyUp="if(this.value>60){this.value='90';}else if(this.value<40){this.value='40';}">
                                         </div>
                                     </div>
                                 </div>

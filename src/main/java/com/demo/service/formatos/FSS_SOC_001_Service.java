@@ -71,7 +71,8 @@ public class FSS_SOC_001_Service {
             JSONArray jsonArray = new JSONArray(solicitudServicioCliente.getClient().getContactosDatos());
             table2.getRow(2).getCell(1).setText(getAttributeContacto(bandera, jsonArray,"nombrePersonaContacto"));
             table2.getRow(3).getCell(1).setText(getAttributeContacto(bandera, jsonArray,"cargo"));
-            String telefonos = "Teléfono Oficina: " + getAttributeContacto(bandera, jsonArray,"telefonoOficina") +", Celular: "+ getAttributeContacto(bandera, jsonArray,"telefonoCelular");
+            //String telefonos = "Teléfono Oficina: " + getAttributeContacto(bandera, jsonArray,"telefonoOficina") +", Celular: "+ getAttributeContacto(bandera, jsonArray,"telefonoCelular");
+            String telefonos = "" + getAttributeContacto(bandera, jsonArray,"telefonoOficina") +", "+ getAttributeContacto(bandera, jsonArray,"telefonoCelular");
             table2.getRow(4).getCell(1).setText(telefonos);
             table2.getRow(5).getCell(1).setText(getAttributeContacto(bandera, jsonArray,"email"));
         } catch (JSONException e) {

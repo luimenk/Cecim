@@ -18,12 +18,20 @@ public class FormatoFechas {
             System.out.println();
         }
 
-        return formateador.format(date).toUpperCase();
+        if ("Linux".equals(System.getProperty("os.name"))){
+            return formateador.format(date).toUpperCase().replace(".", "");
+        } else {
+            return formateador.format(date).toUpperCase();
+        }
     }
 
     public String fechaActual(){
         Date ahora = new Date();
 
-        return formateador.format(ahora).toUpperCase();
+        if ("Linux".equals(System.getProperty("os.name"))){
+            return formateador.format(ahora).toUpperCase().replace(".", "");
+        } else {
+            return formateador.format(ahora).toUpperCase();
+        }
     }
 }

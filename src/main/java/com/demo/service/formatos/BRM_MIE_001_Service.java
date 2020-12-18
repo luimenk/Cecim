@@ -67,7 +67,7 @@ public class BRM_MIE_001_Service {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=BRM-MIE-"+estructuraNombres.getNombre()+".docx");
+        headers.add("Content-Disposition", "inline; filename=BRM_MIE_"+lista.get(0).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();

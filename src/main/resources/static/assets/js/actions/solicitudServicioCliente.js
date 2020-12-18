@@ -34,7 +34,7 @@ function agregarMuestra() {
         "                                        <div class=\"form-group\">" +
         "                                            <select multiple class=\"selectpicker\" name=\"metodo" + contMuestra + "\" id=\"metodo" + contMuestra + "\" required=\"true\"" +
         "                                                    data-title=\"Selecciona un método...\"" +
-        "                                                    data-style=\"btn-default btn-outline\"" +
+        "                                                    data-style=\"btn-info btn-fill btn-block\"" +
         "                                                    data-menu-style=\"dropdown-blue\"" +
         "                                                    onchange=\"chequeo()\">";
 
@@ -147,10 +147,139 @@ function valida() {
     }
 }
 
+function valida3() {
+    var obj = {};
+    var clave;
+    var valor;
+    var test = document.getElementsByTagName("input");
+    var test2 = document.getElementsByTagName("select");
+    var cantidadMuestra = document.getElementById("cantidadDeMuestras").value;
+    var contador = 0;
+
+    var valoresMultiples = $('#metodo0').val();
+
+    for (var i = 0; i < test.length; i++) {
+        clave = test[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    /*for (var i = 0; i < test2.length; i++) {
+        clave = test2[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        obj[clave] = valor;
+    }*/
+
+    obj["empresa"] = document.getElementById("empresa").value;
+
+    for (var i = 0; i <= (cantidadMuestra-1); i++) {
+        clave = "metodo"+i;
+        valor = $('#metodo'+i).val();
+        if (valor === ""){
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+        //obj[clave] = valor;
+    }
+
+    obj["contMuestra"] = document.getElementById("empresa").value;
+    //obj["valoresMultiples"] = valoresMultiples;
+
+    if (contador !== 0) {
+        swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+    } else {
+        var myjson = JSON.stringify(obj);
+        //console.log(valoresMultiples);
+        save(myjson);
+    }
+}
+
+function valida4(){
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    var obj = {};
+    var clave;
+    var valor;
+    var test = document.getElementsByTagName("input");
+    var test2 = document.getElementsByTagName("select");
+    var contador = 0;
+
+    for (var i = 0; i < test.length; i++) {
+        clave = test[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    for (var i = 0; i < test2.length; i++) {
+        clave = test2[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            console.log("Esto está mal");
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    obj["idSolicitud"] = id;
+
+    if (contador !== 0) {
+        swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+    } else {
+        var myjson = JSON.stringify(obj);
+        //console.log(valoresMultiples);
+        save2(myjson);
+    }
+}
+
 function save(myjson) {
     $.ajax({
         type: 'POST',
         url: '/solicitudServicioCliente',
+        data: myjson,
+        cache: false,
+        contentType: "application/json",
+        processData: false,
+        success: function (data) {
+            console.log("success");
+            console.log(data);
+            swal({
+                title: "Registrado!",
+                text: "Se ha sido registrado exitosamente.",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonClass: "btn btn-info btn-fill",
+                confirmButtonText: "Ok",
+                closeOnConfirm: false,
+            }, function () {
+                window.location = "/listSolicitudServicio";
+            });
+        },
+        error: function (data) {
+            console.log("error");
+            console.log(data);
+            swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+        }
+    });
+}
+
+function save2(myjson){
+    $.ajax({
+        type: 'POST',
+        url: '/solicitudServicioCliente/confirmarFechas1',
         data: myjson,
         cache: false,
         contentType: "application/json",
@@ -198,7 +327,9 @@ function validaImprimir2(valor) {
 }
 
 function validaImprimirEtiqueta(valor) {
-    window.location = "/solicitudServicioCliente/imprimirEtiquetasIdentificacion/" + valor;
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    window.location = "/solicitudServicioCliente/imprimirEtiquetasIdentificacion/" + id;
 }
 
 /*function validaImprimirEtiquetaRetencion(valor) {
@@ -301,30 +432,27 @@ function verDetalles(valor){
     window.location = "/detalleSolicitudServicio/" + valor;
 }
 
+function establecerFechas(valor){
+    window.location = "/registerSolicituedServicioFechas/" + valor;
+}
+
 function cargarTabla() {
     var tbl =
         '<thead>' +
         '<tr>' +
         '<th class="text-center">Folio</th>' +
-        '<th class="text-center">Fecha de envio de muestras</th>' +
-        '<th class="text-center">Fecha de pago</th>' +
+        '<th class="text-center">Fecha de recepción</th>' +
         '<th class="text-center">Fecha compromiso</th>' +
-        '<th class="text-center">Etiquetas</th>' +
         '<th class="text-center">Ver detalles</th>' +
-/*        '<th class="text-center">Ver Muestras</th>' +*/
         '<th class="disabled-sorting text-center">Acciones</th>' +
         '</tr>' +
         '</thead>' +
         '<tfoot>' +
         '<tr>' +
         '<th class="text-center">Folio</th>' +
-        '<th class="text-center">Fecha de envio de muestras</th>' +
-        '<th class="text-center">Fecha de pago</th>' +
+        '<th class="text-center">Fecha de recepción</th>' +
         '<th class="text-center">Fecha compromiso</th>' +
-        '<th class="text-center">Etiquetas</th>' +
         '<th class="text-center">Ver detalles</th>' +
-/*        '<th class="text-center">Etiquetas Retención</th>' +
-        '<th class="text-center">Etiquetas Laboratorio</th>' +*/
         '<th class="disabled-sorting text-center">Acciones</th>' +
         '</tr>' +
         '</tfoot>' +
@@ -333,20 +461,93 @@ function cargarTabla() {
         $.each(result, function (i, field) {
             tbl +=
                 '<tr>' +
-                '<td class="text-center">' + field.folioSolitudServicioCliente + '</td>' +
-                '<td class="text-center">' + field.fechaEnvioMuestras + '</td>' +
-                '<td class="text-center">' + field.fechaPago + '</td>' +
-                '<td class="text-center">' + field.fechaCompromisoEntrega + '</td>' +
-                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirEtiqueta(' + field.solicitudServicioClienteId + ')"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
-                '<td class="text-center"><button class="btn btn-success" onclick="verDetalles(' + field.solicitudServicioClienteId + ')"><i class="fa fa-eye"></i>Ver detalles</button></td>' +
-//                '<td class="text-center"><button class="btn btn-success" onclick="informe(' + field.solicitudServicioClienteId + ')"><i class="fa fa-book"></i><Informe></Informe></button></td>' +
-/*                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirEtiquetaRetencion(' + field.solicitudServicioClienteId + ')"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +
-                '<td class="text-center">' + '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimirEtiquetaLaboratorio(' + field.solicitudServicioClienteId + ')"><span class="btn-label"><i class="fa fa-print"></i></span></button>' + '</td>' +*/
-/*                '<td class="text-center">' + '<button type="submit" class="btn btn-info btn-wd" onclick="verMuestras(' + field.solicitudServicioClienteId + ')"><i class="fa fa-eye"></i> Ver muestras</button>' + '</td>' +*/
+                '<td class="text-center">' + field.folioSolitudServicioCliente + '</td>';
+            if (field.fechaRecepcionMuestras === ""){
+                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="establecerFechas(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha recepción muestras</button></td>';
+            } else {
+                tbl += '<td class="text-center">' + field.fechaRecepcionMuestras + '</td>';
+            }
+            if (field.fechaCompromisoEntrega === ""){
+                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="establecerFechas(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha compromiso</button></td>';
+            } else {
+                tbl += '<td class="text-center">' + field.fechaCompromisoEntrega + '</td>';
+            }
+
+            if  (field.fechaPago !== "" && field.fechaRecepcionMuestras !== ""){
+                tbl +=
+                    '<td class="text-center"><button class="btn btn-success" onclick="verDetalles(' + field.solicitudServicioClienteId + ')"><i class="fa fa-eye"></i>Ver detalles</button></td>' +
+                    '<td class="text-center">' +
+                    '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir(' + field.solicitudServicioClienteId + ')"><i class="fa fa-print"></i></button>' +
+                    '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-edit"></i></button>' +
+                    '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-times"></i></a>' +
+                    '</td>' +
+                    '</tr>';
+            } else {
+                tbl +=
+                    '<td class="text-center">-</td>' +
+                    '<td class="text-center">-' +
+                    '</td>' +
+                    '</tr>';
+            }
+        });
+        tbl += '</tbody>';
+        $("#solicitudServicioClienteTable").append(tbl);
+        $('#solicitudServicioClienteTable').DataTable({
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Buscar Registros",
+            }
+        });
+    });
+}
+
+function cargarTablaPagos() {
+    var tbl =
+        '<thead>' +
+        '<tr>' +
+        '<th class="text-center">Folio</th>' +
+        '<th class="text-center">Fecha pago inicial</th>' +
+        '<th class="text-center">Fecha pago final</th>' +
+        '<th class="text-center">Progreso de pago</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tfoot>' +
+        '<tr>' +
+        '<th class="text-center">Folio</th>' +
+        '<th class="text-center">Fecha pago inicial</th>' +
+        '<th class="text-center">Fecha pago final</th>' +
+        '<th class="text-center">Progreso de pago</th>' +
+        '</tr>' +
+        '</tfoot>' +
+        '<tbody>';
+    $.getJSON("/solicitudServicioCliente", function (result) {
+        $.each(result, function (i, field) {
+            tbl +=
+                '<tr>' +
+                '<td class="text-center">' + field.folioSolitudServicioCliente + '</td>';
+            if (field.fechaPago === ""){
+                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="establecerFechas(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha pago inicial</button></td>';
+            } else {
+                tbl += '<td class="text-center">' + field.fechaPago + '</td>';
+            }
+            if (field.fechaPago2 === ""){
+                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="establecerFechas(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha pago final</button></td>';
+            } else {
+                tbl += '<td class="text-center">' + field.fechaPago2 + '</td>';
+            }
+            tbl +=
                 '<td class="text-center">' +
-                '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir(' + field.solicitudServicioClienteId + ')"><i class="fa fa-print"></i></button>' +
-                '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-edit"></i></button>' +
-                '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-times"></i></a>' +
+                '<div class="progress">' +
+                '<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">' +
+                '<span class="sr-only">60% Complete</span>' +
+                '</div>' +
+                '</div>' +
                 '</td>' +
                 '</tr>';
         });

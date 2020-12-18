@@ -1,6 +1,7 @@
 package com.demo.service.operacion.metodos;
 
 import com.demo.utils.EstructuraNombres;
+import com.demo.utils.FormatoFechas;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +33,7 @@ public class FRA_PRR_001_Service {
     private FRA_PRR_001_Repository fra_prr_001_repository;
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
+    FormatoFechas formatoFechas = new FormatoFechas();
 
     private static final Logger LOGGER = LoggerFactory.getLogger("info");
 
@@ -75,8 +77,8 @@ public class FRA_PRR_001_Service {
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(fra_prr_001.getFolioSolicitudServicioInterno());
         table0.getRow(0).getCell(3).setText(fra_prr_001.getIdInternoMuestra());
-        table0.getRow(0).getCell(5).setText(fra_prr_001.getFechaInicioAnalisis());
-        table0.getRow(0).getCell(7).setText(fra_prr_001.getFechaFinalAnalisis());
+        table0.getRow(0).getCell(5).setText(formatoFechas.formateadorFechas(fra_prr_001.getFechaInicioAnalisis()));
+        table0.getRow(0).getCell(7).setText(formatoFechas.formateadorFechas(fra_prr_001.getFechaFinalAnalisis()));
 
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(fra_prr_001.getTemperatura());

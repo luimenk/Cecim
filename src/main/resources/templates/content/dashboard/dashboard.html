@@ -119,30 +119,6 @@
                 </div>
 
                 <div class="row">
-                    <!--<div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-single-copy-04 text-primary"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-7">
-                                        <div class="numbers">
-                                            <p class="card-category">ORDEN DE SERVICIO DEL CLIENTE</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer " align="center">
-                                <hr>
-                                <button class="btn btn-primary btn-wd"  onclick="registerOrdenServicio()">Registrar</button>
-                                <button class="btn btn-primary btn-wd"  onclick="listOrdenServicio()">Consultar</button>
-                            </div>
-                        </div>
-                    </div>-->
-
                     <div class="col-lg-3 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-body ">
@@ -162,6 +138,7 @@
                             <div class="card-footer " align="center">
                                 <hr>
                                 <button class="btn btn-info btn-wd"  onclick="registerSolicitudServicio()">Registrar</button>
+                                <button class="btn btn-info btn-wd"  onclick="listSolicitudServicioPagos()">Pagos</button>
                                 <button class="btn btn-info btn-wd"  onclick="listSolicitudServicio()">Consultar</button>
                             </div>
                         </div>
@@ -191,29 +168,28 @@
                         </div>
                     </div>
 
-                    <!--<div class="col-lg-3 col-sm-6">
+                    <div class="col-lg-3 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-body ">
                                 <div class="row">
                                     <div class="col-5">
                                         <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-grid-45 text-warning"></i>
+                                            <i class="nc-icon nc-single-copy-04 text-primary"></i>
                                         </div>
                                     </div>
                                     <div class="col-7">
                                         <div class="numbers">
-                                            <p class="card-category">ETIQUETAS</p>
+                                            <p class="card-category">SOLICITUD DE SERVICIO INTERNO</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer " align="center">
                                 <hr>
-                                <button class="btn btn-warning btn-wd"  onclick="registerEtiquetas()">Registrar</button>
-                                <button class="btn btn-warning btn-wd"  onclick="listEtiquetas()">Consultar</button>
+                                <button class="btn btn-primary btn-wd"  onclick="listSolicitudServicioInterno()">Consultar</button>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
 
                 <h4 class="card-title">Operación</h4>
@@ -269,135 +245,31 @@
                         </div>
                     </div>
 
-                    <!--<div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-notes text-info"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-7">
-                                        <div class="numbers">
-                                            <p class="card-category">ÓRDEN DE LAB</p>
-                                            <h4 class="card-title">8</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer " align="center">
-                                <hr>
-                                <button class="btn btn-info btn-wd">Registrar</button>
-                                <button class="btn btn-info btn-wd">Consultar</button>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="col-lg-3 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-body ">
                                 <div class="row">
                                     <div class="col-5">
                                         <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-single-copy-04 text-danger"></i>
+                                            <i class="nc-icon nc-grid-45 text-primary "></i>
 
                                         </div>
                                     </div>
                                     <div class="col-7">
                                         <div class="numbers">
-                                            <p class="card-category">RECEPCIÓN DE MUESTRAS</p>
-                                            <h4 class="card-title">43</h4>
+                                            <p class="card-category">Ensayos</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer " align="center">
                                 <hr>
-                                <button class="btn btn-danger btn-wd">Registrar</button>
-                                <button class="btn btn-danger btn-wd">Consultar</button>
+                                <button class="btn btn-primary btn-wd" onclick="consultaListaEnsayos()">Consultar</button>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
+
                 </div>
-
-                <!--<div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-bulb-63 text-success"></i>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-7">
-                                        <div class="numbers">
-                                            <p class="card-category">LABORATORIO</p>
-                                            <h4 class="card-title">12</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer " align="center">
-                                <hr>
-                                <button class="btn btn-success btn-wd">Registrar</button>
-                                <button class="btn btn-success btn-wd">Consultar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-bullet-list-67 text-warning"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-7">
-                                        <div class="numbers">
-                                            <p class="card-category">RESULTADOS</p>
-                                            <h4 class="card-title">4</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer " align="center">
-                                <hr>
-                                <button class="btn btn-warning btn-wd">Registrar</button>
-                                <button class="btn btn-warning btn-wd">Consultar</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <div class="icon-big text-center icon-purple">
-                                            <i class="nc-icon nc-backpack text-dark"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-7">
-                                        <div class="numbers">
-                                            <p class="card-category">ALMACÉN DE MUESTRAS</p>
-                                            <h4 class="card-title">4</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer " align="center">
-                                <hr>
-                                <button class="btn btn-dark btn-wd">Registrar</button>
-                                <button class="btn btn-dark btn-wd">Consultar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
 
                 <h4 class="card-title">Métodos</h4>
 

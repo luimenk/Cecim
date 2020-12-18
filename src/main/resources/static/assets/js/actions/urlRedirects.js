@@ -34,21 +34,21 @@ function listMethodDirect(e) {
     window.location = "/mostrarMetodos";
 }
 
-function registerSolicitudMuestrasDirect(e) {
+/*function registerSolicitudMuestrasDirect(e) {
     window.location = "/registroSolicitudMuestra";
-}
+}*/
 
 function generadorReporteDirect(e) {
     window.location = "/generadorReporte";
 }
 
-function registerOrdenServicio(e) {
+/*function registerOrdenServicio(e) {
     window.location = "/registerOrdenServicio";
 }
 
 function listOrdenServicio(e) {
     window.location = "/listOrdenServicio";
-}
+}*/
 
 function registerSolicitudServicio(e) {
     window.location = "/registerSolicituedServicio";
@@ -58,21 +58,29 @@ function listSolicitudServicio(e) {
     window.location = "/listSolicitudServicio";
 }
 
-function registerCotizacionContrato(e) {
-    window.location = "/registerCotizacionContrato";
+function listSolicitudServicioPagos(e) {
+    window.location = "/listSolicitudServicioPagos";
 }
+
+/*function registerCotizacionContrato(e) {
+    window.location = "/registerCotizacionContrato";
+}*/
 
 function listCotizacionContrato(e) {
     window.location = "/listCotizacionContrato";
 }
 
-function registerEtiquetas(e) {
+function listSolicitudServicioInterno(e) {
+    window.location = "/listSolicitudServicioInterno";
+}
+
+/*function registerEtiquetas(e) {
     window.location = "/registerEtiquetas";
 }
 
 function listEtiquetas(e) {
     window.location = "/listEtiquetas";
-}
+}*/
 
 function registerValidacion(e) {
     window.location = "/registerValidacion";
@@ -244,4 +252,8 @@ function registerFRAOIT(e) {
 
 function listFRAOIT(e) {
     window.location = "/listFRAOIT";
+}
+
+function consultaListaEnsayos(e){
+    window.location = "/listEnsayos";
 }

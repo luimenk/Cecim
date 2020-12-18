@@ -95,6 +95,7 @@ function valida() {
     var clave;
     var valor;
     var test = document.getElementsByTagName("input");
+    document.getElementById("btnAceptar").disabled = true;
 
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
@@ -108,7 +109,7 @@ function valida() {
     // Get the content type of the image
     var contentType = block[0].split(":")[1];// In this case "image/gif"
     // get the real base64 content of the file
-    var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."*/
+    var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
 
     // Convert it to a blob to upload
     /*var blob1 = b64toBlob(realData, contentType);
@@ -118,6 +119,7 @@ function valida() {
     var blob = document.getElementById("file").files[0];
     var blob2 = document.getElementById("file2").files[0];
     var blob3 = document.getElementById("file3").files[0];
+
     var formData = new FormData();
     //formData.append("imagen", blob);
     formData.append("imagen", blob);
@@ -184,9 +186,11 @@ function save(myjson) {
             });
         } else {
             swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+            document.getElementById("btnAceptar").disabled = false;
         }
     }).catch(function (err) {
         swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+        document.getElementById("btnAceptar").disabled = false;
     });
 }
 

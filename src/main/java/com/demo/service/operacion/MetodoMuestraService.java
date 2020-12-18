@@ -54,6 +54,10 @@ public class MetodoMuestraService {
         metodoMuestraRepository.deleteById(id);
     }
 
+    public void borraTodosPorMuestra(Long id){
+        metodoMuestraRepository.deleteAllBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(id);
+    }
+
     public long contar() {
         return metodoMuestraRepository.count();
     }

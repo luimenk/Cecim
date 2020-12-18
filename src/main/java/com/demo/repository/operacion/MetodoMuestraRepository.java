@@ -14,6 +14,8 @@ import java.util.List;
 @Transactional
 public interface MetodoMuestraRepository extends JpaRepository<MetodoMuestra, Long>{
     MetodoMuestra findByMetodoMuestraId(Long id);
+    MetodoMuestra findBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(Long id);
+    void deleteAllBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(Long id);
     List<MetodoMuestra> findAllByMethod_MethodId(Long id);
     List<MetodoMuestra> findAllBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(Long id);
     //List<MetodoMuestra> findAllBySolicitudServicioClienteSolicitudServicioClienteIdMuestras_SolicitudServicioCliente(SolicitudServicioCliente solicitudServicioCliente);

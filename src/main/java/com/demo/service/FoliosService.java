@@ -59,6 +59,11 @@ public class FoliosService {
         return estructuraFolio2(folio);
     }
 
+    public String folioTecnicas(String metodo){
+        Folios folio = foliosRepository.findByNombreFolio(metodo);
+        return estructuraFolio2(folio);
+    }
+
     public String estructuraFolio(Folios folio){
         String structureFolio, dia, mes, nombre, consecutivo;
         int cont, anio, me, di;
@@ -90,7 +95,7 @@ public class FoliosService {
         }
 
         //nombre = "" + mes + dia + anio + "_";
-        nombre = "" + mes + anio + "_";
+        nombre = "" + mes + anio + "";
 
         structureFolio = nombre+consecutivo;
 
@@ -124,5 +129,9 @@ public class FoliosService {
         foliosRepository.save(folio);
 
         return structureFolio;
+    }
+
+    public void actualizaFolio(String folio, String nombre){
+
     }
 }

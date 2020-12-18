@@ -3,6 +3,7 @@ function valida() {
     var clave;
     var valor;
     var test = document.getElementsByTagName("input");
+    document.getElementById("btnAceptar").disabled = true;
 
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
@@ -57,6 +58,7 @@ function save(myjson) {
             swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
         }
     }).catch(function (err) {
+        document.getElementById("btnAceptar").disabled = false;
         swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
     });
 }

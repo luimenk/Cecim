@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import com.demo.utils.FormatoFechas;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +33,7 @@ public class FRA_DSC_Service {
     private FRA_DSC_Repository fra_dsc_repository;
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
+    FormatoFechas formatoFechas = new FormatoFechas();
 
     private static final Logger LOGGER = LoggerFactory.getLogger("info");
 
@@ -70,9 +72,9 @@ public class FRA_DSC_Service {
 
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(fra_dsc.getFolioSolicitudServicioInterno());
-        table0.getRow(0).getCell(3).setText(fra_dsc.getFechaInicioAnalisis());
+        table0.getRow(0).getCell(3).setText(formatoFechas.formateadorFechas(fra_dsc.getFechaInicioAnalisis()));
         table0.getRow(1).getCell(1).setText(fra_dsc.getIdInternoMuestra());
-        table0.getRow(1).getCell(3).setText(fra_dsc.getFechaFinalAnalisis());
+        table0.getRow(1).getCell(3).setText(formatoFechas.formateadorFechas(fra_dsc.getFechaFinalAnalisis()));
 
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(fra_dsc.getTemperatura());

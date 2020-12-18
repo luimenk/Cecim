@@ -259,4 +259,30 @@ public class RecepcionVerificacionRegistroCodificacion {
     public void setUbicacionMuestraRetencion(String ubicacionMuestraRetencion) {
         this.ubicacionMuestraRetencion = ubicacionMuestraRetencion;
     }
+
+    @Override
+    public String toString() {
+        return "RecepcionVerificacionRegistroCodificacion{" +
+                "recepcionVerificacionRegistroCodificacionId=" + recepcionVerificacionRegistroCodificacionId +
+                ", cuentaConEtiqueta='" + cuentaConEtiqueta + '\'' +
+                ", utilizoFeim='" + utilizoFeim + '\'' +
+                ", cantidadMuestraEntregada='" + cantidadMuestraEntregada + '\'' +
+                ", solicitudServicioClienteMuestras=" + solicitudServicioClienteMuestras +
+                ", fechaRecepcion='" + fechaRecepcion + '\'' +
+                ", folioRecepcionVerificacion='" + folioRecepcionVerificacion + '\'' +
+                ", nombrePersonaRecibe='" + nombrePersonaRecibe + '\'' +
+                ", nombrePersonaEntrega='" + nombrePersonaEntrega + '\'' +
+                ", medioRecepcion='" + medioRecepcion + '\'' +
+                ", idInternoMuestra1='" + idInternoMuestra1 + '\'' +
+                ", idInternoMuestra2='" + idInternoMuestra2 + '\'' +
+                ", condicionesMuestra1='" + condicionesMuestra1 + '\'' +
+                ", condicionesMuestra2='" + condicionesMuestra2 + '\'' +
+                ", cumpleCantidad='" + cumpleCantidad + '\'' +
+                ", sinoEspecifiqueCantidad='" + sinoEspecifiqueCantidad + '\'' +
+                ", cantidadMuestraAnalisis='" + cantidadMuestraAnalisis + '\'' +
+                ", cantidadMuestraRetencion='" + cantidadMuestraRetencion + '\'' +
+                ", nombrePersonaAcondicionara='" + nombrePersonaAcondicionara + '\'' +
+                ", ubicacionMuestraRetencion='" + ubicacionMuestraRetencion + '\'' +
+                '}';
+    }
 }

@@ -3,6 +3,7 @@ package com.demo.controller.vistas;
 import com.demo.model.Client;
 import com.demo.model.Machine;
 import com.demo.model.Method;
+import com.demo.model.auxiliares.MetodosSeleccionados;
 import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
@@ -11,7 +12,6 @@ import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
 import com.demo.utils.WebUtils;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,7 +26,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @CrossOrigin
@@ -114,6 +113,30 @@ public class SolicitudServicioClienteVista {
         }
 
         return "content/operacion/solicitudServicioCliente/listSolicitudServicio";
+    }
+
+    @RequestMapping("/listSolicitudServicioPagos")
+    public String listSolicitudServicioPagos(Model model, Principal principal) {
+        // After user login successfully.
+        String userName = principal.getName();
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        List<Machine> lista = machineService.findAll();
+        model.addAttribute("maquinas", lista);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+
+        return "content/operacion/solicitudServicioCliente/listSolicitudServicioPagos";
     }
 
     @RequestMapping("/detalleSolicitudServicio/{id}")
@@ -214,18 +237,61 @@ public class SolicitudServicioClienteVista {
         List<Method> lista2 = methodService.findAll();
         model.addAttribute("metodos", lista2);
 
-        List<List<MetodoMuestra>> prueba = new ArrayList<>();
-
-        for (int i= 0; i < muestrasList.size(); i++){
-            List<MetodoMuestra> metodoMuestras = metodoMuestraService.findAllByMuestra(muestrasList.get(i).getSolicitudServicioClienteMuestrasId());
-            prueba.add(metodoMuestras);
+        List<List<MetodosSeleccionados>> listToRender = new ArrayList<>();
+        List<MetodosSeleccionados> aux;
+        for (SolicitudServicioClienteMuestras solicitudServicioClienteMuestras : muestrasList) {
+            List<MetodoMuestra> metodoMuestras = metodoMuestraService.
+                    findAllByMuestra(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId());
+            aux = new ArrayList<>();
+            for (Method method : lista2) {
+                MetodosSeleccionados metodoMuestraPojo = new MetodosSeleccionados();
+                metodoMuestraPojo.setMethod(method);
+                if (containsMethod(metodoMuestras,method)) {
+                    metodoMuestraPojo.setSelected(true);
+                }
+                aux.add(metodoMuestraPojo);
+            }
+            listToRender.add(aux);
         }
-        model.addAttribute("metodosSeleccionados", prueba);
-
+        model.addAttribute("listToRender", listToRender);
 
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());
         }
         return "content/operacion/solicitudServicioCliente/formSolicitudServicio2";
+    }
+
+    //MODIFICAR SOLICITUD
+    @RequestMapping(value = "/registerSolicituedServicioFechas/{id}")
+    public String fechasSolicitudServicio(Model model, Principal principal, @PathVariable("id") Long id) {
+        // After user login successfully.
+        String userName = principal.getName();
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(id);
+
+        model.addAttribute("fechaEnvioMuestras", solicitudServicioCliente.getFechaEnvioMuestras());
+        model.addAttribute("fechaPago", solicitudServicioCliente.getFechaPago());
+        model.addAttribute("fechaRecepcionMuestras", solicitudServicioCliente.getFechaRecepcionMuestras());
+        model.addAttribute("fechaCompromisoEntrega", solicitudServicioCliente.getFechaCompromisoEntrega());
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+        return "content/operacion/solicitudServicioCliente/formSolicitudServicioFechas";
+    }
+
+    private boolean containsMethod(List<MetodoMuestra> list, Method method) {
+        for (MetodoMuestra metodoMuestra : list) {
+            if (metodoMuestra.getMethod().equals(method)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

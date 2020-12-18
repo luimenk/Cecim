@@ -14,6 +14,7 @@ import com.demo.utils.WebUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.authentication.rememberme.CookieTheftException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -106,67 +107,71 @@ public class InterfaceController {
      */
     @RequestMapping(value = "/dashboard")
     public String userInfo(Model model, Principal principal) {
+        try{
+            // After user login successfully.
+            String userName = principal.getName();
 
-        // After user login successfully.
-        String userName = principal.getName();
+            User loginedUser = (User) ((Authentication) principal).getPrincipal();
 
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+            String userInfo = WebUtils.toString(loginedUser);
 
-        String userInfo = WebUtils.toString(loginedUser);
+            Collection<GrantedAuthority> review = loginedUser.getAuthorities();
 
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+            //model.addAttribute("userName", userName);
+            //model.addAttribute("userInfo", userInfo);
 
-        //model.addAttribute("userName", userName);
-        //model.addAttribute("userInfo", userInfo);
+            Long contarMetodo = methodService.contar();
+            Long contarCliente = clientService.contar();
+            Long contarMaquina = machineService.contar();
+            Long contarUsuario = appUserService.contar();
 
-        Long contarMetodo = methodService.contar();
-        Long contarCliente = clientService.contar();
-        Long contarMaquina = machineService.contar();
-        Long contarUsuario = appUserService.contar();
+            model.addAttribute("contarMetodo", contarMetodo);
+            model.addAttribute("contarCliente", contarCliente);
+            model.addAttribute("contarMaquina", contarMaquina);
+            model.addAttribute("contarUsuario", contarUsuario);
 
-        model.addAttribute("contarMetodo", contarMetodo);
-        model.addAttribute("contarCliente", contarCliente);
-        model.addAttribute("contarMaquina", contarMaquina);
-        model.addAttribute("contarUsuario", contarUsuario);
-
-        String rol = "";
+            String rol = "";
 
         /*GenerateQR generateQR = new GenerateQR();
         generateQR.generate();*/
 
-        //List<UserRole> algo = userRoleService.findBySomething("SUPERUSUARIO");
-        List<UserRole> algo = userRoleService.findAll();
-        for (int i = 0; i <algo.size(); i++) {
-            if (algo.get(i).getAppRole().getRoleName().equals("LABORATORISTA")) {
-                System.out.println(algo.get(i).getAppUser().getUserName());
-                System.out.println(algo.get(i).getAppRole().getRoleName());
+            //List<UserRole> algo = userRoleService.findBySomething("SUPERUSUARIO");
+            List<UserRole> algo = userRoleService.findAll();
+            for (int i = 0; i <algo.size(); i++) {
+                if (algo.get(i).getAppRole().getRoleName().equals("LABORATORISTA")) {
+                    System.out.println(algo.get(i).getAppUser().getUserName());
+                    System.out.println(algo.get(i).getAppRole().getRoleName());
+                }
             }
-        }
 
-        for (GrantedAuthority a : review) {
-            //System.out.println(a.getAuthority());
-            if (a.getAuthority().equals("ROLE_SUPERUSUARIO") || a.getAuthority().equals("ROLE_DIRECTORGENERAL")) {
-                rol = "content/dashboard/dashboard";
+            for (GrantedAuthority a : review) {
+                //System.out.println(a.getAuthority());
+                if (a.getAuthority().equals("ROLE_SUPERUSUARIO") || a.getAuthority().equals("ROLE_DIRECTORGENERAL")) {
+                    rol = "content/dashboard/dashboard";
+                }
+                if (a.getAuthority().equals("ROLE_GERENCIATECNICA")) {
+                    rol = "content/dashboard/dashboardLabo";
+                }
+                if (a.getAuthority().equals("ROLE_CONTROLDECALIDAD")) {
+                    rol = "content/dashboard/dashboardAdmin";
+                }
+                if (a.getAuthority().equals("ROLE_TECNICO")) {
+                    rol = "content/dashboard/dashboardEspe";
+                }
+                if (a.getAuthority().equals("ROLE_JEFEDELABORATORIO")) {
+                    rol = "content/dashboard/dashboardLabo";
+                }
+                if (a.getAuthority().equals("ROLE_ANALISTA")) {
+                    rol = "content/dashboard/dashboardLabo";
+                }
+                model.addAttribute("role", a.getAuthority());
             }
-            if (a.getAuthority().equals("ROLE_GERENCIATECNICA")) {
-                rol = "content/dashboard/dashboardLabo";
-            }
-            if (a.getAuthority().equals("ROLE_CONTROLDECALIDAD")) {
-                rol = "content/dashboard/dashboardAdmin";
-            }
-            if (a.getAuthority().equals("ROLE_TECNICO")) {
-                rol = "content/dashboard/dashboardEspe";
-            }
-            if (a.getAuthority().equals("ROLE_JEFEDELABORATORIO")) {
-                rol = "content/dashboard/dashboardLabo";
-            }
-            if (a.getAuthority().equals("ROLE_ANALISTA")) {
-                rol = "content/dashboard/dashboardLabo";
-            }
-            model.addAttribute("role", a.getAuthority());
-        }
 
-        return rol;
+            return rol;
+        } catch (CookieTheftException ex){
+            System.out.println("El token ha caducado");
+            return "content/accesos/index";
+        }
     }
 
     /**

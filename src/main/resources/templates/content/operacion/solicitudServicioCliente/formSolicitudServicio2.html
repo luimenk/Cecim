@@ -49,18 +49,18 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-2 control-label">Fecha de Envío de Muestras</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="hidden" class="form-control" name="solicitudServicioClienteId"
-                                                   id="solicitudServicioClienteId" required
-                                                   th:value="${solicitudServicioClienteId}">
+<!--                                    <label class="col-sm-2 control-label">Fecha de Envío de Muestras</label>-->
+<!--                                    <div class="col-sm-4 col-sm-offset-1">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <input type="hidden" class="form-control" name="solicitudServicioClienteId"-->
+<!--                                                   id="solicitudServicioClienteId" required-->
+<!--                                                   th:value="${solicitudServicioClienteId}">-->
 
-                                            <input type="text" class="form-control datepicker"
-                                                   name="fechaEnvioMuestras" id="fechaEnvioMuestras" required="true"
-                                                   th:value="${fechaEnvioMuestras}">
-                                        </div>
-                                    </div>
+<!--                                            <input type="text" class="form-control datepicker"-->
+<!--                                                   name="fechaEnvioMuestras" id="fechaEnvioMuestras" required="true"-->
+<!--                                                   th:value="${fechaEnvioMuestras}">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <label class="col-sm-2 control-label">Fecha de Pago</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
@@ -235,31 +235,16 @@
                                             <div class="form-group">
                                                 <select multiple class="selectpicker"
                                                         th:attr="name='metodo'+${iterador.index},id='metodo'+${iterador.index}"
+                                                        th:with="bandera=false"
                                                         data-title="Selecciona un método..."
                                                         data-style="btn-info btn-fill btn-block"
                                                         data-menu-style="dropdown-blue"
                                                         required="required"
                                                         onchange="chequeo()">
-                                                    <!--<th:block th:each="item,i:${metodos}">
-                                                        <th:block th:each="item2,j:${metodosSeleccionados.get(iterador.index)}">
-                                                            <div th:switch="${item.getMethodId()}">
-                                                                <p th:case="${item2.getMethod().getMethodId()}">
-                                                                    <option th:value="${item.methodId}" th:text="${item.getCodigoMetodo()}" selected></option>
-                                                                </p>
-                                                            </div>
-                                                        </th:block>
-                                                        <p>
-                                                            <option th:value="${item.methodId}" th:text="${item.getCodigoMetodo()}"></option>
-                                                        </p>
-                                                    </th:block>-->
-                                                    <th:block th:each="item,i:${metodos}">
-                                                        <th:block th:each="item2,j:${metodosSeleccionados.get(iterador.index)}">
-                                                            <option th:value="${item.methodId}"
-                                                                    th:text="${item.getCodigoMetodo()}"
-                                                                    th:selected="${item.getMethodId()} eq ${item2.getMethod().getMethodId()}"></option>
-<!--                                                            (${user.isAdmin()} ? 'Administrator' : (${user.type} ?: 'Unknown'))-->
-<!--                                                            <option></option>-->
-                                                        </th:block>
+                                                    <th:block th:each="item,i:${listToRender.get(iterador.index)}">
+                                                        <option th:value="${item.method.methodId}"
+                                                                th:text="${item.method.getCodigoMetodo()}"
+                                                                th:selected="${item.getSelected()}"></option>
                                                     </th:block>
                                                 </select>
                                             </div>
@@ -283,13 +268,13 @@
                                             </div>
                                         </div>
                                         <!--<label class="col-sm-2 control-label">Cantidad de Muestra:</label>-->
-                                        <div class="col-sm-4 col-sm-offset-1">
-                                            <div class="form-group">
-                                                <input type="hidden" class="form-control"
-                                                       th:attr="name='cantidadMuestra'+${iterador.index},id='cantidadMuestra'+${iterador.index}"
-                                                       disabled>
-                                            </div>
-                                        </div>
+<!--                                        <div class="col-sm-4 col-sm-offset-1">-->
+<!--                                            <div class="form-group">-->
+<!--                                                <input type="hidden" class="form-control" th:value="${row.getSolicitudServicioCliente().}"-->
+<!--                                                       th:attr="name='cantidadMuestra'+${iterador.index},id='cantidadMuestra'+${iterador.index}"-->
+<!--                                                       disabled>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </div>
 
                                     <div class="row">
@@ -353,18 +338,17 @@
                                     </div>
                                 </div>
                             </div>
+<!--                            <div class="card-footer ">-->
+<!--                                <button type="submit" class="btn btn-fill btn-default" onclick="agregarMuestra()">-->
+<!--                                    Agregar otra Muestra-->
+<!--                                </button>-->
+<!--                            </div>-->
                             <div class="card-footer ">
-                                <button type="submit" class="btn btn-fill btn-default" onclick="agregarMuestra()">
-                                    Agregar otra Muestra
-                                </button>
-                            </div>
-                            <div class="card-footer ">
-                                <button type="submit" class="btn btn-fill btn-primary" onclick="valida()">Generar
-                                    Solicitud
+                                <button type="submit" class="btn btn-fill btn-primary" onclick="valida3()">Modificar Solicitud
                                 </button>
                             </div>
                         </div>
-                        <input type="text" class="form-control"
+                        <input type="hidden" class="form-control"
                                name="cantidadDeMuestras" id="cantidadDeMuestras"
                                th:value="${cantidadDeMuestras}">
                     </div>

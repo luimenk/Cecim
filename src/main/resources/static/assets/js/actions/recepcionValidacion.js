@@ -67,7 +67,7 @@ function tick() {
                 if (isConfirm) {
                     cargarMedianteQR(code.data);
                     swal("Aceptado!", "Tu código QR fue aceptado.", "success");
-                    deteccion();
+                    //deteccion();
                 } else {
                     console.log("Código QR rechazado.");
                     //cargarTabla();
@@ -210,7 +210,7 @@ function cargarMedianteQR(valor){
         '                        <div class="col-md-12">' +
         '                            <div class="card ">' +
         '                                <div class="card-header ">' +
-        '                                    <h4 class="card-title">Verificación de etiqueta de identificación de muestra del cliente FEIM-SOC-007</h4>' +
+        '                                    <h4 class="card-title">Verificación de etiqueta de identificación de muestra del cliente</h4>' +
         '                                </div>' +
         '                                <div class="card-body ">' +
         '' +
@@ -237,7 +237,7 @@ function cargarMedianteQR(valor){
         '                                            </form>' +
         '                                        </div>' +
         '' +
-        '                                        <label class="col-sm-2 control-label">El cliente utilizó el formato FEIM-SOC-007: </label>' +
+        '                                        <label class="col-sm-2 control-label">El cliente utilizó el formato CeCIM: </label>' +
         '                                        <div class="col-sm-4 col-sm-offset-1">' +
         '                                            <form id="radioFormato" class="form-horizontal">' +
         '                                                <div class="form-check form-check-radio checkbox-inline">' +
@@ -323,14 +323,14 @@ function cargarMedianteQR(valor){
         '                                    </div>' +
         '' +
         '                                    <div class="row">' +
-        '                                        <label class="col-sm-2 control-label">Condiciones de la muestra 1</label>' +
+        '                                        <label class="col-sm-2 control-label">Condiciones de la muestra de análisis</label>' +
         '                                        <div class="col-sm-4 col-sm-offset-1">' +
         '                                            <div class="form-group">' +
         '                                                <input type="text" class="form-control"' +
         '                                                       name="condicionesMuestra1" id="condicionesMuestra1" required>' +
         '                                            </div>' +
         '                                        </div>' +
-        '                                        <label class="col-sm-2 control-label">Condiciones de la muestra 2</label>' +
+        '                                        <label class="col-sm-2 control-label">Condiciones de la muestra de retención</label>' +
         '                                        <div class="col-sm-4 col-sm-offset-1">' +
         '                                            <div class="form-group">' +
         '                                                <input type="text" class="form-control"' +
@@ -487,21 +487,6 @@ function valida(){
         }
     }
 
-    // $.getJSON("/recepcionVerificacion/muestra/" + obj["idMuestra"], function (result) {
-    //     var idRecepcion = result.recepcionVerificacionRegistroCodificacionId;
-    //
-    //     console.log(idRecepcion);
-    // });
-
-    // $.getJSON("/solicitudServicioClienteMuestras/uno/" + obj["idMuestra"], function (result) {
-    //     var idSolicitudServicioCliente = result.solicitudServicioCliente.solicitudServicioClienteId;
-    //
-    //     var myjson = JSON.stringify(obj);
-    //
-    //     save(myjson, idSolicitudServicioCliente);
-    // });
-
-
     $.getJSON("/recepcionVerificacion/muestra/" + obj["idMuestra"], function (result) {
         swal({
             title: "Error!",
@@ -523,7 +508,14 @@ function valida(){
 
             var myjson = JSON.stringify(obj);
 
-            save(myjson, idSolicitudServicioCliente);
+            if (contador !== 0) {
+                swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+            } else {
+                var myjson = JSON.stringify(obj);
+                //console.log(valoresMultiples);
+                save(myjson, idSolicitudServicioCliente);
+            }
+            //save(myjson, idSolicitudServicioCliente);
         });
     });
 

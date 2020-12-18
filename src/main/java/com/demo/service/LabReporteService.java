@@ -7,6 +7,7 @@ import java.util.*;
 import com.demo.model.Client;
 import com.demo.model.Folios;
 import com.demo.utils.EstructuraNombres;
+import com.demo.utils.FormatoFechas;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.*;
@@ -86,8 +87,15 @@ public class LabReporteService {
 
         List<Client> lista = clientService.findAll();
         Client client = clientService.findById(clientId);
+        FormatoFechas formatoFechas = new FormatoFechas();
 
         List<String>contactosAux;
+
+        XWPFTable table2 = doc.getTables().get(0);
+        table2.getRow(0).getCell(1).setText(client.getFolioCliente());
+        table2.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas("2020-07-11"));
+        table2.getRow(1).getCell(1).setText("E. Hernández");
+        table2.getRow(3).getCell(1).setText("Cliente");
 
         XWPFTable table3 = doc.getTables().get(1);
         table3.getRow(0).getCell(1).setText(client.getNombreRazonSocial());

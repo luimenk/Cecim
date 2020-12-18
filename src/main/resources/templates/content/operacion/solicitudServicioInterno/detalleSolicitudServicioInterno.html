@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Panel de Administración</title>
     <th:block th:include="/dependences/_HeadInside"></th:block>
@@ -14,7 +14,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-2">
-                        <button class="btn btn-fill btn-success" onclick="listSolicitudServicio()"><i
+                        <button class="btn btn-fill btn-success" onclick="listSolicitudServicioInterno()"><i
                                 class="fa fa-arrow-circle-left"></i>Volver
                         </button>
                         <button class="btn btn-warning" onclick="dashboard()"><i class="fa fa-home"></i>Inicio</button>
@@ -127,83 +127,18 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center">#</th>
-                                        <th class="text-center">ID Cliente muestra</th>
+                                        <th class="text-center">ID Interno de la muestra</th>
                                         <th class="text-center">Recepción</th>
-                                        <th class="text-right">Acciones</th>
+<!--                                        <th class="text-right">Acciones</th>-->
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <th:block th:each="row,iterador:${listaMuestras}">
-                                        <div th:switch="${row.estatus}">
-                                            <div th:case="'SI'">
-                                                <tr class="success">
-                                                    <td class="text-center" th:text="${iterador.index}+1"></td>
-                                                    <td class="text-center" th:text="${row.idClienteMuestra}"></td>
-                                                    <td class="text-center" th:text="${row.estatus}"></td>
-                                                    <td class="text-right">
-                                                        <div class="row">
-                                                            <div class="col-md-auto ml-auto">
-                                                                <a th:href="@{'/solicitudServicioCliente/imprimirEtiquetasIdentificacionIndividual/' + ${row.solicitudServicioClienteMuestrasId}}"
-                                                                   rel="tooltip" title="Etiqueta Cliente"
-                                                                   data-placement="left"
-                                                                   class="btn btn-tumblr btn-sm">
-                                                                    <i class="fa fa-qrcode"></i> Etiqueta Cliente
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-auto ml-auto">
-                                                                <a th:href="@{'/solicitudServicioCliente/imprimirEtiquetasRetencion/' + ${row.solicitudServicioClienteMuestrasId}}"
-                                                                   rel="tooltip" title="Etiqueta Recepción"
-                                                                   data-placement="left"
-                                                                   class="btn btn-tumblr btn-sm">
-                                                                    <i class="fa fa-qrcode"></i> Etiqueta Recepción
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-auto ml-auto">
-                                                                <a th:href="@{'/recepcionVerificacion/imprimirRecepcionDirecta/' + ${row.solicitudServicioClienteMuestrasId}}"
-                                                                   rel="tooltip"
-                                                                   title="Formato Recepción" data-placement="left"
-                                                                   class="btn btn-tumblr btn-sm">
-                                                                    <i class="fa fa-file-text-o"></i> Formato Recepción
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                    <th:block th:each="row,iterador:${listaInterna}">
+                                        <tr class="success">
+                                                    <td class="text-center" th:text="${iterador.index}"></td>
+                                                    <td class="text-center" th:text="${row.getIdInternoMuestra1()}"></td>
+                                                    <td class="text-center" th:text="${row.getSolicitudServicioClienteMuestras().getEstatus()}"></td>
                                                 </tr>
-                                            </div>
-                                            <div th:case="'NO'">
-                                                <tr class="danger">
-                                                    <td class="text-center" th:text="${iterador.index}+1"></td>
-                                                    <td class="text-center" th:text="${row.idClienteMuestra}"></td>
-                                                    <td class="text-center" th:text="${row.estatus}"></td>
-                                                    <td class="text-right">
-                                                        <div class="row">
-                                                            <div class="col-md-auto ml-auto">
-                                                                <a th:href="@{'/solicitudServicioCliente/imprimirEtiquetasIdentificacionIndividual/' + ${row.solicitudServicioClienteMuestrasId}}"
-                                                                   rel="tooltip" title="Etiqueta Cliente"
-                                                                   data-placement="left"
-                                                                   class="btn btn-tumblr btn-sm">
-                                                                    <i class="fa fa-qrcode"></i> Etiqueta Cliente
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-auto ml-auto">
-                                                                <a th:href="@{'/registerValidacion'}"
-                                                                   rel="tooltip" title="Registro"
-                                                                   data-placement="left"
-                                                                   class="btn btn-tumblr btn-sm">
-                                                                    <i class="fa fa-pencil"></i> Registro
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </div>
-                                        </div>
                                     </th:block>
                                     </tbody>
                                 </table>
@@ -231,7 +166,7 @@
                                         <div th:switch="${row.estatus}">
                                             <div th:case="'OK'">
                                                 <tr class="success">
-                                                    <td class="text-center" th:text="${iterador.index}+1"></td>
+                                                    <td class="text-center" th:text="${iterador.index}"></td>
                                                     <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
                                                     <td class="text-center" th:text="${row.estatus}"></td>
                                                     <td class="text-right">
@@ -258,7 +193,7 @@
                                             </div>
                                             <div th:case="'PENDIENTE'">
                                                 <tr class="danger">
-                                                    <td class="text-center" th:text="${iterador.index}+1"></td>
+                                                    <td class="text-center" th:text="${iterador.index}"></td>
                                                     <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
                                                     <td class="text-center" th:text="${row.estatus}"></td>
                                                     <td class="text-right">
@@ -285,7 +220,7 @@
                                             </div>
                                             <div th:case="'RECEPCION'">
                                                 <tr class="warning">
-                                                    <td class="text-center" th:text="${iterador.index}+1"></td>
+                                                    <td class="text-center" th:text="${iterador.index}"></td>
                                                     <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
                                                     <td class="text-center" th:text="${row.estatus}"></td>
                                                     <td class="text-center">.</td>
@@ -306,34 +241,15 @@
                                 <h4 class="card-title">Documentos</h4>
                             </div>
                             <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <button class="btn btn-info" onclick="validaImprimir2()"><i
-                                                class="fa fa-file-text-o"></i>Imprimir solicitud
-                                        </button>
+                                <th:block th:if="${botonSolicitud}">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-sm-offset-1">
+                                            <button class="btn btn-success" onclick="validaImprimir6()"><i
+                                                    class="fa fa-file-text-o"></i>Imprimir solicitud servicio interno
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <button class="btn btn-success" onclick="validaImprimirEtiqueta()"><i
-                                                class="fa fa-qrcode"></i>Imprimir etitquetas de cliente
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <button class="btn btn-danger" onclick="cotizacion2()"><i class="fa fa-usd"></i>Imprimir
-                                            cotización y contrato
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <button class="btn btn-primary" onclick="informe2()"><i class="fa fa-book"></i>Imprimir
-                                            informe
-                                        </button>
-                                    </div>
-                                </div>
+                                </th:block>
                             </div>
                         </div>
                     </div>
@@ -346,5 +262,5 @@
 </body>
 <th:block th:include="/dependences/_RequiredScripts"></th:block>
 <script src="../assets/js/actions/urlRedirects.js" type="text/javascript"></script>
-<script src="../assets/js/actions/solicitudServicioCliente.js" type="text/javascript"></script>
+<script src="../assets/js/actions/solicitudServicioInterno.js" type="text/javascript"></script>
 </html>

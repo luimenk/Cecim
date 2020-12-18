@@ -24,17 +24,21 @@ public class MetodoMuestra {
     @Column(name = "Path_Qr_Lab", length = 250, nullable = false)
     private String pathQRLab;
 
+    @Column(name = "folio_tecnica", length = 10, nullable = false)
+    private String folioTecnica;
+
     @Column(name = "Estatus", length = 250, nullable = false)
     private String estatus;
 
     public MetodoMuestra() {
     }
 
-    public MetodoMuestra(Long metodoMuestraId, Method method, SolicitudServicioClienteMuestras solicitudServicioClienteMuestras, String pathQRLab, String estatus) {
+    public MetodoMuestra(Long metodoMuestraId, Method method, SolicitudServicioClienteMuestras solicitudServicioClienteMuestras, String pathQRLab, String folioTecnica, String estatus) {
         this.metodoMuestraId = metodoMuestraId;
         this.method = method;
         this.solicitudServicioClienteMuestras = solicitudServicioClienteMuestras;
         this.pathQRLab = pathQRLab;
+        this.folioTecnica = folioTecnica;
         this.estatus = estatus;
     }
 
@@ -70,22 +74,19 @@ public class MetodoMuestra {
         this.pathQRLab = pathQRLab;
     }
 
+    public String getFolioTecnica() {
+        return folioTecnica;
+    }
+
+    public void setFolioTecnica(String folioTecnica) {
+        this.folioTecnica = folioTecnica;
+    }
+
     public String getEstatus() {
         return estatus;
     }
 
     public void setEstatus(String estatus) {
         this.estatus = estatus;
-    }
-
-    @Override
-    public String toString() {
-        return "MetodoMuestra{" +
-                "metodoMuestraId=" + metodoMuestraId +
-                ", method=" + method +
-                ", solicitudServicioClienteMuestras=" + solicitudServicioClienteMuestras +
-                ", pathQRLab='" + pathQRLab + '\'' +
-                ", estatus='" + estatus + '\'' +
-                '}';
     }
 }

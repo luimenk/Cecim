@@ -3,6 +3,7 @@ function valida() {
     var clave;
     var valor;
     var test = document.getElementsByTagName("input");
+    document.getElementById("btnAceptar").disabled = true;
 
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
@@ -22,6 +23,7 @@ function validaAgregar(){
     const id = url.substring(url.lastIndexOf('/') + 1);
     const blob = document.getElementById("file").files[0];
     const tiempo = document.getElementById('tiempoExposicion').value;
+    document.getElementById("btnAceptar").disabled = true;
     var obj = {};
     obj["id"] = id;
     obj["tiempoExposicion"] = tiempo;
@@ -49,6 +51,7 @@ function validaTerminar(){
     var clave;
     var valor;
     var test = document.getElementsByTagName("input");
+    document.getElementById("btnAceptar").disabled = true;
 
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");

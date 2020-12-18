@@ -76,7 +76,7 @@ public class FEIL_MIE_007_Service {
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=FEIL_MIE-" + estructuraNombres.getNombre() + ".docx");
+        headers.add("Content-Disposition", "inline; filename=FEIL_MIE_" + lista.get(0).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente() + ".docx");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();

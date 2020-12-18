@@ -159,8 +159,8 @@ public class RecepcionVerificacionRegistroCodificacionController {
         recepcionVerificacionRegistroCodificacion.setNombrePersonaRecibe(request.get("nombrePersonaRecibe"));
         recepcionVerificacionRegistroCodificacion.setNombrePersonaEntrega(request.get("nombrePersonaEntrega"));
         recepcionVerificacionRegistroCodificacion.setMedioRecepcion(request.get("medioRecepcion"));
-        recepcionVerificacionRegistroCodificacion.setIdInternoMuestra1("L_" + ids);
-        recepcionVerificacionRegistroCodificacion.setIdInternoMuestra2("R_" + ids);
+        recepcionVerificacionRegistroCodificacion.setIdInternoMuestra1("L-" + ids);
+        recepcionVerificacionRegistroCodificacion.setIdInternoMuestra2("R-" + ids);
         recepcionVerificacionRegistroCodificacion.setCondicionesMuestra1(request.get("condicionesMuestra1"));
         recepcionVerificacionRegistroCodificacion.setCondicionesMuestra2(request.get("condicionesMuestra2"));
         recepcionVerificacionRegistroCodificacion.setCumpleCantidad(request.get("cumpleCantidad"));
@@ -180,6 +180,7 @@ public class RecepcionVerificacionRegistroCodificacionController {
         for (int j = 0; j< lista.size(); j++){
             MetodoMuestra metodoMuestra = metodoMuestraService.findById(lista.get(j).getMetodoMuestraId());
             metodoMuestra.setPathQRLab(qrService.generateToLab(lista.get(j).getMetodoMuestraId()));
+            metodoMuestra.setFolioTecnica(foliosService.folioTecnicas(lista.get(j).getMethod().getCodigoMetodo()));
             metodoMuestra.setEstatus("PENDIENTE");
             metodoMuestraService.save(metodoMuestra);
         }

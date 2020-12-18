@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import com.demo.utils.FormatoFechas;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTbl;
@@ -37,6 +38,7 @@ public class FRA_EAXE_013_Service {
     private FRA_EAXE_013_DATA_Repository fra_eaxe_013_data_repository;
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
+    FormatoFechas formatoFechas = new FormatoFechas();
 
     private static final Logger LOGGER = LoggerFactory.getLogger("info");
 
@@ -80,9 +82,9 @@ public class FRA_EAXE_013_Service {
 
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(fra_eaxe_013.getFolioSolicitudServicioInterno());
-        table0.getRow(0).getCell(3).setText(fra_eaxe_013.getFechaInicioAnalisis());
+        table0.getRow(0).getCell(3).setText(formatoFechas.formateadorFechas(fra_eaxe_013.getFechaInicioAnalisis()));
         table0.getRow(1).getCell(1).setText(fra_eaxe_013.getIdInternoMuestra());
-        table0.getRow(1).getCell(3).setText(fra_eaxe_013.getFechaFinalAnalisis());
+        table0.getRow(1).getCell(3).setText(formatoFechas.formateadorFechas(fra_eaxe_013.getFechaFinalAnalisis()));
 
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(fra_eaxe_013.getTemperatura());
