@@ -6,10 +6,13 @@ import java.util.*;
 
 import com.demo.model.Client;
 import com.demo.model.Folios;
+import com.demo.service.PDF.DocumentPDFService;
 import com.demo.utils.EstructuraNombres;
 import com.demo.utils.FormatoFechas;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
+import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
+import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
 import org.apache.poi.xwpf.usermodel.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +31,9 @@ public class LabReporteService {
 
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private DocumentPDFService documentPDFService;
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
 
@@ -67,17 +73,27 @@ public class LabReporteService {
             }
         }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=LCC-SOC-"+estructuraNombres.getNombre()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();
-        MediaType word = MediaType.valueOf("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+
+        boolean generatePDF = true;
+
+        if (generatePDF){
+            return documentPDFService.docToPDF(byteArrayOutputStream, "LCC-SOC-"+estructuraNombres.getNombre());
+        }
+
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+        InputStreamResource wordDocument = new InputStreamResource(byteArrayInputStream);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=LCC-SOC-"+estructuraNombres.getNombre()+".docx");
+        MediaType word = MediaType.valueOf("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+
         return ResponseEntity.ok()
                 .headers(headers)
                 .contentType(word)
-                .body(new InputStreamResource(byteArrayInputStream));
+                .body(wordDocument);
     }
 
     public ResponseEntity<InputStreamResource> createDocFCC_SOC(Long clientId) throws InvalidFormatException, IOException{

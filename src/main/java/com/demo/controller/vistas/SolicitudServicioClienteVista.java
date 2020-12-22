@@ -167,6 +167,7 @@ public class SolicitudServicioClienteVista {
         model.addAttribute("totalMetodos", lista2.size());
         model.addAttribute("listaMuestras", lista);
         model.addAttribute("listaMetodos", lista2);
+        model.addAttribute("folio", solicitudServicioCliente.getFolioSolitudServicioCliente());
 
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());
@@ -261,7 +262,7 @@ public class SolicitudServicioClienteVista {
         return "content/operacion/solicitudServicioCliente/formSolicitudServicio2";
     }
 
-    //MODIFICAR SOLICITUD
+
     @RequestMapping(value = "/registerSolicituedServicioFechas/{id}")
     public String fechasSolicitudServicio(Model model, Principal principal, @PathVariable("id") Long id) {
         // After user login successfully.
@@ -284,6 +285,74 @@ public class SolicitudServicioClienteVista {
             model.addAttribute("role", a.getAuthority());
         }
         return "content/operacion/solicitudServicioCliente/formSolicitudServicioFechas";
+    }
+
+    @RequestMapping(value = "/registerSolicituedServicioFechaPagoAnticipo/{id}")
+    public String fechaPagoAnticipo(Model model, Principal principal, @PathVariable("id") Long id) {
+        // After user login successfully.
+        String userName = principal.getName();
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+        return "content/operacion/solicitudServicioCliente/fechaPagoAnticipo";
+    }
+
+    @RequestMapping(value = "/registerSolicituedServicioFechaPagoFinal/{id}")
+    public String fechaPagoFinal(Model model, Principal principal, @PathVariable("id") Long id) {
+        // After user login successfully.
+        String userName = principal.getName();
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+        return "content/operacion/solicitudServicioCliente/fechaPagoFinal";
+    }
+
+    @RequestMapping(value = "/registerSolicituedServicioFechaCompromisoEntrega/{id}")
+    public String fechaCompromisoEntrega(Model model, Principal principal, @PathVariable("id") Long id) {
+        // After user login successfully.
+        String userName = principal.getName();
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+        return "content/operacion/solicitudServicioCliente/fechaCompromisoEntrega";
+    }
+
+    @RequestMapping(value = "/registerSolicituedServicioFechaRecepcionMuestras/{id}")
+    public String fechaRecepcionMuestras(Model model, Principal principal, @PathVariable("id") Long id) {
+        // After user login successfully.
+        String userName = principal.getName();
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("userInfo", userInfo);
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+        return "content/operacion/solicitudServicioCliente/fechaRecepcionMuestras";
     }
 
     private boolean containsMethod(List<MetodoMuestra> list, Method method) {

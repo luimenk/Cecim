@@ -24,13 +24,13 @@
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control datepicker"
-                                                   name="fechaPago" id="fechaPago" required="true">
+                                                   name="fechaPago2" id="fechaPago2" required="true">
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Confirmación de pago: </label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <select class="selectpicker" name="confirmacion" id="confirmacion" required="true"
+                                            <select class="selectpicker" name="confirmacion2" id="confirmacion2" required="true"
                                                     data-title="Selecciona una confirmación..."
                                                     data-style="btn-success"
                                                     data-menu-style="dropdown-blue">
@@ -41,28 +41,9 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Fecha de Recepción de Muestras</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control datepicker"
-                                                   name="fechaRecepcionMuestras" id="fechaRecepcionMuestras"
-                                                   required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Fecha compromiso entrega de resultados</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control datepicker"
-                                                   name="fechaCompromisoEntrega" id="fechaCompromisoEntrega"
-                                                   required="true">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="card-footer ">
-                                <button type="submit" class="btn btn-fill btn-primary" onclick="validaPagoAnticipo()">Actualizar
+                                <button type="submit" class="btn btn-fill btn-primary" onclick="validaPagoFinal()">Actualizar
                                 </button>
                             </div>
                         </div>
@@ -87,7 +68,7 @@
             previous: 'fa fa-chevron-circle-left'
         }
     });
-    $('#fechaPago').datetimepicker({
+    $('#fechaPago2').datetimepicker({
         format: 'YYYY-MM-DD',
         sideBySide: true,
         icons: {

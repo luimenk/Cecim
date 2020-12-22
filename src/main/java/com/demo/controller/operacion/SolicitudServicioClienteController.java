@@ -116,7 +116,7 @@ public class SolicitudServicioClienteController {
             valida.setFechaEnvioMuestras(request.get("fechaEnvioMuestras").toString());
             valida.setFechaPago(request.get("fechaPago").toString());
             valida.setServicioUrgente(request.get("servicioUrgente").toString());
-            valida.setNombreFirmaEmisor(request.get("nombreFirmaEmisor").toString());
+            valida.setNombreFirmaEmisor("");
             valida.setAlmacenamientoEspecial(request.get("almacenamientoEspecial").toString());
             valida.setEspecifique(request.get("especifique").toString());
             valida.setFechaRecepcionMuestras(request.get("fechaRecepcionMuestras").toString());
@@ -182,6 +182,7 @@ public class SolicitudServicioClienteController {
             solicitudServicioCliente.setFechaPago2("");
             solicitudServicioCliente.setConfirmacion("");
             solicitudServicioCliente.setConfirmacion2("");
+            solicitudServicioCliente.setEstatusPago("Pendiente de Pago");
             solicitudServicioCliente.setNombreFirmaReceptor(request.get("nombreFirmaReceptor").toString());
             solicitudServicioCliente.setNombreFirmaCalidad(request.get("nombreFirmaCalidad").toString());
             solicitudServicioCliente.setDevolucionMuestras(request.get("devolucionMuestras").toString());
@@ -221,17 +222,60 @@ public class SolicitudServicioClienteController {
         }
     }
 
-    //ConfirmarFechas1
+    //ConfirmarFechaAnticipo
     @RequestMapping(method = RequestMethod.POST, value = "/confirmarFechas1")
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> assignDate1(@RequestBody Map<String, String> request) throws Exception, SQLException, SQLIntegrityConstraintViolationException {
+    public ResponseEntity<?> fechaPagoAnticipo(@RequestBody Map<String, String> request) throws Exception, SQLException, SQLIntegrityConstraintViolationException {
         System.out.println("Apartado de confirmación de fechas" + calendario.getTime());
         SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(Long.parseLong(request.get("idSolicitud")));
         solicitudServicioCliente.setFechaPago(request.get("fechaPago"));
-        solicitudServicioCliente.setFechaRecepcionMuestras(request.get("fechaRecepcionMuestras"));
-        solicitudServicioCliente.setFechaCompromisoEntrega(request.get("fechaCompromisoEntrega"));
         solicitudServicioCliente.setConfirmacion(request.get("confirmacion"));
+        solicitudServicioCliente.setEstatusPago("Anticipo pagado");
+
+        solicitudServicioClienteService.save(solicitudServicioCliente);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //ConfirmarFechaFinal
+    @RequestMapping(method = RequestMethod.POST, value = "/confirmarFechas2")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<?> fechaPagoFinal(@RequestBody Map<String, String> request) throws Exception, SQLException, SQLIntegrityConstraintViolationException {
+        System.out.println("Apartado de confirmación de fechas final " + calendario.getTime());
+        SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(Long.parseLong(request.get("idSolicitud")));
+        solicitudServicioCliente.setFechaPago2(request.get("fechaPago2"));
+        solicitudServicioCliente.setConfirmacion2(request.get("confirmacion2"));
+        solicitudServicioCliente.setEstatusPago("Pagado");
+
+        solicitudServicioClienteService.save(solicitudServicioCliente);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //ConfirmarFechasRecepción
+    @RequestMapping(method = RequestMethod.POST, value = "/confirmarFechas3")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<?> fechaRecepcion(@RequestBody Map<String, String> request) throws Exception, SQLException, SQLIntegrityConstraintViolationException {
+        System.out.println("Apartado de confirmación de fechas" + calendario.getTime());
+        SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(Long.parseLong(request.get("idSolicitud")));
+        solicitudServicioCliente.setFechaRecepcionMuestras(request.get("fechaRecepcionMuestras"));
+
+        solicitudServicioClienteService.save(solicitudServicioCliente);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //ConfirmarFechasCompromiso
+    @RequestMapping(method = RequestMethod.POST, value = "/confirmarFechas4")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<?> fechaPagoCompromiso(@RequestBody Map<String, String> request) throws Exception, SQLException, SQLIntegrityConstraintViolationException {
+        System.out.println("Apartado de confirmación de fechas" + calendario.getTime());
+        SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(Long.parseLong(request.get("idSolicitud")));
+        solicitudServicioCliente.setFechaCompromisoEntrega(request.get("fechaCompromisoEntrega"));
 
         solicitudServicioClienteService.save(solicitudServicioCliente);
 

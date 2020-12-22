@@ -116,6 +116,52 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center icon-warning">
+                                            <i class="nc-icon nc-preferences-circle-rotate text-primary"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="numbers">
+                                            <p class="card-category">Folio:</p>
+                                            <h4 class="card-title"><span th:text="${folio}"></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center icon-warning">
+<!--                                            <i class="nc-icon nc-vector text-success"></i>-->
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="numbers">
+                                            <p class="card-category"></p>
+                                            <h4 class="card-title">Detalle de la solicitud de servicio del cliente</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer " align="center">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header ">
@@ -221,6 +267,7 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center">#</th>
+                                        <th class="text-center">ID cliente muestra</th>
                                         <th class="text-center">Método solicitado</th>
                                         <th class="text-center">Estatus</th>
                                         <th class="text-right">Acciones</th>
@@ -232,6 +279,7 @@
                                             <div th:case="'OK'">
                                                 <tr class="success">
                                                     <td class="text-center" th:text="${iterador.index}+1"></td>
+                                                    <td class="text-center" th:text="${row.SolicitudServicioClienteMuestras.IdClienteMuestra}"></td>
                                                     <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
                                                     <td class="text-center" th:text="${row.estatus}"></td>
                                                     <td class="text-right">
@@ -259,6 +307,7 @@
                                             <div th:case="'PENDIENTE'">
                                                 <tr class="danger">
                                                     <td class="text-center" th:text="${iterador.index}+1"></td>
+                                                    <td class="text-center" th:text="${row.SolicitudServicioClienteMuestras.IdClienteMuestra}"></td>
                                                     <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
                                                     <td class="text-center" th:text="${row.estatus}"></td>
                                                     <td class="text-right">
@@ -286,6 +335,7 @@
                                             <div th:case="'RECEPCION'">
                                                 <tr class="warning">
                                                     <td class="text-center" th:text="${iterador.index}+1"></td>
+                                                    <td class="text-center" th:text="${row.SolicitudServicioClienteMuestras.IdClienteMuestra}"></td>
                                                     <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
                                                     <td class="text-center" th:text="${row.estatus}"></td>
                                                     <td class="text-center">.</td>

@@ -245,6 +245,186 @@ function valida4(){
     }
 }
 
+function validaPagoAnticipo(){
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    var obj = {};
+    var clave;
+    var valor;
+    var test = document.getElementsByTagName("input");
+    var test2 = document.getElementsByTagName("select");
+    var contador = 0;
+
+    for (var i = 0; i < test.length; i++) {
+        clave = test[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    for (var i = 0; i < test2.length; i++) {
+        clave = test2[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            console.log("Esto está mal");
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    obj["idSolicitud"] = id;
+
+    if (contador !== 0) {
+        swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+    } else {
+        var myjson = JSON.stringify(obj);
+        urldirect = '/solicitudServicioCliente/confirmarFechas1';
+        //console.log(valoresMultiples);
+        save2(myjson, urldirect);
+    }
+}
+
+function validaPagoFinal(){
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    var obj = {};
+    var clave;
+    var valor;
+    var test = document.getElementsByTagName("input");
+    var test2 = document.getElementsByTagName("select");
+    var contador = 0;
+
+    for (var i = 0; i < test.length; i++) {
+        clave = test[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    for (var i = 0; i < test2.length; i++) {
+        clave = test2[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            console.log("Esto está mal");
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    obj["idSolicitud"] = id;
+
+    if (contador !== 0) {
+        swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+    } else {
+        var myjson = JSON.stringify(obj);
+        //console.log(valoresMultiples);
+        urldirect = '/solicitudServicioCliente/confirmarFechas2';
+        save2(myjson, urldirect);
+    }
+}
+
+function validaFechaCompromiso(){
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    var obj = {};
+    var clave;
+    var valor;
+    var test = document.getElementsByTagName("input");
+    var test2 = document.getElementsByTagName("select");
+    var contador = 0;
+
+    for (var i = 0; i < test.length; i++) {
+        clave = test[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    for (var i = 0; i < test2.length; i++) {
+        clave = test2[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            console.log("Esto está mal");
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    obj["idSolicitud"] = id;
+
+    if (contador !== 0) {
+        swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+    } else {
+        var myjson = JSON.stringify(obj);
+        urldirect = '/solicitudServicioCliente/confirmarFechas4';
+        //console.log(valoresMultiples);
+        save2(myjson, urldirect);
+    }
+}
+
+function validaFechaRecepcion(){
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    var obj = {};
+    var clave;
+    var valor;
+    var test = document.getElementsByTagName("input");
+    var test2 = document.getElementsByTagName("select");
+    var contador = 0;
+
+    for (var i = 0; i < test.length; i++) {
+        clave = test[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    for (var i = 0; i < test2.length; i++) {
+        clave = test2[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === ""){
+            console.log("Esto está mal");
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    obj["idSolicitud"] = id;
+
+    if (contador !== 0) {
+        swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+    } else {
+        var myjson = JSON.stringify(obj);
+        urldirect = '/solicitudServicioCliente/confirmarFechas3';
+        //console.log(valoresMultiples);
+        save2(myjson, urldirect);
+    }
+}
+
 function save(myjson) {
     $.ajax({
         type: 'POST',
@@ -276,10 +456,10 @@ function save(myjson) {
     });
 }
 
-function save2(myjson){
+function save2(myjson, urldirect){
     $.ajax({
         type: 'POST',
-        url: '/solicitudServicioCliente/confirmarFechas1',
+        url: urldirect,
         data: myjson,
         cache: false,
         contentType: "application/json",
@@ -296,7 +476,7 @@ function save2(myjson){
                 confirmButtonText: "Ok",
                 closeOnConfirm: false,
             }, function () {
-                window.location = "/listSolicitudServicio";
+                window.location = "/dashboard";
             });
         },
         error: function (data) {
@@ -432,8 +612,20 @@ function verDetalles(valor){
     window.location = "/detalleSolicitudServicio/" + valor;
 }
 
-function establecerFechas(valor){
-    window.location = "/registerSolicituedServicioFechas/" + valor;
+function pagoInicial(valor){
+    window.location = "/registerSolicituedServicioFechaPagoAnticipo/" + valor;
+}
+
+function pagoFinal(valor){
+    window.location = "/registerSolicituedServicioFechaPagoFinal/" + valor;
+}
+
+function fechaRecepcion(valor){
+    window.location = "/registerSolicituedServicioFechaRecepcionMuestras/" + valor;
+}
+
+function fechaCompromiso(valor){
+    window.location = "/registerSolicituedServicioFechaCompromisoEntrega/" + valor;
 }
 
 function cargarTabla() {
@@ -463,12 +655,12 @@ function cargarTabla() {
                 '<tr>' +
                 '<td class="text-center">' + field.folioSolitudServicioCliente + '</td>';
             if (field.fechaRecepcionMuestras === ""){
-                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="establecerFechas(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha recepción muestras</button></td>';
+                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="fechaRecepcion(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha recepción muestras</button></td>';
             } else {
                 tbl += '<td class="text-center">' + field.fechaRecepcionMuestras + '</td>';
             }
             if (field.fechaCompromisoEntrega === ""){
-                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="establecerFechas(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha compromiso</button></td>';
+                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="fechaCompromiso(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha compromiso</button></td>';
             } else {
                 tbl += '<td class="text-center">' + field.fechaCompromisoEntrega + '</td>';
             }
@@ -532,12 +724,12 @@ function cargarTablaPagos() {
                 '<tr>' +
                 '<td class="text-center">' + field.folioSolitudServicioCliente + '</td>';
             if (field.fechaPago === ""){
-                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="establecerFechas(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha pago inicial</button></td>';
+                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="pagoInicial(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha pago inicial</button></td>';
             } else {
                 tbl += '<td class="text-center">' + field.fechaPago + '</td>';
             }
             if (field.fechaPago2 === ""){
-                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="establecerFechas(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha pago final</button></td>';
+                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="pagoFinal(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha pago final</button></td>';
             } else {
                 tbl += '<td class="text-center">' + field.fechaPago2 + '</td>';
             }

@@ -13,6 +13,17 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-md-2">
+<!--                        <button class="btn btn-fill btn-success" onclick="listSolicitudServicio()"><i-->
+<!--                                class="fa fa-arrow-circle-left"></i>Volver-->
+<!--                        </button>-->
+                        <button class="btn btn-warning" onclick="dashboard()"><i class="fa fa-home"></i>Inicio</button>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="card data-tables">
                             <div class="card-body table-striped table-no-bordered table-hover dataTable dtr-inline table-full-width">
@@ -26,6 +37,9 @@
                                 </div>
                             </div>
                         </div>
+                        <form th:action="@{/method/generarListaMetodos}" method="GET">
+                            <button type="submit" class="btn btn-fill btn-primary">Generar Lista <i class="fa fa-print"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>

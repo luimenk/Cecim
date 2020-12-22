@@ -32,6 +32,9 @@ public class SolicitudServicioCliente {
     @Column(name = "Confirmacion2", length = 250, nullable = false)
     private String confirmacion2;
 
+    @Column(name = "Estatus_Pago", length = 250, nullable = false)
+    private String estatusPago;
+
     @Column(name = "Nombre_Firma_Emisor", length = 250, nullable = false)
     private String nombreFirmaEmisor;
 
@@ -63,7 +66,7 @@ public class SolicitudServicioCliente {
     public SolicitudServicioCliente() {
     }
 
-    public SolicitudServicioCliente(Long solicitudServicioClienteId, String folioSolitudServicioCliente, String servicioUrgente, String fechaEnvioMuestras, String fechaPago, String fechaPago2, String confirmacion, String confirmacion2, String nombreFirmaEmisor, String almacenamientoEspecial, String especifique, String fechaRecepcionMuestras, String fechaCompromisoEntrega, String nombreFirmaReceptor, String nombreFirmaCalidad, String devolucionMuestras, Client client) {
+    public SolicitudServicioCliente(Long solicitudServicioClienteId, String folioSolitudServicioCliente, String servicioUrgente, String fechaEnvioMuestras, String fechaPago, String fechaPago2, String confirmacion, String confirmacion2, String estatusPago, String nombreFirmaEmisor, String almacenamientoEspecial, String especifique, String fechaRecepcionMuestras, String fechaCompromisoEntrega, String nombreFirmaReceptor, String nombreFirmaCalidad, String devolucionMuestras, Client client) {
         this.solicitudServicioClienteId = solicitudServicioClienteId;
         this.folioSolitudServicioCliente = folioSolitudServicioCliente;
         this.servicioUrgente = servicioUrgente;
@@ -72,6 +75,7 @@ public class SolicitudServicioCliente {
         this.fechaPago2 = fechaPago2;
         this.confirmacion = confirmacion;
         this.confirmacion2 = confirmacion2;
+        this.estatusPago = estatusPago;
         this.nombreFirmaEmisor = nombreFirmaEmisor;
         this.almacenamientoEspecial = almacenamientoEspecial;
         this.especifique = especifique;
@@ -145,6 +149,14 @@ public class SolicitudServicioCliente {
 
     public void setConfirmacion2(String confirmacion2) {
         this.confirmacion2 = confirmacion2;
+    }
+
+    public String getEstatusPago() {
+        return estatusPago;
+    }
+
+    public void setEstatusPago(String estatusPago) {
+        this.estatusPago = estatusPago;
     }
 
     public String getNombreFirmaEmisor() {

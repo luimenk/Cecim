@@ -18,39 +18,7 @@
                                 <h4 class="card-title">Determinar fechas de la solicitud</h4>
                             </div>
                             <div class="card-body ">
-
                                 <div class="row">
-                                    <label class="col-sm-2 control-label">Fecha de Pago</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control datepicker"
-                                                   name="fechaPago" id="fechaPago" required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Confirmación de pago: </label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <select class="selectpicker" name="confirmacion" id="confirmacion" required="true"
-                                                    data-title="Selecciona una confirmación..."
-                                                    data-style="btn-success"
-                                                    data-menu-style="dropdown-blue">
-                                                <option value="contabilidad">Contabilidad</option>
-                                                <option value="gerencia tecnica">Gerencia técnica</option>
-                                                <option value="direccion general">Dirección general</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Fecha de Recepción de Muestras</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control datepicker"
-                                                   name="fechaRecepcionMuestras" id="fechaRecepcionMuestras"
-                                                   required="true">
-                                        </div>
-                                    </div>
                                     <label class="col-sm-2 control-label">Fecha compromiso entrega de resultados</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
@@ -62,7 +30,7 @@
                                 </div>
                             </div>
                             <div class="card-footer ">
-                                <button type="submit" class="btn btn-fill btn-primary" onclick="validaPagoAnticipo()">Actualizar
+                                <button type="submit" class="btn btn-fill btn-primary" onclick="validaFechaCompromiso()">Actualizar
                                 </button>
                             </div>
                         </div>

@@ -20,8 +20,6 @@ import com.demo.utils.WordCopyTableAfterTable;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
-import org.apache.poi.xwpf.converter.pdf.PdfConverter;
-import org.apache.poi.xwpf.converter.pdf.PdfOptions;
 import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
 
@@ -178,7 +176,7 @@ public class SolicitudServicioClienteService {
             tableRow.getCell(0).setText((i+1)+"");
             tableRow.getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getFechaRecepcionMuestras()));
             tableRow.getCell(2).setText(lista.get(i).getFolioSolitudServicioCliente());
-            tableRow.getCell(3).setText(lista.get(i).getFolioSolitudServicioCliente());
+            tableRow.getCell(3).setText(lista.get(i).getEstatusPago());
             tableRow.getCell(4).setText(lista.get(i).getClient().getNombreRazonSocial());
             try {
                 JSONArray jsonArray = new JSONArray(lista.get(i).getClient().getContactosDatos());
@@ -193,7 +191,6 @@ public class SolicitudServicioClienteService {
                 run.setText(metodoMuestraList.get(j).getMethod().getCodigoMetodo());
                 run.addBreak();
             }
-
             tableRow.getCell(7).setText(lista.get(i).getNombreFirmaReceptor());
         }
 

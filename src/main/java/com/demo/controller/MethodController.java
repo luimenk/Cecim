@@ -8,10 +8,13 @@ import com.demo.service.MethodService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -75,5 +78,13 @@ public class MethodController {
     @CrossOrigin(origins = "*", methods = {RequestMethod.DELETE})
     public void delete(@PathVariable("methodId") Long methodId){
         methodService.delete(methodId);
+    }
+
+    @RequestMapping(value = "/generarListaMetodos", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir5() throws Exception {
+        System.out.println("Se generó ");
+        System.out.println(LocalTime.now());
+
+        return methodService.generarListaMetodos();
     }
 }
