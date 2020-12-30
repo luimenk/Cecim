@@ -47,11 +47,15 @@ public class FEIL_MIE_007_Service {
 
     public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException {
         List<MetodoMuestra> lista;
-        RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion;
+        RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = new RecepcionVerificacionRegistroCodificacion();
         if (band == 1){
             recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findById(id);
             lista = metodoMuestraService.findAllByMuestra(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
             //SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(id);
+        } if (band == 3){
+            SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(id);
+            lista = metodoMuestraService.findAllBySolicitud(solicitudServicioCliente);
+
         } else {
             lista = metodoMuestraService.findAllById(id);
             recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findBySolicitudServicioClienteMuestrasId(lista.get(0).getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
@@ -65,14 +69,30 @@ public class FEIL_MIE_007_Service {
         XWPFTable table;
         for (int i = 0; i < lista.size(); i++) {
             table = doc.getTables().get(i);
-            table.getRow(1).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getIdInternoMuestra1());
-            table.getRow(2).getCell(1).setText(lista.get(i).getMethod().getCodigoMetodo());
-            table.getRow(3).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getObservaciones());
+            if (band !=3 ){
+                table.getRow(1).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getIdInternoMuestra1());
+                table.getRow(2).getCell(1).setText(lista.get(i).getMethod().getCodigoMetodo());
+                table.getRow(3).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getObservaciones());
 
-            XWPFParagraph paragraph = table.getRow(4).getCell(1).addParagraph();
-            XWPFRun run = paragraph.createRun();
-            FileInputStream fis = new FileInputStream(lista.get(i).getPathQRLab());
-            XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(130), Units.pixelToEMU(130));
+                XWPFParagraph paragraph = table.getRow(4).getCell(1).addParagraph();
+                XWPFRun run = paragraph.createRun();
+                FileInputStream fis = new FileInputStream(lista.get(i).getPathQRLab());
+                XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(130), Units.pixelToEMU(130));
+            } else {
+                try{
+                    RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion1 = recepcionVerificacionRegistroCodificacionService.findBySolicitudServicioClienteMuestrasId(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
+                    table.getRow(1).getCell(1).setText(recepcionVerificacionRegistroCodificacion1.getIdInternoMuestra1());
+                    table.getRow(2).getCell(1).setText(lista.get(i).getMethod().getCodigoMetodo());
+                    table.getRow(3).getCell(1).setText(recepcionVerificacionRegistroCodificacion1.getSolicitudServicioClienteMuestras().getObservaciones());
+
+                    XWPFParagraph paragraph = table.getRow(4).getCell(1).addParagraph();
+                    XWPFRun run = paragraph.createRun();
+                    FileInputStream fis = new FileInputStream(lista.get(i).getPathQRLab());
+                    XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(130), Units.pixelToEMU(130));
+                } catch (NullPointerException e){
+                    System.out.println("No se han hecho todas las recepciones");
+                }
+            }
         }
 
         HttpHeaders headers = new HttpHeaders();

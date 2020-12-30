@@ -135,7 +135,7 @@
                                     <tbody>
                                     <th:block th:each="row,iterador:${listaInterna}">
                                         <tr class="success">
-                                                    <td class="text-center" th:text="${iterador.index}"></td>
+                                                    <td class="text-center" th:text="${iterador.index}+1"></td>
                                                     <td class="text-center" th:text="${row.getIdInternoMuestra1()}"></td>
                                                     <td class="text-center" th:text="${row.getSolicitudServicioClienteMuestras().getEstatus()}"></td>
                                                 </tr>
@@ -166,7 +166,7 @@
                                         <div th:switch="${row.estatus}">
                                             <div th:case="'OK'">
                                                 <tr class="success">
-                                                    <td class="text-center" th:text="${iterador.index}"></td>
+                                                    <td class="text-center" th:text="${iterador.index}+1"></td>
                                                     <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
                                                     <td class="text-center" th:text="${row.estatus}"></td>
                                                     <td class="text-right">
@@ -193,7 +193,7 @@
                                             </div>
                                             <div th:case="'PENDIENTE'">
                                                 <tr class="danger">
-                                                    <td class="text-center" th:text="${iterador.index}"></td>
+                                                    <td class="text-center" th:text="${iterador.index}+1"></td>
                                                     <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
                                                     <td class="text-center" th:text="${row.estatus}"></td>
                                                     <td class="text-right">
@@ -218,9 +218,28 @@
                                                     </td>
                                                 </tr>
                                             </div>
+                                            <div th:case="'INICIADO'">
+                                                <tr class="info">
+                                                    <td class="text-center" th:text="${iterador.index}+1"></td>
+                                                    <td class="text-center" th:text="${row.SolicitudServicioClienteMuestras.IdClienteMuestra}"></td>
+                                                    <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
+                                                    <td class="text-center" th:text="${row.estatus}"></td>
+                                                    <td class="text-right">
+                                                        <div class="row">
+                                                            <div class="col-md-auto ml-auto">
+                                                                <a th:href="@{${row.Method.RutaListarMetodos}}"
+                                                                   rel="tooltip" title="Etiqueta Laboratorio" data-placement="left"
+                                                                   class="btn btn-tumblr btn-sm">
+                                                                    <i class="fa fa-list"></i> Ver Lista
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </div>
                                             <div th:case="'RECEPCION'">
                                                 <tr class="warning">
-                                                    <td class="text-center" th:text="${iterador.index}"></td>
+                                                    <td class="text-center" th:text="${iterador.index}+1"></td>
                                                     <td class="text-center" th:text="${row.method.codigoMetodo}"></td>
                                                     <td class="text-center" th:text="${row.estatus}"></td>
                                                     <td class="text-center">.</td>

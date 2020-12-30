@@ -113,14 +113,14 @@ public class SolicitudServicioClienteController {
             Client client = clientService.findById(Long.parseLong(request.get("empresa").toString()));
 
             //valida.setFolioSolitudServicioCliente(foliosService.folioSolicitudServicioCliente());
-            valida.setFechaEnvioMuestras(request.get("fechaEnvioMuestras").toString());
-            valida.setFechaPago(request.get("fechaPago").toString());
+            //valida.setFechaEnvioMuestras(request.get("fechaEnvioMuestras").toString());
+            //valida.setFechaPago(request.get("fechaPago").toString());
             valida.setServicioUrgente(request.get("servicioUrgente").toString());
             valida.setNombreFirmaEmisor("");
             valida.setAlmacenamientoEspecial(request.get("almacenamientoEspecial").toString());
             valida.setEspecifique(request.get("especifique").toString());
-            valida.setFechaRecepcionMuestras(request.get("fechaRecepcionMuestras").toString());
-            valida.setFechaCompromisoEntrega(request.get("fechaCompromisoEntrega").toString());
+            //valida.setFechaRecepcionMuestras(request.get("fechaRecepcionMuestras").toString());
+            //valida.setFechaCompromisoEntrega(request.get("fechaCompromisoEntrega").toString());
             valida.setNombreFirmaReceptor(request.get("nombreFirmaReceptor").toString());
             valida.setNombreFirmaCalidad(request.get("nombreFirmaCalidad").toString());
             valida.setDevolucionMuestras(request.get("devolucionMuestras").toString());
@@ -172,7 +172,7 @@ public class SolicitudServicioClienteController {
 //            solicitudServicioCliente.setFechaPago(request.get("fechaPago").toString());
             solicitudServicioCliente.setFechaPago("");
             solicitudServicioCliente.setServicioUrgente(request.get("servicioUrgente").toString());
-            solicitudServicioCliente.setNombreFirmaEmisor(request.get("nombreFirmaEmisor").toString());
+            solicitudServicioCliente.setNombreFirmaEmisor("");
             solicitudServicioCliente.setAlmacenamientoEspecial(request.get("almacenamientoEspecial").toString());
             solicitudServicioCliente.setEspecifique(request.get("especifique").toString());
 //            solicitudServicioCliente.setFechaRecepcionMuestras(request.get("fechaRecepcionMuestras").toString());
@@ -319,11 +319,19 @@ public class SolicitudServicioClienteController {
         System.out.println("Se generó FERI-MIE-002");
         System.out.println(LocalTime.now());
 
-        return feri_mie_002_service.crearFormato(id);
+        return feri_mie_002_service.crearFormato(id, 1);
+    }
+
+    @RequestMapping(value = "/imprimirEtiquetasRetencionTodas/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir4(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FERI-MIE-002");
+        System.out.println(LocalTime.now());
+
+        return feri_mie_002_service.crearFormato(id, 3);
     }
 
     @RequestMapping(value = "/imprimirInforme/{id}", method = RequestMethod.GET)
-    public ResponseEntity<InputStreamResource> imprimir4(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<InputStreamResource> imprimir20(@PathVariable("id") Long id) throws Exception {
         System.out.println("Se generó FIR-ERAI-002");
         System.out.println(LocalTime.now());
 
@@ -338,12 +346,12 @@ public class SolicitudServicioClienteController {
         return solicitudServicioClienteService.generarListaCotizacion();
     }
 
-    @RequestMapping(value = "/generarListaSolicitud", method = RequestMethod.GET)
-    public ResponseEntity<InputStreamResource> imprimir6() throws Exception {
+    @RequestMapping(value = "/generarListaSolicitud/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir6(@PathVariable("id") String filtro) throws Exception {
         System.out.println("Se generó LFS-SOC-001");
         System.out.println(LocalTime.now());
 
-        return solicitudServicioClienteService.generarListaSolicitud();
+        return solicitudServicioClienteService.generarListaSolicitud(filtro);
     }
 
     @RequestMapping(value = "/imprimirSolicitudServicioInterno/{id}", method = RequestMethod.GET)

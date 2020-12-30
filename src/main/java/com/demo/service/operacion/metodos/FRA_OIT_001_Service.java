@@ -51,6 +51,10 @@ public class FRA_OIT_001_Service {
         return fra_oit_001_repository.findByIdFRAOIT(id);
     }
 
+    public FRA_OIT_001 findByIdInternoMuestra(String id) {
+        return fra_oit_001_repository.findByIdInternoMuestra(id);
+    }
+
     public void delete(Long id) {
         fra_oit_001_repository.deleteById(id);
     }
@@ -72,14 +76,15 @@ public class FRA_OIT_001_Service {
         //FRA_GR_001 fra_gr_001 = fra_gr_001_repository.findByFragr001Id(id);
 
         XWPFTable table0 = doc.getTables().get(0);
-        table0.getRow(0).getCell(1).setText(fra_oit_001.getFolioSolicitudServicioInterno());
-        table0.getRow(0).getCell(3).setText(formatoFechas.formateadorFechas(fra_oit_001.getFechaInicioAnalisis()));
-        table0.getRow(1).getCell(1).setText(fra_oit_001.getIdInternoMuestra());
-        table0.getRow(1).getCell(3).setText(formatoFechas.formateadorFechas(fra_oit_001.getFechaFinalAnalisis()));
+        table0.getRow(0).getCell(3).setText(fra_oit_001.getFolioTecnica());
+        table0.getRow(1).getCell(1).setText(fra_oit_001.getFolioSolicitudServicioInterno());
+        table0.getRow(1).getCell(3).setText(formatoFechas.formateadorFechas(fra_oit_001.getFechaInicioAnalisis()));
+        table0.getRow(2).getCell(1).setText(fra_oit_001.getIdInternoMuestra());
+        table0.getRow(2).getCell(3).setText(formatoFechas.formateadorFechas(fra_oit_001.getFechaFinalAnalisis()));
 
         XWPFTable table1 = doc.getTables().get(1);
-        table1.getRow(0).getCell(1).setText(fra_oit_001.getTemperatura());
-        table1.getRow(0).getCell(3).setText(fra_oit_001.getHumedadRelativa());
+        table1.getRow(0).getCell(1).setText(fra_oit_001.getTemperatura() + "°C");
+        table1.getRow(0).getCell(3).setText(fra_oit_001.getHumedadRelativa() + "%");
         table1.getRow(1).getCell(1).setText(fra_oit_001.getCodigoDSC());
         table1.getRow(1).getCell(3).setText(fra_oit_001.getCodigoBalanza());
 
@@ -90,6 +95,9 @@ public class FRA_OIT_001_Service {
         table2.getRow(2).getCell(1).setText(fra_oit_001.getEspesor2());
         table2.getRow(2).getCell(2).setText(fra_oit_001.getPeso2());
         table2.getRow(2).getCell(3).setText(fra_oit_001.getPpmdsc2());
+
+        XWPFTable table3 = doc.getTables().get(3);
+        table3.getRow(4).getCell(2).setText(fra_oit_001.getTiempoIsoterma());
 
         XWPFTable table4 = doc.getTables().get(4);
         table4.getRow(1).getCell(1).setText(fra_oit_001.getRepeticion1OIT());

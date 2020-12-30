@@ -95,6 +95,62 @@ public class FSS_SOC_001_Service {
         table5.getRow(0).getCell(1).setText(solicitudServicioCliente.getFolioSolitudServicioCliente());
 
         int contadorMuestrasTablas = 6;
+        /*List<XWPFTable> listaTablas = new ArrayList<>();
+        List<XWPFTable> listaTablasDocumment = new ArrayList<>();
+        List<CTTbl> listaCTTbl = new ArrayList<>();
+        List<XWPFTableRow> listaRows = new ArrayList<>();
+
+        for (int i = 0; i< lista.size(); i++){
+            listaTablas.add(i, doc.createTable());
+            listaTablas.get(i).removeRow(0); // El default row no es necesario
+            listaTablasDocumment.add(i, doc2.getTables().get(6));
+            listaCTTbl.add(i, listaTablasDocumment.get(i).getCTTbl());
+            listaTablas.set(i, new XWPFTable((CTTbl) listaCTTbl.get(i).copy(), doc));
+            listaTablas.get(i).removeRow(2);
+            listaTablas.get(i).removeRow(1);
+            listaRows.add(listaTablasDocumment.get(i).getRow(1));
+            int numero = i+1;
+            listaRows.get(i).getCell(0).setText(numero+"");
+            listaRows.get(i).getCell(1).setText(lista.get(i).getIdClienteMuestra());
+            listaRows.get(i).getCell(2).setText(lista.get(i).getTipoMuestra());
+            listaRows.get(i).getCell(3).setText(lista.get(i).getDescripcionMuestra());
+            listaRows.get(i).getCell(4).setText(lista.get(i).getLote());
+
+            List<MetodoMuestra> lista2 = metodoMuestraService.findAllByMuestra(lista.get(i).getSolicitudServicioClienteMuestrasId());
+
+            XWPFParagraph paragraph1 = listaRows.get(i).getCell(5).addParagraph();
+            XWPFRun run1 = paragraph1.createRun();
+
+            for (MetodoMuestra metodoMuestra : lista2) {
+                run1.setText(metodoMuestra.getMethod().getCodigoMetodo());
+                run1.addBreak();
+            }
+
+            listaRows.get(i).getCell(6).setText(lista.get(i).getCondicionesEspeciales());
+
+            XWPFParagraph paragraph2 = listaRows.get(i).getCell(7).addParagraph();
+            XWPFRun run2 = paragraph2.createRun();
+
+            for (MetodoMuestra metodoMuestra : lista2) {
+                run2.setText(metodoMuestra.getMethod().getCantidadTotal());
+                run2.addBreak();
+            }
+
+            listaRows.get(i).getCell(8).setText(lista.get(i).getObservaciones());
+
+            listaTablas.get(i).addRow(listaRows.get(i));
+
+            listaRows.set(i, listaTablasDocumment.get(i).getRow(2));
+
+            listaTablas.get(i).addRow(listaRows.get(i));
+
+            doc.setTable(contadorMuestrasTablas, listaTablas.get(i));
+
+            XWPFParagraph para3 = doc.createParagraph();
+            XWPFRun run3 = para3.createRun();
+            run3.addBreak();
+            contadorMuestrasTablas++;
+        }*/
         for (int i = 0; i< lista.size(); i++){
             XWPFTable table_6 = doc.createTable();
             table_6.removeRow(0); // El default row no es necesario
@@ -102,8 +158,8 @@ public class FSS_SOC_001_Service {
             CTTbl cTTblTemplate_6 = tableDocumment_6.getCTTbl();
             table_6 = new XWPFTable((CTTbl) cTTblTemplate_6.copy(), doc);
             table_6.removeRow(2);
-            table_6.removeRow(1);
-            XWPFTableRow row = tableDocumment_6.getRow(1);
+            //table_6.removeRow(1);
+            XWPFTableRow row = table_6.getRow(1);
             row.getCell(0).setText((i+1)+"");
             row.getCell(1).setText(lista.get(i).getIdClienteMuestra());
             row.getCell(2).setText(lista.get(i).getTipoMuestra());
@@ -126,13 +182,13 @@ public class FSS_SOC_001_Service {
             XWPFRun run2 = paragraph2.createRun();
 
             for (MetodoMuestra metodoMuestra : lista2) {
-                run2.setText(metodoMuestra.getMethod().getCodigoMetodo());
+                run2.setText(metodoMuestra.getMethod().getCantidadTotal());
                 run2.addBreak();
             }
 
             row.getCell(8).setText(lista.get(i).getObservaciones());
 
-            table_6.addRow(row);
+            //table_6.addRow(row);
 
             row = tableDocumment_6.getRow(2);
 
@@ -147,7 +203,7 @@ public class FSS_SOC_001_Service {
         }
 
         XWPFTable table_7 = doc.createTable();
-        table_7.removeRow(0); // El default row no es necesario
+        table_7.removeRow(0);
         XWPFTable tableDocumment_7 = doc2.getTables().get(7);
         tableDocumment_7.getRow(0).getCell(1).setText(solicitudServicioCliente.getDevolucionMuestras());
         CTTbl cTTblTemplate_7 = tableDocumment_7.getCTTbl();

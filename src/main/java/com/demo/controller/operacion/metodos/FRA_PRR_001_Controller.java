@@ -147,78 +147,78 @@ public class FRA_PRR_001_Controller {
         fra_prr_001.setMDResistenciaRasgado9(request.get("MDResistenciaRasgado9"));
         fra_prr_001.setMDResistenciaRasgado10(request.get("MDResistenciaRasgado10"));
 
-        Float MDEspesor1 =   Float.parseFloat(fra_prr_001.getMDespesor11()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor12()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor13());
+        Float MDEspesor1 = Float.parseFloat(fra_prr_001.getMDespesor11()) +
+                Float.parseFloat(fra_prr_001.getMDespesor12()) +
+                Float.parseFloat(fra_prr_001.getMDespesor13());
 
-        fra_prr_001.setMDEspesorPromedio1(String.valueOf(MDEspesor1/3));
+        fra_prr_001.setMDEspesorPromedio1(String.valueOf(MDEspesor1 / 3));
 
-        Float MDEspesor2 =  Float.parseFloat(fra_prr_001.getMDespesor21()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor22()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor23());
+        Float MDEspesor2 = Float.parseFloat(fra_prr_001.getMDespesor21()) +
+                Float.parseFloat(fra_prr_001.getMDespesor22()) +
+                Float.parseFloat(fra_prr_001.getMDespesor23());
 
-        fra_prr_001.setMDEspesorPromedio2(String.valueOf(MDEspesor2/3));
+        fra_prr_001.setMDEspesorPromedio2(String.valueOf(MDEspesor2 / 3));
 
-        Float MDEspesor3 =  Float.parseFloat(fra_prr_001.getMDespesor31()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor32()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor33());
+        Float MDEspesor3 = Float.parseFloat(fra_prr_001.getMDespesor31()) +
+                Float.parseFloat(fra_prr_001.getMDespesor32()) +
+                Float.parseFloat(fra_prr_001.getMDespesor33());
 
-        fra_prr_001.setMDEspesorPromedio3(String.valueOf(MDEspesor3/3));
+        fra_prr_001.setMDEspesorPromedio3(String.valueOf(MDEspesor3 / 3));
 
-        Float MDEspesor4 =  Float.parseFloat(fra_prr_001.getMDespesor41()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor42()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor43());
+        Float MDEspesor4 = Float.parseFloat(fra_prr_001.getMDespesor41()) +
+                Float.parseFloat(fra_prr_001.getMDespesor42()) +
+                Float.parseFloat(fra_prr_001.getMDespesor43());
 
-        fra_prr_001.setMDEspesorPromedio4(String.valueOf(MDEspesor4/3));
+        fra_prr_001.setMDEspesorPromedio4(String.valueOf(MDEspesor4 / 3));
 
-        Float MDEspesor5 =  Float.parseFloat(fra_prr_001.getMDespesor51()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor52()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor53());
+        Float MDEspesor5 = Float.parseFloat(fra_prr_001.getMDespesor51()) +
+                Float.parseFloat(fra_prr_001.getMDespesor52()) +
+                Float.parseFloat(fra_prr_001.getMDespesor53());
 
-        fra_prr_001.setMDEspesorPromedio5(String.valueOf(MDEspesor5/3));
+        fra_prr_001.setMDEspesorPromedio5(String.valueOf(MDEspesor5 / 3));
 
-        Float MDEspesor6 =  Float.parseFloat(fra_prr_001.getMDespesor61()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor62()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor63());
+        Float MDEspesor6 = Float.parseFloat(fra_prr_001.getMDespesor61()) +
+                Float.parseFloat(fra_prr_001.getMDespesor62()) +
+                Float.parseFloat(fra_prr_001.getMDespesor63());
 
-        fra_prr_001.setMDEspesorPromedio6(String.valueOf(MDEspesor6/3));
+        fra_prr_001.setMDEspesorPromedio6(String.valueOf(MDEspesor6 / 3));
 
-        Float MDEspesor7 =  Float.parseFloat(fra_prr_001.getMDespesor71()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor72()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor73());
+        Float MDEspesor7 = Float.parseFloat(fra_prr_001.getMDespesor71()) +
+                Float.parseFloat(fra_prr_001.getMDespesor72()) +
+                Float.parseFloat(fra_prr_001.getMDespesor73());
 
-        fra_prr_001.setMDEspesorPromedio7(String.valueOf(MDEspesor7/3));
+        fra_prr_001.setMDEspesorPromedio7(String.valueOf(MDEspesor7 / 3));
 
-        Float MDEspesor8 =  Float.parseFloat(fra_prr_001.getMDespesor81()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor82()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor83());
+        Float MDEspesor8 = Float.parseFloat(fra_prr_001.getMDespesor81()) +
+                Float.parseFloat(fra_prr_001.getMDespesor82()) +
+                Float.parseFloat(fra_prr_001.getMDespesor83());
 
-        fra_prr_001.setMDEspesorPromedio8(String.valueOf(MDEspesor8/3));
+        fra_prr_001.setMDEspesorPromedio8(String.valueOf(MDEspesor8 / 3));
 
-        Float MDEspesor9 =  Float.parseFloat(fra_prr_001.getMDespesor91()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor92()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor93());
+        Float MDEspesor9 = Float.parseFloat(fra_prr_001.getMDespesor91()) +
+                Float.parseFloat(fra_prr_001.getMDespesor92()) +
+                Float.parseFloat(fra_prr_001.getMDespesor93());
 
-        fra_prr_001.setMDEspesorPromedio9(String.valueOf(MDEspesor9/3));
+        fra_prr_001.setMDEspesorPromedio9(String.valueOf(MDEspesor9 / 3));
 
         Float MDEspesor10 = Float.parseFloat(fra_prr_001.getMDespesor101()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor102()) +
-                            Float.parseFloat(fra_prr_001.getMDespesor103());
+                Float.parseFloat(fra_prr_001.getMDespesor102()) +
+                Float.parseFloat(fra_prr_001.getMDespesor103());
 
-        fra_prr_001.setMDEspesorPromedio10(String.valueOf(MDEspesor10/3));
+        fra_prr_001.setMDEspesorPromedio10(String.valueOf(MDEspesor10 / 3));
 
-        Float MDPromedio =  Float.parseFloat(fra_prr_001.getMDResistenciaRasgado1()) +
-                            Float.parseFloat(fra_prr_001.getMDResistenciaRasgado2()) +
-                            Float.parseFloat(fra_prr_001.getMDResistenciaRasgado3()) +
-                            Float.parseFloat(fra_prr_001.getMDResistenciaRasgado4()) +
-                            Float.parseFloat(fra_prr_001.getMDResistenciaRasgado5()) +
-                            Float.parseFloat(fra_prr_001.getMDResistenciaRasgado6()) +
-                            Float.parseFloat(fra_prr_001.getMDResistenciaRasgado7()) +
-                            Float.parseFloat(fra_prr_001.getMDResistenciaRasgado8()) +
-                            Float.parseFloat(fra_prr_001.getMDResistenciaRasgado9()) +
-                            Float.parseFloat(fra_prr_001.getMDResistenciaRasgado10());
+        Float MDPromedio = Float.parseFloat(fra_prr_001.getMDResistenciaRasgado1()) +
+                Float.parseFloat(fra_prr_001.getMDResistenciaRasgado2()) +
+                Float.parseFloat(fra_prr_001.getMDResistenciaRasgado3()) +
+                Float.parseFloat(fra_prr_001.getMDResistenciaRasgado4()) +
+                Float.parseFloat(fra_prr_001.getMDResistenciaRasgado5()) +
+                Float.parseFloat(fra_prr_001.getMDResistenciaRasgado6()) +
+                Float.parseFloat(fra_prr_001.getMDResistenciaRasgado7()) +
+                Float.parseFloat(fra_prr_001.getMDResistenciaRasgado8()) +
+                Float.parseFloat(fra_prr_001.getMDResistenciaRasgado9()) +
+                Float.parseFloat(fra_prr_001.getMDResistenciaRasgado10());
 
-        fra_prr_001.setMDPromedio(String.valueOf(MDPromedio/10));
+        fra_prr_001.setMDPromedio(String.valueOf(MDPromedio / 10));
 
         // *** APARTADO TD ***
         fra_prr_001.setTDespesor11(request.get("TDespesor11"));
@@ -272,115 +272,155 @@ public class FRA_PRR_001_Controller {
         fra_prr_001.setTDResistenciaRasgado9(request.get("TDResistenciaRasgado9"));
         fra_prr_001.setTDResistenciaRasgado10(request.get("TDResistenciaRasgado10"));
 
-        Float TDEspesor1 =  Float.parseFloat(fra_prr_001.getTDespesor11()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor12()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor13());
+        Float TDEspesor1 = Float.parseFloat(fra_prr_001.getTDespesor11()) +
+                Float.parseFloat(fra_prr_001.getTDespesor12()) +
+                Float.parseFloat(fra_prr_001.getTDespesor13());
 
-        fra_prr_001.setTDEspesorPromedio1(String.valueOf(TDEspesor1/3));
+        fra_prr_001.setTDEspesorPromedio1(String.valueOf(TDEspesor1 / 3));
 
-        Float TDEspesor2 =  Float.parseFloat(fra_prr_001.getTDespesor21()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor22()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor23());
+        Float TDEspesor2 = Float.parseFloat(fra_prr_001.getTDespesor21()) +
+                Float.parseFloat(fra_prr_001.getTDespesor22()) +
+                Float.parseFloat(fra_prr_001.getTDespesor23());
 
-        fra_prr_001.setTDEspesorPromedio2(String.valueOf(TDEspesor2/3));
+        fra_prr_001.setTDEspesorPromedio2(String.valueOf(TDEspesor2 / 3));
 
-        Float TDEspesor3 =  Float.parseFloat(fra_prr_001.getTDespesor31()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor32()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor33());
+        Float TDEspesor3 = Float.parseFloat(fra_prr_001.getTDespesor31()) +
+                Float.parseFloat(fra_prr_001.getTDespesor32()) +
+                Float.parseFloat(fra_prr_001.getTDespesor33());
 
-        fra_prr_001.setTDEspesorPromedio3(String.valueOf(TDEspesor3/3));
+        fra_prr_001.setTDEspesorPromedio3(String.valueOf(TDEspesor3 / 3));
 
-        Float TDEspesor4 =  Float.parseFloat(fra_prr_001.getTDespesor41()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor42()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor43());
+        Float TDEspesor4 = Float.parseFloat(fra_prr_001.getTDespesor41()) +
+                Float.parseFloat(fra_prr_001.getTDespesor42()) +
+                Float.parseFloat(fra_prr_001.getTDespesor43());
 
-        fra_prr_001.setTDEspesorPromedio4(String.valueOf(TDEspesor4/3));
+        fra_prr_001.setTDEspesorPromedio4(String.valueOf(TDEspesor4 / 3));
 
-        Float TDEspesor5 =  Float.parseFloat(fra_prr_001.getTDespesor51()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor52()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor53());
+        Float TDEspesor5 = Float.parseFloat(fra_prr_001.getTDespesor51()) +
+                Float.parseFloat(fra_prr_001.getTDespesor52()) +
+                Float.parseFloat(fra_prr_001.getTDespesor53());
 
-        fra_prr_001.setTDEspesorPromedio5(String.valueOf(TDEspesor5/3));
+        fra_prr_001.setTDEspesorPromedio5(String.valueOf(TDEspesor5 / 3));
 
-        Float TDEspesor6 =  Float.parseFloat(fra_prr_001.getTDespesor61()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor62()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor63());
+        Float TDEspesor6 = Float.parseFloat(fra_prr_001.getTDespesor61()) +
+                Float.parseFloat(fra_prr_001.getTDespesor62()) +
+                Float.parseFloat(fra_prr_001.getTDespesor63());
 
-        fra_prr_001.setTDEspesorPromedio6(String.valueOf(TDEspesor6/3));
+        fra_prr_001.setTDEspesorPromedio6(String.valueOf(TDEspesor6 / 3));
 
-        Float TDEspesor7 =  Float.parseFloat(fra_prr_001.getTDespesor71()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor72()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor73());
+        Float TDEspesor7 = Float.parseFloat(fra_prr_001.getTDespesor71()) +
+                Float.parseFloat(fra_prr_001.getTDespesor72()) +
+                Float.parseFloat(fra_prr_001.getTDespesor73());
 
-        fra_prr_001.setTDEspesorPromedio7(String.valueOf(TDEspesor7/3));
+        fra_prr_001.setTDEspesorPromedio7(String.valueOf(TDEspesor7 / 3));
 
-        Float TDEspesor8 =  Float.parseFloat(fra_prr_001.getTDespesor81()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor82()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor83());
+        Float TDEspesor8 = Float.parseFloat(fra_prr_001.getTDespesor81()) +
+                Float.parseFloat(fra_prr_001.getTDespesor82()) +
+                Float.parseFloat(fra_prr_001.getTDespesor83());
 
-        fra_prr_001.setTDEspesorPromedio8(String.valueOf(TDEspesor8/3));
+        fra_prr_001.setTDEspesorPromedio8(String.valueOf(TDEspesor8 / 3));
 
-        Float TDEspesor9 =  Float.parseFloat(fra_prr_001.getTDespesor91()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor92()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor93());
+        Float TDEspesor9 = Float.parseFloat(fra_prr_001.getTDespesor91()) +
+                Float.parseFloat(fra_prr_001.getTDespesor92()) +
+                Float.parseFloat(fra_prr_001.getTDespesor93());
 
-        fra_prr_001.setTDEspesorPromedio9(String.valueOf(TDEspesor9/3));
+        fra_prr_001.setTDEspesorPromedio9(String.valueOf(TDEspesor9 / 3));
 
         Float TDEspesor10 = Float.parseFloat(fra_prr_001.getTDespesor101()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor102()) +
-                            Float.parseFloat(fra_prr_001.getTDespesor103());
+                Float.parseFloat(fra_prr_001.getTDespesor102()) +
+                Float.parseFloat(fra_prr_001.getTDespesor103());
 
-        fra_prr_001.setTDEspesorPromedio10(String.valueOf(TDEspesor10/3));
+        fra_prr_001.setTDEspesorPromedio10(String.valueOf(TDEspesor10 / 3));
 
-        Float TDPromedio =  Float.parseFloat(fra_prr_001.getTDResistenciaRasgado1()) +
-                            Float.parseFloat(fra_prr_001.getTDResistenciaRasgado2()) +
-                            Float.parseFloat(fra_prr_001.getTDResistenciaRasgado3()) +
-                            Float.parseFloat(fra_prr_001.getTDResistenciaRasgado4()) +
-                            Float.parseFloat(fra_prr_001.getTDResistenciaRasgado5()) +
-                            Float.parseFloat(fra_prr_001.getTDResistenciaRasgado6()) +
-                            Float.parseFloat(fra_prr_001.getTDResistenciaRasgado7()) +
-                            Float.parseFloat(fra_prr_001.getTDResistenciaRasgado8()) +
-                            Float.parseFloat(fra_prr_001.getTDResistenciaRasgado9()) +
-                            Float.parseFloat(fra_prr_001.getTDResistenciaRasgado10());
+        Float TDPromedio = Float.parseFloat(fra_prr_001.getTDResistenciaRasgado1()) +
+                Float.parseFloat(fra_prr_001.getTDResistenciaRasgado2()) +
+                Float.parseFloat(fra_prr_001.getTDResistenciaRasgado3()) +
+                Float.parseFloat(fra_prr_001.getTDResistenciaRasgado4()) +
+                Float.parseFloat(fra_prr_001.getTDResistenciaRasgado5()) +
+                Float.parseFloat(fra_prr_001.getTDResistenciaRasgado6()) +
+                Float.parseFloat(fra_prr_001.getTDResistenciaRasgado7()) +
+                Float.parseFloat(fra_prr_001.getTDResistenciaRasgado8()) +
+                Float.parseFloat(fra_prr_001.getTDResistenciaRasgado9()) +
+                Float.parseFloat(fra_prr_001.getTDResistenciaRasgado10());
 
-        fra_prr_001.setTDPromedio(String.valueOf(TDPromedio/10));
+        fra_prr_001.setTDPromedio(String.valueOf(TDPromedio / 10));
 
-        /*Double [] valoresMD = {largo1, largo2, largo3, largo4};
-        Double [] valoresTD = {ancho1, ancho2, ancho3, ancho4};
-        Double minLarg = valoresLargos[0];
-        Double maxLarg = valoresLargos[0];
-        Double minAnch = valoresAnchos[0];
-        Double maxAnch = valoresAnchos[0];
 
-        for (Double valoresLargo : valoresLargos) {
-            if (maxLarg < valoresLargo) {
-                maxLarg = valoresLargo;
+        Double[] valoresMD = {Double.parseDouble(fra_prr_001.getMDResistenciaRasgado1()),
+                Double.parseDouble(fra_prr_001.getMDResistenciaRasgado2()),
+                Double.parseDouble(fra_prr_001.getMDResistenciaRasgado3()),
+                Double.parseDouble(fra_prr_001.getMDResistenciaRasgado4()),
+                Double.parseDouble(fra_prr_001.getMDResistenciaRasgado5()),
+                Double.parseDouble(fra_prr_001.getMDResistenciaRasgado6()),
+                Double.parseDouble(fra_prr_001.getMDResistenciaRasgado7()),
+                Double.parseDouble(fra_prr_001.getMDResistenciaRasgado8()),
+                Double.parseDouble(fra_prr_001.getMDResistenciaRasgado9()),
+                Double.parseDouble(fra_prr_001.getMDResistenciaRasgado10())};
+        Double[] valoresTD = {Double.parseDouble(fra_prr_001.getTDResistenciaRasgado1()),
+                Double.parseDouble(fra_prr_001.getTDResistenciaRasgado2()),
+                Double.parseDouble(fra_prr_001.getTDResistenciaRasgado3()),
+                Double.parseDouble(fra_prr_001.getTDResistenciaRasgado4()),
+                Double.parseDouble(fra_prr_001.getTDResistenciaRasgado5()),
+                Double.parseDouble(fra_prr_001.getTDResistenciaRasgado6()),
+                Double.parseDouble(fra_prr_001.getTDResistenciaRasgado7()),
+                Double.parseDouble(fra_prr_001.getTDResistenciaRasgado8()),
+                Double.parseDouble(fra_prr_001.getTDResistenciaRasgado9()),
+                Double.parseDouble(fra_prr_001.getTDResistenciaRasgado10())};
+        Double minMD = valoresMD[0];
+        Double maxMD = valoresMD[0];
+        Double minTD = valoresTD[0];
+        Double maxTD = valoresTD[0];
+
+        for (Double valoresLargo : valoresMD) {
+            if (maxMD < valoresLargo) {
+                maxMD = valoresLargo;
             }
-            if (minLarg > valoresLargo) {
-                minLarg = valoresLargo;
+            if (minMD > valoresLargo) {
+                minMD = valoresLargo;
             }
         }
 
-        for (Double valoresAncho : valoresAnchos) {
-            if (maxAnch < valoresAncho) {
-                maxAnch = valoresAncho;
+        for (Double valoresAncho : valoresTD) {
+            if (maxTD < valoresAncho) {
+                maxTD = valoresAncho;
             }
-            if (minAnch > valoresAncho) {
-                minAnch = valoresAncho;
+            if (minTD > valoresAncho) {
+                minTD = valoresAncho;
             }
         }
 
-        Double desviacionEstandarLargo= Math.sqrt((Math.pow(largo1-promedioLargo,2) + Math.pow(largo2-promedioLargo,2) + Math.pow(largo3-promedioLargo,2) + Math.pow(largo4-promedioLargo,2)) / 4);
-        Double desviacionEstandarAncho= Math.sqrt((Math.pow(ancho1-promedioAncho,2) + Math.pow(ancho2-promedioAncho,2) + Math.pow(ancho3-promedioAncho,2) + Math.pow(ancho4-promedioAncho,2)) / 4);
+        Double desviacionEstandarMD = Math.sqrt((
+                                      Math.pow(Double.parseDouble(fra_prr_001.getMDResistenciaRasgado1()) - MDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getMDResistenciaRasgado2()) - MDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getMDResistenciaRasgado3()) - MDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getMDResistenciaRasgado4()) - MDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getMDResistenciaRasgado5()) - MDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getMDResistenciaRasgado6()) - MDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getMDResistenciaRasgado7()) - MDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getMDResistenciaRasgado8()) - MDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getMDResistenciaRasgado9()) - MDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getMDResistenciaRasgado10()) - MDPromedio, 2)) / 10);
 
-        fra_es_001.setPromedioLargo(String.valueOf(promedioLargo));
-        fra_es_001.setPromedioAncho(String.valueOf(promedioAncho));
-        fra_es_001.setDesvEstandarLargo(String.valueOf(desviacionEstandarLargo));
-        fra_es_001.setDesvEstandarAncho(String.valueOf(desviacionEstandarAncho));
-        fra_es_001.setMaxAncho(String.valueOf(maxAnch));
-        fra_es_001.setMinAncho(String.valueOf(minAnch));
-        fra_es_001.setMaxLargo(String.valueOf(maxLarg));
-        fra_es_001.setMinLargo(String.valueOf(minLarg));*/
+        Double desviacionEstandarTD = Math.sqrt((
+                                      Math.pow(Double.parseDouble(fra_prr_001.getTDResistenciaRasgado1()) - TDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getTDResistenciaRasgado2()) - TDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getTDResistenciaRasgado3()) - TDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getTDResistenciaRasgado4()) - TDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getTDResistenciaRasgado5()) - TDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getTDResistenciaRasgado6()) - TDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getTDResistenciaRasgado7()) - TDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getTDResistenciaRasgado8()) - TDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getTDResistenciaRasgado9()) - TDPromedio, 2) +
+                                      Math.pow(Double.parseDouble(fra_prr_001.getTDResistenciaRasgado10()) -TDPromedio, 2)) / 10);
+
+        fra_prr_001.setMaxMD(String.valueOf(maxMD));
+        fra_prr_001.setMaxTD(String.valueOf(maxTD));
+        fra_prr_001.setMinMD(String.valueOf(minMD));
+        fra_prr_001.setMinTD(String.valueOf(minTD));
+
+        fra_prr_001.setDesvEstandarMD(String.valueOf(desviacionEstandarMD));
+        fra_prr_001.setDesvEstandarTD(String.valueOf(desviacionEstandarTD));
+
 
         fra_prr_001.setObservaciones(request.get("observaciones"));
         fra_prr_001.setRealizo(request.get("realizo"));

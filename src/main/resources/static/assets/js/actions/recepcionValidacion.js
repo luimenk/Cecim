@@ -276,35 +276,35 @@ function cargarMedianteQR(valor){
         '                                    <h4 class="card-title">Recepción y verificación registro y codificación de la muestra</h4>' +
         '                                </div>' +
         '                                <div class="card-body ">' +
-        '                                    <div class="row">' +
-        '                                        <label class="col-sm-2 control-label">Fecha de recepción</label>' +
-        '                                        <div class="col-sm-4 col-sm-offset-1">' +
-        '                                            <div class="form-group">' +
-        '                                                <input type="text" class="form-control datepicker"' +
-        '                                                       name="fechaRecepcion" id="fechaRecepcion" required="true">' +
-        '                                            </div>' +
-        '                                        </div>' +
-        '                                    </div>' +
-        '' +
-        '                                    <div class="row">' +
-        '                                        <label class="col-sm-2 control-label">Nombre de la persona que recibe</label>' +
-        '                                        <div class="col-sm-4 col-sm-offset-1">' +
-        '                                            <div class="form-group">' +
-        '                                                <input type="text" class="form-control"' +
-        '                                                       name="nombrePersonaRecibe" id="nombrePersonaRecibe" required>' +
-        '                                            </div>' +
-        '                                        </div>' +
-        '                                    </div>' +
-        '' +
-        '                                    <div class="row">' +
-        '                                        <label class="col-sm-2 control-label">Nombre de la persona que entrega</label>' +
-        '                                        <div class="col-sm-4 col-sm-offset-1">' +
-        '                                            <div class="form-group">' +
-        '                                                <input type="text" class="form-control"' +
-        '                                                       name="nombrePersonaEntrega" id="nombrePersonaEntrega" required>' +
-        '                                            </div>' +
-        '                                        </div>' +
-        '                                    </div>' +
+        // '                                    <div class="row">' +
+        // '                                        <label class="col-sm-2 control-label">Fecha de recepción</label>' +
+        // '                                        <div class="col-sm-4 col-sm-offset-1">' +
+        // '                                            <div class="form-group">' +
+        // '                                                <input type="text" class="form-control datepicker"' +
+        // '                                                       name="fechaRecepcion" id="fechaRecepcion" required="true">' +
+        // '                                            </div>' +
+        // '                                        </div>' +
+        // '                                    </div>' +
+        // '' +
+        // '                                    <div class="row">' +
+        // '                                        <label class="col-sm-2 control-label">Nombre de la persona que recibe</label>' +
+        // '                                        <div class="col-sm-4 col-sm-offset-1">' +
+        // '                                            <div class="form-group">' +
+        // '                                                <input type="text" class="form-control"' +
+        // '                                                       name="nombrePersonaRecibe" id="nombrePersonaRecibe" required>' +
+        // '                                            </div>' +
+        // '                                        </div>' +
+        // '                                    </div>' +
+        // '' +
+        // '                                    <div class="row">' +
+        // '                                        <label class="col-sm-2 control-label">Nombre de la persona que entrega</label>' +
+        // '                                        <div class="col-sm-4 col-sm-offset-1">' +
+        // '                                            <div class="form-group">' +
+        // '                                                <input type="text" class="form-control"' +
+        // '                                                       name="nombrePersonaEntrega" id="nombrePersonaEntrega" required>' +
+        // '                                            </div>' +
+        // '                                        </div>' +
+        // '                                    </div>' +
         '' +
         '                                    <div class="row">' +
         '                                        <label class="col-sm-2 control-label">Medio por el cuál se está recibiendo la muestra:</label>' +

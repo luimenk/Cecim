@@ -154,10 +154,10 @@ public class RecepcionVerificacionRegistroCodificacionController {
         recepcionVerificacionRegistroCodificacion.setUtilizoFeim(request.get("utilizoFeim"));
         recepcionVerificacionRegistroCodificacion.setCantidadMuestraEntregada(request.get("cantidadMuestraEntregada"));
         recepcionVerificacionRegistroCodificacion.setSolicitudServicioClienteMuestras(solicitudServicioClienteMuestras);
-        recepcionVerificacionRegistroCodificacion.setFechaRecepcion(request.get("fechaRecepcion"));
+        recepcionVerificacionRegistroCodificacion.setFechaRecepcion("");
         recepcionVerificacionRegistroCodificacion.setFolioRecepcionVerificacion(foliosService.folioRecepcionValidacion());
-        recepcionVerificacionRegistroCodificacion.setNombrePersonaRecibe(request.get("nombrePersonaRecibe"));
-        recepcionVerificacionRegistroCodificacion.setNombrePersonaEntrega(request.get("nombrePersonaEntrega"));
+        recepcionVerificacionRegistroCodificacion.setNombrePersonaRecibe("");
+        recepcionVerificacionRegistroCodificacion.setNombrePersonaEntrega("");
         recepcionVerificacionRegistroCodificacion.setMedioRecepcion(request.get("medioRecepcion"));
         recepcionVerificacionRegistroCodificacion.setIdInternoMuestra1("L-" + ids);
         recepcionVerificacionRegistroCodificacion.setIdInternoMuestra2("R-" + ids);
@@ -238,5 +238,13 @@ public class RecepcionVerificacionRegistroCodificacionController {
         System.out.println(LocalTime.now());
 
         return feil_mie_007_service.crearFormato(id, 2);
+    }
+
+    @RequestMapping(value = "/imprimirEtiquetasLaboratorioTodas/{id}", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir16(@PathVariable("id") Long id) throws Exception {
+        System.out.println("Se generó FEIL-MIE-007");
+        System.out.println(LocalTime.now());
+
+        return feil_mie_007_service.crearFormato(id, 3);
     }
 }

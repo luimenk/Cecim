@@ -13,6 +13,9 @@ public class FRA_OIT_001 {
     private Long idFRAOIT;
 
     @Column(length = 60, nullable = false)
+    private String folioTecnica;
+
+    @Column(length = 60, nullable = false)
     private String folioSolicitudServicioInterno;
 
     @Column(length = 60, nullable = false)
@@ -35,6 +38,9 @@ public class FRA_OIT_001 {
 
     @Column(length = 60, nullable = false)
     private String codigoBalanza;
+
+    @Column(length = 60, nullable = false)
+    private String tiempoIsoterma;
 
     @Column(length = 60, nullable = false)
     private String espesor1;
@@ -75,6 +81,12 @@ public class FRA_OIT_001 {
     @Column(length = 250, nullable = false)
     private String pathImage;
 
+    @Column(length = 60, nullable = false)
+    private String estatus;
+
+    @Column(length = 60, nullable = false)
+    private String numeroRepeticiones;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Metodo_Muestra_Id")
     private MetodoMuestra metodoMuestra;
@@ -82,8 +94,9 @@ public class FRA_OIT_001 {
     public FRA_OIT_001() {
     }
 
-    public FRA_OIT_001(Long idFRAOIT, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoDSC, String codigoBalanza, String espesor1, String peso1, String ppmdsc1, String espesor2, String peso2, String ppmdsc2, String repeticion1OIT, String repeticion2OIT, String promedio, String observaciones, String realizo, String supervisor, String pathImage, MetodoMuestra metodoMuestra) {
+    public FRA_OIT_001(Long idFRAOIT, String folioTecnica, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoDSC, String codigoBalanza, String tiempoIsoterma, String espesor1, String peso1, String ppmdsc1, String espesor2, String peso2, String ppmdsc2, String repeticion1OIT, String repeticion2OIT, String promedio, String observaciones, String realizo, String supervisor, String pathImage, String estatus, MetodoMuestra metodoMuestra) {
         this.idFRAOIT = idFRAOIT;
+        this.folioTecnica = folioTecnica;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
         this.fechaInicioAnalisis = fechaInicioAnalisis;
@@ -92,6 +105,7 @@ public class FRA_OIT_001 {
         this.humedadRelativa = humedadRelativa;
         this.codigoDSC = codigoDSC;
         this.codigoBalanza = codigoBalanza;
+        this.tiempoIsoterma = tiempoIsoterma;
         this.espesor1 = espesor1;
         this.peso1 = peso1;
         this.ppmdsc1 = ppmdsc1;
@@ -105,6 +119,7 @@ public class FRA_OIT_001 {
         this.realizo = realizo;
         this.supervisor = supervisor;
         this.pathImage = pathImage;
+        this.estatus = estatus;
         this.metodoMuestra = metodoMuestra;
     }
 
@@ -114,6 +129,14 @@ public class FRA_OIT_001 {
 
     public void setIdFRAOIT(Long idFRAOIT) {
         this.idFRAOIT = idFRAOIT;
+    }
+
+    public String getFolioTecnica() {
+        return folioTecnica;
+    }
+
+    public void setFolioTecnica(String folioTecnica) {
+        this.folioTecnica = folioTecnica;
     }
 
     public String getFolioSolicitudServicioInterno() {
@@ -178,6 +201,14 @@ public class FRA_OIT_001 {
 
     public void setCodigoBalanza(String codigoBalanza) {
         this.codigoBalanza = codigoBalanza;
+    }
+
+    public String getTiempoIsoterma() {
+        return tiempoIsoterma;
+    }
+
+    public void setTiempoIsoterma(String tiempoIsoterma) {
+        this.tiempoIsoterma = tiempoIsoterma;
     }
 
     public String getEspesor1() {
@@ -290,5 +321,21 @@ public class FRA_OIT_001 {
 
     public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
         this.metodoMuestra = metodoMuestra;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
+    public String getNumeroRepeticiones() {
+        return numeroRepeticiones;
+    }
+
+    public void setNumeroRepeticiones(String numeroRepeticiones) {
+        this.numeroRepeticiones = numeroRepeticiones;
     }
 }

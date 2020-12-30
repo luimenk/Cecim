@@ -88,10 +88,20 @@ public class FRM_SOC_005_Service {
         }
 
         XWPFTable table1 = doc.getTables().get(1);
-        table1.getRow(0).getCell(1).setText(formatoFechas.formateadorFechas(recepcionVerificacionRegistroCodificacion.getFechaRecepcion()));
+//        table1.getRow(0).getCell(1).setText(formatoFechas.formateadorFechas(recepcionVerificacionRegistroCodificacion.getFechaRecepcion()));
+        table1.getRow(0).getCell(1).setText(formatoFechas.formateadorFechas(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras()));
         table1.getRow(0).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
-        table1.getRow(1).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getNombrePersonaRecibe());
-        table1.getRow(2).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getNombrePersonaEntrega());
+        //table1.getRow(1).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getNombrePersonaRecibe());
+        table1.getRow(1).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getNombreFirmaReceptor());
+        //table1.getRow(2).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getNombrePersonaEntrega());
+
+        try {
+            JSONArray jsonArray = new JSONArray(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getClient().getContactosDatos());
+            table1.getRow(2).getCell(1).setText(getAttributeContacto(bandera, jsonArray,"nombrePersonaContacto"));
+        } catch (JSONException e) {
+            System.out.println("e: " + e);
+        }
+
         table1.getRow(3).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getClient().getNombreRazonSocial());
         table1.getRow(3).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getMedioRecepcion());
         table1.getRow(4).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getIdInternoMuestra1());
@@ -116,5 +126,39 @@ public class FRM_SOC_005_Service {
                 .headers(headers)
                 .contentType(word)
                 .body(new InputStreamResource(byteArrayInputStream));
+    }
+
+    private String getAttributeContacto(int bandera, JSONArray contactosAux,String attribute) throws JSONException {
+        StringBuilder contacto= new StringBuilder();
+        JSONObject jsonObject;
+        for(int i=0; i<contactosAux.length(); i++){
+            jsonObject= (JSONObject) contactosAux.get(i);
+            if (attribute.equals("nombrePersonaContacto")){
+                if (bandera == i){
+                    return jsonObject.get("nombrePersonaContacto").toString();
+                }
+            }
+            if (attribute.equals("cargo")){
+                if (bandera == i){
+                    return jsonObject.get("cargo").toString();
+                }
+            }
+            if (attribute.equals("email")){
+                if (bandera == i){
+                    return jsonObject.get("email").toString();
+                }
+            }
+            if (attribute.equals("telefonoOficina")){
+                if (bandera == i){
+                    return jsonObject.get("telefonoOficina").toString();
+                }
+            }
+            if (attribute.equals("telefonoCelular")){
+                if (bandera == i){
+                    return jsonObject.get("telefonoCelular").toString();
+                }
+            }
+        }
+        return contacto.toString();
     }
 }

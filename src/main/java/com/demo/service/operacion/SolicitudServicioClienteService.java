@@ -146,6 +146,10 @@ public class SolicitudServicioClienteService {
         return solicitudServicioClienteRepository.findAll();
     }
 
+    public List<SolicitudServicioCliente> findAllByEstatusPago(String estatus){
+        return solicitudServicioClienteRepository.findAllByEstatusPago(estatus);
+    }
+
     public SolicitudServicioCliente findById(Long id) {
         return solicitudServicioClienteRepository.findBySolicitudServicioClienteId(id);
     }
@@ -162,36 +166,56 @@ public class SolicitudServicioClienteService {
         return solicitudServicioClienteRepository.count();
     }
 
-    public ResponseEntity<InputStreamResource> generarListaSolicitud() throws InvalidFormatException, IOException{
+    public ResponseEntity<InputStreamResource> generarListaSolicitud(String filtro) throws InvalidFormatException, IOException{
         ClassPathResource resource = new ClassPathResource("/documentos/LFS-SOC-001.docx");
         XWPFDocument doc = new XWPFDocument(resource.getInputStream());
-        List<SolicitudServicioCliente> lista = solicitudServicioClienteRepository.findAll();
+
+        List<SolicitudServicioCliente> lista;
+        if (filtro.equals("todos")){
+            lista = solicitudServicioClienteRepository.findAll();
+        } else {
+            lista = solicitudServicioClienteRepository.findAllByEstatusPago(filtro);
+        }
 
         List<String>contactosAux;
         int bandera=0;
 
         XWPFTable table = doc.getTables().get(0);
+        table.getRow(0).setRepeatHeader(true);
         for (int i = 0; i<lista.size(); i++) {
             XWPFTableRow tableRow = table.createRow();
             tableRow.getCell(0).setText((i+1)+"");
-            tableRow.getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getFechaRecepcionMuestras()));
+            try{
+                tableRow.getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getFechaRecepcionMuestras()));
+            } catch (NullPointerException e){
+                System.out.println("No se ha establecido fecha en la solicitud");
+            }
             tableRow.getCell(2).setText(lista.get(i).getFolioSolitudServicioCliente());
-            tableRow.getCell(3).setText(lista.get(i).getEstatusPago());
-            tableRow.getCell(4).setText(lista.get(i).getClient().getNombreRazonSocial());
+            tableRow.getCell(3).setText(lista.get(i).getClient().getNombreRazonSocial());
+            List<SolicitudServicioClienteMuestras> listaMuestras = solicitudServicioClienteMuestrasRepository.findAllBySolicitudServicioCliente_SolicitudServicioClienteId(lista.get(i).getSolicitudServicioClienteId());
+            XWPFParagraph paragraph = tableRow.getCell(4).addParagraph();
+            paragraph.setAlignment(ParagraphAlignment.LEFT);
+            XWPFRun run = paragraph.createRun();
+            for (int j=0; j<listaMuestras.size(); j++){
+                run.setText(listaMuestras.get(j).getIdClienteMuestra());
+                run.addBreak();
+            }
+            List<MetodoMuestra> metodoMuestraList = metodoMuestraRepository.findAllBySolicitudServicioClienteMuestras_SolicitudServicioCliente(lista.get(i));
+            XWPFParagraph paragraph2 = tableRow.getCell(5).addParagraph();
+            paragraph2.setAlignment(ParagraphAlignment.LEFT);
+            XWPFRun run2 = paragraph2.createRun();
+            for (int j = 0; j<metodoMuestraList.size(); j++){
+                run2.setText(metodoMuestraList.get(j).getMethod().getCodigoMetodo());
+                run2.addBreak();
+            }
+            tableRow.getCell(6).setText(lista.get(i).getEstatusPago());
             try {
                 JSONArray jsonArray = new JSONArray(lista.get(i).getClient().getContactosDatos());
-                tableRow.getCell(5).setText(getAttributeContacto(bandera, jsonArray, "nombrePersonaContacto"));
+                tableRow.getCell(7).setText(getAttributeContacto(bandera, jsonArray, "nombrePersonaContacto"));
             } catch (JSONException e) {
                 System.out.println("e: " + e);
             }
-            List<MetodoMuestra> metodoMuestraList = metodoMuestraRepository.findAllBySolicitudServicioClienteMuestras_SolicitudServicioCliente(lista.get(i));
-            XWPFParagraph paragraph = tableRow.getCell(6).addParagraph();
-            XWPFRun run = paragraph.createRun();
-            for (int j = 0; j<metodoMuestraList.size(); j++){
-                run.setText(metodoMuestraList.get(j).getMethod().getCodigoMetodo());
-                run.addBreak();
-            }
-            tableRow.getCell(7).setText(lista.get(i).getNombreFirmaReceptor());
+            tableRow.getCell(8).setText(lista.get(i).getNombreFirmaReceptor());
         }
 
 /** ESTO FUNCIONA PARA FORMATO WORD (DOCX) */
@@ -1369,32 +1393,32 @@ public class SolicitudServicioClienteService {
                 XWPFTable tableDocumment_2 = plantilla.getTables().get(20);
                 CTTbl cTTblTemplate_2 = tableDocumment_2.getCTTbl();
                 table_2 = new XWPFTable((CTTbl) cTTblTemplate_2.copy(), doc);
+                table_2.removeRow(5);
                 table_2.removeRow(4);
                 table_2.removeRow(3);
                 table_2.removeRow(2);
-                table_2.removeRow(1);
                 for (int k = 0; k < contador; k++) {
                     try {
-                        XWPFTableRow row = tableDocumment_2.getRow(1);
+                        XWPFTableRow row = tableDocumment_2.getRow(2);
                         row.getCell(0).setText(listaFTIR.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
                         row.getCell(1).setText(listaFTIR.get(k).getCompuesto1());
                         row.getCell(2).setText(listaFTIR.get(k).getIdentidad1());
                         row.getCell(3).setText(listaFTIR.get(k).getCompuesto2());
                         row.getCell(4).setText(listaFTIR.get(k).getIdentidad2());
                     } catch (NullPointerException e) {
-                        table_2.addRow(tableDocumment_2.getRow(1));
+                        table_2.addRow(tableDocumment_2.getRow(2));
                     }
                 }
                 try {
-                    XWPFTableRow row2 = tableDocumment_2.getRow(2);
+                    XWPFTableRow row2 = tableDocumment_2.getRow(3);
                     row2.getCell(1).setText("¿Qué es la especificación del cliente?");
                     table_2.addRow(row2);
 
-                    XWPFTableRow row3 = tableDocumment_2.getRow(3);
+                    XWPFTableRow row3 = tableDocumment_2.getRow(4);
                     row3.getCell(1).setText("¿Qué es la declaración de conformidad?");
                     table_2.addRow(row3);
 
-                    XWPFTableRow row4 = tableDocumment_2.getRow(4);
+                    XWPFTableRow row4 = tableDocumment_2.getRow(5);
                     row4.getCell(1).setText(listaFTIR.get(0).getObservaciones());
                     table_2.addRow(row4);
                 } catch (NullPointerException e) {
@@ -1903,6 +1927,7 @@ public class SolicitudServicioClienteService {
 
                 XWPFStyles newStyles = doc.createStyles();
                 newStyles.setStyles(plantilla.getStyle());
+                //System.out.println(plantilla.getStyle());
                 XWPFParagraph para = doc.createParagraph();
                 para.setStyle("Ttulo2");
                 XWPFRun run = para.createRun();
@@ -1953,37 +1978,54 @@ public class SolicitudServicioClienteService {
                 XWPFTable tableDocumment_3 = plantilla.getTables().get(38);
                 CTTbl cTTblTemplate_3 = tableDocumment_3.getCTTbl();
                 table_3 = new XWPFTable((CTTbl) cTTblTemplate_3.copy(), doc);
-                table_3.removeRow(4);
-                table_3.removeRow(3);
-                table_3.removeRow(2);
-                table_3.removeRow(1);
                 for (int k = 0; k < contador; k++) {
                     try{
-                        XWPFTableRow row = tableDocumment_3.getRow(1);
+                        XWPFTableRow row = table_3.createRow();
                         row.getCell(0).setText(listaOIT.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
                         row.getCell(1).setText(listaOIT.get(k).getPromedio());
-                        table_3.addRow(row);
                     } catch (NullPointerException e){
-                        table_3.addRow(tableDocumment_3.getRow(1));
+                        System.out.println("entró al catch");
                     }
                 }
-                table_3.addRow(tableDocumment_3.getRow(2));
-                table_3.addRow(tableDocumment_3.getRow(3));
-                table_3.addRow(tableDocumment_3.getRow(4));
+                XWPFTable tableDocumment_4 = plantilla.getTables().get(39);
+                table_3.addRow(tableDocumment_4.getRow(0));
+                table_3.addRow(tableDocumment_4.getRow(1));
+                table_3.addRow(tableDocumment_4.getRow(2));
 
                 doc.setTable(contTabla, table_3);
 
                 XWPFParagraph para4 = doc.createParagraph();
+                para4.setAlignment(ParagraphAlignment.LEFT);
                 XWPFRun run4 = para4.createRun();
-                run4.addBreak();
-
+                run4.setFontSize(7);
                 run4.setText("Nota: Tiempo de inducción a la oxidación");
                 run4.addBreak();
 
+                List<XWPFParagraph> listaParagraph = new ArrayList<>();
+                List<XWPFRun> listaRun = new ArrayList<>();
+                List<FileInputStream> listaFis = new ArrayList<>();
+                List<XWPFPicture> listaPircures = new ArrayList<>();
+                List<XWPFParagraph> listaParagraph2 = new ArrayList<>();
+                List<XWPFRun> listaRun2 = new ArrayList<>();
+
+                for (int k = 0; k < contador; k++) {
+                    try{
+                        listaParagraph.add(k, doc.createParagraph());
+                        listaParagraph.get(k).setAlignment(ParagraphAlignment.CENTER);
+                        listaRun.add(k, listaParagraph.get(k).createRun());
+                        listaFis.add(k, new FileInputStream(listaOIT.get(k).getPathImage()));
+                        listaPircures.add(k, listaRun.get(k).addPicture(listaFis.get(k), XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(130), Units.pixelToEMU(130)));
+                        listaParagraph2.add(k, doc.createParagraph());
+                        listaParagraph2.get(k).setAlignment(ParagraphAlignment.CENTER);
+                        listaParagraph2.get(k).setStyle("Termograma");
+                        listaRun2.add(k, listaParagraph2.get(k).createRun());
+                        listaRun2.get(k).setText("Indica el tiempo de inducción a la oxidación de la muestra \"" + listaOIT.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra() + "\".");
+                    } catch (NullPointerException e){
+                        System.out.println("Valida el error");
+                    }
+                }
                 contTabla++;
                 contador = 0;
-
-                //TODO: APARTADO PARA IMAGEN
             }
 
             if (metodoMuestraList.get(i).getMethod().getCodigoMetodo().equals("MET-DSC-015") && bandDSC == 0) {
@@ -2027,6 +2069,8 @@ public class SolicitudServicioClienteService {
                     tableDocumment_2.getRow(1).getCell(3).setText(listaCST.get(0).getHumedadRelativa() + "%");
                 } catch (NullPointerException e){
                     System.out.println("El ensayo no ha sido desarrollado");
+                } catch (Exception e){
+                    System.out.println("Entró en el exception");
                 }
                 CTTbl cTTblTemplate_2 = tableDocumment_2.getCTTbl();
                 table_2 = new XWPFTable((CTTbl) cTTblTemplate_2.copy(), doc);
@@ -2712,7 +2756,7 @@ public class SolicitudServicioClienteService {
         }
         XWPFTable table = doc.createTable();
         table.removeRow(0); // El default row no es necesario
-        XWPFTable tableDocumment = plantilla.getTables().get(62);
+        XWPFTable tableDocumment = plantilla.getTables().get(63);
         CTTbl cTTblTemplate = tableDocumment.getCTTbl();
         table = new XWPFTable((CTTbl) cTTblTemplate.copy(), doc);
         doc.setTable(contTabla, table);

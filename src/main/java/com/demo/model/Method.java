@@ -50,6 +50,8 @@ public class Method {
 
     private String rutaImprimirFormato;
 
+    private String rutaListarMetodos;
+
     public Method() {
     }
 
@@ -180,6 +182,14 @@ public class Method {
 
     public void setRutaImprimirFormato(String rutaImprimirFormato) {
         this.rutaImprimirFormato = rutaImprimirFormato;
+    }
+
+    public String getRutaListarMetodos() {
+        return rutaListarMetodos;
+    }
+
+    public void setRutaListarMetodos(String rutaListarMetodos) {
+        this.rutaListarMetodos = rutaListarMetodos;
     }
 
     @Override

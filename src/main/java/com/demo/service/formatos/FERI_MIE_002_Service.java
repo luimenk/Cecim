@@ -47,10 +47,19 @@ public class FERI_MIE_002_Service {
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
 
-    public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException {
+    public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException {
 
-        List<RecepcionVerificacionRegistroCodificacion> lista = recepcionVerificacionRegistroCodificacionService.findAllBySolicitudServicioClienteMuestrasId(id);
-        SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteService.findById(id);
+        List<RecepcionVerificacionRegistroCodificacion> lista = new ArrayList<>();
+        SolicitudServicioCliente solicitudServicioCliente;
+
+        if (band == 1){
+            lista = recepcionVerificacionRegistroCodificacionService.findAllBySolicitudServicioClienteMuestrasId(id);
+            solicitudServicioCliente = solicitudServicioClienteService.findById(id);
+        } else if (band == 3){
+            solicitudServicioCliente = solicitudServicioClienteService.findById(id);
+            lista = recepcionVerificacionRegistroCodificacionService.findAllBySolicitudServicioCliente(solicitudServicioCliente);
+        }
+
 
         String pathLista = "/documentos/FERI_MIE_002/FERI-MIE-002-" + lista.size() + ".docx";
         ClassPathResource resource = new ClassPathResource(pathLista);
@@ -58,23 +67,29 @@ public class FERI_MIE_002_Service {
 
         XWPFTable table;
         for (int i = 0; i < lista.size(); i++) {
-            table = doc.getTables().get(i);
-            table.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras()));
-            table.getRow(2).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaCompromisoEntrega()));
-            table.getRow(3).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-            table.getRow(4).getCell(1).setText(lista.get(i).getIdInternoMuestra2());
-            table.getRow(5).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
-            table.getRow(6).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getDescripcionMuestra());
-            table.getRow(7).getCell(1).setText(lista.get(i).getCantidadMuestraRetencion());
-            table.getRow(8).getCell(1).setText(lista.get(i).getNombrePersonaAcondicionara());
+            try {
 
-            XWPFParagraph paragraph = table.getRow(9).getCell(1).addParagraph();
-            XWPFRun run = paragraph.createRun();
-            FileInputStream fis = new FileInputStream(lista.get(i).getSolicitudServicioClienteMuestras().getPathQRIdentificacion());
 
-            XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(150), Units.pixelToEMU(150));
+                table = doc.getTables().get(i);
+                table.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras()));
+                table.getRow(2).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaCompromisoEntrega()));
+                table.getRow(3).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getIdClienteMuestra());
+                table.getRow(4).getCell(1).setText(lista.get(i).getIdInternoMuestra2());
+                table.getRow(5).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
+                table.getRow(6).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getDescripcionMuestra());
+                table.getRow(7).getCell(1).setText(lista.get(i).getCantidadMuestraRetencion());
+                table.getRow(8).getCell(1).setText(lista.get(i).getNombrePersonaAcondicionara());
+
+                XWPFParagraph paragraph = table.getRow(9).getCell(1).addParagraph();
+                XWPFRun run = paragraph.createRun();
+                FileInputStream fis = new FileInputStream(lista.get(i).getSolicitudServicioClienteMuestras().getPathQRIdentificacion());
+
+                XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(150), Units.pixelToEMU(150));
+
+            } catch (NullPointerException e){
+                System.out.println("No se han hecho todas las recepciones");
+            }
         }
-
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=FERI_MIE_" + lista.get(0).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente() + ".docx");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

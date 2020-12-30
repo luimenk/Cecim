@@ -512,6 +512,18 @@ function validaImprimirEtiqueta(valor) {
     window.location = "/solicitudServicioCliente/imprimirEtiquetasIdentificacion/" + id;
 }
 
+function validaImprimirEtiquetasEnsayos(valor) {
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    window.location = "/recepcionVerificacion/imprimirEtiquetasLaboratorioTodas/" + id;
+}
+
+function validaImprimirEtiquetasRetencion(valor) {
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    window.location = "/solicitudServicioCliente/imprimirEtiquetasRetencionTodas/" + id;
+}
+
 /*function validaImprimirEtiquetaRetencion(valor) {
     window.location = "/solicitudServicioCliente/imprimirEtiquetasRetencion/" + valor;
 }
@@ -626,6 +638,16 @@ function fechaRecepcion(valor){
 
 function fechaCompromiso(valor){
     window.location = "/registerSolicituedServicioFechaCompromisoEntrega/" + valor;
+}
+
+function generarListas(){
+    ///solicitudServicioCliente/generarListaSolicitud
+    valor = document.getElementById("opciongenerar").value;
+    if (valor === "") {
+        swal("Alerta!", "Por favor selecciona una opción.", "warning");
+    } else {
+        window.location = "/solicitudServicioCliente/generarListaSolicitud/" + valor;
+    }
 }
 
 function cargarTabla() {

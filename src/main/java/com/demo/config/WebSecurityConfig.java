@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .authorizeRequests()
                 .antMatchers(resources).permitAll()
-                .antMatchers("/","/index", "/nameCorreo", "/nameCodigo", "/nameContrasena", "/recuperaCuenta/**O").permitAll()
+                .antMatchers("/","/index", "/nameCorreo", "/nameCodigo", "/nameContrasena", "/recuperaCuenta/**").permitAll()
                 //.antMatchers("/registroCliente*","/mostrarClientes*").access("hasRole('SUPERUSUARIO')")
                 //.antMatchers("/user*").access("hasRole('USER') or hasRole('ADMIN')")
                 //.antMatchers("/registroMetodo*", "/mostrarMetodos*").access("hasRole('SUPERUSUARIO')")

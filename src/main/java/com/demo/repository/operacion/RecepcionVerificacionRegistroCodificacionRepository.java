@@ -2,6 +2,7 @@ package com.demo.repository.operacion;
 
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 
+import com.demo.model.operacion.SolicitudServicioCliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,5 +16,6 @@ public interface RecepcionVerificacionRegistroCodificacionRepository extends Jpa
     RecepcionVerificacionRegistroCodificacion findByRecepcionVerificacionRegistroCodificacionId(Long id);
     RecepcionVerificacionRegistroCodificacion findBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(Long id);
     List<RecepcionVerificacionRegistroCodificacion> findAllBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(Long id);
+    List<RecepcionVerificacionRegistroCodificacion> findAllBySolicitudServicioClienteMuestras_SolicitudServicioCliente(SolicitudServicioCliente solicitudServicioCliente);
 
 }

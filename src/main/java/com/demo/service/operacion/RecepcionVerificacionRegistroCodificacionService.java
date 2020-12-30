@@ -1,6 +1,7 @@
 package com.demo.service.operacion;
 
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
+import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.repository.operacion.RecepcionVerificacionRegistroCodificacionRepository;
 
 import org.slf4j.Logger;
@@ -38,6 +39,10 @@ public class RecepcionVerificacionRegistroCodificacionService {
 
     public List<RecepcionVerificacionRegistroCodificacion> findAllBySolicitudServicioClienteMuestrasId(Long id){
         return recepcionVerificacionRegistroCodificacionRepository.findAllBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(id);
+    }
+
+    public List<RecepcionVerificacionRegistroCodificacion> findAllBySolicitudServicioCliente(SolicitudServicioCliente solicitudServicioCliente){
+        return recepcionVerificacionRegistroCodificacionRepository.findAllBySolicitudServicioClienteMuestras_SolicitudServicioCliente(solicitudServicioCliente);
     }
 
     /*public List<RecepcionVerificacionRegistroCodificacion> findAllBySolicitud(Long id){
