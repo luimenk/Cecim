@@ -68,8 +68,6 @@ public class FERI_MIE_002_Service {
         XWPFTable table;
         for (int i = 0; i < lista.size(); i++) {
             try {
-
-
                 table = doc.getTables().get(i);
                 table.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras()));
                 table.getRow(2).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaCompromisoEntrega()));

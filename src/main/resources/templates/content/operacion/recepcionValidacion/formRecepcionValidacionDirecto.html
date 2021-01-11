@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+    <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2">
+                        <!--                        <button class="btn btn-fill btn-success" onclick="listSolicitudServicio()"><i-->
+                        <!--                                class="fa fa-arrow-circle-left"></i>Volver-->
+                        <!--                        </button>-->
+                        <button class="btn btn-warning" onclick="dashboard()"><i class="fa fa-home"></i>Inicio</button>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Verificación de etiqueta de identificación de muestra del
+                                    cliente</h4>
+                            </div>
+                            <div class="card-body ">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Cuenta con etiqueta de identificación la
+                                        muestra: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <form id="radioEtiqueta" class="form-horizontal">
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio"
+                                                           name="radioNameEtiqueta" id="radioNameEtiquetaSi" value="Si"
+                                                           checked>
+                                                    <span class="form-check-sign"></span>
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio"
+                                                           name="radioNameEtiqueta" id="radioNameEtiquetaNo" value="No">
+                                                    <span class="form-check-sign"></span>
+                                                    No
+                                                </label>
+                                            </div>
+                                            <input type="hidden" class="form-control"
+                                                   name="cuentaConEtiqueta" id="cuentaConEtiqueta" value="Si">
+                                        </form>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">El cliente utilizó el formato CeCIM: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <form id="radioFormato" class="form-horizontal">
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="radioNameFormato"
+                                                           id="radioNameFormatoSi" value="Si" checked>
+                                                    <span class="form-check-sign"></span>
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="radioNameFormato"
+                                                           id="radioNameFormatoNo" value="No">
+                                                    <span class="form-check-sign"></span>
+                                                    No
+                                                </label>
+                                            </div>
+                                            <input type="hidden" class="form-control"
+                                                   name="utilizoFeim" id="utilizoFeim" value="Si">
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Cantidad de muestra entregada</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="cantidadMuestraEntregada" id="cantidadMuestraEntregada"
+                                                   required>
+<!--                                            <input type="hidden" class="form-control"-->
+<!--                                                   name="idMuestra" id="idMuestra" value=" valor + '">-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header ">
+                                <h4 class="card-title">Recepción y verificación registro y codificación de la
+                                    muestra</h4>
+                            </div>
+                            <div class="card-body ">
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Medio por el cuál se está recibiendo la
+                                        muestra:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="medioRecepcion" id="medioRecepcion"
+                                                    required="true"
+                                                    data-title="Selecciona un elemento..."
+                                                    data-style="btn-default btn-outline"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Personal interno de CeCIM">Personal interno de CeCIM
+                                                </option>
+                                                <option value="Personal del cliente">Personal del cliente</option>
+                                                <option value="Paquetería">Paquetería</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Condiciones de la muestra de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="condicionesMuestra1" id="condicionesMuestra1" required>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Condiciones de la muestra de retención</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="condicionesMuestra2" id="condicionesMuestra2" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Cumple con la cantidad de muestra
+                                        solicitada</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <form id="radioSolicitada" class="form-horizontal">
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio"
+                                                           name="radioNameSolicitada" id="radioNameSolicitadaSi"
+                                                           value="Si" checked>
+                                                    <span class="form-check-sign"></span>
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-radio checkbox-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio"
+                                                           name="radioNameSolicitada" id="radioNameSolicitadaNo"
+                                                           value="No">
+                                                    <span class="form-check-sign"></span>
+                                                    No
+                                                </label>
+                                            </div>
+                                            <input type="hidden" class="form-control"
+                                                   name="cumpleCantidad" id="cumpleCantidad" value="Si">
+                                        </form>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Si no cumple, especifique la cantidad de
+                                        muestra recibida</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="sinoEspecifiqueCantidad" id="sinoEspecifiqueCantidad"
+                                                   value="N/A" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Cantidad de muestra para análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="cantidadMuestraAnalisis" id="cantidadMuestraAnalisis" required>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Cantidad de muestra para retención</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="cantidadMuestraRetencion" id="cantidadMuestraRetencion"
+                                                   required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Nombre de la persona que acondicionará las
+                                        muestras</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="nombrePersonaAcondicionara" id="nombrePersonaAcondicionara"
+                                                   required>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Ubicación de la muestra de retención</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="ubicacionMuestraRetencion" id="ubicacionMuestraRetencion"
+                                                   required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-fill btn-primary" onclick="valida2()">Cargar
+                                    información
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</div>
+</body>
+<script src="../assets/js/actions/recepcionValidacion.js"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#radioSolicitada input').on('change', function () {
+        var discounted = document.getElementById('sinoEspecifiqueCantidad');
+        document.getElementById("cumpleCantidad").value = $('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val();
+        if ($('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val() === "No") {
+            document.getElementById("sinoEspecifiqueCantidad").disabled = false;
+            document.getElementById("sinoEspecifiqueCantidad").value = "";
+        } else if ($('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val() === "Si") {
+            document.getElementById("sinoEspecifiqueCantidad").disabled = true;
+            document.getElementById("sinoEspecifiqueCantidad").value = "N/A";
+        }
+    });
+    $('#radioEtiqueta input').on('change', function () {
+        document.getElementById("cuentaConEtiqueta").value = $('input[name=radioNameEtiqueta]:checked', '#radioEtiqueta').val();
+    });
+    $('#radioEtiqueta input').on('change', function () {
+        document.getElementById("cuentaConEtiqueta").value = $('input[name=radioNameEtiqueta]:checked', '#radioEtiqueta').val();
+    });
+    $('#radioFormato input').on('change', function () {
+        document.getElementById("utilizoFeim").value = $('input[name=radioNameFormato]:checked', '#radioFormato').val();
+    });
+</script>
+</html>

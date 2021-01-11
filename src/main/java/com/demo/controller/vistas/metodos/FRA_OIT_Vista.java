@@ -58,6 +58,27 @@ public class FRA_OIT_Vista {
         return "content/operacion/metodos/FRA_OIT/formFRA_OIT";
     }
 
+    @RequestMapping(value = "/modificarFRAOIT/{id}")
+    public String averregisterFRAOIT(Model model, Principal principal, @PathVariable("id") Long id) {
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
+
+        FRA_OIT_001 fra_oit_001 = fra_oit_001_service.findById(id);
+        Date ahora = new Date();
+        SimpleDateFormat ahoraFormato = new SimpleDateFormat("yyyy-MM-dd", new Locale("ES"));
+        String fechaHoy = ahoraFormato.format(ahora);
+
+        model.addAttribute("folioSolicitudServicioInterno", fra_oit_001.getFolioSolicitudServicioInterno());
+        model.addAttribute("idInternoMuestra", fra_oit_001.getIdInternoMuestra());
+        model.addAttribute("folioTecnica", fra_oit_001.getFolioTecnica());
+
+        for (GrantedAuthority a : review) {
+            model.addAttribute("role", a.getAuthority());
+        }
+
+        return "content/operacion/metodos/FRA_OIT/formFRA_OIT3";
+    }
+
     @RequestMapping(value = "/finalizarFRAOIT/{id}")
     public String registerFRAOIT2(Model model, Principal principal, @PathVariable("id") Long id) {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();

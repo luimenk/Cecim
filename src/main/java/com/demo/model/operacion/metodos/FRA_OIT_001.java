@@ -87,6 +87,9 @@ public class FRA_OIT_001 {
     @Column(length = 60, nullable = false)
     private String numeroRepeticiones;
 
+    @Column(length = 60, nullable = false)
+    private String cantidadModificaciones;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Metodo_Muestra_Id")
     private MetodoMuestra metodoMuestra;
@@ -337,5 +340,13 @@ public class FRA_OIT_001 {
 
     public void setNumeroRepeticiones(String numeroRepeticiones) {
         this.numeroRepeticiones = numeroRepeticiones;
+    }
+
+    public String getCantidadModificaciones() {
+        return cantidadModificaciones;
+    }
+
+    public void setCantidadModificaciones(String cantidadModificaciones) {
+        this.cantidadModificaciones = cantidadModificaciones;
     }
 }

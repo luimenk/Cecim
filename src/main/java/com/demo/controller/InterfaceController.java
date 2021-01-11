@@ -150,7 +150,7 @@ public class InterfaceController {
                     rol = "content/dashboard/dashboard";
                 }
                 if (a.getAuthority().equals("ROLE_GERENCIATECNICA")) {
-                    rol = "content/dashboard/dashboardLabo";
+                    rol = "content/dashboard/dashboard";
                 }
                 if (a.getAuthority().equals("ROLE_CONTROLDECALIDAD")) {
                     rol = "content/dashboard/dashboardAdmin";
@@ -793,49 +793,6 @@ public class InterfaceController {
     }
 
     //VideoQR
-    @RequestMapping(value = "/registerValidacion")
-    public String registerValidacion(Model model, Principal principal) {
-        // After user login successfully.
-        String userName = principal.getName();
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String userInfo = WebUtils.toString(loginedUser);
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
-
-        model.addAttribute("userName", userName);
-        model.addAttribute("userInfo", userInfo);
-
-        List<Client> lista = clientService.findAll();
-        model.addAttribute("empresas", lista);
-
-        List<Method> lista2 = methodService.findAll();
-        model.addAttribute("metodos", lista2);
-
-        for (GrantedAuthority a : review) {
-            model.addAttribute("role", a.getAuthority());
-        }
-        return "content/operacion/recepcionValidacion/formRecepcionValidacion";
-    }
-
-    @RequestMapping("/listRecepcionValidacion")
-    public String listRecepcionValidacion(Model model, Principal principal) {
-        // After user login successfully.
-        String userName = principal.getName();
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
-        String userInfo = WebUtils.toString(loginedUser);
-
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
-
-        model.addAttribute("userName", userName);
-        model.addAttribute("userInfo", userInfo);
-
-        for (GrantedAuthority a : review) {
-            model.addAttribute("role", a.getAuthority());
-        }
-
-        return "content/operacion/recepcionValidacion/listRecepcionValidacion";
-    }
 
     //lectura de qr
     @RequestMapping(value = "/lecturaQR")

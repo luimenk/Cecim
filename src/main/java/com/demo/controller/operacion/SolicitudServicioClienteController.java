@@ -1,6 +1,7 @@
 package com.demo.controller.operacion;
 
 import com.demo.model.Client;
+import com.demo.model.Method;
 import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 import com.demo.model.operacion.SolicitudServicioCliente;
@@ -148,7 +149,6 @@ public class SolicitudServicioClienteController {
 
                 metodoMuestraService.borraTodosPorMuestra(solicitudServicioClienteMuestras.get(i).getSolicitudServicioClienteMuestrasId());
 
-
                 for (int j = 0; j < lista.size(); j++) {
                     MetodoMuestra metodoMuestra = new MetodoMuestra();
                     metodoMuestra.setPathQRLab("");
@@ -186,36 +186,57 @@ public class SolicitudServicioClienteController {
             solicitudServicioCliente.setNombreFirmaReceptor(request.get("nombreFirmaReceptor").toString());
             solicitudServicioCliente.setNombreFirmaCalidad(request.get("nombreFirmaCalidad").toString());
             solicitudServicioCliente.setDevolucionMuestras(request.get("devolucionMuestras").toString());
+            solicitudServicioCliente.setTotalMuestras(request.get("contMuestra").toString());
             solicitudServicioCliente.setClient(client);
             solicitudServicioClienteService.save(solicitudServicioCliente);
 
-            for (int i = 0; i <= Integer.parseInt(request.get("contMuestra").toString()); i++) {
+            for (int i = 0; i < Integer.parseInt(request.get("contMuestra").toString()); i++) {
                 SolicitudServicioClienteMuestras solicitudServicioClienteMuestras = new SolicitudServicioClienteMuestras();
-                solicitudServicioClienteMuestras.setIdClienteMuestra(request.get("idClienteMuestra" + i).toString());
-                solicitudServicioClienteMuestras.setTipoMuestra(request.get("tipoMuestra" + i).toString());
-                solicitudServicioClienteMuestras.setDescripcionMuestra(request.get("descripcionMuestra" + i).toString());
-                solicitudServicioClienteMuestras.setLote(request.get("lote" + i).toString());
-                solicitudServicioClienteMuestras.setCondicionesEspeciales(request.get("condicionesEspeciales" + i).toString());
-                solicitudServicioClienteMuestras.setObservaciones(request.get("observaciones" + i).toString());
-                //solicitudServicioClienteMuestras.setMethod(methodService.findById(Long.parseLong(request.get("metodo"+i).toString())));
-                solicitudServicioClienteMuestras.setSolicitudServicioCliente(solicitudServicioCliente);
-                solicitudServicioClienteMuestras.setPathQRIdentificacion("");
-                solicitudServicioClienteMuestras.setEstatus("NO");
-                solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
-                System.out.println(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId());
-                solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId()));
-                solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
+                try {
+                    solicitudServicioClienteMuestras.setIdClienteMuestra(request.get("idClienteMuestra" + i).toString());
+                    solicitudServicioClienteMuestras.setTipoMuestra(request.get("tipoMuestra" + i).toString());
+                    solicitudServicioClienteMuestras.setDescripcionMuestra(request.get("descripcionMuestra" + i).toString());
+                    solicitudServicioClienteMuestras.setLote(request.get("lote" + i).toString());
+                    solicitudServicioClienteMuestras.setCondicionesEspeciales(request.get("condicionesEspeciales" + i).toString());
+                    solicitudServicioClienteMuestras.setObservaciones(request.get("observaciones" + i).toString());
+                    solicitudServicioClienteMuestras.setSolicitudServicioCliente(solicitudServicioCliente);
+                    solicitudServicioClienteMuestras.setPathQRIdentificacion("");
+                    solicitudServicioClienteMuestras.setEstatus("NO");
+                    List listaa = (List) request.get("metodo" + i);
+                    solicitudServicioClienteMuestras.setTotalEnsayos(listaa.size()+"");
+                    solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
+                    solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId()));
+                    solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
+                } catch(NullPointerException e) {
+                    solicitudServicioClienteMuestras.setIdClienteMuestra("");
+                    solicitudServicioClienteMuestras.setTipoMuestra("");
+                    solicitudServicioClienteMuestras.setDescripcionMuestra("");
+                    solicitudServicioClienteMuestras.setLote("");
+                    solicitudServicioClienteMuestras.setCondicionesEspeciales("");
+                    solicitudServicioClienteMuestras.setObservaciones("");
+                    solicitudServicioClienteMuestras.setSolicitudServicioCliente(solicitudServicioCliente);
+                    solicitudServicioClienteMuestras.setPathQRIdentificacion("");
+                    solicitudServicioClienteMuestras.setEstatus("");
+                    List listaa = (List) request.get("metodo" + i);
+                    solicitudServicioClienteMuestras.setTotalEnsayos(listaa.size()+"");
+                    solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
+                    solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId()));
+                    solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
+                }
 
                 List lista = (List) request.get("metodo" + i);
-
-                for (int j = 0; j < lista.size(); j++) {
-                    MetodoMuestra metodoMuestra = new MetodoMuestra();
-                    metodoMuestra.setPathQRLab("");
-                    metodoMuestra.setFolioTecnica("");
-                    metodoMuestra.setSolicitudServicioClienteMuestras(solicitudServicioClienteMuestras);
-                    metodoMuestra.setMethod(methodService.findById(Long.parseLong(lista.get(j).toString())));
-                    metodoMuestra.setEstatus("RECEPCION");
-                    metodoMuestraService.save(metodoMuestra);
+                try{
+                    for (int j = 0; j < lista.size(); j++) {
+                        MetodoMuestra metodoMuestra = new MetodoMuestra();
+                        metodoMuestra.setPathQRLab("");
+                        metodoMuestra.setFolioTecnica("");
+                        metodoMuestra.setSolicitudServicioClienteMuestras(solicitudServicioClienteMuestras);
+                        metodoMuestra.setMethod(methodService.findById(Long.parseLong(lista.get(j).toString())));
+                        metodoMuestra.setEstatus("RECEPCION");
+                        metodoMuestraService.save(metodoMuestra);
+                    }
+                } catch(NullPointerException e) {
+                    System.out.println("No tiene caso que guardes algo en metodo muestra");
                 }
             }
             return new ResponseEntity<>(HttpStatus.OK);

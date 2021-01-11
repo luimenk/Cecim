@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+    <script src="../assets/js/jsQR.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
+    <style>
+        #loadingMessage {
+            text-align: center;
+            padding: 40px;
+            background-color: #eee;
+        }
+
+        #canvas {
+            width: 80%;
+        }
+
+        #output {
+            margin-top: 20px;
+            background: #eee;
+            padding: 10px;
+            padding-bottom: 0;
+        }
+
+        #output div {
+            padding-bottom: 10px;
+            word-wrap: break-word;
+        }
+
+        #noQRFound {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2">
+                        <!--                        <button class="btn btn-fill btn-success" onclick="listSolicitudServicio()"><i-->
+                        <!--                                class="fa fa-arrow-circle-left"></i>Volver-->
+                        <!--                        </button>-->
+                        <button class="btn btn-warning" onclick="dashboard()"><i class="fa fa-home"></i>Inicio</button>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Recepción, verificación, registro y codificacion de la
+                                    muestra</h4>
+                            </div>
+                            <div class="card-body ">
+                                <div class="form-group">
+                                    <label>Favor de escanear el código QR de la etiqueta.</label>
+                                    <div id="loadingMessage">Favor de iniciar cámara.
+                                    </div>
+                                    <canvas id="canvas" hidden></canvas>
+                                    <br>
+                                    <div id="output" hidden><br>
+                                        <div id="outputMessage">No se ha detectado QR.</div>
+                                        <br>
+                                        <div hidden><b>Muestra:</b> <span id="outputData"></span></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-fill btn-primary" onclick="deteccion()">Iniciar
+                                    cámara
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+<!--                    <div class="col-md-6">-->
+<!--                        <div class="card ">-->
+<!--                            <div class="card-header ">-->
+<!--                                <h4 class="card-title">Recepción, verificación, registro y codificacion de la-->
+<!--                                    muestra</h4>-->
+<!--                            </div>-->
+<!--                            <div class="card-body ">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label>Favor de escribir el folio de la "solicitud del servicio del-->
+<!--                                        cliente."</label>-->
+<!--                                    <input type="text" class="form-control"-->
+<!--                                           name="folioSolicitudServicioCliente" id="folioSolicitudServicioCliente"-->
+<!--                                           required>-->
+<!--                                </div>-->
+
+<!--                            </div>-->
+
+<!--                            <div class="card-footer ">-->
+<!--                                <button type="submit" class="btn btn-fill btn-primary" onclick="cargarTabla()">Validar-->
+<!--                                </button>-->
+<!--                            </div>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+                <div id="medianteQR">
+                </div>
+
+                <div id="mediantefolio">
+                </div>
+
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</div>
+</body>
+<script src="../assets/js/actions/recepcionValidacion.js"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#radioSolicitada input').on('change', function() {
+        var discounted = document.getElementById('sinoEspecifiqueCantidad');
+        document.getElementById("cumpleCantidad").value = $('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val();
+        if ($('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val() === "No"){
+            document.getElementById("sinoEspecifiqueCantidad").disabled = false;
+            document.getElementById("sinoEspecifiqueCantidad").value = "";
+        } else if ($('input[name=radioNameSolicitada]:checked', '#radioSolicitada').val() === "Si"){
+            document.getElementById("sinoEspecifiqueCantidad").disabled = true;
+            document.getElementById("sinoEspecifiqueCantidad").value = "No Aplica";
+        }
+    });
+    $('#radioEtiqueta input').on('change', function() {
+        document.getElementById("cuentaConEtiqueta").value = $('input[name=radioNameEtiqueta]:checked', '#radioEtiqueta').val();
+    });
+    $('#radioEtiqueta input').on('change', function() {
+        document.getElementById("cuentaConEtiqueta").value = $('input[name=radioNameEtiqueta]:checked', '#radioEtiqueta').val();
+    });
+    $('#radioFormato input').on('change', function() {
+        document.getElementById("utilizoFeim").value = $('input[name=radioNameFormato]:checked', '#radioFormato').val();
+    });
+</script>
+</html>

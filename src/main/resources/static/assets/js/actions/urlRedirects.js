@@ -86,6 +86,10 @@ function registerValidacion(e) {
     window.location = "/registerValidacion";
 }
 
+function registerValidacionFolio(e) {
+    window.location = "/registerValidacion";
+}
+
 function listValidacion(e) {
     window.location = "/listRecepcionValidacion";
 }

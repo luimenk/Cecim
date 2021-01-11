@@ -471,9 +471,70 @@ function valida(){
         }
     }
 
-    console.log(obj["idMuestra"]);
+    for (var i=0; i < test2.length; i++){
+        clave=test2[i].getAttribute("id");
+        valor=document.getElementById(clave).value;
+        if (valor === ""){
+            console.log("Esto está mal");
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
 
-    //idMuestra
+    $.getJSON("/recepcionVerificacion/muestra/" + obj["idMuestra"], function (result) {
+        swal({
+            title: "Error!",
+            text: "Esta muestra ya fue acondicionada.",
+            type: "error",
+            showCancelButton: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            confirmButtonText: "Ok",
+            closeOnConfirm: false,
+        }, function () {
+            $.getJSON("/solicitudServicioClienteMuestras/uno/" + obj["idMuestra"], function (result) {
+                var idSolicitudServicioCliente = result.solicitudServicioCliente.solicitudServicioClienteId;
+                window.location = "/detalleSolicitudServicio/" + idSolicitudServicioCliente;
+            });
+        });
+    }).fail(function(){
+        $.getJSON("/solicitudServicioClienteMuestras/uno/" + obj["idMuestra"], function (result) {
+            var idSolicitudServicioCliente = result.solicitudServicioCliente.solicitudServicioClienteId;
+
+            var myjson = JSON.stringify(obj);
+
+            if (contador !== 0) {
+                swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+            } else {
+                var myjson = JSON.stringify(obj);
+                save(myjson, idSolicitudServicioCliente);
+            }
+        });
+    });
+}
+
+function valida2(){
+    var obj={};
+    var clave;
+    var valor;
+    var test = document.getElementsByTagName("input");
+    var test2 = document.getElementsByTagName("select");
+    var contador = 0;
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+
+    for (var i=0; i < test.length; i++){
+        clave=test[i].getAttribute("id");
+        valor=document.getElementById(clave).value;
+        if (valor === ""){
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+    obj["idMuestra"] = id;
 
     for (var i=0; i < test2.length; i++){
         clave=test2[i].getAttribute("id");
@@ -512,14 +573,10 @@ function valida(){
                 swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
             } else {
                 var myjson = JSON.stringify(obj);
-                //console.log(valoresMultiples);
                 save(myjson, idSolicitudServicioCliente);
             }
-            //save(myjson, idSolicitudServicioCliente);
         });
     });
-
-
 }
 
 function save(myjson, idSolicitud){

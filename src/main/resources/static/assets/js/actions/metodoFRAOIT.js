@@ -258,6 +258,10 @@ function validaImprimir(valor) {
     window.location = "/FRAOIT/imprimir/" + valor;
 }
 
+function validaModificar(valor){
+    window.location = "/modificarFRAOIT/" + valor;
+}
+
 function finalizarProceso(valor){
     window.location = "/finalizarFRAOIT/" + valor;
 }
@@ -269,6 +273,7 @@ function cargarTabla() {
         '<th class="text-center">Folio Técnica</th>' +
         '<th class="text-center">Folio Solicitud</th>' +
         '<th class="text-center">ID interno de la muestra</th>' +
+        '<th class="text-center">Modificaciones restantes</th>' +
         '<th class="text-center">Estatus</th>' +
         '<th class="text-center">Detalles</th>' +
         '<th class="disabled-sorting text-center">Acciones</th>' +
@@ -279,6 +284,7 @@ function cargarTabla() {
         '<th class="text-center">Folio Técnica</th>' +
         '<th class="text-center">Folio Solicitud</th>' +
         '<th class="text-center">ID interno de la muestra</th>' +
+        '<th class="text-center">Modificaciones restantes</th>' +
         '<th class="text-center">Estatus</th>' +
         '<th class="text-center">Detalles</th>' +
         '<th class="disabled-sorting text-center">Acciones</th>' +
@@ -291,7 +297,8 @@ function cargarTabla() {
                 '<tr>' +
                 '<td class="text-center">' + field.metodoMuestra.folioTecnica + '</td>' +
                 '<td class="text-center">' + field.folioSolicitudServicioInterno + '</td>' +
-                '<td class="text-center">' + field.idInternoMuestra + '</td>';
+                '<td class="text-center">' + field.idInternoMuestra + '</td>' +
+                '<td class="text-center">' + field.cantidadModificaciones + '</td>';
             if (field.estatus === "INICIADO") {
                 tbl += '<td class="text-center"><button class="btn btn-danger" onclick="finalizarProceso(' + field.idFRAOIT + ')"><i class="fa fa-flag"></i>Finalizar</button></td>';
             } else {

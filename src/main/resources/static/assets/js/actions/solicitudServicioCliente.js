@@ -1,91 +1,174 @@
-var contMuestra = 0;
+var contMuestra = -1;
 
 function agregarMuestra() {
-    contMuestra++;
+    var cantMuestra = document.getElementById("cantidadMuestras").value;
     var muestraAdicional = "";
+    var options = "";
 
-    muestraAdicional += " <div class=\"row\">" +
-        "                                    <label class=\"col-sm-2 control-label\">ID cliente de la muestra:</label>" +
-        "                                    <div class=\"col-sm-4 col-sm-offset-1\">" +
-        "                                        <div class=\"form-group\">" +
-        "                                            <input type=\"text\" class=\"form-control\" " +
-        "                                                   name=\"idClienteMuestra" + contMuestra + "\"  id=\"idClienteMuestra" + contMuestra + "\" required=\"true\">" +
-        "                                        </div>" +
-        "                                    </div>" +
-        "                                    <label class=\"col-sm-2 control-label\">Tipo de muestra:</label>" +
-        "                                    <div class=\"col-sm-4 col-sm-offset-1\">" +
-        "                                        <div class=\"form-group\">" +
-        "                                            <input type=\"text\" class=\"form-control\"" +
-        "                                                   name=\"tipoMuestra" + contMuestra + "\"  id=\"tipoMuestra" + contMuestra + "\" required=\"true\">" +
-        "                                        </div>" +
-        "                                    </div>" +
-        "                                </div>" +
-        "" +
-        "                                <div class=\"row\">" +
-        "                                    <label class=\"col-sm-2 control-label\">Descripción de la muestra:</label>" +
-        "                                    <div class=\"col-sm-4 col-sm-offset-1\">" +
-        "                                        <div class=\"form-group\">" +
-        "                                            <input type=\"text\" class=\"form-control\"" +
-        "                                                   name=\"descripcionMuestra" + contMuestra + "\"  id=\"descripcionMuestra" + contMuestra + "\" required=\"true\">" +
-        "                                        </div>" +
-        "                                    </div>" +
-        "                                    <label class=\"col-sm-2 control-label\">Método Solicitado:</label>" +
-        "                                    <div class=\"col-sm-4 col-sm-offset-1\">" +
-        "                                        <div class=\"form-group\">" +
-        "                                            <select multiple class=\"selectpicker\" name=\"metodo" + contMuestra + "\" id=\"metodo" + contMuestra + "\" required=\"true\"" +
-        "                                                    data-title=\"Selecciona un método...\"" +
-        "                                                    data-style=\"btn-info btn-fill btn-block\"" +
-        "                                                    data-menu-style=\"dropdown-blue\"" +
-        "                                                    onchange=\"chequeo()\">";
-
-    $.getJSON("/method", function (result) {
-        $.each(result, function (i, field) {
-            muestraAdicional += "<option value = \"" + field.methodId + "\">" + field.codigoMetodo + "</option>";
-        });
-
-        muestraAdicional += "</select>" +
-            "                                        </div>" +
-            "                                    </div>" +
-            "                                </div>" +
-            "                                <div class=\"row\">" +
-            "                                   <label class=\"col-sm-2 control-label\">Lote:</label>" +
-            "                                    <div class=\"col-sm-4 col-sm-offset-1\">" +
-            "                                        <div class=\"form-group\">" +
-            "                                            <input type=\"text\" class=\"form-control\"" +
-            "                                                   name=\"lote" + contMuestra + "\"  id=\"lote" + contMuestra + "\" required=\"true\">" +
-            "                                        </div>" +
-            "                                    </div>"+
-            "                                    <label class=\"col-sm-2 control-label\">Condiciones Especiales:</label>" +
-            "                                    <div class=\"col-sm-4 col-sm-offset-1\">" +
-            "                                        <div class=\"form-group\">" +
-            "                                            <input type=\"text\" class=\"form-control\"" +
-            "                                                   name=\"condicionesEspeciales" + contMuestra + "\"  id=\"condicionesEspeciales" + contMuestra + "\" required=\"true\">" +
-            "                                        </div>" +
-            "                                    </div>" +
-            //  "                                    <label class=\"col-sm-2 control-label\">Cantidad de Muestra:</label>" +
-            "                                    <div class=\"col-sm-4 col-sm-offset-1\">" +
-            "                                        <div class=\"form-group\">" +
-            "                                            <input type=\"hidden\" class=\"form-control\"" +
-            "                                                   name=\"cantidadMuestra" + contMuestra + "\"" +
-            "                                                   id=\"cantidadMuestra" + contMuestra + "\" required=\"true\" disabled>" +
-            "                                        </div>" +
-            "                                    </div>" +
-            "                                </div>" +
-            "                                <div class=\"row\">" +
-            "                                    <label class=\"col-sm-2 control-label\">Observaciones: </label>" +
-            "                                    <div class=\"col-sm-4 col-sm-offset-1\">" +
-            "                                        <div class=\"form-group\">" +
-            "                                            <input type=\"text\" class=\"form-control\"" +
-            "                                                   name=\"observaciones" + contMuestra + "\"  id=\"observaciones" + contMuestra + "\" required=\"true\">" +
-            "                                        </div>" +
-            "                                    </div>" +
-            "                                </div>";
-
-        var cadena = "$(" + "\"#metodo" + contMuestra + "\"" + ")" + ".selectpicker(" + "\"refresh\")";
-
-        $("#muestraExtra").append(muestraAdicional);
-        eval(cadena);
-    });
+    if (cantMuestra === "" || cantMuestra < 1) {
+        swal("Alerta!", "Ingresa la cantidad de muestras a registrar.", "warning");
+    } else {
+        $.getJSON("/method", function (result) {
+            $.each(result, function (i, field) {
+                options += '<option value = "' + field.methodId + '"> ' + field.codigoMetodo + '</option>';
+            });
+        })
+            .done(function () {
+                for (let j = 0; j < cantMuestra; j++) {
+                    muestraAdicional +=
+                        '<div class="row">' +
+                        '                    <div class="col-md-12">' +
+                        '                        <div class="card ">' +
+                        '                            <div class="card-header text-center">' +
+                        '                                <h4 class="card-title">Información de la muestra ' + (j + 1) + '</h4>' +
+                        '                            </div>' +
+                        '                            <div class="card-body ">' +
+                        '                                <div class="row">' +
+                        '                                    <label class="col-sm-2 control-label">ID cliente de la muestra:</label>' +
+                        '                                    <div class="col-sm-4 col-sm-offset-1">' +
+                        '                                        <div class="form-group">' +
+                        '                                            <input type="text" class="form-control"' +
+                        '                                                   name="idClienteMuestra' + j + '" id="idClienteMuestra' + j + '" required="true">' +
+                        '                                        </div>' +
+                        '                                    </div>' +
+                        '                                    <label class="col-sm-2 control-label">Tipo de muestra:</label>' +
+                        '                                    <div class="col-sm-4 col-sm-offset-1">' +
+                        '                                        <div class="form-group">' +
+                        '                                            <input type="text" class="form-control"' +
+                        '                                                   name="tipoMuestra' + j + '" id="tipoMuestra' + j + '" required="true">' +
+                        '                                        </div>' +
+                        '                                    </div>' +
+                        '                                </div>' +
+                        '                                <div class="row">' +
+                        '                                    <label class="col-sm-2 control-label">Descripción de la muestra:</label>' +
+                        '                                    <div class="col-sm-4 col-sm-offset-1">' +
+                        '                                        <div class="form-group">' +
+                        '                                            <input type="text" class="form-control"' +
+                        '                                                   name="descripcionMuestra' + j + '" id="descripcionMuestra' + j + '" required="true">' +
+                        '                                        </div>' +
+                        '                                    </div>' +
+                        '                                    <label class="col-sm-2 control-label">Método Solicitado:</label>' +
+                        '                                    <div class="col-sm-4 col-sm-offset-1">' +
+                        '                                        <div class="form-group">' +
+                        '                                            <select multiple class="selectpicker" name="metodo' + j + '" id="metodo' + j + '" ' +
+                        '                                                    required="required"' +
+                        '                                                    data-title="Selecciona un método..."' +
+                        '                                                    data-style="btn-info btn-fill btn-block"' +
+                        '                                                    data-menu-style="dropdown-blue"' +
+                        '                                                    onchange="chequeo()">';
+                    muestraAdicional += options;
+                    muestraAdicional +=
+                        '                                            </select>' +
+                        '                                        </div>' +
+                        '                                    </div>' +
+                        '                                </div>' +
+                        '                                <div class="row">' +
+                        '                                    <label class="col-sm-2 control-label">Lote:</label>' +
+                        '                                    <div class="col-sm-4 col-sm-offset-1">' +
+                        '                                        <div class="form-group">' +
+                        '                                            <input type="text" class="form-control"' +
+                        '                                                   name="lote' + j + '" id="lote' + j + '" required="true">' +
+                        '                                        </div>' +
+                        '                                    </div>' +
+                        '                                    <label class="col-sm-2 control-label">Condiciones Especiales:</label>' +
+                        '                                    <div class="col-sm-4 col-sm-offset-1">' +
+                        '                                        <div class="form-group">' +
+                        '                                            <input type="text" class="form-control"' +
+                        '                                                   name="condicionesEspeciales' + j + '" id="condicionesEspeciales' + j + '" ' +
+                        '                                                   required="true">' +
+                        '                                        </div>' +
+                        '                                    </div>' +
+                        '                                    <div class="col-sm-4 col-sm-offset-1">' +
+                        '                                        <div class="form-group">' +
+                        '                                            <input type="hidden" class="form-control"' +
+                        '                                                   name="cantidadMuestra' + j + '" ' +
+                        '                                                   id="cantidadMuestra' + j + '" required="true" disabled>' +
+                        '                                        </div>' +
+                        '                                    </div>' +
+                        '                                </div>' +
+                        '                                <div class="row">' +
+                        '                                    <label class="col-sm-2 control-label">Observaciones: </label>' +
+                        '                                    <div class="col-sm-4 col-sm-offset-1">' +
+                        '                                        <div class="form-group">' +
+                        '                                            <input type="text" class="form-control"' +
+                        '                                                   name="observaciones' + j + '" id="observaciones' + j + '" required="true">' +
+                        '                                        </div>' +
+                        '                                    </div>' +
+                        '                                </div>' +
+                        '                            </div>' +
+                        '                            <div class="card-footer text-center"></div>' +
+                        '                        </div>' +
+                        '                    </div>' +
+                        '                </div>';
+                }
+                muestraAdicional +=
+                    '<div class="row">' +
+                    '                    <div class="col-md-12">' +
+                    '                        <div class="card ">' +
+                    '                            <div class="card-header text-center">' +
+                    '                                <h4 class="card-title">Datos finales</h4>' +
+                    '                            </div>' +
+                    '                            <div class="card-body">' +
+                    '                                <div class="row">' +
+                    '                                    <label class="col-sm-8 control-label">Favor de responder si requiere devolución de' +
+                    '                                        las muestras analizadas: </label>' +
+                    '                                    <div class="col-sm-4 col-sm-offset-1">' +
+                    '                                        <form id="radioMuestras" class="form-horizontal">' +
+                    '                                            <div class="form-check form-check-radio checkbox-inline">' +
+                    '                                                <label class="form-check-label">' +
+                    '                                                    <input class="form-check-input" type="radio"' +
+                    '                                                           name="radioNameMuestras" id="radioNameMuestrasSi" value="Si">' +
+                    '                                                    <span class="form-check-sign"></span>' +
+                    '                                                    Si' +
+                    '                                                </label>' +
+                    '                                            </div>' +
+                    '                                            <div class="form-check form-check-radio checkbox-inline">' +
+                    '                                                <label class="form-check-label">' +
+                    '                                                    <input class="form-check-input" type="radio"' +
+                    '                                                           name="radioNameMuestras" id="radioNameMuestrasNo" value="No"' +
+                    '                                                           checked>' +
+                    '                                                    <span class="form-check-sign"></span>' +
+                    '                                                    No' +
+                    '                                                </label>' +
+                    '                                            </div>' +
+                    '                                            <input type="hidden" class="form-control"' +
+                    '                                                   name="devolucionMuestras" id="devolucionMuestras" value="No">' +
+                    '                                        </form>' +
+                    '                                    </div>' +
+                    '                                </div>' +
+                    '                                <br>' +
+                    '                                <br>' +
+                    '                                <br>' +
+                    '                                <div class="row">' +
+                    '                                    <div class="col-sm-10">' +
+                    '                                        <p class="text-muted">' +
+                    '                                            En caso de ser afirmativa la respuesta se le informa que las muestras a' +
+                    '                                            devolver se cobrará gastos de envío.' +
+                    '                                        </p>' +
+                    '                                        <p class="text-danger">' +
+                    '                                            Nota: La mayoría de los ensayos son destructivos.' +
+                    '                                        </p>' +
+                    '                                    </div>' +
+                    '                                </div>' +
+                    '                            </div>' +
+                    '                            <div class="card-footer text-center">' +
+                    '                                <button type="submit" class="btn btn-fill btn-primary" onclick="valida()"><i' +
+                    '                                        class="fa fa-floppy-o"></i>Registrar' +
+                    '                                </button>' +
+                    '                            </div>' +
+                    '                        </div>' +
+                    '                    </div>' +
+                    '                </div>';
+                $("#muestraExtra").empty().append(muestraAdicional);
+                for (let j = 0; j < cantMuestra; j++) {
+                    var cadena = "$(" + "\"#metodo" + j + "\"" + ")" + ".selectpicker(" + "\"refresh\")";
+                    eval(cadena);
+                }
+            })
+            .fail(function () {
+                swal("Error!", "Favor de contactar al administrador del sistema", "danger");
+            });
+    }
 }
 
 function chequeo() {
@@ -100,19 +183,15 @@ function valida() {
     var valor;
     var test = document.getElementsByTagName("input");
     var test2 = document.getElementsByTagName("select");
+    var totalMuestras = document.getElementById("cantidadMuestras").value;
     var contador = 0;
 
-    var valoresMultiples = $('#metodo0').val();
+    //var valoresMultiples = $('#metodo0').val();
 
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
-            contador++;
-            break;
-        } else {
-            obj[clave] = valor;
-        }
+        obj[clave] = valor;
     }
 
     /*for (var i = 0; i < test2.length; i++) {
@@ -123,28 +202,17 @@ function valida() {
 
     obj["empresa"] = document.getElementById("empresa").value;
 
-    for (var i = 0; i <= contMuestra; i++) {
-        clave = "metodo"+i;
-        valor = $('#metodo'+i).val();
-        if (valor === ""){
-            contador++;
-            break;
-        } else {
-            obj[clave] = valor;
-        }
-        //obj[clave] = valor;
+    for (var i = 0; i <= totalMuestras; i++) {
+        clave = "metodo" + i;
+        valor = $('#metodo' + i).val();
+        obj[clave] = valor;
     }
 
-    obj["contMuestra"] = contMuestra;
+    obj["contMuestra"] = totalMuestras;
     //obj["valoresMultiples"] = valoresMultiples;
 
-    if (contador !== 0) {
-        swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
-    } else {
-        var myjson = JSON.stringify(obj);
-        //console.log(valoresMultiples);
-        save(myjson);
-    }
+    var myjson = JSON.stringify(obj);
+    save(myjson);
 }
 
 function valida3() {
@@ -161,12 +229,7 @@ function valida3() {
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
-            contador++;
-            break;
-        } else {
-            obj[clave] = valor;
-        }
+        obj[clave] = valor;
     }
 
     /*for (var i = 0; i < test2.length; i++) {
@@ -177,15 +240,10 @@ function valida3() {
 
     obj["empresa"] = document.getElementById("empresa").value;
 
-    for (var i = 0; i <= (cantidadMuestra-1); i++) {
-        clave = "metodo"+i;
-        valor = $('#metodo'+i).val();
-        if (valor === ""){
-            contador++;
-            break;
-        } else {
-            obj[clave] = valor;
-        }
+    for (var i = 0; i <= (cantidadMuestra - 1); i++) {
+        clave = "metodo" + i;
+        valor = $('#metodo' + i).val();
+        obj[clave] = valor;
         //obj[clave] = valor;
     }
 
@@ -201,7 +259,7 @@ function valida3() {
     }
 }
 
-function valida4(){
+function valida4() {
     const url = document.URL;
     const id = url.substring(url.lastIndexOf('/') + 1);
     var obj = {};
@@ -214,7 +272,7 @@ function valida4(){
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
+        if (valor === "") {
             contador++;
             break;
         } else {
@@ -225,7 +283,7 @@ function valida4(){
     for (var i = 0; i < test2.length; i++) {
         clave = test2[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
+        if (valor === "") {
             console.log("Esto está mal");
             contador++;
             break;
@@ -245,7 +303,7 @@ function valida4(){
     }
 }
 
-function validaPagoAnticipo(){
+function validaPagoAnticipo() {
     const url = document.URL;
     const id = url.substring(url.lastIndexOf('/') + 1);
     var obj = {};
@@ -258,7 +316,7 @@ function validaPagoAnticipo(){
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
+        if (valor === "") {
             contador++;
             break;
         } else {
@@ -269,7 +327,7 @@ function validaPagoAnticipo(){
     for (var i = 0; i < test2.length; i++) {
         clave = test2[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
+        if (valor === "") {
             console.log("Esto está mal");
             contador++;
             break;
@@ -290,7 +348,7 @@ function validaPagoAnticipo(){
     }
 }
 
-function validaPagoFinal(){
+function validaPagoFinal() {
     const url = document.URL;
     const id = url.substring(url.lastIndexOf('/') + 1);
     var obj = {};
@@ -303,7 +361,7 @@ function validaPagoFinal(){
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
+        if (valor === "") {
             contador++;
             break;
         } else {
@@ -314,7 +372,7 @@ function validaPagoFinal(){
     for (var i = 0; i < test2.length; i++) {
         clave = test2[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
+        if (valor === "") {
             console.log("Esto está mal");
             contador++;
             break;
@@ -335,7 +393,7 @@ function validaPagoFinal(){
     }
 }
 
-function validaFechaCompromiso(){
+function validaFechaCompromiso() {
     const url = document.URL;
     const id = url.substring(url.lastIndexOf('/') + 1);
     var obj = {};
@@ -348,7 +406,7 @@ function validaFechaCompromiso(){
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
+        if (valor === "") {
             contador++;
             break;
         } else {
@@ -359,7 +417,7 @@ function validaFechaCompromiso(){
     for (var i = 0; i < test2.length; i++) {
         clave = test2[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
+        if (valor === "") {
             console.log("Esto está mal");
             contador++;
             break;
@@ -380,7 +438,7 @@ function validaFechaCompromiso(){
     }
 }
 
-function validaFechaRecepcion(){
+function validaFechaRecepcion() {
     const url = document.URL;
     const id = url.substring(url.lastIndexOf('/') + 1);
     var obj = {};
@@ -393,7 +451,7 @@ function validaFechaRecepcion(){
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
+        if (valor === "") {
             contador++;
             break;
         } else {
@@ -404,7 +462,7 @@ function validaFechaRecepcion(){
     for (var i = 0; i < test2.length; i++) {
         clave = test2[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        if (valor === ""){
+        if (valor === "") {
             console.log("Esto está mal");
             contador++;
             break;
@@ -456,7 +514,7 @@ function save(myjson) {
     });
 }
 
-function save2(myjson, urldirect){
+function save2(myjson, urldirect) {
     $.ajax({
         type: 'POST',
         url: urldirect,
@@ -600,47 +658,47 @@ function validaImprimirEtiquetaLaboratorio(valor) {
     });
 }*/
 
-function informe(valor){
+function informe(valor) {
     window.location = "/solicitudServicioCliente/imprimirInforme/" + valor;
 }
 
-function informe2(valor){
+function informe2(valor) {
     const url = document.URL;
     const id = url.substring(url.lastIndexOf('/') + 1);
     window.location = "/solicitudServicioCliente/imprimirInforme/" + id;
 }
 
-function cotizacion(valor){
+function cotizacion(valor) {
     window.location = "/solicitudServicioCliente/imprimirCotizacionContrato/" + valor;
 }
 
-function cotizacion2(valor){
+function cotizacion2(valor) {
     const url = document.URL;
     const id = url.substring(url.lastIndexOf('/') + 1);
     window.location = "/solicitudServicioCliente/imprimirCotizacionContrato/" + id;
 }
 
-function verDetalles(valor){
+function verDetalles(valor) {
     window.location = "/detalleSolicitudServicio/" + valor;
 }
 
-function pagoInicial(valor){
+function pagoInicial(valor) {
     window.location = "/registerSolicituedServicioFechaPagoAnticipo/" + valor;
 }
 
-function pagoFinal(valor){
+function pagoFinal(valor) {
     window.location = "/registerSolicituedServicioFechaPagoFinal/" + valor;
 }
 
-function fechaRecepcion(valor){
+function fechaRecepcion(valor) {
     window.location = "/registerSolicituedServicioFechaRecepcionMuestras/" + valor;
 }
 
-function fechaCompromiso(valor){
+function fechaCompromiso(valor) {
     window.location = "/registerSolicituedServicioFechaCompromisoEntrega/" + valor;
 }
 
-function generarListas(){
+function generarListas() {
     ///solicitudServicioCliente/generarListaSolicitud
     valor = document.getElementById("opciongenerar").value;
     if (valor === "") {
@@ -676,18 +734,18 @@ function cargarTabla() {
             tbl +=
                 '<tr>' +
                 '<td class="text-center">' + field.folioSolitudServicioCliente + '</td>';
-            if (field.fechaRecepcionMuestras === ""){
+            if (field.fechaRecepcionMuestras === "") {
                 tbl += '<td class="text-center"><button class="btn btn-danger" onclick="fechaRecepcion(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha recepción muestras</button></td>';
             } else {
                 tbl += '<td class="text-center">' + field.fechaRecepcionMuestras + '</td>';
             }
-            if (field.fechaCompromisoEntrega === ""){
+            if (field.fechaCompromisoEntrega === "") {
                 tbl += '<td class="text-center"><button class="btn btn-danger" onclick="fechaCompromiso(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha compromiso</button></td>';
             } else {
                 tbl += '<td class="text-center">' + field.fechaCompromisoEntrega + '</td>';
             }
 
-            if  (field.fechaPago !== "" && field.fechaRecepcionMuestras !== ""){
+            if (field.fechaPago !== "" && field.fechaRecepcionMuestras !== "") {
                 tbl +=
                     '<td class="text-center"><button class="btn btn-success" onclick="verDetalles(' + field.solicitudServicioClienteId + ')"><i class="fa fa-eye"></i>Ver detalles</button></td>' +
                     '<td class="text-center">' +
@@ -699,7 +757,10 @@ function cargarTabla() {
             } else {
                 tbl +=
                     '<td class="text-center">-</td>' +
-                    '<td class="text-center">-' +
+                    '<td class="text-center">' +
+                    // '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir(' + field.solicitudServicioClienteId + ')"><i class="fa fa-print"></i></button>' +
+                    '<button type="submit" class="btn btn-link btn-warning" onclick="validaModificar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-edit"></i></button>' +
+                    // '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar(' + field.solicitudServicioClienteId + ')"><i class="fa fa-times"></i></a>' +
                     '</td>' +
                     '</tr>';
             }
@@ -745,12 +806,12 @@ function cargarTablaPagos() {
             tbl +=
                 '<tr>' +
                 '<td class="text-center">' + field.folioSolitudServicioCliente + '</td>';
-            if (field.fechaPago === ""){
+            if (field.fechaPago === "") {
                 tbl += '<td class="text-center"><button class="btn btn-danger" onclick="pagoInicial(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha pago inicial</button></td>';
             } else {
                 tbl += '<td class="text-center">' + field.fechaPago + '</td>';
             }
-            if (field.fechaPago2 === ""){
+            if (field.fechaPago2 === "") {
                 tbl += '<td class="text-center"><button class="btn btn-danger" onclick="pagoFinal(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha pago final</button></td>';
             } else {
                 tbl += '<td class="text-center">' + field.fechaPago2 + '</td>';

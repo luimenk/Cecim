@@ -29,6 +29,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
+import javax.validation.constraints.Null;
+
 @Service
 public class FSS_SOC_001_Service {
 
@@ -80,15 +82,27 @@ public class FSS_SOC_001_Service {
         }
 
         XWPFTable table2 = doc.getTables().get(2);
-        table2.getRow(1).getCell(0).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaPago()));
+        try {
+            table2.getRow(1).getCell(0).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaPago()));
+        } catch(NullPointerException e){
+            table2.getRow(1).getCell(0).setText("");
+        }
         table2.getRow(1).getCell(1).setText(solicitudServicioCliente.getConfirmacion());
 
         XWPFTable table3 = doc.getTables().get(3);
-        table3.getRow(1).getCell(0).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaRecepcionMuestras()));
+        try {
+            table3.getRow(1).getCell(0).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaRecepcionMuestras()));
+        } catch(NullPointerException e){
+            table3.getRow(1).getCell(0).setText("");
+        }
         table3.getRow(1).getCell(1).setText(solicitudServicioCliente.getNombreFirmaReceptor());
 
         XWPFTable table4 = doc.getTables().get(4);
-        table4.getRow(1).getCell(0).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaCompromisoEntrega()));
+        try {
+            table4.getRow(1).getCell(0).setText(formatoFechas.formateadorFechas(solicitudServicioCliente.getFechaCompromisoEntrega()));
+        } catch(NullPointerException e){
+            table4.getRow(1).getCell(0).setText("");
+        }
         table4.getRow(1).getCell(1).setText(solicitudServicioCliente.getNombreFirmaCalidad());
 
         XWPFTable table5 = doc.getTables().get(5);

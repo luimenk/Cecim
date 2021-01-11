@@ -37,6 +37,9 @@ public class SolicitudServicioClienteMuestras {
     @Column(name = "Estatus", length = 250, nullable = false)
     private String estatus;
 
+    @Column(name = "Ensayos", length = 50, nullable = false)
+    private String totalEnsayos;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Solicitud_Servicio_Cliente_Id")
     private SolicitudServicioCliente solicitudServicioCliente;
@@ -135,6 +138,14 @@ public class SolicitudServicioClienteMuestras {
 
     public void setSolicitudServicioCliente(SolicitudServicioCliente solicitudServicioCliente) {
         this.solicitudServicioCliente = solicitudServicioCliente;
+    }
+
+    public String getTotalEnsayos() {
+        return totalEnsayos;
+    }
+
+    public void setTotalEnsayos(String totalEnsayos) {
+        this.totalEnsayos = totalEnsayos;
     }
 
     @Override

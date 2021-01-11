@@ -59,6 +59,9 @@ public class SolicitudServicioCliente {
     @Column(name = "Devolucion_Muestras", length = 250, nullable = false)
     private String devolucionMuestras;
 
+    @Column(name = "Total_Muestras", length = 50, nullable = false)
+    private String totalMuestras;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Client_Id")
     private Client client;
@@ -229,5 +232,13 @@ public class SolicitudServicioCliente {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public String getTotalMuestras() {
+        return totalMuestras;
+    }
+
+    public void setTotalMuestras(String totalMuestras) {
+        this.totalMuestras = totalMuestras;
     }
 }

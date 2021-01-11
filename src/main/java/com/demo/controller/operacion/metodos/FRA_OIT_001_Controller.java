@@ -135,6 +135,7 @@ public class FRA_OIT_001_Controller {
             fra_oit_001.setSupervisor("");
             fra_oit_001.setPathImage("");
             fra_oit_001.setEstatus("INICIADO");
+            fra_oit_001.setCantidadModificaciones("3");
             fra_oit_001.setNumeroRepeticiones(request.get("numeroRepeticiones"));
             fra_oit_001.setMetodoMuestra(metodoMuestra);
             fra_oit_001_service.save(fra_oit_001);

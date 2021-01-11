@@ -33,7 +33,6 @@ public class MethodController {
     @RequestMapping(method = RequestMethod.GET)
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
     public List<Method> getAll() {
-        System.out.println("Entró");
         return methodService.findAll();
     }
 
