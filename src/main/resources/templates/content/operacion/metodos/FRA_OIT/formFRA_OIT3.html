@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card ">
-                            <div class="card-header ">
+                            <div class="card-header text-center">
                                 <h4 class="card-title">Determinación del tiempo de inducción a la oxidación</h4>
                             </div>
                             <div class="card-body ">
@@ -26,7 +26,7 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                    name="folioTecnica" id="folioTecnica"
-                                                   th:value="${folioTecnica}" disabled>
+                                                   th:value="${fra_oit.getFolioTecnica()}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -38,14 +38,15 @@
                                             <input type="text" class="form-control"
                                                    name="folioSolicitudServicioInterno"
                                                    id="folioSolicitudServicioInterno"
-                                                   th:value="${folioSolicitudServicioInterno}" disabled>
+                                                   th:value="${fra_oit.getFolioSolicitudServicioInterno()}" disabled>
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis" required="true">
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis"
+                                                   th:value="${fra_oit.getFechaInicioAnalisis()}" required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -56,14 +57,15 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                    name="idInternoMuestra" id="idInternoMuestra"
-                                                   th:value="${idInternoMuestra}" disabled>
+                                                   th:value="${fra_oit.getIdInternoMuestra()}" disabled>
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Fecha final de análisis</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="fechaFinalAnalisis" id="fechaFinalAnalisis" required="true">
+                                                   name="fechaFinalAnalisis" id="fechaFinalAnalisis"
+                                                   th:value="${fra_oit.getFechaFinalAnalisis()}" required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -73,14 +75,16 @@
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="number" class="form-control"
-                                                   name="temperatura" id="temperatura" required="true">
+                                                   name="temperatura" id="temperatura"
+                                                   th:value="${fra_oit.getTemperatura()}" required="true">
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Humedad relativa</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="number" class="form-control"
-                                                   name="humedadRelativa" id="humedadRelativa" required="true">
+                                                   name="humedadRelativa" id="humedadRelativa"
+                                                   th:value="${fra_oit.getHumedadRelativa()}" required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +117,7 @@
                         </div>
 
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header text-center">
                                 <h4 class="card-title">Resultados</h4>
                             </div>
                             <div class="card-body" style="overflow-x: scroll">
@@ -128,30 +132,57 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center"><input type="number" class="form-control"
-                                                                           name="espesor1" id="espesor1"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="number" class="form-control"
-                                                                           name="peso1" id="peso1"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="ppmdsc1" id="ppmdsc1"
-                                                                           required="required"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">2</td>
-                                            <td class="text-center"><input type="number" class="form-control"
-                                                                           name="espesor2" id="espesor2"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="number" class="form-control"
-                                                                           name="peso2" id="peso2"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="ppmdsc2" id="ppmdsc2"
-                                                                           required="required"></td>
-                                        </tr>
+                                        <div th:switch="${fra_oit.getNumeroRepeticiones()}">
+                                            <div th:case="'1'">
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center"><input type="number" class="form-control"
+                                                                                   name="espesor1" id="espesor1"
+                                                                                   th:value="${fra_oit.getEspesor1()}"
+                                                                                   required="required"></td>
+                                                    <td class="text-center"><input type="number" class="form-control"
+                                                                                   name="peso1" id="peso1"
+                                                                                   th:value="${fra_oit.getPeso1()}"
+                                                                                   required="required"></td>
+                                                    <td class="text-center"><input type="text" class="form-control"
+                                                                                   name="ppmdsc1" id="ppmdsc1"
+                                                                                   th:value="${fra_oit.getPpmdsc1()}"
+                                                                                   required="required"></td>
+                                                </tr>
+                                            </div>
+                                            <div th:case="'2'">
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center"><input type="number" class="form-control"
+                                                                                   name="espesor1" id="espesor1"
+                                                                                   th:value="${fra_oit.getEspesor1()}"
+                                                                                   required="required"></td>
+                                                    <td class="text-center"><input type="number" class="form-control"
+                                                                                   name="peso1" id="peso1"
+                                                                                   th:value="${fra_oit.getPeso1()}"
+                                                                                   required="required"></td>
+                                                    <td class="text-center"><input type="text" class="form-control"
+                                                                                   name="ppmdsc1" id="ppmdsc1"
+                                                                                   th:value="${fra_oit.getPpmdsc1()}"
+                                                                                   required="required"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">2</td>
+                                                    <td class="text-center"><input type="number" class="form-control"
+                                                                                   name="espesor2" id="espesor2"
+                                                                                   th:value="${fra_oit.getEspesor2()}"
+                                                                                   required="required"></td>
+                                                    <td class="text-center"><input type="number" class="form-control"
+                                                                                   name="peso2" id="peso2"
+                                                                                   th:value="${fra_oit.getPeso2()}"
+                                                                                   required="required"></td>
+                                                    <td class="text-center"><input type="text" class="form-control"
+                                                                                   name="ppmdsc2" id="ppmdsc2"
+                                                                                   th:value="${fra_oit.getPpmdsc2()}"
+                                                                                   required="required"></td>
+                                                </tr>
+                                            </div>
+                                        </div>
                                         </tbody>
                                     </table>
                                 </div>
@@ -162,7 +193,7 @@
                         </div>
 
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header text-center">
                                 <h4 class="card-title">Condiciones de ensayo</h4>
                             </div>
                             <div class="card-body" style="overflow-x: scroll">
@@ -230,7 +261,9 @@
                                             <td class="text-center"><input type="text" class="form-control"
                                                                            value="180" disabled id="nc7"></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           id="tiempoIsoterma" name="tiempoIsoterma"></td>
+                                                                           id="tiempoIsoterma" name="tiempoIsoterma"
+                                                                           th:value="${fra_oit.getTiempoIsoterma()}">
+                                            </td>
                                             <td class="text-center"><input type="text" class="form-control"
                                                                            value="N/A" disabled id="nd2"></td>
                                             <td class="text-center"><input type="text" class="form-control"
@@ -280,29 +313,57 @@
                         </div>
 
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header text-center">
                                 <h4 class="card-title">Resultados</h4>
                             </div>
                             <div class="card-body" style="overflow-x: scroll">
                                 <div class="row">
                                     <table class="table table-hover table-striped">
                                         <thead>
-                                        <tr>
-                                            <th class="text-center">Repetición</th>
-                                            <th class="text-center">OIT repetición 1 (min)</th>
-                                            <th class="text-center">OIT repetición 2 (min)</th>
-                                        </tr>
+                                        <div th:switch="${fra_oit.getNumeroRepeticiones()}">
+                                            <div th:case="'1'">
+                                                <tr>
+                                                    <th class="text-center">Repetición</th>
+                                                    <th class="text-center">OIT repetición 1 (min)</th>
+                                                </tr>
+                                            </div>
+                                            <div th:case="'2'">
+                                                <tr>
+                                                    <th class="text-center">Repetición</th>
+                                                    <th class="text-center">OIT repetición 1 (min)</th>
+                                                    <th class="text-center">OIT repetición 2 (min)</th>
+                                                </tr>
+                                            </div>
+                                        </div>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center"><input type="number" class="form-control"
-                                                                           name="repeticion1OIT" id="repeticion1OIT"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="number" class="form-control"
-                                                                           name="repeticion2OIT" id="repeticion2OIT"
-                                                                           required="required"></td>
-                                        </tr>
+                                        <div th:switch="${fra_oit.getNumeroRepeticiones()}">
+                                            <div th:case="'1'">
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center"><input type="number" class="form-control"
+                                                                                   name="repeticion1OIT"
+                                                                                   id="repeticion1OIT"
+                                                                                   th:value="${fra_oit.getRepeticion1OIT()}"
+                                                                                   required="required"></td>
+                                                </tr>
+                                            </div>
+                                            <div th:case="'2'">
+                                                <tr>
+                                                    <td class="text-center">1</td>
+                                                    <td class="text-center"><input type="number" class="form-control"
+                                                                                   name="repeticion1OIT"
+                                                                                   id="repeticion1OIT"
+                                                                                   th:value="${fra_oit.getRepeticion1OIT()}"
+                                                                                   required="required"></td>
+                                                    <td class="text-center"><input type="number" class="form-control"
+                                                                                   name="repeticion2OIT"
+                                                                                   id="repeticion2OIT"
+                                                                                   th:value="${fra_oit.getRepeticion2OIT()}"
+                                                                                   required="required"></td>
+                                                </tr>
+                                            </div>
+                                        </div>
                                         </tbody>
                                     </table>
                                 </div>
@@ -313,8 +374,10 @@
                         </div>
 
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header text-center">
                                 <h4 class="card-title">Observaciones</h4>
+                                <h6 class="text-danger">Nota: Por seguridad, es necesario volver a cargar el archivo. Si
+                                    no cargas ningún archivo nuevo, el original no será modificado.</h6>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -336,7 +399,9 @@
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="observaciones" id="observaciones" required="true">
+                                                   name="observaciones" id="observaciones"
+                                                   th:value="${fra_oit.getObservaciones()}"
+                                                   required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -346,21 +411,28 @@
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="realizo" id="realizo" required="true">
+                                                   name="realizo" id="realizo"
+                                                   th:value="${fra_oit.getRealizo()}"
+                                                   required="true">
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Supervisó</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="supervisor" id="supervisor" required="true">
+                                                   name="supervisor" id="supervisor"
+                                                   th:value="${fra_oit.getSupervisor()}"
+                                                   required="true">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success" onclick="valida()">Registrar
-                                    Datos
+                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success" onclick="modificar()">
+                                    <span class="btn-label">
+                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    </span>
+                                    Modificar
                                 </button>
                             </div>
                         </div>

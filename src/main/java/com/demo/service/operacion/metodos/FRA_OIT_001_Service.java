@@ -1,7 +1,11 @@
 package com.demo.service.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 import com.demo.model.operacion.metodos.FRA_GR_001;
 import com.demo.model.operacion.metodos.FRA_OIT_001;
+import com.demo.repository.operacion.MetodoMuestraRepository;
+import com.demo.repository.operacion.RecepcionVerificacionRegistroCodificacionRepository;
 import com.demo.repository.operacion.metodos.FRA_OIT_001_Repository;
 import com.demo.utils.EstructuraNombres;
 
@@ -11,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.demo.utils.FormatoFechas;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,11 +31,19 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 
+import javax.validation.constraints.Null;
+
 @Service
 public class FRA_OIT_001_Service {
 
     @Autowired
     private FRA_OIT_001_Repository fra_oit_001_repository;
+
+    @Autowired
+    private MetodoMuestraRepository metodoMuestraRepository;
+
+    @Autowired
+    private RecepcionVerificacionRegistroCodificacionRepository recepcionVerificacionRegistroCodificacionRepository;
 
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
@@ -113,6 +126,39 @@ public class FRA_OIT_001_Service {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=FRA-OIT-"+estructuraNombres.getNombre()+".docx");
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        doc.write(byteArrayOutputStream);
+        doc.close();
+        MediaType word = MediaType.valueOf("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(word)
+                .body(new InputStreamResource(byteArrayInputStream));
+    }
+
+    public ResponseEntity<InputStreamResource> crearListaFolios() throws InvalidFormatException, IOException{
+        ClassPathResource resource = new ClassPathResource("/documentos/METODOS/Listas/BFF-MIE-015.docx");
+        XWPFDocument doc = new XWPFDocument(resource.getInputStream());
+        List<MetodoMuestra> metodoMuestraList = metodoMuestraRepository.findAllByMethod_MethodId(62L);
+
+        XWPFTable table = doc.getTables().get(0);
+        table.getRow(0).setRepeatHeader(true);
+        for (int i = 0; i<metodoMuestraList.size(); i++) {
+            try {
+                XWPFTableRow tableRow = table.createRow();
+                tableRow.getCell(0).setText(metodoMuestraList.get(i).getFolioTecnica());
+                RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionRepository.findBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(metodoMuestraList.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
+                tableRow.getCell(1).setText(recepcionVerificacionRegistroCodificacion.getIdInternoMuestra1());
+                tableRow.getCell(2).setText(metodoMuestraList.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras());
+                tableRow.getCell(3).setText(metodoMuestraList.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
+            } catch (NullPointerException e){
+                System.out.println("Error en la iteración " + i);
+            }
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=BFF-MIE-015-"+estructuraNombres.getNombre()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();

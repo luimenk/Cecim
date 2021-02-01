@@ -1,11 +1,16 @@
 package com.demo.controller.vistas.metodos;
 
+import com.demo.model.Client;
+import com.demo.model.Method;
 import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
+import com.demo.model.operacion.metodos.FRA_DSC;
 import com.demo.model.operacion.metodos.FRA_OIT_001;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
+import com.demo.service.operacion.metodos.FRA_DSC_Service;
 import com.demo.service.operacion.metodos.FRA_OIT_001_Service;
+import com.demo.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,11 +25,12 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
 @CrossOrigin
-public class FRA_OIT_Vista {
+public class FRA_DSC_Vista {
 
     @Autowired
     private MetodoMuestraService metodoMuestraService;
@@ -33,10 +39,10 @@ public class FRA_OIT_Vista {
     private RecepcionVerificacionRegistroCodificacionService recepcionVerificacionRegistroCodificacionService;
 
     @Autowired
-    private FRA_OIT_001_Service fra_oit_001_service;
+    private FRA_DSC_Service fra_dsc_service;
 
-    @RequestMapping(value = "/registerFRAOIT/{id}")
-    public String registerFRAOIT(Model model, Principal principal, @PathVariable("id") Long id) {
+    @RequestMapping(value = "/registerFRADSC/{id}")
+    public String registerFRADSC(Model model, Principal principal, @PathVariable("id") Long id) {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         Collection<GrantedAuthority> review = loginedUser.getAuthorities();
 
@@ -45,7 +51,6 @@ public class FRA_OIT_Vista {
         Date ahora = new Date();
         SimpleDateFormat ahoraFormato = new SimpleDateFormat("yyyy-MM-dd", new Locale("ES"));
         String fechaHoy = ahoraFormato.format(ahora);
-        System.out.println(fechaHoy);
 
         model.addAttribute("folioSolicitudServicioInterno", metodoMuestra.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
         model.addAttribute("idInternoMuestra", recepcionVerificacionRegistroCodificacion.getIdInternoMuestra1());
@@ -56,53 +61,46 @@ public class FRA_OIT_Vista {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_OIT/formFRA_OIT";
+        return "content/operacion/metodos/FRA_DSC/formFRA_DSC";
     }
 
-    @RequestMapping(value = "/modificarFRAOIT/{id}")
-    public String averregisterFRAOIT(Model model, Principal principal, @PathVariable("id") Long id) {
+    @RequestMapping(value = "/modificarFRADSC/{id}")
+    public String averregisterFRADSC(Model model, Principal principal, @PathVariable("id") Long id) {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         Collection<GrantedAuthority> review = loginedUser.getAuthorities();
 
-        FRA_OIT_001 fra_oit_001 = fra_oit_001_service.findById(id);
+        FRA_DSC fra_dsc = fra_dsc_service.findById(id);
         Date ahora = new Date();
         SimpleDateFormat ahoraFormato = new SimpleDateFormat("yyyy-MM-dd", new Locale("ES"));
-        String fechaHoy = ahoraFormato.format(ahora);
 
-        /*model.addAttribute("folioSolicitudServicioInterno", fra_oit_001.getFolioSolicitudServicioInterno());
-        model.addAttribute("idInternoMuestra", fra_oit_001.getIdInternoMuestra());
-        model.addAttribute("folioTecnica", fra_oit_001.getFolioTecnica());*/
-        model.addAttribute("fra_oit", fra_oit_001);
+        model.addAttribute("fra_oit", fra_dsc);
 
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_OIT/formFRA_OIT3";
+        return "content/operacion/metodos/FRA_DSC/formFRA_DSC3";
     }
 
-    @RequestMapping(value = "/finalizarFRAOIT/{id}")
-    public String registerFRAOIT2(Model model, Principal principal, @PathVariable("id") Long id) {
+    @RequestMapping(value = "/finalizarFRADSC/{id}")
+    public String registerFRADSC2(Model model, Principal principal, @PathVariable("id") Long id) {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         Collection<GrantedAuthority> review = loginedUser.getAuthorities();
-        FRA_OIT_001 fra_oit_001 = fra_oit_001_service.findById(id);
 
         Date ahora = new Date();
         SimpleDateFormat ahoraFormato = new SimpleDateFormat("yyyy-MM-dd", new Locale("ES"));
         String fechaHoy = ahoraFormato.format(ahora);
         System.out.println(fechaHoy);
 
-        model.addAttribute("numeroRepeticiones", fra_oit_001.getNumeroRepeticiones());
-
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_OIT/formFRA_OIT2";
+        return "content/operacion/metodos/FRA_DSC/formFRA_DSC2";
     }
 
-    @RequestMapping("/listFRAOIT")
-    public String listFRAOIT(Model model, Principal principal) {
+    @RequestMapping("/listFRADSC")
+    public String listFRADSC(Model model, Principal principal) {
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
         Collection<GrantedAuthority> review = loginedUser.getAuthorities();
 
@@ -110,6 +108,6 @@ public class FRA_OIT_Vista {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_OIT/listFRA_OIT";
+        return "content/operacion/metodos/FRA_DSC/listFRA_DSC";
     }
 }

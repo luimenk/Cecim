@@ -2,6 +2,7 @@ package com.demo.repository.operacion.metodos;
 
 import com.demo.model.operacion.metodos.FRA_DSC;
 
+import com.demo.model.operacion.metodos.FRA_OIT_001;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,4 +11,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface FRA_DSC_Repository extends JpaRepository<FRA_DSC, Long>{
     FRA_DSC findByIdFRADSC(Long id);
     FRA_DSC findByMetodoMuestra_MetodoMuestraId(Long id);
+    FRA_DSC findByIdInternoMuestra(String id);
 }

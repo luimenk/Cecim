@@ -13,26 +13,25 @@ import java.util.Date;
 
 public class SaveInServer {
     public String SaveInServer(MultipartFile multipartFile, String folder) throws IOException {
-        //ImageIO
-        String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
-        if (extension.equals("xps")){
-            System.out.println("Va a ser tipo xps");
-            XPStoPNG xpStoPNG = new XPStoPNG();
-            return xpStoPNG.convertir(multipartFile);
-        } else {
-            Date date = new Date() ;
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-            String strinDate=dateFormat.format(date);
-            String fileName=date.getTime()+"."+extension;
 
-            //System.getProperty("os.name");
+        String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+        Date date = new Date() ;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+        String strinDate=dateFormat.format(date);
+
+
+        if (extension.equals("xps")){
+            String fileName=date.getTime()+".png";
+            folder=folder+fileName;
+            XPStoPNG xpStoPNG = new XPStoPNG();
+            xpStoPNG.convertir(multipartFile, folder);
+            return fileName;
+        } else {
+            String fileName=date.getTime()+"."+extension;
             folder=folder+fileName;
             byte[] bytes=multipartFile.getBytes();
-
             Path path= Paths.get(folder);
-
             Files.write(path,bytes);
-
             return fileName;
         }
     }

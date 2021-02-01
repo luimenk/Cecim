@@ -13,6 +13,9 @@ public class FRA_DSC {
     private Long idFRADSC;
 
     @Column(length = 30, nullable = false)
+    private String folioTecnica;
+
+    @Column(length = 30, nullable = false)
     private String folioSolicitudServicioInterno;
 
     @Column(length = 30, nullable = false)
@@ -166,11 +169,20 @@ public class FRA_DSC {
     @Column(length = 250, nullable = false)
     private String observaciones;
 
-    @Column(length = 250, nullable = false)
+    @Column(length = 100, nullable = false)
     private String realizo;
 
-    @Column(length = 250, nullable = false)
+    @Column(length = 100, nullable = false)
     private String supervisor;
+
+    @Column(length = 250, nullable = false)
+    private String pathImage;
+
+    @Column(length = 30, nullable = false)
+    private String estatus;
+
+    @Column(length = 5, nullable = false)
+    private String cantidadModificaciones;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Metodo_Muestra_Id")
@@ -179,8 +191,9 @@ public class FRA_DSC {
     public FRA_DSC() {
     }
 
-    public FRA_DSC(Long idFRADSC, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoDSC, String codigoBalanza, String espesor1, String peso1, String ppmDSC1, String temperatura1, String flujoOxigeno1, String fnatmosfera1, String fnproteccion1, String temperatura2, String flujoOxigeno2, String fnatmosfera2, String fnproteccion2, String temperatura3, String flujoOxigeno3, String fnatmosfera3, String fnproteccion3, String temperatura4, String flujoOxigeno4, String fnatmosfera4, String fnproteccion4, String temperatura5, String flujoOxigeno5, String fnatmosfera5, String fnproteccion5, String temperatura6, String flujoOxigeno6, String fnatmosfera6, String fnproteccion6, String temperatura7, String flujoOxigeno7, String fnatmosfera7, String fnproteccion7, String temperatura8, String flujoOxigeno8, String fnatmosfera8, String fnproteccion8, String tasaCalentamiento, String tasaEnfriamiento, String temperaturaFusion1, String calorFusion1, String temperaturaCristalizacion1, String calorCristalizacion1, String observaciones, String realizo, String supervisor, MetodoMuestra metodoMuestra) {
+    public FRA_DSC(Long idFRADSC, String folioTecnica, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoDSC, String codigoBalanza, String espesor1, String peso1, String ppmDSC1, String temperatura1, String flujoOxigeno1, String fnatmosfera1, String fnproteccion1, String temperatura2, String flujoOxigeno2, String fnatmosfera2, String fnproteccion2, String temperatura3, String flujoOxigeno3, String fnatmosfera3, String fnproteccion3, String temperatura4, String flujoOxigeno4, String fnatmosfera4, String fnproteccion4, String temperatura5, String flujoOxigeno5, String fnatmosfera5, String fnproteccion5, String temperatura6, String flujoOxigeno6, String fnatmosfera6, String fnproteccion6, String temperatura7, String flujoOxigeno7, String fnatmosfera7, String fnproteccion7, String temperatura8, String flujoOxigeno8, String fnatmosfera8, String fnproteccion8, String tasaCalentamiento, String tasaEnfriamiento, String temperaturaFusion1, String calorFusion1, String temperaturaCristalizacion1, String calorCristalizacion1, String observaciones, String realizo, String supervisor, String pathImage, String estatus, String cantidadModificaciones, MetodoMuestra metodoMuestra) {
         this.idFRADSC = idFRADSC;
+        this.folioTecnica = folioTecnica;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
         this.fechaInicioAnalisis = fechaInicioAnalisis;
@@ -233,6 +246,9 @@ public class FRA_DSC {
         this.observaciones = observaciones;
         this.realizo = realizo;
         this.supervisor = supervisor;
+        this.pathImage = pathImage;
+        this.estatus = estatus;
+        this.cantidadModificaciones = cantidadModificaciones;
         this.metodoMuestra = metodoMuestra;
     }
 
@@ -666,5 +682,37 @@ public class FRA_DSC {
 
     public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
         this.metodoMuestra = metodoMuestra;
+    }
+
+    public String getFolioTecnica() {
+        return folioTecnica;
+    }
+
+    public void setFolioTecnica(String folioTecnica) {
+        this.folioTecnica = folioTecnica;
+    }
+
+    public String getPathImage() {
+        return pathImage;
+    }
+
+    public void setPathImage(String pathImage) {
+        this.pathImage = pathImage;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
+    public String getCantidadModificaciones() {
+        return cantidadModificaciones;
+    }
+
+    public void setCantidadModificaciones(String cantidadModificaciones) {
+        this.cantidadModificaciones = cantidadModificaciones;
     }
 }

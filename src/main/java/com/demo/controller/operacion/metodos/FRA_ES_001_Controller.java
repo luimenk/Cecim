@@ -100,6 +100,7 @@ public class FRA_ES_001_Controller {
 
         FRA_ES_001 fra_es_001 = new FRA_ES_001();
 
+        fra_es_001.setFolioTecnica(request.get("folioTecnica"));
         fra_es_001.setFolioSolicitudServicioInterno(request.get("folioSolicitudServicioInterno"));
         fra_es_001.setIdInternoMuestra(request.get("idInternoMuestra"));
         fra_es_001.setFechaInicioAnalisis(request.get("fechaInicioAnalisis"));

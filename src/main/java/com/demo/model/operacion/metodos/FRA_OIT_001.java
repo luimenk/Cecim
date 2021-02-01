@@ -97,7 +97,7 @@ public class FRA_OIT_001 {
     public FRA_OIT_001() {
     }
 
-    public FRA_OIT_001(Long idFRAOIT, String folioTecnica, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoDSC, String codigoBalanza, String tiempoIsoterma, String espesor1, String peso1, String ppmdsc1, String espesor2, String peso2, String ppmdsc2, String repeticion1OIT, String repeticion2OIT, String promedio, String observaciones, String realizo, String supervisor, String pathImage, String estatus, MetodoMuestra metodoMuestra) {
+    public FRA_OIT_001(Long idFRAOIT, String folioTecnica, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoDSC, String codigoBalanza, String tiempoIsoterma, String espesor1, String peso1, String ppmdsc1, String espesor2, String peso2, String ppmdsc2, String repeticion1OIT, String repeticion2OIT, String promedio, String observaciones, String realizo, String supervisor, String pathImage, String estatus, String numeroRepeticiones, String cantidadModificaciones, MetodoMuestra metodoMuestra) {
         this.idFRAOIT = idFRAOIT;
         this.folioTecnica = folioTecnica;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
@@ -123,6 +123,8 @@ public class FRA_OIT_001 {
         this.supervisor = supervisor;
         this.pathImage = pathImage;
         this.estatus = estatus;
+        this.numeroRepeticiones = numeroRepeticiones;
+        this.cantidadModificaciones = cantidadModificaciones;
         this.metodoMuestra = metodoMuestra;
     }
 

@@ -4,7 +4,7 @@
     <title>Panel de Administración</title>
     <th:block th:include="/dependences/_HeadInside"></th:block>
 </head>
-<body th:onload="javascript:cargarTabla();">
+<body onload="cargarTabla()">
 <div class="wrapper">
     <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
     <div class="main-panel">
@@ -22,6 +22,27 @@
                                     <table id="fraoitTable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Generar lista de folios formatos OIT</h4>
+                            </div>
+                            <div class="card-body">
+
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-primary" onclick="generarListaFoliosOIT()">
+                                    <span class="btn-label">
+                                        <i class="fa fa-print" aria-hidden="true"></i>
+                                    </span>
+                                    BFF-MIE-015
+                                </button>
                             </div>
                         </div>
                     </div>

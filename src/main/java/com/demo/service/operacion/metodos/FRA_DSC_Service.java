@@ -1,6 +1,11 @@
 package com.demo.service.operacion.metodos;
 
+import com.demo.model.operacion.MetodoMuestra;
+import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 import com.demo.model.operacion.metodos.FRA_CST_001;
+import com.demo.model.operacion.metodos.FRA_OIT_001;
+import com.demo.repository.operacion.MetodoMuestraRepository;
+import com.demo.repository.operacion.RecepcionVerificacionRegistroCodificacionRepository;
 import com.demo.utils.EstructuraNombres;
 import com.demo.model.operacion.metodos.FRA_DSC;
 import com.demo.repository.operacion.metodos.FRA_DSC_Repository;
@@ -11,6 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.demo.utils.FormatoFechas;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +38,12 @@ public class FRA_DSC_Service {
     @Autowired
     private FRA_DSC_Repository fra_dsc_repository;
 
+    @Autowired
+    private MetodoMuestraRepository metodoMuestraRepository;
+
+    @Autowired
+    private RecepcionVerificacionRegistroCodificacionRepository recepcionVerificacionRegistroCodificacionRepository;
+
     EstructuraNombres estructuraNombres = new EstructuraNombres();
     FormatoFechas formatoFechas = new FormatoFechas();
 
@@ -49,6 +61,10 @@ public class FRA_DSC_Service {
 
     public FRA_DSC findById(Long id) {
         return fra_dsc_repository.findByIdFRADSC(id);
+    }
+
+    public FRA_DSC findByIdInternoMuestra(String id) {
+        return fra_dsc_repository.findByIdInternoMuestra(id);
     }
 
     public void delete(Long id) {
@@ -71,10 +87,11 @@ public class FRA_DSC_Service {
         }
 
         XWPFTable table0 = doc.getTables().get(0);
-        table0.getRow(0).getCell(1).setText(fra_dsc.getFolioSolicitudServicioInterno());
-        table0.getRow(0).getCell(3).setText(formatoFechas.formateadorFechas(fra_dsc.getFechaInicioAnalisis()));
-        table0.getRow(1).getCell(1).setText(fra_dsc.getIdInternoMuestra());
-        table0.getRow(1).getCell(3).setText(formatoFechas.formateadorFechas(fra_dsc.getFechaFinalAnalisis()));
+        table0.getRow(0).getCell(3).setText(fra_dsc.getFolioSolicitudServicioInterno());
+        table0.getRow(1).getCell(1).setText(fra_dsc.getFolioSolicitudServicioInterno());
+        table0.getRow(1).getCell(3).setText(formatoFechas.formateadorFechas(fra_dsc.getFechaInicioAnalisis()));
+        table0.getRow(2).getCell(1).setText(fra_dsc.getIdInternoMuestra());
+        table0.getRow(2).getCell(3).setText(formatoFechas.formateadorFechas(fra_dsc.getFechaFinalAnalisis()));
 
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(fra_dsc.getTemperatura());
@@ -146,6 +163,39 @@ public class FRA_DSC_Service {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=FRA-DSC-"+estructuraNombres.getNombre()+".docx");
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        doc.write(byteArrayOutputStream);
+        doc.close();
+        MediaType word = MediaType.valueOf("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(word)
+                .body(new InputStreamResource(byteArrayInputStream));
+    }
+
+    public ResponseEntity<InputStreamResource> crearListaFolios() throws InvalidFormatException, IOException{
+        ClassPathResource resource = new ClassPathResource("/documentos/METODOS/Listas/BFF-MIE-016.docx");
+        XWPFDocument doc = new XWPFDocument(resource.getInputStream());
+        List<MetodoMuestra> metodoMuestraList = metodoMuestraRepository.findAllByMethod_MethodId(63L);
+
+        XWPFTable table = doc.getTables().get(0);
+        table.getRow(0).setRepeatHeader(true);
+        for (int i = 0; i<metodoMuestraList.size(); i++) {
+            try {
+                XWPFTableRow tableRow = table.createRow();
+                tableRow.getCell(0).setText(metodoMuestraList.get(i).getFolioTecnica());
+                RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionRepository.findBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(metodoMuestraList.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
+                tableRow.getCell(1).setText(recepcionVerificacionRegistroCodificacion.getIdInternoMuestra1());
+                tableRow.getCell(2).setText(metodoMuestraList.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras());
+                tableRow.getCell(3).setText(metodoMuestraList.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
+            } catch (NullPointerException e){
+                System.out.println("Error en la iteración " + i);
+            }
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=BFF-MIE-016-"+estructuraNombres.getNombre()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         doc.write(byteArrayOutputStream);
         doc.close();

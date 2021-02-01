@@ -1,6 +1,7 @@
 package com.demo.controller.vistas;
 
 import com.demo.model.Client;
+import com.demo.model.Folios;
 import com.demo.model.Machine;
 import com.demo.model.Method;
 import com.demo.model.auxiliares.MetodosSeleccionados;
@@ -80,6 +81,12 @@ public class ListaEnsayosVista {
 
         model.addAttribute("userName", userName);
         model.addAttribute("userInfo", userInfo);
+
+        List<Folios> folios = foliosService.findAll();
+
+
+
+        model.addAttribute("folioOIT", folios.get(18).getConsecutivo());
 
         List<Machine> lista = machineService.findAll();
         model.addAttribute("maquinas", lista);

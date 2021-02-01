@@ -92,6 +92,34 @@ function valida5() {
     }
 }
 
+function modificar() {
+    var obj = {};
+    var clave;
+    var valor;
+    var test = document.getElementsByTagName("input");
+    document.getElementById("btnAceptar").disabled = true;
+    var contador = 0;
+
+    for (var i = 0; i < test.length; i++) {
+        clave = test[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        obj[clave] = valor;
+    }
+
+    const url = document.URL;
+    obj["id"] = url.substring(url.lastIndexOf('/') + 1);
+
+    var blob = document.getElementById("file").files[0];
+    var formData = new FormData();
+
+    formData.append("imagen", blob);
+    formData.append('fraoit', new Blob([JSON.stringify(obj)], {
+        type: "application/json"
+    }));
+
+    saveModificar(formData);
+}
+
 function mostrar() {
     var archivo = document.getElementById("file").files[0];
     var reader = new FileReader();
@@ -109,7 +137,7 @@ function mostrarRepeticiones() {
     if (repeticiones === "1") {
         mostrarDato += "<div class=\"card\">" +
             "                                <div class=\"card-header\">" +
-            "                                    <h4 class=\"card-title\">Resultados</h4>" +
+            "                                    <h4 class=\"card-title text-center\">Resultados</h4>" +
             "                                </div>" +
             "                                <div class=\"card-body\" style=\"overflow-x: scroll\">" +
             "                                    <div class=\"row\">" +
@@ -206,8 +234,8 @@ function save(myjson) {
     }).then(function (response) {
         if (response.status === 200) {
             swal({
-                title: "Registrado!",
-                text: "Se ha sido registrado exitosamente.",
+                title: "¡Operación exitosa!",
+                text: "Se ha registrado exitosamente.",
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn btn-info btn-fill",
@@ -218,11 +246,51 @@ function save(myjson) {
             });
         } else {
             document.getElementById("btnAceptar").disabled = false;
-            swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+            swal("¡Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
         }
     }).catch(function (err) {
         document.getElementById("btnAceptar").disabled = false;
-        swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+        swal("¡Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+    });
+}
+
+function saveModificar(myjson) {
+    var boundary = Math.random().toString().substr(2);
+    fetch('/FRAOIT/modificar', {
+        method: 'post',
+        body: myjson
+    }).then(function (response) {
+        if (response.status === 200) {
+            swal({
+                title: "¡Operación exitosa!",
+                text: "Se ha modificado exitosamente.",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonClass: "btn btn-info btn-fill",
+                confirmButtonText: "Ok",
+                closeOnConfirm: false,
+            }, function () {
+                window.location = "/listFRAOIT";
+            });
+        } else if (response.status === 423) {
+            swal({
+                title: "¡Operación Rechazada!",
+                text: "Se ha superado el número de modificaciones posibles.",
+                type: "error",
+                showCancelButton: false,
+                confirmButtonClass: "btn btn-info btn-fill",
+                confirmButtonText: "Ok",
+                closeOnConfirm: false,
+            }, function () {
+                window.location = "/listFRAOIT";
+            });
+        } else {
+            document.getElementById("btnAceptar").disabled = false;
+            swal("¡Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+        }
+    }).catch(function (err) {
+        document.getElementById("btnAceptar").disabled = false;
+        swal("¡Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
     });
 }
 
@@ -234,8 +302,8 @@ function save2(myjson) {
     }).then(function (response) {
         if (response.status === 200) {
             swal({
-                title: "Registrado!",
-                text: "Se ha sido registrado exitosamente.",
+                title: "¡Operación exitosa!",
+                text: "Se ha registrado exitosamente.",
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn btn-info btn-fill",
@@ -246,11 +314,11 @@ function save2(myjson) {
             });
         } else {
             document.getElementById("btnAceptar").disabled = false;
-            swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+            swal("¡Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
         }
     }).catch(function (err) {
         document.getElementById("btnAceptar").disabled = false;
-        swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+        swal("¡Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
     });
 }
 
@@ -258,11 +326,15 @@ function validaImprimir(valor) {
     window.location = "/FRAOIT/imprimir/" + valor;
 }
 
-function validaModificar(valor){
+function generarListaFoliosOIT() {
+    window.location = "/FRAOIT/imprimir3";
+}
+
+function validaModificar(valor) {
     window.location = "/modificarFRAOIT/" + valor;
 }
 
-function finalizarProceso(valor){
+function finalizarProceso(valor) {
     window.location = "/finalizarFRAOIT/" + valor;
 }
 
@@ -300,18 +372,27 @@ function cargarTabla() {
                 '<td class="text-center">' + field.idInternoMuestra + '</td>' +
                 '<td class="text-center">' + field.cantidadModificaciones + '</td>';
             if (field.estatus === "INICIADO") {
-                tbl += '<td class="text-center"><button class="btn btn-danger" onclick="finalizarProceso(' + field.idFRAOIT + ')"><i class="fa fa-flag"></i>Finalizar</button></td>';
+                tbl +=
+                    '<td class="text-center"><button class="btn btn-danger" onclick="finalizarProceso(' + field.idFRAOIT + ')"><i class="fa fa-flag"></i> Finalizar</button></td>' +
+                    '<td class="text-center"><button class="btn btn-default" disabled><i class="fa fa-eye"></i> Ver detalles</button></td>' +
+                    '<td class="text-center">' +
+                    '.' +
+                    '</td>' +
+                    '</tr>';
             } else {
-                tbl += '<td class="text-center">'+ field.estatus +'</td>';
+                tbl +=
+                    '<td class="text-center">' + field.estatus + '</td>' +
+                    '<td class="text-center"><button class="btn btn-default" disabled><i class="fa fa-eye"></i> Ver detalles</button></td>' +
+                    '<td class="text-center">' +
+
+                    '<button type="submit" class="btn btn-sm btn-info" title="Imprimir" onclick="validaImprimir(' + field.idFRAOIT + ')"><i class="fa fa-print"></i> </button>' +
+
+
+                    '<button type="submit" class="btn btn-sm btn-warning" title="Modificar" onclick="validaModificar(' + field.idFRAOIT + ')"><i class="fa fa-edit"></i> </button>' +
+
+                    '</td>' +
+                    '</tr>';
             }
-            tbl +=
-                '<td class="text-center"><button className="btn btn-danger" disabled><i className="fa fa-eye"></i>Ver detalles</button></td>'+
-                '<td class="text-center">' +
-                '<button type="submit" class="btn btn-link btn-info edit" onclick="validaImprimir(' + field.idFRAOIT + ')"><i class="fa fa-print"></i></button>' +
-                '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar(' + field.idFRAOIT + ')"><i class="fa fa-edit"></i></button>' +
-                '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar(' + field.idFRAOIT + ')"><i class="fa fa-times"></i></a>' +
-                '</td>' +
-                '</tr>';
         });
         tbl += '</tbody>';
         $("#fraoitTable").append(tbl);

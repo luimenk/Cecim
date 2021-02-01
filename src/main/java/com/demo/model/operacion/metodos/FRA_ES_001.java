@@ -12,6 +12,9 @@ public class FRA_ES_001 {
     @Column(nullable = false)
     private Long determinacionEspesorId;
 
+    @Column(length = 30, nullable = false)
+    private String folioTecnica;
+
     @Column(length = 250, nullable = false)
     private String folioSolicitudServicioInterno;
 
@@ -95,6 +98,12 @@ public class FRA_ES_001 {
     @Column(length = 250, nullable = false)
     private String supervisor;
 
+    @Column(length = 30)
+    private String estatus;
+
+    @Column(length = 5)
+    private String cantidadModificaciones;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Metodo_Muestra_Id")
     private MetodoMuestra metodoMuestra;
@@ -102,8 +111,9 @@ public class FRA_ES_001 {
     public FRA_ES_001() {
     }
 
-    public FRA_ES_001(Long determinacionEspesorId, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String codigoMicrometro, String humedadRelativa, String metodo, String largo1, String ancho1, String largo2, String ancho2, String largo3, String ancho3, String largo4, String ancho4, String promedioLargo, String promedioAncho, String desvEstandarLargo, String desvEstandarAncho, String minLargo, String maxLargo, String minAncho, String maxAncho, String observaciones, String realizo, String supervisor, MetodoMuestra metodoMuestra) {
+    public FRA_ES_001(Long determinacionEspesorId, String folioTecnica, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String codigoMicrometro, String humedadRelativa, String metodo, String largo1, String ancho1, String largo2, String ancho2, String largo3, String ancho3, String largo4, String ancho4, String promedioLargo, String promedioAncho, String desvEstandarLargo, String desvEstandarAncho, String minLargo, String maxLargo, String minAncho, String maxAncho, String observaciones, String realizo, String supervisor, String estatus, String cantidadModificaciones, MetodoMuestra metodoMuestra) {
         this.determinacionEspesorId = determinacionEspesorId;
+        this.folioTecnica = folioTecnica;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
         this.fechaInicioAnalisis = fechaInicioAnalisis;
@@ -131,6 +141,8 @@ public class FRA_ES_001 {
         this.observaciones = observaciones;
         this.realizo = realizo;
         this.supervisor = supervisor;
+        this.estatus = estatus;
+        this.cantidadModificaciones = cantidadModificaciones;
         this.metodoMuestra = metodoMuestra;
     }
 
@@ -140,6 +152,14 @@ public class FRA_ES_001 {
 
     public void setDeterminacionEspesorId(Long determinacionEspesorId) {
         this.determinacionEspesorId = determinacionEspesorId;
+    }
+
+    public String getFolioTecnica() {
+        return folioTecnica;
+    }
+
+    public void setFolioTecnica(String folioTecnica) {
+        this.folioTecnica = folioTecnica;
     }
 
     public String getFolioSolicitudServicioInterno() {
@@ -356,6 +376,22 @@ public class FRA_ES_001 {
 
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
+    public String getCantidadModificaciones() {
+        return cantidadModificaciones;
+    }
+
+    public void setCantidadModificaciones(String cantidadModificaciones) {
+        this.cantidadModificaciones = cantidadModificaciones;
     }
 
     public MetodoMuestra getMetodoMuestra() {

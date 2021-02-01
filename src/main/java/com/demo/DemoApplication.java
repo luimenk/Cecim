@@ -12,8 +12,8 @@ import java.util.Arrays;
 public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
-        /*ApplicationContext ctx = SpringApplication.run(DemoApplication.class, args);
+        /*SpringApplication.run(DemoApplication.class, args);
+        ApplicationContext ctx = SpringApplication.run(DemoApplication.class, args);
         System.out.println("Los beans proporcionados: ");
 
         String[] beanNames = ctx.getBeanDefinitionNames();

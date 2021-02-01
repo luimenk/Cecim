@@ -16,12 +16,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card ">
-                            <div class="card-header ">
+                            <div class="card-header text-center">
                                 <h4 class="card-title">Determinación del tiempo de inducción a la oxidación</h4>
                             </div>
                             <div class="card-body ">
                                 <div class="row">
-                                    <label class="col-sm-2 control-label">Folio Técnica</label>
+                                    <label class="col-sm-2 control-label">Folio del método</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
@@ -45,7 +45,8 @@
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis" required="true">
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis"
+                                                   th:value="${fechaHoy}" required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -73,14 +74,20 @@
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="number" class="form-control"
-                                                   name="temperatura" id="temperatura" required="true">
+                                                   name="temperatura" id="temperatura"
+                                                   min="21" max="25" onkeydown="return false"
+                                                   step='0.1' value='23.0'
+                                                   required="true">
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Humedad relativa</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="number" class="form-control"
-                                                   name="humedadRelativa" id="humedadRelativa" required="true">
+                                                   name="humedadRelativa" id="humedadRelativa"
+                                                   min="40" max="60" onkeydown="return false"
+                                                   step='0.1' value='50.0'
+                                                   required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +128,11 @@
                                     <label class="col-sm-2 control-label"></label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-fill btn-success" onclick="mostrarRepeticiones()">Mostrar
+                                            <button type="submit" class="btn btn-fill btn-success" onclick="mostrarRepeticiones()">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </span>
+                                                Mostrar
                                             </button>
                                         </div>
                                     </div>
@@ -138,7 +149,7 @@
                         </div>
 
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header text-center">
                                 <h4 class="card-title">Condiciones de ensayo</h4>
                             </div>
                             <div class="card-body" style="overflow-x: scroll">
@@ -251,9 +262,12 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-<!--                                <h6 class="text-danger">* Favor de verificar tu información.</h6>-->
-                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success" onclick="valida()">Registrar
-                                    Datos
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success" onclick="valida()">
+                                    <span class="btn-label">
+                                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                                    </span>
+                                    Registrar
                                 </button>
                             </div>
                         </div>

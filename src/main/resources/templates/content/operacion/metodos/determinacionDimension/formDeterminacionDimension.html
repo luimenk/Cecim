@@ -16,24 +16,38 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card ">
-                            <div class="card-header ">
+                            <div class="card-header text-center">
                                 <h4 class="card-title">Determinación de dimensiones</h4>
                             </div>
                             <div class="card-body ">
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio del método</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioTecnica" id="folioTecnica"
+                                                   th:value="${folioTecnica}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <label class="col-sm-2 control-label">Folio de solicitud de servicio interno</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="folioSolicitudServicioInterno" id="folioSolicitudServicioInterno" required="true">
+                                                   name="folioSolicitudServicioInterno"
+                                                   id="folioSolicitudServicioInterno"
+                                                   th:value="${folioSolicitudServicioInterno}" disabled>
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis" required="true">
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis"
+                                                   th:value="${fechaHoy}" required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -43,7 +57,8 @@
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="idInternoMuestra" id="idInternoMuestra" required="true">
+                                                   name="idInternoMuestra" id="idInternoMuestra"
+                                                   th:value="${idInternoMuestra}" disabled>
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Fecha final de análisis</label>
@@ -59,15 +74,21 @@
                                     <label class="col-sm-2 control-label">Temperatura</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="temperatura" id="temperatura" required="true">
+                                            <input type="number" class="form-control"
+                                                   name="temperatura" id="temperatura"
+                                                   min="21" max="25" onkeydown="return false"
+                                                   step='0.1' value='23.0'
+                                                   required="true">
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Humedad relativa</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="humedadRelativa" id="humedadRelativa" required="true">
+                                            <input type="number" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa"
+                                                   min="40" max="60" onkeydown="return false"
+                                                   step='0.1' value='50.0'
+                                                   required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -76,8 +97,15 @@
                                     <label class="col-sm-2 control-label">Código de la regla</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="codigoRegla" id="codigoRegla" required="true">
+                                            <select class="selectpicker" name="codigoRegla" id="codigoRegla" required="true"
+                                                    data-title="Selecciona una confirmación..."
+                                                    data-style="btn-primary"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="REGL-06">REGL-06</option>
+                                                <option value="REGL-07">REGL-07</option>
+                                                <option value="REGL-08">REGL-08</option>
+                                                <option value="REGL-09">REGL-09</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -294,8 +322,8 @@
                     </div>
                 </div>
             </div>
-            <th:block th:include="/dependences/_Footer"></th:block>
         </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
     </div>
 </div>
 </body>

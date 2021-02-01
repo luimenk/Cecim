@@ -58,10 +58,11 @@ public class IMPRIMIR_FRA_DI_001_Service {
         int bandera=0;
 
         XWPFTable table0 = doc.getTables().get(0);
-        table0.getRow(0).getCell(1).setText(fra_di_001.getFolioSolicitudServicioInterno());
-        table0.getRow(0).getCell(3).setText(formatoFechas.formateadorFechas(fra_di_001.getFechaInicioAnalisis()));
-        table0.getRow(1).getCell(1).setText(fra_di_001.getIdInternoMuestra());
-        table0.getRow(1).getCell(3).setText(formatoFechas.formateadorFechas(fra_di_001.getFechaFinalAnalisis()));
+        table0.getRow(0).getCell(3).setText(fra_di_001.getFolioTecnica());
+        table0.getRow(1).getCell(1).setText(fra_di_001.getFolioSolicitudServicioInterno());
+        table0.getRow(1).getCell(3).setText(formatoFechas.formateadorFechas(fra_di_001.getFechaInicioAnalisis()));
+        table0.getRow(2).getCell(1).setText(fra_di_001.getIdInternoMuestra());
+        table0.getRow(2).getCell(3).setText(formatoFechas.formateadorFechas(fra_di_001.getFechaFinalAnalisis()));
 
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(fra_di_001.getTemperatura());

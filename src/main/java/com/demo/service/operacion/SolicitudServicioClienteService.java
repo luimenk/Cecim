@@ -2014,7 +2014,7 @@ public class SolicitudServicioClienteService {
                         listaParagraph.get(k).setAlignment(ParagraphAlignment.CENTER);
                         listaRun.add(k, listaParagraph.get(k).createRun());
                         listaFis.add(k, new FileInputStream(listaOIT.get(k).getPathImage()));
-                        listaPircures.add(k, listaRun.get(k).addPicture(listaFis.get(k), XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(130), Units.pixelToEMU(130)));
+                        listaPircures.add(k, listaRun.get(k).addPicture(listaFis.get(k), XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(430), Units.pixelToEMU(430)));
                         listaParagraph2.add(k, doc.createParagraph());
                         listaParagraph2.get(k).setAlignment(ParagraphAlignment.CENTER);
                         listaParagraph2.get(k).setStyle("Termograma");

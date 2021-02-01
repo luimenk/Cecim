@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Panel de Administración</title>
     <th:block th:include="/dependences/_HeadInside"></th:block>
@@ -14,298 +14,265 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-2">
-<!--                        <button class="btn btn-fill btn-success" onclick="listSolicitudServicio()"><i-->
-<!--                                class="fa fa-arrow-circle-left"></i>Volver-->
-<!--                        </button>-->
+                        <!--                        <button class="btn btn-fill btn-success" onclick="listSolicitudServicio()"><i-->
+                        <!--                                class="fa fa-arrow-circle-left"></i>Volver-->
+                        <!--                        </button>-->
                         <button class="btn btn-warning" onclick="dashboard()"><i class="fa fa-home"></i>Inicio</button>
                     </div>
                     <div class="col-md-2">
 
                     </div>
                 </div>
-
-                <!--<div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-vector text-primary"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-7">
-                                        <div class="numbers">
-                                            <p class="card-category">Total de Muestras</p>
-                                            <h4 class="card-title"><span th:text="${totalMuestras}"></span></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer " align="center">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-vector text-success"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-7">
-                                        <div class="numbers">
-                                            <p class="card-category">Muestras acondicionadas</p>
-                                            <h4 class="card-title"><span th:text="${muestrasAcondicionadas}"></span>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer " align="center">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-notes text-primary"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-7">
-                                        <div class="numbers">
-                                            <p class="card-category">Total de ensayos</p>
-                                            <h4 class="card-title"><span th:text="${totalMetodos}"></span></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer " align="center">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-sm-6">
-                        <div class="card card-stats">
-                            <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-5">
-                                        <div class="icon-big text-center icon-warning">
-                                            <i class="nc-icon nc-notes text-success"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-7">
-                                        <div class="numbers">
-                                            <p class="card-category">Ensayos elaborados</p>
-                                            <h4 class="card-title"><span th:text="${metodosRealizados}"></span></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer " align="center">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card bootstrap-table">
                             <div class="card-body table-full-width">
                                 <div class="toolbar">
-                                    <!--        Here you can write extra buttons/actions for the toolbar              -->
                                 </div>
                                 <table id="listaEnsayos" class="table">
                                     <thead>
-<!--                                    <th data-field="state" data-checkbox="true"></th>-->
                                     <th data-field="id" data-sortable="true">ID</th>
                                     <th data-field="name" data-sortable="true">Nombre</th>
                                     <th data-field="salary" data-sortable="true">Folio del ensayo</th>
                                     <th data-field="country" data-sortable="true">Lista</th>
-                                    <th data-field="actions" class="td-actions text-right" data-events="operateEvents" data-formatter="operateFormatter">Actions</th>
+                                    <th data-field="actions" class="td-actions text-right" data-events="operateEvents"
+                                        data-formatter="operateFormatter">Actions
+                                    </th>
                                     </thead>
                                     <tbody>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-AT-001</td>
                                         <td>Determinación de la adhesión de tintas</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-DI-002</td>
                                         <td>Determinación de dimensiones</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-ES-003</td>
                                         <td>Determinación del espesor</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-GR-004</td>
                                         <td>Determinación del gramaje</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-HUM-005</td>
                                         <td>Determinación de humedad</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-NCP-006</td>
                                         <td>Determinación del número de capas en películas</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-PPG-007</td>
                                         <td>Determinación de pellets por gramo</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-FTIR-008</td>
-                                        <td>Determinación de compuestos por espectrometría infrarroja por transformada de Fourier FTIR</td>
+                                        <td>Determinación de compuestos por espectrometría infrarroja por transformada
+                                            de Fourier FTIR
+                                        </td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-TGA-009</td>
                                         <td>Determinación de compuestos por termogravimetría</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-ICO-010</td>
-                                        <td>Determinación del índice y densidad óptica de carbonilo por envejecimiento y espectroscopía</td>
+                                        <td>Determinación del índice y densidad óptica de carbonilo por envejecimiento y
+                                            espectroscopía
+                                        </td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-EAT-011</td>
                                         <td>Envejecimiento térmico</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-EAUV-012</td>
                                         <td>Envejecimiento acelerado por UV</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-EAXE-013</td>
                                         <td>Envejecimiento acelerado por xenón</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-OIT-014</td>
-                                        <td>Determinación del tiempo de inducción a la oxidación </td>
-                                        <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>Determinación del tiempo de inducción a la oxidación</td>
+                                        <td>[[${folioOIT}]]</td>
+                                        <td>
+                                            <button class="btn btn-primary" onclick="listFRAOIT()">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-list-alt"></i>
+                                                </span>
+                                                Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
                                         <td>MET-DSC-015</td>
                                         <td>Determinación de transiciones térmicas de polímeros</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
+                                        <!--                                        <td></td>-->
                                         <td>MET-CST-016</td>
                                         <td>Determinación de la curva de sellado en función de la temperatura</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
+                                        <!--                                        <td></td>-->
                                         <td>MET-IF-017</td>
                                         <td>Determinación del índice de fluidez</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
+                                        <!--                                        <td></td>-->
                                         <td>MET-PO-018</td>
                                         <td>Determinación de la permeabilidad al oxigeno</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
+                                        <!--                                        <td></td>-->
                                         <td>MET-PRR-019</td>
                                         <td>Determinación a la propagación de la Resistencia al rasgado</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
+                                        <!--                                        <td></td>-->
                                         <td>MET-RTER-020</td>
                                         <td>Determinación de la resistencia a la tensión y elongación a la ruptura</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
+                                        <!--                                        <td></td>-->
                                         <td>MET-RCD-021</td>
                                         <td>Determinación de la resistencia a la carga dinámica</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     <tr>
-<!--                                        <td></td>-->
+                                        <!--                                        <td></td>-->
                                         <td>MET-RI-022</td>
                                         <td>Determinación de la resistencia al impacto</td>
                                         <td>001</td>
-                                        <td><button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista</button></td>
+                                        <td>
+                                            <button class="btn btn-primary"><i class="fa fa-list-alt"></i>Ver lista
+                                            </button>
+                                        </td>
                                         <td></td>
                                     </tr>
                                     </tbody>
@@ -341,21 +308,21 @@
         ].join('');
     }
 
-    $().ready(function() {
+    $().ready(function () {
         window.operateEvents = {
-            'click .view': function(e, value, row, index) {
+            'click .view': function (e, value, row, index) {
                 info = JSON.stringify(row);
 
                 swal('You click view icon, row: ', info);
                 console.log(info);
             },
-            'click .edit': function(e, value, row, index) {
+            'click .edit': function (e, value, row, index) {
                 info = JSON.stringify(row);
 
                 swal('You click edit icon, row: ', info);
                 console.log(info);
             },
-            'click .remove': function(e, value, row, index) {
+            'click .remove': function (e, value, row, index) {
                 console.log(row);
                 $table.bootstrapTable('remove', {
                     field: 'id',
@@ -378,10 +345,10 @@
             clickToSelect: false,
             pageList: [8, 10, 25, 50, 100],
 
-            formatShowingRows: function(pageFrom, pageTo, totalRows) {
+            formatShowingRows: function (pageFrom, pageTo, totalRows) {
                 //do nothing here, we don't want to show the text "showing x of y from..."
             },
-            formatRecordsPerPage: function(pageNumber) {
+            formatRecordsPerPage: function (pageNumber) {
                 return pageNumber + " rows visible";
             },
             icons: {
@@ -394,11 +361,10 @@
         });
 
 
-
         //activate the tooltips after the data table is initialized
         $('[rel="tooltip"]').tooltip();
 
-        $(window).resize(function() {
+        $(window).resize(function () {
             $table.bootstrapTable('resetView');
         });
 

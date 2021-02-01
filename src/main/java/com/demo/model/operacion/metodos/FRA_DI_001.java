@@ -12,6 +12,9 @@ public class FRA_DI_001 {
     @Column(nullable = false)
     private Long determinacionDimensionesId;
 
+    @Column(length = 30, nullable = false)
+    private String folioTecnica;
+
     @Column(length = 250, nullable = false)
     private String folioSolicitudServicioInterno;
 
@@ -117,6 +120,12 @@ public class FRA_DI_001 {
     @Column(length = 250, nullable = false)
     private String supervisor;
 
+    @Column(length = 30)
+    private String estatus;
+
+    @Column(length = 5)
+    private String cantidadModificaciones;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Metodo_Muestra_Id")
     private MetodoMuestra metodoMuestra;
@@ -124,8 +133,9 @@ public class FRA_DI_001 {
     public FRA_DI_001() {
     }
 
-    public FRA_DI_001(Long determinacionDimensionesId, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoRegla, String largo1, String ancho1, String fuelle11, String fuelle21, String largo2, String ancho2, String fuelle12, String fuelle22, String largo3, String ancho3, String fuelle13, String fuelle23, String largo4, String ancho4, String fuelle14, String fuelle24, String largo5, String ancho5, String fuelle15, String fuelle25, String promedioLargo, String promedioAncho, String promedioFuelle1, String promedioFuelle2, String sumatoriaFuellePromedio, String observaciones, String realizo, String supervisor, MetodoMuestra metodoMuestra) {
+    public FRA_DI_001(Long determinacionDimensionesId, String folioTecnica, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoRegla, String largo1, String ancho1, String fuelle11, String fuelle21, String largo2, String ancho2, String fuelle12, String fuelle22, String largo3, String ancho3, String fuelle13, String fuelle23, String largo4, String ancho4, String fuelle14, String fuelle24, String largo5, String ancho5, String fuelle15, String fuelle25, String promedioLargo, String promedioAncho, String promedioFuelle1, String promedioFuelle2, String sumatoriaFuellePromedio, String observaciones, String realizo, String supervisor, String estatus, String cantidadModificaciones, MetodoMuestra metodoMuestra) {
         this.determinacionDimensionesId = determinacionDimensionesId;
+        this.folioTecnica = folioTecnica;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
         this.idInternoMuestra = idInternoMuestra;
         this.fechaInicioAnalisis = fechaInicioAnalisis;
@@ -161,6 +171,8 @@ public class FRA_DI_001 {
         this.observaciones = observaciones;
         this.realizo = realizo;
         this.supervisor = supervisor;
+        this.estatus = estatus;
+        this.cantidadModificaciones = cantidadModificaciones;
         this.metodoMuestra = metodoMuestra;
     }
 
@@ -170,6 +182,14 @@ public class FRA_DI_001 {
 
     public void setDeterminacionDimensionesId(Long determinacionDimensionesId) {
         this.determinacionDimensionesId = determinacionDimensionesId;
+    }
+
+    public String getFolioTecnica() {
+        return folioTecnica;
+    }
+
+    public void setFolioTecnica(String folioTecnica) {
+        this.folioTecnica = folioTecnica;
     }
 
     public String getFolioSolicitudServicioInterno() {
@@ -450,6 +470,22 @@ public class FRA_DI_001 {
 
     public void setSupervisor(String supervisor) {
         this.supervisor = supervisor;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
+    public String getCantidadModificaciones() {
+        return cantidadModificaciones;
+    }
+
+    public void setCantidadModificaciones(String cantidadModificaciones) {
+        this.cantidadModificaciones = cantidadModificaciones;
     }
 
     public MetodoMuestra getMetodoMuestra() {
