@@ -405,7 +405,7 @@ function cargarMedianteQR(valor){
         '                                    </div>' +
         '                                </div>' +
         '                                <div class="card-footer ">' +
-        '                                    <button type="submit" class="btn btn-fill btn-primary" onclick="valida()">Cargar' +
+        '                                    <button type="submit" class="btn btn-fill btn-primary" id="btnAceptar" onclick="valida()">Cargar' +
         '                                        información' +
         '                                    </button>' +
         '                                </div>' +
@@ -453,6 +453,7 @@ function cargarMedianteQR(valor){
 }
 
 function valida(){
+    document.getElementById("btnAceptar").disabled = true;
     var obj={};
     var clave;
     var valor;
@@ -506,7 +507,9 @@ function valida(){
 
             if (contador !== 0) {
                 swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+                document.getElementById("btnAceptar").disabled = false;
             } else {
+                document.getElementById("btnAceptar").disabled = true;
                 var myjson = JSON.stringify(obj);
                 save(myjson, idSolicitudServicioCliente);
             }
@@ -515,6 +518,7 @@ function valida(){
 }
 
 function valida2(){
+    document.getElementById("btnAceptar").disabled = true;
     var obj={};
     var clave;
     var valor;
@@ -571,7 +575,9 @@ function valida2(){
 
             if (contador !== 0) {
                 swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+                document.getElementById("btnAceptar").disabled = false;
             } else {
+                document.getElementById("btnAceptar").disabled = true;
                 var myjson = JSON.stringify(obj);
                 save(myjson, idSolicitudServicioCliente);
             }

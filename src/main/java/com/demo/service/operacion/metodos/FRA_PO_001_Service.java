@@ -1,12 +1,8 @@
 package com.demo.service.operacion.metodos;
 
-import com.demo.model.operacion.metodos.FRA_AT_001;
-import com.demo.model.operacion.metodos.FRA_DSC;
-import com.demo.model.operacion.metodos.FRA_HUM_001;
 import com.demo.repository.operacion.metodos.FRA_PO_001_Repository;
 import com.demo.utils.EstructuraNombres;
 import com.demo.model.operacion.metodos.FRA_PO_001;
-import com.demo.repository.operacion.metodos.FRA_HUM_001_Repository;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -51,6 +51,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         return db;
     }*/
 
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    //Registra el service para usuarios y el encriptador de contrasena
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
 
     //Necesario para evitar que la seguridad se aplique a los resources
     //como los css, imagenes y javascripts
@@ -65,9 +81,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers(resources).permitAll()
                 .antMatchers("/","/index", "/nameCorreo", "/nameCodigo", "/nameContrasena", "/recuperaCuenta/**").permitAll()
-                //.antMatchers("/registroCliente*","/mostrarClientes*").access("hasRole('SUPERUSUARIO')")
-                //.antMatchers("/user*").access("hasRole('USER') or hasRole('ADMIN')")
-                //.antMatchers("/registroMetodo*", "/mostrarMetodos*").access("hasRole('SUPERUSUARIO')")
+//                .antMatchers("/**").access("hasRole('SUPERUSUARIO')")
+//                .antMatchers("/registroCliente*").access("hasRole('ROLE_REGISTRARCLIENTES')")
+//                .antMatchers("/mostrarClientes*").access("hasRole('ROLE_CONSULTARCLIENTES')")
+//                .antMatchers("/registroMetodo*").access("hasRole('REGISTRARMETODOS')")
+//                .antMatchers("/mostrarMetodos*").access("hasRole('CONSULTARMETODOS')")
+//                .antMatchers("/registerUsuario*").access("hasRole('REGISTRARUSUARIOS')")
+//                .antMatchers("/listUsuario*").access("hasRole('CONSULTARUSUARIOS')")
+//                .antMatchers("/registroMaquina*").access("hasRole('REGISTRAREQUIPO')")
+//                .antMatchers("/mostrarMaquinas*").access("hasRole('CONSULTAREQUIPO')")
+//                .antMatchers("/registerSolicituedServicio*").access("hasRole('REGISTRARSOLICITUDSERVICIOCLIENTE')")
+//                .antMatchers("/listSolicitudServicio*").access("hasRole('CONSULTARSOLICITUDSERVICIOCLIENTE')")
+//                .antMatchers("/listSolicitudServicioPagos*").access("hasRole('PAGOSSOLICITUDSERVICIOCLIENTE')")
+//                .antMatchers("/listCotizacionContrato*").access("hasRole('CONSULTARCOTIZACIONCONTRATO')")
+//                .antMatchers("/listSolicitudServicioInterno*").access("hasRole('CONSULTARSOLICITUDSERVICIOINTERNO')")
+//                .antMatchers("/registerValidacion*").access("hasRole('REGISTRARRETENCION')")
+//                .antMatchers("/listRecepcionValidacion*").access("hasRole('CONSULTARRETENCION')")
+//                .antMatchers("/lecturaQR*").access("hasRole('REGISTRARLECTURAENSAYO')")
+//                .antMatchers("/listEnsayos*").access("hasRole('CONSULTARLISTAENSAYOS')")
+//                .antMatchers("/registroCliente*").access("hasAnyRole('USER') or hasRole('ADMIN')")
+//                .antMatchers("/registroMetodo*", "/mostrarMetodos*").access("hasAnyRole('SUPERUSUARIO')")
                 .anyRequest().authenticated()
                 .and().exceptionHandling().accessDeniedPage("/403")
                 .and()
@@ -96,23 +129,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         return db;
     }
 
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-    //Crea el encriptador de contraseñas
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
-    }
 
-    @Autowired
-    UserDetailsServiceImpl userDetailsService;
 
-    //Registra el service para usuarios y el encriptador de contrasena
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
 
-    @Autowired
-    DataSource dataSource;
+
+
+
+
+
+
 }

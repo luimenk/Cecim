@@ -2,12 +2,10 @@ package com.demo.service.operacion.metodos;
 
 import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
-import com.demo.model.operacion.metodos.FRA_CST_001;
-import com.demo.model.operacion.metodos.FRA_OIT_001;
 import com.demo.repository.operacion.MetodoMuestraRepository;
 import com.demo.repository.operacion.RecepcionVerificacionRegistroCodificacionRepository;
 import com.demo.utils.EstructuraNombres;
-import com.demo.model.operacion.metodos.FRA_DSC;
+import com.demo.model.operacion.metodos.fra15dsc.FRA_DSC;
 import com.demo.repository.operacion.metodos.FRA_DSC_Repository;
 
 import java.io.ByteArrayInputStream;

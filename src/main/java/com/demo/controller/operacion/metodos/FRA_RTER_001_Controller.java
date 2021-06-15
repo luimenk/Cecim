@@ -1,7 +1,7 @@
 package com.demo.controller.operacion.metodos;
 
 import com.demo.model.operacion.MetodoMuestra;
-import com.demo.model.operacion.metodos.FRA_RTER_001;
+import com.demo.model.operacion.metodos.fra20rter.FRA_RTER_001;
 import com.demo.service.formatos.metodos.IMPRIMIR_FRA_RTER_001_Service;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.FRA_RTER_001_Service;

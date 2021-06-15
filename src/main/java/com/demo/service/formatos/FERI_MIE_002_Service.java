@@ -1,6 +1,7 @@
 package com.demo.service.formatos;
 
 import java.io.*;
+import java.net.URL;
 import java.util.*;
 
 import com.demo.model.operacion.MetodoMuestra;
@@ -28,6 +29,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import javax.validation.constraints.Null;
 
 @Service
 public class FERI_MIE_002_Service {
@@ -69,8 +72,16 @@ public class FERI_MIE_002_Service {
         for (int i = 0; i < lista.size(); i++) {
             try {
                 table = doc.getTables().get(i);
-                table.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras()));
-                table.getRow(2).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaCompromisoEntrega()));
+                try{
+                    table.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras()));
+                } catch (NullPointerException e){
+                    System.out.println("No se ha definido fecha de recepción de muestras");
+                }
+                try {
+                    table.getRow(2).getCell(1).setText(formatoFechas.formateadorFechas(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaCompromisoEntrega()));
+                } catch (NullPointerException e){
+                    System.out.println("No se ha definido fecha de entrega compromiso");
+                }
                 table.getRow(3).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getIdClienteMuestra());
                 table.getRow(4).getCell(1).setText(lista.get(i).getIdInternoMuestra2());
                 table.getRow(5).getCell(1).setText(lista.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
@@ -80,12 +91,13 @@ public class FERI_MIE_002_Service {
 
                 XWPFParagraph paragraph = table.getRow(9).getCell(1).addParagraph();
                 XWPFRun run = paragraph.createRun();
-                FileInputStream fis = new FileInputStream(lista.get(i).getSolicitudServicioClienteMuestras().getPathQRIdentificacion());
+                //FileInputStream fis = new FileInputStream(lista.get(i).getSolicitudServicioClienteMuestras().getPathQRIdentificacion());
+                InputStream fis = new URL(lista.get(i).getSolicitudServicioClienteMuestras().getPathQRIdentificacion()).openStream();
 
                 XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(150), Units.pixelToEMU(150));
 
             } catch (NullPointerException e){
-                System.out.println("No se han hecho todas las recepciones");
+                System.out.println("Algo ocurrió en todo el proceso");
             }
         }
         HttpHeaders headers = new HttpHeaders();

@@ -1,53 +1,62 @@
 function valida(e){
-    var userId = document.getElementById('userId').value;
-    var userName = document.getElementById('userName').value;
-    var password = document.getElementById('password').value;
-    var password1 = document.getElementById('password1').value;
-    var nombreUsuario = document.getElementById('nombreUsuario').value;
-    var apellidoUsuario = document.getElementById('apellidoUsuario').value;
-    var nacimiento = document.getElementById('nacimiento').value;
-    var puesto = document.getElementById('puesto').value;
-
-    var rolUsuario = document.getElementById('rolUsuario').value;
-
-
-    var test = document.getElementsByTagName("input");
-
-    var obj={};
-    var clave;
-    var valor;
-    for (var i=0; i < test.length; i++){
-        clave=test[i].getAttribute("id");
-        valor=document.getElementById(clave).value;
-        obj[clave]=valor;
+    let arrayChecked = [];
+    let checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+    for (let i = 0; i < checkboxes.length; i++) {
+        arrayChecked.push(checkboxes[i].value);
     }
-    console.log(obj);
 
-    var myjson = JSON.stringify(obj);
-    //save(obj);
+    var obj = {};
+    let inputText = document.querySelectorAll('input[type=text]');
+    for (let j = 0; j < inputText.length; j++) {
+        obj[inputText[j].getAttribute("id")] = inputText[j].value;
+    }
 
-    if (password != password1) {
-        swal("Error!", "Las contraseñas no coinciden. Favor de verificar", "error");
-        } else if (userName != "" && password != "" && nombreUsuario != "" && apellidoUsuario != "" && nacimiento != "" && puesto != "" && rolUsuario != ""){
-            save(userId, userName, password, nombreUsuario, apellidoUsuario, nacimiento, puesto, rolUsuario);
-        }
+    let pass1 = document.getElementById('password').value;
+    let pass2 = document.getElementById('password1').value;
+
+    obj['password1'] = pass1;
+    obj['password2'] = pass2;
+    obj['permisos'] = arrayChecked;
+
+    if (pass1 !== pass2) {
+        swal("¡Alerta!", "Las contraseñas no coinciden", "warning");
+    } else {
+        save(obj);
+    }
 }
 
-function save(userId, userName, password, nombreUsuario, apellidoUsuario, nacimiento, puesto, rolUsuario){
+function valida2() {
+    let arrayChecked = [];
+    let checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+    for (let i = 0; i < checkboxes.length; i++) {
+        arrayChecked.push(checkboxes[i].value);
+    }
 
-    var obj = {
-        "userId":""+userId+"",
-        "userName":""+userName+"",
-        "password":""+password+"",
-        "nombreUsuario":""+nombreUsuario+"",
-        "apellidoUsuario":""+apellidoUsuario+"",
-        "nacimiento":""+nacimiento+"",
-        "puesto":""+puesto+"",
-        "rolUsuario":""+rolUsuario+""
-    };
+    var obj = {};
+    let inputText = document.querySelectorAll('input[type=text]');
+    for (let j = 0; j < inputText.length; j++) {
+        obj[inputText[j].getAttribute("id")] = inputText[j].value;
+    }
+
+    let pass1 = document.getElementById('password').value;
+    let pass2 = document.getElementById('password1').value;
+    let userId = document.getElementById('userId').value;
+
+    obj['password1'] = pass1;
+    obj['password2'] = pass2;
+    obj['permisos'] = arrayChecked;
+    obj['userId'] = userId;
+
+    if (pass1 !== pass2) {
+        swal("¡Alerta!", "Las contraseñas no coinciden", "warning");
+    } else {
+        save2(obj);
+    }
+}
+
+function save(obj){
     var myjson = JSON.stringify(obj);
     console.log(myjson);
-
     $.ajax({
         type:'POST',
         url:'/user',
@@ -67,7 +76,44 @@ function save(userId, userName, password, nombreUsuario, apellidoUsuario, nacimi
                 confirmButtonText: "Ok",
                 closeOnConfirm: false,
             }, function () {
-                window.location = "/registerUsuario";
+                window.location = "/listUsuario";
+            });
+        },
+        error: function(data){
+            console.log("error");
+            console.log(data.status);
+            if (data.status === 409){
+                swal("Alerta!", " El correo capturado ya ha sido utilizado. Favor de validar la información.", "warning");
+            } else{
+                swal("Error!", "Ha ocurrido un error. Favor de contactar a la Mesa de Ayuda y Servicios.", "error");
+            }
+        }
+    });
+}
+
+function save2(obj){
+    var myjson = JSON.stringify(obj);
+    console.log(myjson);
+    $.ajax({
+        type:'POST',
+        url:'/user/modificar',
+        data:myjson,
+        cache:false,
+        contentType: "application/json",
+        processData: false,
+        success: function(data){
+            console.log("success");
+            console.log(data.status);
+            swal({
+                title: "Registrado!",
+                text: "Tu registro ha sido registrado exitosamente.",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonClass: "btn btn-info btn-fill",
+                confirmButtonText: "Ok",
+                closeOnConfirm: false,
+            }, function () {
+                window.location = "/listUsuario";
             });
         },
         error: function(data){
@@ -132,16 +178,16 @@ function cargarTabla() {
         '<thead>' +
         '<tr>' +
         '<th>Correo electrónico</th>' +
-        '<th>Rol de usuario</th>' +
-        '<th>Nombre de Usuario</th>' +
+        '<th>Puesto</th>' +
+        '<th>Nombre completo</th>' +
         '<th class="disabled-sorting text-right">Acciones</th>' +
         '</tr>' +
         '</thead>' +
         '<tfoot>' +
         '<tr>' +
         '<th>Correo electrónico</th>' +
-        '<th>Rol de usuario</th>' +
-        '<th>Nombre de Usuario</th>' +
+        '<th>Puesto</th>' +
+        '<th>Nombre completo</th>' +
         '<th class="text-right">Acciones</th>' +
         '</tr>' +
         '</tfoot>' +
@@ -150,12 +196,12 @@ function cargarTabla() {
         $.each(result, function (i, field) {
             tbl +=
                 '<tr>' +
-                '<td>' + field.appUser.userName + '</td>' +
-                '<td>' + field.appRole.roleName + '</td>' +
-                '<td>' + field.appUser.nombreUsuario + ' ' + field.appUser.apellidoUsuario +'</td>' +
+                '<td>' + field.userName + '</td>' +
+                '<td>' + field.puesto + '</td>' +
+                '<td>' + field.nombreUsuario + ' ' + field.apellidoUsuario +'</td>' +
                 '<td class="text-right">' +
-                '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar('+field.appUser.userId+')"><i class="fa fa-edit"></i></button>' +
-                '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar('+field.appUser.userId+')"><i class="fa fa-times"></i></a>' +
+                '<button type="submit" class="btn btn-link btn-warning edit" onclick="validaModificar('+field.userId+')"><i class="fa fa-edit"></i></button>' +
+                '<button type="submit" class="btn btn-link btn-danger remove" onclick="validaEliminar('+field.userId+')"><i class="fa fa-times"></i></a>' +
                 '</td>' +
                 '</tr>';
         });

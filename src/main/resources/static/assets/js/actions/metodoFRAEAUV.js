@@ -1,23 +1,55 @@
 function valida() {
+    var contador = 0;
     var obj = {};
     var clave;
     var valor;
     var test = document.getElementsByTagName("input");
+    var combo = document.getElementById("codigoCamaraUV").value;
+
+    if (combo === "") {
+        contador++;
+    }
 
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        obj[clave] = valor;
+        if (valor === "") {
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
     }
-    const url = document.URL;
-    obj["id"] = url.substring(url.lastIndexOf('/') + 1);
 
+    const url = document.URL;
+    obj["codigoCamaraUV"] = combo;
+    obj["id"] = url.substring(url.lastIndexOf('/') + 1);
     var myjson = JSON.stringify(obj);
-    console.log(myjson);
-    save(myjson);
+
+    $.getJSON("/FRAEAUV/busquedaFolio/" + obj["folioTecnica"], function (result) {
+        swal({
+            title: "¡Alerta!",
+            text: "Este ensayo ya fue registrado, favor de consultar la lista de registros.",
+            type: "warning",
+            showCancelButton: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            confirmButtonText: "Ok",
+            closeOnConfirm: false,
+        }, function () {
+            window.location = "/listFRAEAUV";
+        });
+    }).fail(function () {
+        if (contador !== 0) {
+            swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+        } else {
+            document.getElementById("btnAceptar").disabled = true;
+            save(myjson);
+        }
+    });
 }
 
 function validaAgregar(){
+    document.getElementById("btnAceptar").disabled = true;
     const url = document.URL;
     const id = url.substring(url.lastIndexOf('/') + 1);
     const blob = document.getElementById("file").files[0];

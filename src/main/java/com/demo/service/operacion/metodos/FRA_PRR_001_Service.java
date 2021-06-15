@@ -5,7 +5,7 @@ import com.demo.utils.FormatoFechas;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.demo.model.operacion.metodos.FRA_PRR_001;
+import com.demo.model.operacion.metodos.fra19prr.FRA_PRR_001;
 import com.demo.repository.operacion.metodos.FRA_PRR_001_Repository;
 
 import org.springframework.beans.factory.annotation.Autowired;

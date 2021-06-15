@@ -1,10 +1,13 @@
 package com.demo.controller.vistas.metodos;
 
-import com.demo.model.operacion.metodos.FRA_EAUV_001;
-import com.demo.model.operacion.metodos.FRA_EAUV_001_DATA;
+import com.demo.model.operacion.MetodoMuestra;
+import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
+import com.demo.model.operacion.metodos.fra12eauv.FRA_EAUV_001;
+import com.demo.model.operacion.metodos.fra12eauv.datas.FRA_EAUV_001_DATA;
+import com.demo.service.operacion.MetodoMuestraService;
+import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.service.operacion.metodos.FRA_EAUV_001_DATA_Service;
 import com.demo.service.operacion.metodos.FRA_EAUV_001_Service;
-import com.demo.service.operacion.metodos.FRA_EAXE_013_DATA_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,8 +19,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @CrossOrigin
@@ -29,6 +35,12 @@ public class FRA_EAUV_Vista {
     @Autowired
     private FRA_EAUV_001_DATA_Service fra_eauv_001_data_service;
 
+    @Autowired
+    private MetodoMuestraService metodoMuestraService;
+
+    @Autowired
+    private RecepcionVerificacionRegistroCodificacionService recepcionVerificacionRegistroCodificacionService;
+
     //Muestra formulario de registro inicial
     @RequestMapping(value = "/registerFRAEAUV/{id}")
     public String registerFRAEAUV(Model model, Principal principal, @PathVariable("id") Long id) {
@@ -38,6 +50,18 @@ public class FRA_EAUV_Vista {
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());
         }
+
+        MetodoMuestra metodoMuestra = metodoMuestraService.findById(id);
+        RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findBySolicitudServicioClienteMuestrasId(metodoMuestra.getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
+        Date ahora = new Date();
+        SimpleDateFormat ahoraFormato = new SimpleDateFormat("yyyy-MM-dd", new Locale("ES"));
+        String fechaHoy = ahoraFormato.format(ahora);
+        System.out.println(fechaHoy);
+
+        model.addAttribute("folioSolicitudServicioInterno", metodoMuestra.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
+        model.addAttribute("idInternoMuestra", recepcionVerificacionRegistroCodificacion.getIdInternoMuestra1());
+        model.addAttribute("folioTecnica", metodoMuestra.getFolioTecnica());
+        model.addAttribute("fechaHoy", fechaHoy);
 
         return "content/operacion/metodos/FRA_EAUV/formFRA_EAUV";
     }

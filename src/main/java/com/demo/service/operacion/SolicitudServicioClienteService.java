@@ -6,11 +6,36 @@ import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 import com.demo.model.operacion.SolicitudServicioCliente;
 import com.demo.model.operacion.SolicitudServicioClienteMuestras;
 import com.demo.model.operacion.metodos.*;
+import com.demo.model.operacion.metodos.fra01at.FRA_AT_001;
+import com.demo.model.operacion.metodos.fra02di.FRA_DI_001;
+import com.demo.model.operacion.metodos.fra03es.FRA_ES_001;
+import com.demo.model.operacion.metodos.fra04gr.FRA_GR_001;
+import com.demo.model.operacion.metodos.fra05hum.FRA_HUM_001;
+import com.demo.model.operacion.metodos.fra06ncp.FRA_NCP_001;
+import com.demo.model.operacion.metodos.fra07ppg.FRA_PPG_001;
+import com.demo.model.operacion.metodos.fra08ftir.FRA_FTIR_001;
+import com.demo.model.operacion.metodos.fra09tga.FRA_TGA_001;
+import com.demo.model.operacion.metodos.fra10ico.FRA_ICO_001;
+import com.demo.model.operacion.metodos.fra11eat.FRA_EAT_001;
+import com.demo.model.operacion.metodos.fra12eauv.FRA_EAUV_001;
+import com.demo.model.operacion.metodos.fra13eaxe.FRA_EAXE_013;
+import com.demo.model.operacion.metodos.fra14oit.FRA_OIT_001;
+import com.demo.model.operacion.metodos.fra15dsc.FRA_DSC;
+import com.demo.model.operacion.metodos.fra17if.FRA_IF_001;
+import com.demo.model.operacion.metodos.fra19prr.FRA_PRR_001;
+import com.demo.model.operacion.metodos.fra20rter.FRA_RTER_001;
 import com.demo.repository.operacion.MetodoMuestraRepository;
 import com.demo.repository.operacion.SolicitudServicioClienteMuestrasRepository;
 import com.demo.repository.operacion.SolicitudServicioClienteRepository;
 
 import com.demo.repository.operacion.metodos.*;
+import com.demo.repository.operacion.metodos.fra01at.FRA_AT_001_Repository;
+import com.demo.repository.operacion.metodos.fra04gr.FRA_GR_001_Repository;
+import com.demo.repository.operacion.metodos.fra05hum.FRA_HUM_001_Repository;
+import com.demo.repository.operacion.metodos.fra06ncp.FRA_NCP_001_Repository;
+import com.demo.repository.operacion.metodos.fra07ppg.FRA_PPG_001_Repository;
+import com.demo.repository.operacion.metodos.fra08ftir.FRA_FTIR_001_Repository;
+import com.demo.repository.operacion.metodos.fra10ico.FRA_ICO_001_Repository;
 import com.demo.service.MethodService;
 import com.demo.utils.EstructuraNombres;
 import com.demo.utils.FormatoFechas;
@@ -20,7 +45,6 @@ import com.demo.utils.WordCopyTableAfterTable;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
-import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
 
 import org.json.JSONArray;
@@ -40,8 +64,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -813,7 +835,7 @@ public class SolicitudServicioClienteService {
                         row.getCell(0).setText(listaDI.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
                         row.getCell(1).setText(listaDI.get(k).getPromedioLargo());
                         row.getCell(2).setText(listaDI.get(k).getPromedioAncho());
-                        row.getCell(3).setText(listaDI.get(k).getSumatoriaFuellePromedio());
+//                        row.getCell(3).setText(listaDI.get(k).getSumatoriaFuellePromedio());
                         table_2.addRow(row);
                     } catch (NullPointerException e) {
                         table_2.addRow(tableDocumment_2.getRow(2));
@@ -927,9 +949,9 @@ public class SolicitudServicioClienteService {
                         row.getCell(1).setText(((Double.parseDouble(listaES.get(k).getPromedioLargo()) * 1000) * 3.937) + "");
                         row.getCell(2).setText((Double.parseDouble(listaES.get(k).getPromedioLargo()) * 1000) + "");
                         row.getCell(3).setText(listaES.get(k).getPromedioLargo());
-                        row.getCell(4).setText(listaES.get(k).getMinLargo());
-                        row.getCell(5).setText(listaES.get(k).getMaxLargo());
-                        row.getCell(6).setText(listaES.get(k).getDesvEstandarLargo());
+//                        row.getCell(4).setText(listaES.get(k).getMinLargo());
+//                        row.getCell(5).setText(listaES.get(k).getMaxLargo());
+//                        row.getCell(6).setText(listaES.get(k).getDesvEstandarLargo());
                         table_3.addRow(row);
                     } catch (NullPointerException e) {
                         table_3.addRow(tableDocumment_3.getRow(2));
@@ -944,9 +966,9 @@ public class SolicitudServicioClienteService {
                         row.getCell(1).setText(((Double.parseDouble(listaES.get(k).getPromedioAncho()) * 1000) * 3.937) + "");
                         row.getCell(2).setText((Double.parseDouble(listaES.get(k).getPromedioAncho()) * 1000) + "");
                         row.getCell(3).setText(listaES.get(k).getPromedioAncho());
-                        row.getCell(4).setText(listaES.get(k).getMinAncho());
-                        row.getCell(5).setText(listaES.get(k).getMaxAncho());
-                        row.getCell(6).setText(listaES.get(k).getDesvEstandarAncho());
+//                        row.getCell(4).setText(listaES.get(k).getMinAncho());
+//                        row.getCell(5).setText(listaES.get(k).getMaxAncho());
+//                        row.getCell(6).setText(listaES.get(k).getDesvEstandarAncho());
                         table_3.addRow(row);
                     } catch (NullPointerException e) {
                         table_3.addRow(tableDocumment_3.getRow(5));
@@ -1136,7 +1158,7 @@ public class SolicitudServicioClienteService {
                     try {
                         XWPFTableRow row = tableDocumment_2.getRow(1);
                         row.getCell(0).setText(listaHUM.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-                        row.getCell(1).setText(listaHUM.get(k).getHumedad());
+//                        row.getCell(1).setText(listaHUM.get(k).getHumedad());
                     } catch (NullPointerException e) {
                         table_2.addRow(tableDocumment_2.getRow(1));
                     }
@@ -1225,8 +1247,8 @@ public class SolicitudServicioClienteService {
                         XWPFTableRow row = tableDocumment_2.getRow(1);
                         row.getCell(0).setText(listaNCP.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
                         row.getCell(1).setText("6");
-                        row.getCell(2).setText(listaNCP.get(k).getEspesorTotalMuestra());
-                        row.getCell(3).setText(listaNCP.get(k).getTotal());
+//                        row.getCell(2).setText(listaNCP.get(k).getEspesorTotalMuestra());
+//                        row.getCell(3).setText(listaNCP.get(k).getTotal());
                     } catch (NullPointerException e) {
                         table_2.addRow(tableDocumment_2.getRow(1));
                     }
@@ -1314,7 +1336,7 @@ public class SolicitudServicioClienteService {
                     try {
                         XWPFTableRow row = tableDocumment_2.getRow(1);
                         row.getCell(0).setText(listaPPG.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-                        row.getCell(1).setText(listaPPG.get(k).getPelletXGramo());
+                        //row.getCell(1).setText(listaPPG.get(k).getPelletXGramo());
                     } catch (NullPointerException e) {
                         table_2.addRow(tableDocumment_2.getRow(1));
                     }
@@ -1401,10 +1423,10 @@ public class SolicitudServicioClienteService {
                     try {
                         XWPFTableRow row = tableDocumment_2.getRow(2);
                         row.getCell(0).setText(listaFTIR.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-                        row.getCell(1).setText(listaFTIR.get(k).getCompuesto1());
-                        row.getCell(2).setText(listaFTIR.get(k).getIdentidad1());
-                        row.getCell(3).setText(listaFTIR.get(k).getCompuesto2());
-                        row.getCell(4).setText(listaFTIR.get(k).getIdentidad2());
+//                        row.getCell(1).setText(listaFTIR.get(k).getCompuesto1());
+//                        row.getCell(2).setText(listaFTIR.get(k).getIdentidad1());
+//                        row.getCell(3).setText(listaFTIR.get(k).getCompuesto2());
+//                        row.getCell(4).setText(listaFTIR.get(k).getIdentidad2());
                     } catch (NullPointerException e) {
                         table_2.addRow(tableDocumment_2.getRow(2));
                     }
@@ -2013,8 +2035,16 @@ public class SolicitudServicioClienteService {
                         listaParagraph.add(k, doc.createParagraph());
                         listaParagraph.get(k).setAlignment(ParagraphAlignment.CENTER);
                         listaRun.add(k, listaParagraph.get(k).createRun());
-                        listaFis.add(k, new FileInputStream(listaOIT.get(k).getPathImage()));
-                        listaPircures.add(k, listaRun.get(k).addPicture(listaFis.get(k), XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(430), Units.pixelToEMU(430)));
+                        try {
+                            listaFis.add(k, new FileInputStream(listaOIT.get(k).getPathImage()));
+                        } catch (NullPointerException e) {
+                            System.out.println("No se encontró la imágen (1)");
+                        }
+                        try {
+                            listaPircures.add(k, listaRun.get(k).addPicture(listaFis.get(k), XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(430), Units.pixelToEMU(430)));
+                        } catch (NullPointerException e) {
+                            System.out.println("No se encontró la imágen (1)");
+                        }
                         listaParagraph2.add(k, doc.createParagraph());
                         listaParagraph2.get(k).setAlignment(ParagraphAlignment.CENTER);
                         listaParagraph2.get(k).setStyle("Termograma");

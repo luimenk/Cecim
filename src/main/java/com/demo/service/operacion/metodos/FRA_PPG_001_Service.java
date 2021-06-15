@@ -1,9 +1,8 @@
 package com.demo.service.operacion.metodos;
 
-import com.demo.model.operacion.metodos.FRA_CST_001;
 import com.demo.utils.EstructuraNombres;
-import com.demo.model.operacion.metodos.FRA_PPG_001;
-import com.demo.repository.operacion.metodos.FRA_PPG_001_Repository;
+import com.demo.model.operacion.metodos.fra07ppg.FRA_PPG_001;
+import com.demo.repository.operacion.metodos.fra07ppg.FRA_PPG_001_Repository;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -31,8 +30,6 @@ public class FRA_PPG_001_Service {
     @Autowired
     private FRA_PPG_001_Repository fra_ppg_001_repository;
 
-    EstructuraNombres estructuraNombres = new EstructuraNombres();
-
     private static final Logger LOGGER = LoggerFactory.getLogger("info");
 
     private static final Logger APP = LoggerFactory.getLogger("info");
@@ -49,76 +46,19 @@ public class FRA_PPG_001_Service {
         return fra_ppg_001_repository.findByIdFRAPPG(id);
     }
 
+    public FRA_PPG_001 findByIdInternoMuestra(String id) {
+        return fra_ppg_001_repository.findByIdInternoMuestra(id);
+    }
+
+    public FRA_PPG_001 findByMuestra(Long id) {
+        return fra_ppg_001_repository.findByMetodoMuestra_MetodoMuestraId(id);
+    }
+
     public void delete(Long id) {
         fra_ppg_001_repository.deleteById(id);
     }
 
     public long contar() {
         return fra_ppg_001_repository.count();
-    }
-
-    public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException{
-        ClassPathResource resource = new ClassPathResource("/documentos/METODOS/FRA-PPG-001.docx");
-        XWPFDocument doc = new XWPFDocument(resource.getInputStream());
-
-        FRA_PPG_001 fra_ppg_001;
-        if (band == 1){
-            fra_ppg_001 = fra_ppg_001_repository.findByIdFRAPPG(id);
-        }else {
-            fra_ppg_001 = fra_ppg_001_repository.findByMetodoMuestra_MetodoMuestraId(id);
-        }
-
-        //FRA_PPG_001 fra_ppg_001 = fra_ppg_001_repository.findByIdFRAPPG(id);
-
-        XWPFTable table0 = doc.getTables().get(0);
-        table0.getRow(0).getCell(1).setText(fra_ppg_001.getFolioSolicitudServicioInterno());
-        table0.getRow(0).getCell(3).setText(fra_ppg_001.getFechaInicioAnalisis());
-        table0.getRow(1).getCell(1).setText(fra_ppg_001.getIdInternoMuestra());
-        table0.getRow(1).getCell(3).setText(fra_ppg_001.getFechaFinalAnalisis());
-
-        XWPFTable table1 = doc.getTables().get(1);
-        table1.getRow(0).getCell(1).setText(fra_ppg_001.getTemperatura());
-        table1.getRow(0).getCell(3).setText(fra_ppg_001.getHumedadRelativa());
-        table1.getRow(1).getCell(1).setText(fra_ppg_001.getCodigoBalanzaAnalitica());
-
-        XWPFTable table2 = doc.getTables().get(2);
-        table2.getRow(1).getCell(1).setText(fra_ppg_001.getPeso1());
-        table2.getRow(1).getCell(2).setText(fra_ppg_001.getPellet1());
-
-        table2.getRow(2).getCell(1).setText(fra_ppg_001.getPeso2());
-        table2.getRow(2).getCell(2).setText(fra_ppg_001.getPellet2());
-
-        table2.getRow(3).getCell(1).setText(fra_ppg_001.getPeso3());
-        table2.getRow(3).getCell(2).setText(fra_ppg_001.getPellet3());
-
-        table2.getRow(4).getCell(1).setText(fra_ppg_001.getPeso4());
-        table2.getRow(4).getCell(2).setText(fra_ppg_001.getPellet4());
-
-        table2.getRow(5).getCell(1).setText(fra_ppg_001.getPeso5());
-        table2.getRow(5).getCell(2).setText(fra_ppg_001.getPellet5());
-
-        table2.getRow(6).getCell(1).setText(fra_ppg_001.getPromedioPeso());
-        table2.getRow(6).getCell(2).setText(fra_ppg_001.getPromedioPellet());
-
-        table2.getRow(7).getCell(3).setText(fra_ppg_001.getPelletXGramo());
-
-        XWPFTable table5 = doc.getTables().get(4);
-        table5.getRow(0).getCell(1).setText(fra_ppg_001.getObservaciones());
-
-        XWPFTable table6 = doc.getTables().get(5);
-        table6.getRow(1).getCell(0).setText(fra_ppg_001.getRealizo());
-        table6.getRow(1).getCell(1).setText(fra_ppg_001.getSupervisor());
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=FRA-PPG-"+estructuraNombres.getNombre()+".docx");
-        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-        doc.write(byteArrayOutputStream);
-        doc.close();
-        MediaType word = MediaType.valueOf("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentType(word)
-                .body(new InputStreamResource(byteArrayInputStream));
     }
 }

@@ -1,6 +1,7 @@
 package com.demo.service.operacion.metodos;
 
-import com.demo.model.operacion.metodos.*;
+import com.demo.model.operacion.metodos.fra12eauv.FRA_EAUV_001;
+import com.demo.model.operacion.metodos.fra12eauv.datas.FRA_EAUV_001_DATA;
 import com.demo.repository.operacion.metodos.*;
 import com.demo.utils.EstructuraNombres;
 
@@ -52,6 +53,10 @@ public class FRA_EAUV_001_Service {
 
     public FRA_EAUV_001 findById(Long id) {
         return fra_eauv_001_repository.findByIdFRAEAUV(id);
+    }
+
+    public FRA_EAUV_001 findByFolio(String folio) {
+        return fra_eauv_001_repository.findByFolioTecnica(folio);
     }
 
     public void delete(Long id) {

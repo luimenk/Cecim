@@ -18,19 +18,27 @@ import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
+import com.demo.utils.Constantes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -203,11 +211,11 @@ public class SolicitudServicioClienteController {
                     solicitudServicioClienteMuestras.setPathQRIdentificacion("");
                     solicitudServicioClienteMuestras.setEstatus("NO");
                     List listaa = (List) request.get("metodo" + i);
-                    solicitudServicioClienteMuestras.setTotalEnsayos(listaa.size()+"");
+                    solicitudServicioClienteMuestras.setTotalEnsayos(listaa.size() + "");
                     solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
-                    solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId()));
+                    solicitudServicioClienteMuestras.setPathQRIdentificacion(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.QR_FEIM + qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId(), Constantes.QR_FEIM));
                     solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
-                } catch(NullPointerException e) {
+                } catch (NullPointerException e) {
                     solicitudServicioClienteMuestras.setIdClienteMuestra("");
                     solicitudServicioClienteMuestras.setTipoMuestra("");
                     solicitudServicioClienteMuestras.setDescripcionMuestra("");
@@ -218,14 +226,14 @@ public class SolicitudServicioClienteController {
                     solicitudServicioClienteMuestras.setPathQRIdentificacion("");
                     solicitudServicioClienteMuestras.setEstatus("");
                     List listaa = (List) request.get("metodo" + i);
-                    solicitudServicioClienteMuestras.setTotalEnsayos(listaa.size()+"");
+                    solicitudServicioClienteMuestras.setTotalEnsayos(listaa.size() + "");
                     solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
-                    solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId()));
+                    solicitudServicioClienteMuestras.setPathQRIdentificacion(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.QR_FEIM + qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId(), Constantes.QR_FEIM));
                     solicitudServicioClienteMuestrasService.save(solicitudServicioClienteMuestras);
                 }
 
                 List lista = (List) request.get("metodo" + i);
-                try{
+                try {
                     for (int j = 0; j < lista.size(); j++) {
                         MetodoMuestra metodoMuestra = new MetodoMuestra();
                         metodoMuestra.setPathQRLab("");
@@ -235,7 +243,7 @@ public class SolicitudServicioClienteController {
                         metodoMuestra.setEstatus("RECEPCION");
                         metodoMuestraService.save(metodoMuestra);
                     }
-                } catch(NullPointerException e) {
+                } catch (NullPointerException e) {
                     System.out.println("No tiene caso que guardes algo en metodo muestra");
                 }
             }
@@ -383,4 +391,33 @@ public class SolicitudServicioClienteController {
         return solicitudServicioClienteService.crearSolicitudServicioInterno(id);
     }
 
+    //APARTADO PARA CREAR RESPALDO DE LA BASE DE DATOS
+    //TODO: HACERLO DINÁMICO PARA QUE SE EJECUTE A CIERTA HORA DEL DÍA CON EL COMPONENTE O CONFIGURATION CORRESPONDIENTE
+    @RequestMapping(value = "/extraerBD", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> extraer() throws Exception {
+        System.out.println("BackUp realizado a las: " + new Date());
+
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        String dbNameList = "demo"; //si se requieren varias bd se indican separadas por espacio
+        String dbUserName = "desarrollo";
+        String dbUserPassword = "Cuarenta40.";
+
+        String executeCmd = "mysqldump -u"+dbUserName+" -p"+dbUserPassword+" " + dbNameList;
+
+        Process runtimeProcess = null;
+        try {
+            runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=" + new Date() + ".sql");
+        MediaType word = MediaType.valueOf("application/sql");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(word)
+                .body(new InputStreamResource(runtimeProcess.getInputStream()));
+
+    }
 }

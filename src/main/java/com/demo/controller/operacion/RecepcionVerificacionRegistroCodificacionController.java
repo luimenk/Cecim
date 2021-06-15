@@ -14,6 +14,7 @@ import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
+import com.demo.utils.Constantes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -175,11 +176,11 @@ public class RecepcionVerificacionRegistroCodificacionController {
 
         List<MetodoMuestra> lista = metodoMuestraService.findAllByMuestra(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
 
-        solicitudServicioClienteMuestras.setPathQRIdentificacion(qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId()));
+        //solicitudServicioClienteMuestras.setPathQRIdentificacion(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE +Constantes.QR_FEIM + qrService.generate(solicitudServicioClienteMuestras.getSolicitudServicioClienteMuestrasId(), Constantes.QR_FEIM));
 
         for (int j = 0; j< lista.size(); j++){
             MetodoMuestra metodoMuestra = metodoMuestraService.findById(lista.get(j).getMetodoMuestraId());
-            metodoMuestra.setPathQRLab(qrService.generateToLab(lista.get(j).getMetodoMuestraId()));
+            metodoMuestra.setPathQRLab(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE +Constantes.QR_FEIL + qrService.generateToLab(lista.get(j).getMetodoMuestraId(), Constantes.QR_FEIL));
             metodoMuestra.setFolioTecnica(foliosService.folioTecnicas(lista.get(j).getMethod().getCodigoMetodo()));
             metodoMuestra.setEstatus("PENDIENTE");
             metodoMuestraService.save(metodoMuestra);

@@ -1,13 +1,11 @@
 package com.demo.repository.operacion.metodos;
 
-import com.demo.model.operacion.metodos.FRA_EAT_001;
-import com.demo.model.operacion.metodos.FRA_EAT_001_DATA;
+import com.demo.model.operacion.metodos.fra11eat.datas.FRA_EAT_001_DATA;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

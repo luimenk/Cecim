@@ -2,33 +2,82 @@ function valida() {
     var obj = {};
     var clave;
     var valor;
+    var contador = 0;
     var test = document.getElementsByTagName("input");
+    var test2 = document.getElementsByTagName("select");
+    document.getElementById("btnAceptar").disabled = true;
 
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        obj[clave] = valor;
+        if (valor === "") {
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    for (var i = 0; i < test2.length; i++) {
+        clave = test2[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === "") {
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
     }
 
     const url = document.URL;
     obj["id"] = url.substring(url.lastIndexOf('/') + 1);
 
-    var myjson = JSON.stringify(obj);
-    console.log(myjson);
-    save(myjson);
+    const signature = document.getElementById("sig-dataUrl").value;
+    var block = signature.split(";");
+
+    // Get the content type of the image
+    var contentType = block[0].split(":")[1];// In this case "image/gif"
+
+    // get the real base64 content of the file
+    var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+
+    // Convert it to a blob to upload
+    var blob1 = b64toBlob(realData, contentType);
+
+    $.getJSON("/FRAPPG/idInterno/" + obj["idInternoMuestra"], function (result) {
+        swal({
+            title: "Error!",
+            text: "Este ensayo ya fue realizado.",
+            type: "error",
+            showCancelButton: false,
+            confirmButtonClass: "btn btn-info btn-fill",
+            confirmButtonText: "Ok",
+            closeOnConfirm: false,
+        }, function () {
+            window.location = "/lecturaQR";
+        });
+    }).fail(function () {
+        if (contador !== 0) {
+            swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+            document.getElementById("btnAceptar").disabled = false;
+        } else {
+            var formData = new FormData();
+            formData.append("signature", blob1);
+            formData.append('frappg', new Blob([JSON.stringify(obj)], {
+                type: "application/json"
+            }));
+            save(formData);
+        }
+    });
 }
 
 function save(myjson) {
-    $.ajax({
-        type: 'POST',
-        url: '/FRAPPG',
-        data: myjson,
-        cache: false,
-        contentType: "application/json",
-        processData: false,
-        success: function (data) {
-            console.log("success");
-            console.log(data);
+    var boundary = Math.random().toString().substr(2);
+    fetch('/FRAPPG', {
+        method: 'post',
+        body: myjson
+    }).then(function (response) {
+        if (response.status === 200) {
             swal({
                 title: "Registrado!",
                 text: "Se ha sido registrado exitosamente.",
@@ -40,12 +89,12 @@ function save(myjson) {
             }, function () {
                 window.location = "/listFRAPPG";
             });
-        },
-        error: function (data) {
-            console.log("error");
-            console.log(data);
+        } else {
             swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
         }
+    }).catch(function (err) {
+        document.getElementById("btnAceptar").disabled = false;
+        swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
     });
 }
 

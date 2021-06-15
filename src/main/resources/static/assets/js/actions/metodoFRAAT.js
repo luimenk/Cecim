@@ -94,13 +94,33 @@ function valida() {
     var obj = {};
     var clave;
     var valor;
+    var contador = 0;
     var test = document.getElementsByTagName("input");
+    var test2 = document.getElementsByTagName("select");
     document.getElementById("btnAceptar").disabled = true;
 
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        obj[clave] = valor;
+        if (valor === "") {
+            console.log("Esto está mal");
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    for (var i = 0; i < test2.length; i++) {
+        clave = test2[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === "") {
+            console.log("Esto está mal");
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
     }
 
     obj["id"] = id;
@@ -120,11 +140,24 @@ function valida() {
     var blob2 = document.getElementById("file2").files[0];
     var blob3 = document.getElementById("file3").files[0];
 
+    const signature = document.getElementById("sig-dataUrl").value;
+    var block = signature.split(";");
+
+    // Get the content type of the image
+    var contentType = block[0].split(":")[1];// In this case "image/gif"
+
+    // get the real base64 content of the file
+    var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+
+    // Convert it to a blob to upload
+    var blob1 = b64toBlob(realData, contentType);
+
     var formData = new FormData();
     //formData.append("imagen", blob);
     formData.append("imagen", blob);
     formData.append("imagen2", blob2);
     formData.append("imagen3", blob3);
+    formData.append("signature", blob1);
     formData.append('fraat', new Blob([JSON.stringify(obj)], {
         type: "application/json"
     }));
@@ -166,7 +199,7 @@ function mostrar3(){
 }
 
 function save(myjson) {
-    console.log(myjson)
+    console.log(myjson);
     var boundary = Math.random().toString().substr(2);
     fetch('/FRAAT', {
         method: 'post',

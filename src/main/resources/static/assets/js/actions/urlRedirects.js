@@ -1,65 +1,201 @@
+function permisos(){
+    //username
+}
+
 function dashboard(e){
     window.location = "/dashboard";
 }
 
 function registerMachineDirect(e) {
-    window.location = "/registroMaquina";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_REGISTRAREQUIPO") {
+                cont++;
+                window.location = "/registroMaquina";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function listMachineDirect(e) {
-    window.location = "/mostrarMaquinas";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_CONSULTAREQUIPO") {
+                cont++;
+                window.location = "/mostrarMaquinas";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function registerUserDirect(e) {
-    window.location = "/registerUsuario";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_REGISTRARUSUARIOS") {
+                cont++;
+                window.location = "/registerUsuario";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function listUserDirect(e) {
-    window.location = "/listUsuario";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_CONSULTARUSUARIOS") {
+                cont++;
+                window.location = "/listUsuario";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function registerClientDirect(e) {
-    window.location = "/registroCliente";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_REGISTRARCLIENTES") {
+                cont++;
+                window.location = "/registroCliente";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function listClientDirect(e) {
-    window.location = "/mostrarClientes";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_CONSULTARCLIENTES") {
+                cont++;
+                window.location = "/mostrarClientes";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function registerMethodDirect(e) {
-    window.location = "/registroMetodo";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_REGISTRARMETODOS") {
+                cont++;
+                window.location = "/registroMetodo";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function listMethodDirect(e) {
-    window.location = "/mostrarMetodos";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_CONSULTARMETODOS") {
+                cont++;
+                window.location = "/mostrarMetodos";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
-/*function registerSolicitudMuestrasDirect(e) {
-    window.location = "/registroSolicitudMuestra";
-}*/
-
+//Cálculos
 function generadorReporteDirect(e) {
     window.location = "/generadorReporte";
 }
 
-/*function registerOrdenServicio(e) {
-    window.location = "/registerOrdenServicio";
-}
-
-function listOrdenServicio(e) {
-    window.location = "/listOrdenServicio";
-}*/
-
 function registerSolicitudServicio(e) {
-    window.location = "/registerSolicituedServicio";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_REGISTRARSOLICITUDSERVICI") {
+                cont++;
+                window.location = "/registerSolicituedServicio";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function listSolicitudServicio(e) {
-    window.location = "/listSolicitudServicio";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_CONSULTARSOLICITUDSERVICI") {
+                cont++;
+                window.location = "/listSolicitudServicio";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function listSolicitudServicioPagos(e) {
-    window.location = "/listSolicitudServicioPagos";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_PAGOSSOLICITUDSERVICIOCLI") {
+                cont++;
+                window.location = "/listSolicitudServicioPagos";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 /*function registerCotizacionContrato(e) {
@@ -67,11 +203,37 @@ function listSolicitudServicioPagos(e) {
 }*/
 
 function listCotizacionContrato(e) {
-    window.location = "/listCotizacionContrato";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_CONSULTARCOTIZACIONCONTRA") {
+                cont++;
+                window.location = "/listCotizacionContrato";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function listSolicitudServicioInterno(e) {
-    window.location = "/listSolicitudServicioInterno";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_CONSULTARSOLICITUDSERVICI") {
+                cont++;
+                window.location = "/listSolicitudServicioInterno";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 /*function registerEtiquetas(e) {
@@ -83,7 +245,20 @@ function listEtiquetas(e) {
 }*/
 
 function registerValidacion(e) {
-    window.location = "/registerValidacion";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_REGISTRARRETENCION") {
+                cont++;
+                window.location = "/registerValidacion";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function registerValidacionFolio(e) {
@@ -91,28 +266,80 @@ function registerValidacionFolio(e) {
 }
 
 function listValidacion(e) {
-    window.location = "/listRecepcionValidacion";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_CONSULTARRETENCION") {
+                cont++;
+                window.location = "/listRecepcionValidacion";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
 
 function lecturaQR(){
-    window.location = "/lecturaQR";
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_REGISTRARLECTURAENSAYO") {
+                cont++;
+                window.location = "/lecturaQR";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
 }
+
+function consultaListaEnsayos(e){
+    let cont = 0;
+    let param = document.getElementById("username").value;
+    $.getJSON("/user/user/" + param, function (result) {
+        $.each(result, function (i, field) {
+            if (field.appRole.roleName === "ROLE_SUPERUSUARIO" || field.appRole.roleName === "ROLE_CONSULTARLISTAENSAYOS") {
+                cont++;
+                window.location = "/listEnsayos";
+            }
+        });
+    }).done(function (){
+        if (cont === 0 ){
+            swal("¡Sin acceso!", "No tienes permisos para entrar aquí", "warning");
+        }
+    });
+}
+
+function listFRAAT(e) {
+    window.location = "/listFRAAT";
+}
+
+function listFRADI(e) {
+    window.location = "/listFRADI";
+}
+
+function listFRAES(e) {
+    window.location = "/listFRAES";
+}
+
 
 function registerEspesor(e) {
     window.location = "/registerEspesor";
 }
 
-function listEspesor(e) {
-    window.location = "/listEspesor";
+
+
+function registerFRADI(e) {
+    window.location = "/registerFRADI";
 }
 
-function registerDimension(e) {
-    window.location = "/registerDimension";
-}
 
-function listDimension(e) {
-    window.location = "/listDimension";
-}
 
 function registerSelladoTemperatura(e) {
     window.location = "/registerSelladoTemperatura";
@@ -182,9 +409,6 @@ function registerFRAAT(e) {
     window.location = "/registerFRAAT";
 }
 
-function listFRAAT(e) {
-    window.location = "/listFRAAT";
-}
 
 function registerFRAIF(e) {
     window.location = "/registerFRAIF";
@@ -256,8 +480,4 @@ function registerFRAOIT(e) {
 
 function listFRAOIT(e) {
     window.location = "/listFRAOIT";
-}
-
-function consultaListaEnsayos(e){
-    window.location = "/listEnsayos";
 }

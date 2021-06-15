@@ -26,6 +26,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
+
                         <div class="card ">
                             <div class="card-header ">
                                 <h4 class="card-title">Solicitud de Servicio del cliente</h4>
@@ -212,6 +213,7 @@
                         </div>
 
                         <th:block th:each="row,iterador:${muestrasList}">
+
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">Información de las muestra</h4>
@@ -304,6 +306,7 @@
                                     <div id="muestraExtra"></div>
                                 </div>
                             </div>
+
                         </th:block>
 
                         <div class="card">
@@ -362,6 +365,7 @@
                                 </button>
                             </div>
                         </div>
+
                         <input type="hidden" class="form-control"
                                name="cantidadDeMuestras" id="cantidadDeMuestras"
                                th:value="${cantidadDeMuestras}">

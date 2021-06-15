@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Registro de análisis de determinación compuestos por termogravimetría</h4>
+                            </div>
+                            <div class="card-body ">
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio del método</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioTecnica" id="folioTecnica"
+                                                   th:value="${folioTecnica}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio de solicitud de servicio interno</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioSolicitudServicioInterno"
+                                                   id="folioSolicitudServicioInterno"
+                                                   th:value="${folioSolicitudServicioInterno}" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis"
+                                                   th:value="${fechaHoy}" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">ID Interno de muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="idInternoMuestra" id="idInternoMuestra"
+                                                   th:value="${idInternoMuestra}" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha final de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaFinalAnalisis" id="fechaFinalAnalisis" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="temperatura" id="temperatura"
+                                                   min="21" max="25" onkeydown="return false"
+                                                   step='0.1' value='23.0'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Humedad relativa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa"
+                                                   min="40" max="60" onkeydown="return false"
+                                                   step='1' value='50'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Código de TGA</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoTGA" id="codigoTGA"
+                                                   value="TGA-01" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Código de la balanza</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoBalanza" id="codigoBalanza"
+                                                   value="BALA-02" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer ">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Condiciones de ensayo</h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Peso (mg)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="peso" id="peso">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Posición portador muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="posicionPortadorMuestra" id="posicionPortadorMuestra">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tipo de material</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoMaterial" id="tipoMaterial"
+                                                    data-style="btn-primary"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Elastómeros">Elastómeros</option>
+                                                <option value="Termoplásticos">Termoplásticos</option>
+                                                <option value="Termofijos">Termofijos</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Etapa</th>
+                                            <th class="text-center">Temperatura (°C)</th>
+                                            <th class="text-center">Tiempo (min)</th>
+                                            <th class="text-center">Tipo de atmósfera</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">Purga</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="temperatura1" id="temperatura1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="tiempo1" id="tiempo1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="fnpa1" id="fnpa1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="fnpp1" id="fnpp1"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Dinámica</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="temperatura2" id="temperatura2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="flujoOxigeno2" id="flujoOxigeno2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="fnpa2" id="fnpa2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="fnpp2" id="fnpp2"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Dinámica</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="temperatura3" id="temperatura3"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="flujoOxigeno3" id="flujoOxigeno3"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="fnpa3" id="fnpa3"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="fnpp3" id="fnpp3"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Dinámica</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="temperatura4" id="temperatura4"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="flujoOxigeno4" id="flujoOxigeno4"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="fnpa4" id="fnpa4"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="fnpp4" id="fnpp4"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Dinámica</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="temperatura5" id="temperatura5"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="flujoOxigeno5" id="flujoOxigeno5"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="fnpa5" id="fnpa5"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="fnpp5" id="fnpp5"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">Tasa de calentamiento</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="tasaCalentamiento" id="tasaCalentamiento"
+                                                                           required="required"></td>
+                                            <th class="text-center">Tasa de enfriamiento</th>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="tasaEnfriamiento" id="tasaEnfriamiento"
+                                                                           required="required"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Resultados</h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Perdidas de masa</th>
+                                            <th class="text-center">Rango de temperatura (°C)</th>
+                                            <th class="text-center">Cambio de masa(%)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">Material altamente volátil</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="rangoTemperatura1" id="rangoTemperatura1"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="cambioMasa1" id="cambioMasa1"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Material volátil</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="rangoTemperatura2" id="rangoTemperatura2"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="cambioMasa2" id="cambioMasa2"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Material combustible</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="rangoTemperatura3" id="rangoTemperatura3"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="cambioMasa3" id="cambioMasa3"
+                                                                           required="required"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Contenido de cenizas</td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="rangoTemperatura4" id="rangoTemperatura4"
+                                                                           required="required"></td>
+                                            <td class="text-center"><input type="text" class="form-control"
+                                                                           name="cambioMasa4" id="cambioMasa4"
+                                                                           required="required"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Observaciones</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Evidencia</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="file" id="file" accept="image/*" onchange="mostrar()"/>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Vista previa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <img id="img" style="width: 320px; height: 240px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Observaciones</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="observaciones" id="observaciones" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Realizó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="realizo" id="realizo" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Supervisó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="supervisor" id="supervisor" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success" onclick="valida()">Registrar
+                                    Datos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <th:block th:include="/dependences/_Footer"></th:block>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/metodoFRATGA.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaInicioAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaFinalAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+</script>
+</html>

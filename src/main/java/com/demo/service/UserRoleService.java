@@ -32,6 +32,10 @@ public class UserRoleService {
         return userRoleRepository.findAll();
     }
 
+    public List<UserRole> findAllByUserId(Long id) {
+        return userRoleRepository.findAllByAppUser_UserId(id);
+    }
+
     public UserRole findByAppUserUserName(String username) {
         return userRoleRepository.findByAppUser_UserName(username);
     }

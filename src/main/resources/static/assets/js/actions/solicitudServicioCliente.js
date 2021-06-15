@@ -152,7 +152,7 @@ function agregarMuestra() {
                     '                                </div>' +
                     '                            </div>' +
                     '                            <div class="card-footer text-center">' +
-                    '                                <button type="submit" class="btn btn-fill btn-primary" onclick="valida()"><i' +
+                    '                                <button type="submit" class="btn btn-fill btn-primary" id="btnAceptar" onclick="valida()"><i' +
                     '                                        class="fa fa-floppy-o"></i>Registrar' +
                     '                                </button>' +
                     '                            </div>' +
@@ -184,6 +184,7 @@ function valida() {
     var test = document.getElementsByTagName("input");
     var test2 = document.getElementsByTagName("select");
     var totalMuestras = document.getElementById("cantidadMuestras").value;
+    document.getElementById("btnAceptar").disabled = true;
     var contador = 0;
 
     //var valoresMultiples = $('#metodo0').val();
@@ -509,6 +510,7 @@ function save(myjson) {
         error: function (data) {
             console.log("error");
             console.log(data);
+            document.getElementById("btnAceptar").disabled = false;
             swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
         }
     });
@@ -713,6 +715,7 @@ function cargarTabla() {
         '<thead>' +
         '<tr>' +
         '<th class="text-center">Folio</th>' +
+        '<th class="text-center">Cliente</th>' +
         '<th class="text-center">Fecha de recepción</th>' +
         '<th class="text-center">Fecha compromiso</th>' +
         '<th class="text-center">Ver detalles</th>' +
@@ -722,6 +725,7 @@ function cargarTabla() {
         '<tfoot>' +
         '<tr>' +
         '<th class="text-center">Folio</th>' +
+        '<th class="text-center">Cliente</th>' +
         '<th class="text-center">Fecha de recepción</th>' +
         '<th class="text-center">Fecha compromiso</th>' +
         '<th class="text-center">Ver detalles</th>' +
@@ -733,7 +737,8 @@ function cargarTabla() {
         $.each(result, function (i, field) {
             tbl +=
                 '<tr>' +
-                '<td class="text-center">' + field.folioSolitudServicioCliente + '</td>';
+                '<td class="text-center">' + field.folioSolitudServicioCliente + '</td>' +
+                '<td class="text-center">' + field.client.nombreRazonSocial + '</td>';
             if (field.fechaRecepcionMuestras === "") {
                 tbl += '<td class="text-center"><button class="btn btn-danger" onclick="fechaRecepcion(' + field.solicitudServicioClienteId + ')"><i class="fa fa-calendar"></i>Fecha recepción muestras</button></td>';
             } else {

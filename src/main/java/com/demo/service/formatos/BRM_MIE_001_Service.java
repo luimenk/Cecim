@@ -30,7 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 @Service
-public class BRM_MIE_001_Service {
+public class   BRM_MIE_001_Service {
 
     @Autowired
     private SolicitudServicioClienteService solicitudServicioClienteService;

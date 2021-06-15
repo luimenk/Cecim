@@ -1,9 +1,9 @@
 package com.demo.service.operacion.metodos;
 
-import com.demo.model.operacion.metodos.*;
+import com.demo.model.operacion.metodos.fra13eaxe.FRA_EAXE_013;
+import com.demo.model.operacion.metodos.fra13eaxe.datas.FRA_EAXE_013_DATA;
 import com.demo.repository.operacion.metodos.*;
 import com.demo.utils.EstructuraNombres;
-import com.demo.model.operacion.metodos.FRA_AT_001;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -14,7 +14,6 @@ import java.util.List;
 import com.demo.utils.FormatoFechas;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTbl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +53,10 @@ public class FRA_EAXE_013_Service {
 
     public FRA_EAXE_013 findById(Long id) {
         return fra_eaxe_013_repository.findByIdFRAEAXE(id);
+    }
+
+    public FRA_EAXE_013 findByFolio(String folio) {
+        return fra_eaxe_013_repository.findByFolioTecnica(folio);
     }
 
     public void delete(Long id) {

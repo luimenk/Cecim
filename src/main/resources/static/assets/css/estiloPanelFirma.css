@@ -1,0 +1,20 @@
+body {
+    overscroll-behavior: contain;
+}
+
+#sig-canvas {
+    border: 3px dotted #CCCCCC;
+    border-radius: 5px;
+    cursor: crosshair;
+    text-align: center;
+    margin: auto;
+}
+
+#sig-dataUrl {
+    width: 100%;
+}
+
+#sig-image {
+    text-align: center;
+    margin: auto;
+}

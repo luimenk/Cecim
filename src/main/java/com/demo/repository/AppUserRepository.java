@@ -13,4 +13,5 @@ import java.util.List;
 public interface AppUserRepository extends JpaRepository<AppUser, Long>{
     AppUser findByUserId(Long userId);
     AppUser findByUserName(String userName);
+    List<AppUser> findAllByVisible(Integer a);
 }

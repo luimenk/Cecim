@@ -28,6 +28,10 @@ public class AppUserService {
         return appUserRepository.findAll();
     }
 
+    public List<AppUser> findAllFiltered(Integer a) {
+        return appUserRepository.findAllByVisible(a);
+    }
+
     public AppUser findById(Long userId) {
         return appUserRepository.findByUserId(userId);
     }

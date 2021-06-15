@@ -73,6 +73,8 @@ public class ClientController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<?> create(@RequestBody ClientAux client) throws Exception {
 
+        System.out.println(client);
+
         Folios folios = foliosService.findByNombreFolio("FolioCliente");
         String structureFolio, dia, mes, nombre;
         String consecutivo = folios.getConsecutivo();

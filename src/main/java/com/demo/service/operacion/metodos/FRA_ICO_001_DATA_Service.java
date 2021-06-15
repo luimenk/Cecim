@@ -1,30 +1,16 @@
 package com.demo.service.operacion.metodos;
 
-import com.demo.model.operacion.metodos.*;
-import com.demo.repository.operacion.metodos.*;
+import com.demo.model.operacion.metodos.fra10ico.datas.FRA_ICO_001_DATA;
+import com.demo.repository.operacion.metodos.fra10ico.datas.FRA_ICO_001_DATA_Repository;
 import com.demo.utils.EstructuraNombres;
-import com.demo.model.operacion.metodos.FRA_AT_001;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
 
-import org.apache.poi.util.Units;
-import org.apache.poi.xwpf.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 @Service
 public class FRA_ICO_001_DATA_Service {

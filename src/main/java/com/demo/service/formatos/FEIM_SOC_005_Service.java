@@ -1,6 +1,7 @@
 package com.demo.service.formatos;
 
 import java.io.*;
+import java.net.URL;
 import java.util.*;
 
 import com.demo.model.operacion.MetodoMuestra;
@@ -9,6 +10,7 @@ import com.demo.model.operacion.SolicitudServicioClienteMuestras;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
 import com.demo.service.operacion.SolicitudServicioClienteService;
+import com.demo.utils.Constantes;
 import com.demo.utils.EstructuraNombres;
 import com.demo.utils.FormatoFechas;
 import com.demo.utils.GenerateQR;
@@ -91,7 +93,8 @@ public class FEIM_SOC_005_Service {
 
             XWPFParagraph paragraph = table.getRow(9).getCell(1).addParagraph();
             XWPFRun run = paragraph.createRun();
-            FileInputStream fis = new FileInputStream(lista.get(i).getPathQRIdentificacion());
+            //FileInputStream fis = new FileInputStream(lista.get(i).getPathQRIdentificacion());
+            InputStream fis = new URL(lista.get(i).getPathQRIdentificacion()).openStream();
 
             XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(150), Units.pixelToEMU(150));
         }

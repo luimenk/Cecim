@@ -1,23 +1,9 @@
 package com.demo.controller.operacion.metodos;
 
 import com.demo.model.operacion.MetodoMuestra;
-import com.demo.model.operacion.metodos.FRA_CST_001;
-import com.demo.model.operacion.metodos.FRA_PRR_001;
-import com.demo.service.ClientService;
-import com.demo.service.FoliosService;
-import com.demo.service.MethodService;
-import com.demo.service.QR.QRService;
-import com.demo.service.formatos.FEIM_SOC_005_Service;
-import com.demo.service.formatos.FSS_SOC_001_Service;
-import com.demo.service.formatos.metodos.IMPRIMIR_FRA_CST_001_Service;
-import com.demo.service.formatos.metodos.IMPRIMIR_FRA_DI_001_Service;
+import com.demo.model.operacion.metodos.fra19prr.FRA_PRR_001;
 import com.demo.service.formatos.metodos.IMPRIMIR_FRA_PRR_001_Service;
 import com.demo.service.operacion.MetodoMuestraService;
-import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
-import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
-import com.demo.service.operacion.SolicitudServicioClienteService;
-import com.demo.service.operacion.metodos.FRA_CST_001_Service;
-import com.demo.service.operacion.metodos.FRA_DI_001_Service;
 import com.demo.service.operacion.metodos.FRA_PRR_001_Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

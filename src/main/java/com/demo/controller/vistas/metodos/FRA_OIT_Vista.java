@@ -2,7 +2,7 @@ package com.demo.controller.vistas.metodos;
 
 import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
-import com.demo.model.operacion.metodos.FRA_OIT_001;
+import com.demo.model.operacion.metodos.fra14oit.FRA_OIT_001;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.service.operacion.metodos.FRA_OIT_001_Service;

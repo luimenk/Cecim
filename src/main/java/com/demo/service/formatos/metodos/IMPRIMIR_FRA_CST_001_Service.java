@@ -1,32 +1,14 @@
 package com.demo.service.formatos.metodos;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
-import com.demo.model.Client;
-import com.demo.model.Folios;
-import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
-import com.demo.model.operacion.SolicitudServicioCliente;
-import com.demo.model.operacion.SolicitudServicioClienteMuestras;
 import com.demo.model.operacion.metodos.FRA_CST_001;
-import com.demo.model.operacion.metodos.FRA_DI_001;
-import com.demo.model.operacion.metodos.FRA_ES_001;
-import com.demo.service.ClientService;
-import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
-import com.demo.service.operacion.SolicitudServicioClienteMuestrasService;
-import com.demo.service.operacion.SolicitudServicioClienteService;
 import com.demo.service.operacion.metodos.FRA_CST_001_Service;
-import com.demo.service.operacion.metodos.FRA_DI_001_Service;
-import com.demo.service.operacion.metodos.FRA_ES_001_Service;
 import com.demo.utils.EstructuraNombres;
 import com.demo.utils.FormatoFechas;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.*;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
@@ -34,7 +16,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
 @Service
 public class IMPRIMIR_FRA_CST_001_Service {

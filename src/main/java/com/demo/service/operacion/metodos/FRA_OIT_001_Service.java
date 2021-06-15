@@ -2,8 +2,7 @@ package com.demo.service.operacion.metodos;
 
 import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
-import com.demo.model.operacion.metodos.FRA_GR_001;
-import com.demo.model.operacion.metodos.FRA_OIT_001;
+import com.demo.model.operacion.metodos.fra14oit.FRA_OIT_001;
 import com.demo.repository.operacion.MetodoMuestraRepository;
 import com.demo.repository.operacion.RecepcionVerificacionRegistroCodificacionRepository;
 import com.demo.repository.operacion.metodos.FRA_OIT_001_Repository;
@@ -30,8 +29,6 @@ import org.springframework.http.ResponseEntity;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
-
-import javax.validation.constraints.Null;
 
 @Service
 public class FRA_OIT_001_Service {

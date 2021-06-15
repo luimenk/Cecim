@@ -21,19 +21,32 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
+                                    <label class="col-sm-2 control-label">Folio del método</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioTecnica" id="folioTecnica"
+                                                   th:value="${folioTecnica}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <label class="col-sm-2 control-label">Folio de solicitud de servicio interno</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                    name="folioSolicitudServicioInterno"
-                                                   id="folioSolicitudServicioInterno" required="true">
+                                                   id="folioSolicitudServicioInterno"
+                                                   th:value="${folioSolicitudServicioInterno}" disabled>
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis" required="true">
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis"
+                                                   th:value="${fechaHoy}" required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -43,31 +56,32 @@
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="idInternoMuestra" id="idInternoMuestra" required="true">
+                                                   name="idInternoMuestra" id="idInternoMuestra"
+                                                   th:value="${idInternoMuestra}" disabled>
                                         </div>
                                     </div>
-                                    <label class="col-sm-2 control-label">Fecha final de análisis</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="fechaFinalAnalisis" id="fechaFinalAnalisis" required="true">
-                                        </div>
-                                    </div>
+
                                 </div>
 
                                 <div class="row">
                                     <label class="col-sm-2 control-label">Temperatura</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="temperatura" id="temperatura" required="true">
+                                            <input type="number" class="form-control"
+                                                   name="temperatura" id="temperatura"
+                                                   min="21" max="25" onkeydown="return false"
+                                                   step='0.1' value='23.0'
+                                                   required="true">
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Humedad relativa</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="humedadRelativa" id="humedadRelativa" required="true">
+                                            <input type="number" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa"
+                                                   min="40" max="60" onkeydown="return false"
+                                                   step='0.1' value='50.0'
+                                                   required="true">
                                         </div>
                                     </div>
                                 </div>
@@ -76,8 +90,14 @@
                                     <label class="col-sm-2 control-label">Código de la cámara UV</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="codigoCamaraUV" id="codigoCamaraUV" required="true">
+                                            <select class="selectpicker" name="codigoCamaraUV" id="codigoCamaraUV"
+                                                    required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="QUV-01">QUV-01</option>
+                                                <option value="QUV-02">QUV-02</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <label class="col-sm-2 control-label">Código del radiómetro</label>
@@ -85,14 +105,14 @@
                                         <div class="form-group">
                                             <input type="text" class="form-control"
                                                    name="codigoRadiometro" id="codigoRadiometro"
-                                                   required="true">
+                                                   value="RADI-07" required="true">
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-fill btn-success" onclick="valida()">Registrar
+                                <button type="submit" class="btn btn-fill btn-success" id="btnAceptar" onclick="valida()">Registrar
                                     Datos
                                 </button>
                             </div>

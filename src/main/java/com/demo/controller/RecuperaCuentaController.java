@@ -64,13 +64,15 @@ public class RecuperaCuentaController {
         String text = new BigInteger(30, random).toString(32);
         System.out.println(text);
 
-        UserRole userRole = userRoleService.findByAppUserUserName(request.get("username"));
+        AppUser appUser = appUserService.findByUserName(request.get("username"));
 
-        if (userRole == null) {
+        //UserRole userRole = userRoleService.findByAppUserUserName(request.get("username"));
+
+        if (appUser == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        System.out.println(userRole.getAppUser().getNombreUsuario());
-        System.out.println(userRole.getAppUser().getUserId());
+        System.out.println(appUser.getNombreUsuario());
+        System.out.println(appUser.getUserId());
 
         RecuperaCuenta recuperaCuenta = new RecuperaCuenta();
         recuperaCuenta.setCorreo(request.get("username"));

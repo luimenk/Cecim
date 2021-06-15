@@ -1,10 +1,7 @@
 package com.demo.controller;
 
 import java.security.Principal;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import com.demo.model.*;
 import com.demo.service.*;
@@ -136,15 +133,15 @@ public class InterfaceController {
         generateQR.generate();*/
 
             //List<UserRole> algo = userRoleService.findBySomething("SUPERUSUARIO");
-            List<UserRole> algo = userRoleService.findAll();
-            for (int i = 0; i <algo.size(); i++) {
-                if (algo.get(i).getAppRole().getRoleName().equals("LABORATORISTA")) {
-                    System.out.println(algo.get(i).getAppUser().getUserName());
-                    System.out.println(algo.get(i).getAppRole().getRoleName());
-                }
-            }
+//            List<UserRole> algo = userRoleService.findAll();
+//            for (int i = 0; i <algo.size(); i++) {
+//                if (algo.get(i).getAppRole().getRoleName().equals("LABORATORISTA")) {
+//                    System.out.println(algo.get(i).getAppUser().getUserName());
+//                    System.out.println(algo.get(i).getAppRole().getRoleName());
+//                }
+//            }
 
-            for (GrantedAuthority a : review) {
+            /*for (GrantedAuthority a : review) {
                 //System.out.println(a.getAuthority());
                 if (a.getAuthority().equals("ROLE_SUPERUSUARIO") || a.getAuthority().equals("ROLE_DIRECTORGENERAL")) {
                     rol = "content/dashboard/dashboard";
@@ -165,9 +162,9 @@ public class InterfaceController {
                     rol = "content/dashboard/dashboardLabo";
                 }
                 model.addAttribute("role", a.getAuthority());
-            }
+            }*/
 
-            return rol;
+            return "content/dashboard/dashboard";
         } catch (CookieTheftException ex){
             System.out.println("El token ha caducado");
             return "content/accesos/index";
@@ -355,54 +352,6 @@ public class InterfaceController {
         }
 
         return "content/metodo/listMethod";
-    }
-
-    //USUARIOS
-    @RequestMapping(value = "/registerUsuario")
-    public String altaUsuarios(Model model, Principal principal) {
-        // After user login successfully.
-        String userName = principal.getName();
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String userInfo = WebUtils.toString(loginedUser);
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
-
-        model.addAttribute("userName", userName);
-        model.addAttribute("userInfo", userInfo);
-
-        List<AppRole> lista = appRoleService.findAll();
-        model.addAttribute("roles", lista);
-
-        List<Method> lista2 = methodService.findAll();
-        model.addAttribute("metodos", lista2);
-
-        for (GrantedAuthority a : review) {
-            model.addAttribute("role", a.getAuthority());
-        }
-        return "content/usuarios/formUsuario";
-    }
-
-    @RequestMapping("/listUsuario")
-    public String listUsuario(Model model, Principal principal) {
-        // After user login successfully.
-        String userName = principal.getName();
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
-        String userInfo = WebUtils.toString(loginedUser);
-
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
-
-        model.addAttribute("userName", userName);
-        model.addAttribute("userInfo", userInfo);
-
-        List<Machine> lista = machineService.findAll();
-        model.addAttribute("maquinas", lista);
-
-        for (GrantedAuthority a : review) {
-            model.addAttribute("role", a.getAuthority());
-        }
-
-        return "content/usuarios/listUsuario";
     }
 
     //ORDEN DE SERVICIO DEL CLIENTE
@@ -663,46 +612,7 @@ public class InterfaceController {
         return "content/solicitudServicioCliente/listSolicitudServicio";
     }*/
 
-    @RequestMapping("/registroUsuario/{id}")
-    public String modificarUsuario(@PathVariable Long id, Model model, Principal principal) {
 
-        // After user login successfully.
-        String userName = principal.getName();
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
-        String userInfo = WebUtils.toString(loginedUser);
-
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
-
-        model.addAttribute("userName", userName);
-        model.addAttribute("userInfo", userInfo);
-
-        UserRole userRole = userRoleService.findByIdUser(id);
-
-        //AppUser appUser = appUserService.findById(id);
-
-        model.addAttribute("userId", userRole.getAppUser().getUserId());
-        model.addAttribute("userName", userRole.getAppUser().getUserName());
-        //System.out.println(appUser.getUserName());
-        //model.addAttribute("password", appUser.getPassword());
-        model.addAttribute("nombreUsuario", userRole.getAppUser().getNombreUsuario());
-        model.addAttribute("apellidoUsuario", userRole.getAppUser().getApellidoUsuario());
-        model.addAttribute("nacimiento", userRole.getAppUser().getNacimiento());
-        //System.out.println(appUser.getNacimiento());
-        model.addAttribute("puesto", userRole.getAppUser().getPuesto());
-
-        model.addAttribute("rolSeleccionado", userRole.getAppRole().getRoleId());
-
-        List<AppRole> lista = appRoleService.findAll();
-        model.addAttribute("roles", lista);
-
-        for (GrantedAuthority a : review) {
-            model.addAttribute("role", a.getAuthority());
-        }
-
-        return "content/usuarios/formUsuario";
-    }
 
     @RequestMapping("/registroEtiqueta/{id}")
     public String modificarEtiqueta(@PathVariable Long id, Model model, Principal principal) {
@@ -863,49 +773,7 @@ public class InterfaceController {
         return "content/operacion/metodos/selladoTemperatura/listSelladoTemperatura";
     }
 
-    @RequestMapping(value = "/registerEspectrometriaInfrarroja/{id}")
-    public String registerEspectrometriaInfrarroja(Model model, Principal principal, @PathVariable("id") Long id) {
-        // After user login successfully.
-        String userName = principal.getName();
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String userInfo = WebUtils.toString(loginedUser);
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
 
-        model.addAttribute("userName", userName);
-        model.addAttribute("userInfo", userInfo);
-
-        List<Client> lista = clientService.findAll();
-        model.addAttribute("empresas", lista);
-
-        List<Method> lista2 = methodService.findAll();
-        model.addAttribute("metodos", lista2);
-
-        for (GrantedAuthority a : review) {
-            model.addAttribute("role", a.getAuthority());
-        }
-        return "content/operacion/metodos/espectrometriaInfrarroja/formEspectrometriaInfrarroja";
-    }
-
-    @RequestMapping("/listEspectrometriaInfrarroja")
-    public String listEspectrometriaInfrarroja(Model model, Principal principal) {
-        // After user login successfully.
-        String userName = principal.getName();
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
-        String userInfo = WebUtils.toString(loginedUser);
-
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
-
-        model.addAttribute("userName", userName);
-        model.addAttribute("userInfo", userInfo);
-
-        for (GrantedAuthority a : review) {
-            model.addAttribute("role", a.getAuthority());
-        }
-
-        return "content/operacion/metodos/espectrometriaInfrarroja/listEspectrometriaInfrarroja";
-    }
 
     @RequestMapping(value = "/registerElongacionRuptura/{id}")
     public String registerElongacionRuptura(Model model, Principal principal, @PathVariable("id") Long id) {
@@ -984,37 +852,6 @@ public class InterfaceController {
         return "content/operacion/metodos/FRA_PRR/listFRA_PRR";
     }
 
-    @RequestMapping(value = "/registerFRAGR/{id}")
-    public String registerFRAGR(Model model, Principal principal, @PathVariable("id") Long id) {
 
-        List<Client> lista = clientService.findAll();
-        model.addAttribute("empresas", lista);
-
-        List<Method> lista2 = methodService.findAll();
-        model.addAttribute("metodos", lista2);
-
-        return "content/operacion/metodos/FRA_GR/formFRA_GR";
-    }
-
-    @RequestMapping("/listFRAGR")
-    public String listFRAGR(Model model, Principal principal) {
-        // After user login successfully.
-        String userName = principal.getName();
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
-        String userInfo = WebUtils.toString(loginedUser);
-
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
-
-        model.addAttribute("userName", userName);
-        model.addAttribute("userInfo", userInfo);
-
-        for (GrantedAuthority a : review) {
-            model.addAttribute("role", a.getAuthority());
-        }
-
-        return "content/operacion/metodos/FRA_GR/listFRA_GR";
-    }
 
 }

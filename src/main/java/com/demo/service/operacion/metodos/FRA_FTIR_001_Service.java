@@ -1,7 +1,8 @@
 package com.demo.service.operacion.metodos;
 
-import com.demo.model.operacion.metodos.FRA_FTIR_001;
-import com.demo.repository.operacion.metodos.FRA_FTIR_001_Repository;
+import com.demo.model.operacion.metodos.fra03es.FRA_ES_001;
+import com.demo.model.operacion.metodos.fra08ftir.FRA_FTIR_001;
+import com.demo.repository.operacion.metodos.fra08ftir.FRA_FTIR_001_Repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,11 @@ public class FRA_FTIR_001_Service {
     }
 
     public FRA_FTIR_001 findById(Long id) {
-        return fra_ftir_001_repository.findByCompuestosEspectrometriaInfrarrojaId(id);
+        return fra_ftir_001_repository.findByIdFRAFTIR(id);
+    }
+
+    public FRA_FTIR_001 findByIdInternoMuestra(String id) {
+        return fra_ftir_001_repository.findByIdInternoMuestra(id);
     }
 
     public FRA_FTIR_001 findByMuestra(Long id) {

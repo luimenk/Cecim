@@ -13,7 +13,7 @@ public class AppUser {
     @Column(name = "User_Id", nullable = false)
     private Long userId;
 
-    @Column(name = "User_Name", length = 36, nullable = false)
+    @Column(name = "User_Name", length = 36, nullable = false, unique = true)
     private String userName;
 
     @Column(name = "password", length = 128, nullable = false)
@@ -21,6 +21,9 @@ public class AppUser {
 
     @Column(name = "Enabled", length = 1, nullable = false)
     private boolean enabled;
+
+    @Column(name = "Visible", length = 1, nullable = false)
+    private int visible;
 
     @Column(name = "nombre_usuario", length = 200, nullable = false)
     private String nombreUsuario;
@@ -37,10 +40,12 @@ public class AppUser {
     public AppUser() {
     }
 
-    public AppUser(String userName, String password, boolean enabled, String nombreUsuario, String apellidoUsuario, String nacimiento, String puesto) {
+    public AppUser(Long userId, String userName, String password, boolean enabled, int visible, String nombreUsuario, String apellidoUsuario, String nacimiento, String puesto) {
+        this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.enabled = enabled;
+        this.visible = visible;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
         this.nacimiento = nacimiento;
@@ -77,6 +82,14 @@ public class AppUser {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public int getVisible() {
+        return visible;
+    }
+
+    public void setVisible(int visible) {
+        this.visible = visible;
     }
 
     public String getNombreUsuario() {

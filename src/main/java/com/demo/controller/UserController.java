@@ -10,6 +10,7 @@ import com.demo.model.AppUser;
 import com.demo.model.UserRole;
 import com.demo.service.AppUserService;
 import com.demo.utils.EncryptedPasswordUtils;
+import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/user")
@@ -43,21 +41,67 @@ public class UserController {
     private static final Logger APP = LoggerFactory.getLogger("info");
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
+//    //ListarTodo
+//    @RequestMapping(method = RequestMethod.GET)
+//    @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
+//    public List<UserRole> getAll() {
+//        System.out.println("Entró");
+//        return userRoleRepository.findAll();
+//    }
+
     //ListarTodo
     @RequestMapping(method = RequestMethod.GET)
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
-    public List<UserRole> getAll() {
+    public List<AppUser> getAllFiltered() {
         System.out.println("Entró");
-        return userRoleRepository.findAll();
+        return appUserService.findAllFiltered(1);
+    }
+
+
+    //Listar los roles por usuername
+    @RequestMapping(method = RequestMethod.GET, value = "/user/{username}")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
+    public List<UserRole> getAllByUsername(@PathVariable("username") String username) {
+        return userRoleRepository.findAllByAppUser_UserName(username);
     }
 
     //GuardarElemento
     @RequestMapping(method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> create(@RequestBody Map<String, String> request) throws Exception {
+    public ResponseEntity<?> create(@RequestBody Map<String, Object> request) throws Exception {
+
+        List<String> lista = new ArrayList<String>((ArrayList<String>) request.get("permisos"));
+
+        for (int i = 0; i < lista.size(); i++) {
+            System.out.println(lista.get(i));
+        }
 
         EncryptedPasswordUtils encryptedPasswordUtils = new EncryptedPasswordUtils();
+        AppUser appUser = new AppUser();
+
+        appUser.setUserName(request.get("userName").toString());
+        appUser.setPassword(encryptedPasswordUtils.encryte(request.get("password1").toString()));
+        appUser.setEnabled(true);
+        appUser.setNombreUsuario(request.get("nombreUsuario").toString());
+        appUser.setApellidoUsuario(request.get("apellidoUsuario").toString());
+        appUser.setNacimiento(request.get("nacimiento").toString());
+        appUser.setPuesto(request.get("puesto").toString());
+        appUser.setVisible(1);
+
+        appUserService.save(appUser);
+
+        for (int i = 0; i < lista.size(); i++) {
+            UserRole userRole = new UserRole();
+            AppRole appRole = appRoleService.findById(Long.parseLong(lista.get(i)));
+            userRole.setAppRole(appRole);
+            userRole.setAppUser(appUser);
+            userRoleRepository.save(userRole);
+        }
+
+        mailService.registroUsuario(appUser.getUserName(), request.get("password1").toString());
+
+        /*
 
         AppUser valida = appUserService.findByUserName(request.get("userName"));
 
@@ -119,6 +163,51 @@ public class UserController {
 
         userRoleRepository.save(userRole);
         mailService.registroUsuario(nuevaUnion.getUserName(), request.get("password"));
+*/
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //Modificar
+    @RequestMapping(method = RequestMethod.POST, path = "/modificar")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<?> modificar(@RequestBody Map<String, Object> request) throws Exception {
+
+        List<String> lista = new ArrayList<String>((ArrayList<String>) request.get("permisos"));
+
+        EncryptedPasswordUtils encryptedPasswordUtils = new EncryptedPasswordUtils();
+        AppUser appUser = appUserService.findById(Long.parseLong(request.get("userId").toString()));
+
+        appUser.setUserName(request.get("userName").toString());
+        if (request.get("password1").toString().equals("")) {
+            System.out.println("La contraseña no cambiará");
+        } else {
+            appUser.setPassword(encryptedPasswordUtils.encryte(request.get("password1").toString()));
+        }
+        appUser.setEnabled(true);
+        appUser.setNombreUsuario(request.get("nombreUsuario").toString());
+        appUser.setApellidoUsuario(request.get("apellidoUsuario").toString());
+        appUser.setNacimiento(request.get("nacimiento").toString());
+        appUser.setPuesto(request.get("puesto").toString());
+        appUser.setVisible(1);
+
+        appUserService.save(appUser);
+
+        List<UserRole> userRoles = userRoleRepository.findAllByAppUser_UserId(appUser.getUserId());
+
+        for (int j = 0; j<userRoles.size(); j++) {
+            userRoleRepository.delete(userRoles.get(j));
+        }
+
+        for (int i = 0; i < lista.size(); i++) {
+            UserRole userRole = new UserRole();
+            AppRole appRole = appRoleService.findById(Long.parseLong(lista.get(i)));
+            userRole.setAppRole(appRole);
+            userRole.setAppUser(appUser);
+            userRoleRepository.save(userRole);
+        }
+
+        mailService.registroUsuario(appUser.getUserName(), request.get("password1").toString());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -129,9 +218,13 @@ public class UserController {
     public void delete(@PathVariable("userId") Long userId){
 
         AppUser appUser = appUserService.findById(userId);
-        UserRole userRole = userRoleRepository.findByAppUser_UserName(appUser.getUserName());
+//        UserRole userRole = userRoleRepository.findByAppUser_UserName(appUser.getUserName());
+        List<UserRole> userRoles = userRoleRepository.findAllByAppUser_UserId(appUser.getUserId());
 
-        userRoleRepository.delete(userRole);
+        for (int j = 0; j<userRoles.size(); j++) {
+            userRoleRepository.delete(userRoles.get(j));
+        }
+
         appUserService.delete(userId);
     }
 }

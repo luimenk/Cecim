@@ -1,16 +1,11 @@
 package com.demo.controller.vistas.metodos;
 
-import com.demo.model.Client;
-import com.demo.model.Method;
 import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
-import com.demo.model.operacion.metodos.FRA_DSC;
-import com.demo.model.operacion.metodos.FRA_OIT_001;
+import com.demo.model.operacion.metodos.fra15dsc.FRA_DSC;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.RecepcionVerificacionRegistroCodificacionService;
 import com.demo.service.operacion.metodos.FRA_DSC_Service;
-import com.demo.service.operacion.metodos.FRA_OIT_001_Service;
-import com.demo.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +20,6 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 @Controller

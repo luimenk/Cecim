@@ -1,6 +1,6 @@
 package com.demo.service.operacion.metodos;
 
-import com.demo.model.operacion.metodos.FRA_DI_001;
+import com.demo.model.operacion.metodos.fra02di.FRA_DI_001;
 import com.demo.repository.operacion.metodos.FRA_DI_001_Repository;
 
 import org.slf4j.Logger;
@@ -30,10 +30,16 @@ public class FRA_DI_001_Service {
     }
 
     public FRA_DI_001 findById(Long id) {
-        return fra_di_001_repository.findByDeterminacionDimensionesId(id);
+        return fra_di_001_repository.findByIdFRADI(id);
     }
 
-    public FRA_DI_001 findByMuestra(Long id){ return fra_di_001_repository.findByMetodoMuestra_MetodoMuestraId(id); }
+    public FRA_DI_001 findByIdInternoMuestra(String id) {
+        return fra_di_001_repository.findByIdInternoMuestra(id);
+    }
+
+    public FRA_DI_001 findByMuestra(Long id) {
+        return fra_di_001_repository.findByMetodoMuestra_MetodoMuestraId(id);
+    }
 
     public void delete(Long id) {
         fra_di_001_repository.deleteById(id);

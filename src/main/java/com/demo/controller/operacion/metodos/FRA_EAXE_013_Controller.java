@@ -1,12 +1,12 @@
 package com.demo.controller.operacion.metodos;
 
 import com.demo.model.operacion.MetodoMuestra;
-import com.demo.model.operacion.metodos.*;
+import com.demo.model.operacion.metodos.fra13eaxe.FRA_EAXE_013;
+import com.demo.model.operacion.metodos.fra13eaxe.datas.FRA_EAXE_013_DATA;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.*;
 import com.demo.utils.SaveInServer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.jni.Time;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.sql.Timestamp;
-import java.time.LocalTime;
 import java.util.*;
 
 @RestController
@@ -68,6 +66,17 @@ public class FRA_EAXE_013_Controller {
         return fra_eaxe_013;
     }
 
+    //ObtenerPorFolio
+    @RequestMapping(method = RequestMethod.GET, value = "busquedaFolio/{folio}")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET})
+    public FRA_EAXE_013 getByFolio(@PathVariable("folio") String folio) {
+        FRA_EAXE_013 fra_eaxe_013 = fra_eaxe_013_service.findByFolio(folio);
+        if (fra_eaxe_013 == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return fra_eaxe_013;
+    }
+
     //GuardarElemento
     @RequestMapping(method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
@@ -76,14 +85,16 @@ public class FRA_EAXE_013_Controller {
         APP.debug("Registro FRA_EAXE a las: " + calendario.getTime());
         FRA_EAXE_013 fra_eaxe_013 = new FRA_EAXE_013();
 
+        fra_eaxe_013.setFolioTecnica(request.get("folioTecnica"));
         fra_eaxe_013.setFolioSolicitudServicioInterno(request.get("folioSolicitudServicioInterno"));
         fra_eaxe_013.setFechaInicioAnalisis(request.get("fechaInicioAnalisis"));
-        fra_eaxe_013.setFechaFinalAnalisis(request.get("fechaFinalAnalisis"));
+        fra_eaxe_013.setFechaFinalAnalisis("");
         fra_eaxe_013.setIdInternoMuestra(request.get("idInternoMuestra"));
         fra_eaxe_013.setTemperatura(request.get("temperatura"));
         fra_eaxe_013.setHumedadRelativa(request.get("humedadRelativa"));
         fra_eaxe_013.setCodigoCamaraXE(request.get("codigoCamaraXE"));
         fra_eaxe_013.setEstatus("inicio");
+        fra_eaxe_013.setCantidadModificaciones("3");
         MetodoMuestra metodoMuestra = metodoMuestraService.findById(Long.parseLong(request.get("id")));
         fra_eaxe_013.setMetodoMuestra(metodoMuestra);
 
@@ -150,6 +161,7 @@ public class FRA_EAXE_013_Controller {
 
         FRA_EAXE_013 fra_eaxe_013 = fra_eaxe_013_service.findById(Long.parseLong(request.get("id")));
 
+        fra_eaxe_013.setFechaFinalAnalisis(request.get("fechaFinalAnalisis"));
         fra_eaxe_013.setTiempoTotalExposicion(request.get("tiempoTotalExposicion"));
         fra_eaxe_013.setObservaciones(request.get("observaciones"));
         fra_eaxe_013.setRealizo(request.get("realizo"));

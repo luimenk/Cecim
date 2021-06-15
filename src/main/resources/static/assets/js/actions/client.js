@@ -54,7 +54,7 @@ function valida(e){
     var cont=0;
     var contacto={};
     for (var i=0; i < test.length; i++){
-        if (i >= 10) {
+        if (i >= 11) {
             clave=test[i].getAttribute("id");
             valor=document.getElementById(clave).value;
             contacto[clave]=valor;

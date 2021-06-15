@@ -84,9 +84,26 @@ public class ListaEnsayosVista {
 
         List<Folios> folios = foliosService.findAll();
 
-
-
+        model.addAttribute("folioAT", folios.get(5).getConsecutivo());
+        model.addAttribute("folioDI", folios.get(6).getConsecutivo());
+        model.addAttribute("folioES", folios.get(7).getConsecutivo());
+        model.addAttribute("folioGR", folios.get(8).getConsecutivo());
+        model.addAttribute("folioHUM", folios.get(9).getConsecutivo());
+        model.addAttribute("folioNCP", folios.get(10).getConsecutivo());
+        model.addAttribute("folioPPG", folios.get(11).getConsecutivo());
+        model.addAttribute("folioFTIR", folios.get(12).getConsecutivo());
+        model.addAttribute("folioTGA", folios.get(13).getConsecutivo());
+        model.addAttribute("folioICO", folios.get(14).getConsecutivo());
+        model.addAttribute("folioEAT", folios.get(15).getConsecutivo());
+        model.addAttribute("folioEAUV", folios.get(16).getConsecutivo());
+        model.addAttribute("folioEAXE", folios.get(17).getConsecutivo());
         model.addAttribute("folioOIT", folios.get(18).getConsecutivo());
+        model.addAttribute("folioDSC", folios.get(19).getConsecutivo());
+        model.addAttribute("folioCST", folios.get(20).getConsecutivo());
+        model.addAttribute("folioIF", folios.get(21).getConsecutivo());
+        model.addAttribute("folioPO", folios.get(22).getConsecutivo());
+        model.addAttribute("folioPRR", folios.get(23).getConsecutivo());
+        model.addAttribute("folioRTER", folios.get(24).getConsecutivo());
 
         List<Machine> lista = machineService.findAll();
         model.addAttribute("maquinas", lista);

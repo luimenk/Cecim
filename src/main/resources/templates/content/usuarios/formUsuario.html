@@ -15,93 +15,484 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-2">
-<!--                        <button class="btn btn-fill btn-success" onclick="listSolicitudServicio()"><i-->
-<!--                                class="fa fa-arrow-circle-left"></i>Volver-->
-<!--                        </button>-->
+                        <!--                        <button class="btn btn-fill btn-success" onclick="listSolicitudServicio()"><i-->
+                        <!--                                class="fa fa-arrow-circle-left"></i>Volver-->
+                        <!--                        </button>-->
                         <button class="btn btn-warning" onclick="dashboard()"><i class="fa fa-home"></i>Inicio</button>
                     </div>
                     <div class="col-md-2">
 
                     </div>
                 </div>
+
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="card stacked-form">
-                            <div class="card-header ">
-                                <h4 class="card-title">Registro de Usuarios</h4>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Registro de Usuario</h4>
                             </div>
-                            <div class="card-body ">
-                                <form id="TypeValidation" method="" th:object="${cliente}" class="form-horizontal">
-                                    <div class="form-group">
-                                        <input type="hidden" class="form-control" th:value="${userId}"
-                                               name="userId" id="userId" required="true">
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Nombre(s) de Usuario: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" th:value="${userId}"
+                                                   name="userId" id="userId" required="true">
+                                            <input type="text" class="form-control"
+                                                   th:value="${nombreUsuario}" name="nombreUsuario" id="nombreUsuario"
+                                                   required="true">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Nombre(s) de Usuario</label>
-                                        <input type="text" placeholder="Nombre:" class="form-control"
-                                               th:value="${nombreUsuario}"
-                                               name="nombreUsuario" id="nombreUsuario" required="true">
+
+                                    <label class="col-sm-2 control-label">Apellido(s) de Usuario: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   th:value="${apellidoUsuario}"
+                                                   name="apellidoUsuario" id="apellidoUsuario" required="true">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Apellido(s) de Usuario</label>
-                                        <input type="text" placeholder="Apellido:" class="form-control"
-                                               th:value="${apellidoUsuario}"
-                                               name="apellidoUsuario" id="apellidoUsuario" required="true">
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Fecha de Nacimiento: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control datepicker"
+                                                   th:value="${nacimiento}"
+                                                   name="nacimiento" id="nacimiento" required="true">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Fecha de Nacimiento</label>
-                                        <input type="text" class="form-control datepicker"
-                                               th:value="${nacimiento}"
-                                               name="nacimiento" id="nacimiento" required="true">
+
+                                    <label class="col-sm-2 control-label">Puesto: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   th:value="${puesto}"
+                                                   name="puesto" id="puesto" required="true">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Puesto</label>
-                                        <input type="text" placeholder="Puesto" class="form-control"
-                                               th:value="${puesto}"
-                                               name="puesto" id="puesto" required="true">
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Correo electrónico:
+                                        <star class="star">*</star>
+                                    </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   th:value="${userName}"
+                                                   name="userName" id="userName" required="true">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Correo electrónico
-                                            <star class="star">*</star>
-                                        </label>
-                                        <input type="email" placeholder="Correo electronico" class="form-control"
-                                               th:value="${userName}"
-                                               name="userName" id="userName" required="true">
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Contraseña: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" th:value="${password}"
+                                                   name="password" id="password" required="true">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Contraseña</label>
-                                        <input type="password" class="form-control" th:value="${password}"
-                                               name="password" id="password" required="true">
+
+                                    <label class="col-sm-2 control-label">Confirmar contraseña: </label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" th:value="${password1}"
+                                                   name="password1" id="password1" required="true">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Confirmar contraseña</label>
-                                        <input type="password" class="form-control" th:value="${password1}"
-                                               name="password1" id="password1" required="true">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Tipo de rol de usuario</label>
-                                        <select class="selectpicker" name="rolUsuario" id="rolUsuario" required="true"
-                                                data-title="Selecciona un método..."
-                                                data-style="btn-default btn-outline"
-                                                data-menu-style="dropdown-blue">
-                                            <th:block th:object="${roles}" th:each="item:${roles}">
-                                                <div th:switch="${item.roleId}">
-                                                    <p th:case="${rolSeleccionado}"><option th:value="${item.roleId}" th:text="${item.roleName}" selected></option></p>
-                                                    <p th:case="*"><option th:value="${item.roleId}" th:text="${item.roleName}"></option></p>
-                                                </div>
-                                            </th:block>
-                                        </select>
-                                    </div>
-                                </form>
+                                </div>
+
                             </div>
-                            <div class="card-footer ">
-                                <button type="submit" class="btn btn-fill btn-info" onclick="valida()">Registrar
-                                </button>
-                                <!--<button type="submit" class="btn btn-fill btn-info">Submit</button>-->
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Apartado de permisos</h4>
+                            </div>
+                            <div class="card-body text-center">
+                                <h6 class="text-primary">A continuación configura los permisos que serán asignados a
+                                    este usuario.</h6>
+                            </div>
+                            <div class="card-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Clientes</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left">Acción</th>
+                                        <th class="text-right">Estado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Registrar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="registrarClientes" value="9">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Consultar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="consultarClientes" value="10">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Métodos</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left">Acción</th>
+                                        <th class="text-right">Estado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Registrar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="registrarMetodos" value="11">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Consultar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="consultarMetodos" value="12">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Usuarios</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left">Acción</th>
+                                        <th class="text-right">Estado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Registrar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="registrarUsuarios" value="13">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Consultar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="consultarUsuarios" value="14">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Equipo</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left">Acción</th>
+                                        <th class="text-right">Estado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Registrar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="registrarEquipo" value="15">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Consultar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="consultarEquipo" value="16">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Solicitud de servicio del cliente</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left">Acción</th>
+                                        <th class="text-right">Estado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Registrar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="registrarSolicitudServicioCliente" value="17">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Consultar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="consultarSolicitudServicioCliente" value="18">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Pagos</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="pagosSolicitudServicioCliente" value="19">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Cotización y contrato</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left">Acción</th>
+                                        <th class="text-right">Estado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Consultar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="consultarCotizacionContrato" value="20">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Solicitud de servicio interno</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left">Acción</th>
+                                        <th class="text-right">Estado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Consultar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="consultarSolicitudServicioInterno" value="21">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Recepción, verificación, registro y codificación de la muestra</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left">Acción</th>
+                                        <th class="text-right">Estado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Retención por QR</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="registrarRetencion" value="22">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Consultar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="consultarRetencion" value="23">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Lectura de QR para ensayos</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left">Acción</th>
+                                        <th class="text-right">Estado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Registrar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="registrarLecturaEnsayo" value="24">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Listas de ensayos</h4>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-left">Acción</th>
+                                        <th class="text-right">Estado</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Consultar</td>
+                                        <td class="text-right">
+                                            <input type="checkbox" data-toggle="switch" data-on-color="info"
+                                                   data-off-color="info" id="consultarListaEnsayos" value="25">
+                                            <span class="toggle"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header text-center">
+                            </div>
+                            <div class="card-body text-center">
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success" onclick="valida()">
+                                    <span class="btn-label">
+                                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                                    </span>
+                                    Registrar
+                                </button>
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <th:block th:include="/dependences/_Footer"></th:block>
@@ -131,7 +522,7 @@
                     email: true,
                 },
                 nombreUsuario: {
-                  required: true
+                    required: true
                 },
                 password: {
                     required: true,
@@ -161,7 +552,7 @@
                     required: "Por favor complete la información",
                     email: "Se requiere una dirección de correo electrónico válida",
                 },
-                nombreUsuario:{
+                nombreUsuario: {
                     required: "Por favor complete la información",
                 }
             },

@@ -1,6 +1,7 @@
 package com.demo.service.formatos;
 
 import java.io.*;
+import java.net.URL;
 import java.util.*;
 
 import com.demo.model.operacion.MetodoMuestra;
@@ -76,7 +77,8 @@ public class FEIL_MIE_007_Service {
 
                 XWPFParagraph paragraph = table.getRow(4).getCell(1).addParagraph();
                 XWPFRun run = paragraph.createRun();
-                FileInputStream fis = new FileInputStream(lista.get(i).getPathQRLab());
+                //FileInputStream fis = new FileInputStream(lista.get(i).getPathQRLab());
+                InputStream fis = new URL(lista.get(i).getPathQRLab()).openStream();
                 XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(130), Units.pixelToEMU(130));
             } else {
                 try{
@@ -87,7 +89,8 @@ public class FEIL_MIE_007_Service {
 
                     XWPFParagraph paragraph = table.getRow(4).getCell(1).addParagraph();
                     XWPFRun run = paragraph.createRun();
-                    FileInputStream fis = new FileInputStream(lista.get(i).getPathQRLab());
+                    //FileInputStream fis = new FileInputStream(lista.get(i).getPathQRLab());
+                    InputStream fis = new URL(lista.get(i).getPathQRLab()).openStream();
                     XWPFPicture picture = run.addPicture(fis, XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(130), Units.pixelToEMU(130));
                 } catch (NullPointerException e){
                     System.out.println("No se han hecho todas las recepciones");

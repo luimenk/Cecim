@@ -3,10 +3,14 @@ package com.demo.service.QR;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.EnumMap;
 import java.util.Map;
+
+import com.demo.utils.Constantes;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 
 import javax.imageio.ImageIO;
 
@@ -19,6 +23,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import org.hibernate.engine.jdbc.internal.BinaryStreamImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +33,7 @@ public class QRService {
     @Autowired
     MetodoMuestraService metodoMuestraService;
 
-    public String generate(Long id) {
+    public String generate(Long id, String ruta) {
         EstructuraNombres estructuraNombres = new EstructuraNombres();
         String filePath = "";
 
@@ -39,6 +44,7 @@ public class QRService {
         }
 
         String myCodeText = id.toString();
+        String fileName = estructuraNombres.getNombreQR()+".png";
         int size = 250;
         String fileType = "png";
         File myFile = new File(filePath);
@@ -72,8 +78,7 @@ public class QRService {
                     }
                 }
             }
-
-            ImageIO.write(image, fileType, myFile);
+            conexionFTP(fileName, ruta, convertirQRaInputStream(image));
 
         } catch (WriterException e) {
             e.printStackTrace();
@@ -83,10 +88,10 @@ public class QRService {
 
         System.out.println("\nSe creó satisfactoriamente el QR.");
 
-        return filePath;
+        return fileName;
     }
 
-    public String generateToLab(Long id) {
+    public String generateToLab(Long id, String ruta) {
         EstructuraNombres estructuraNombres = new EstructuraNombres();
         String filePath = "";
 
@@ -99,6 +104,7 @@ public class QRService {
         MetodoMuestra metodoMuestra = metodoMuestraService.findById(id);
 
         String myCodeText = metodoMuestra.getMethod().getRuta()+"/"+metodoMuestra.getMetodoMuestraId();
+        String fileName = estructuraNombres.getNombreQR()+".png";
 
         int size = 250;
         String fileType = "png";
@@ -134,7 +140,9 @@ public class QRService {
                 }
             }
 
-            ImageIO.write(image, fileType, myFile);
+            conexionFTP(fileName, ruta, convertirQRaInputStream(image));
+
+            //ImageIO.write(image, fileType, myFile);
 
         } catch (WriterException e) {
             e.printStackTrace();
@@ -144,6 +152,53 @@ public class QRService {
 
         System.out.println("\nSe creó satisfactoriamente el QR.");
 
-        return filePath;
+        return fileName;
+    }
+
+    public InputStream convertirQRaInputStream(BufferedImage imagen) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(imagen, "png", byteArrayOutputStream);
+        return new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+    }
+
+    public void conexionFTP(String fileName, String ruta, InputStream archivo) {
+        FTPClient ftpClient = new FTPClient();
+        try {
+            ftpClient.connect(Constantes.SERVER, 21);
+            ftpClient.login(Constantes.USER, Constantes.PASSWORD);
+            ftpClient.enterLocalPassiveMode();
+            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+
+            boolean done = ftpClient.storeFile(ruta + fileName, archivo);
+
+            if (done) {
+                System.out.println("se cargó exitosamente");
+            }
+        } catch (IOException ex){
+            System.out.println("Error: " + ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (ftpClient.isConnected()){
+                    ftpClient.logout();
+                    ftpClient.disconnect();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+//        if (ftpClient.login(Constantes.USER, Constantes.PASSWORD)){
+//            ftpClient.enterLocalPassiveMode(); /// IMPORTANTE
+//            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+//            boolean result = ftpClient.storeFile(ruta + fileName, archivo);
+//            if (!result){
+//                System.out.println("no lo guardó");
+//            }
+//            ftpClient.logout();
+//            ftpClient.disconnect();
+//        } else {
+//            System.out.println("No se pudo conectar al FTP");
+//        }
     }
 }
