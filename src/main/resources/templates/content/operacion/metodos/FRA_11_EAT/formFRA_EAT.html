@@ -80,25 +80,17 @@
                                             <input type="number" class="form-control"
                                                    name="humedadRelativa" id="humedadRelativa"
                                                    min="40" max="60" onkeydown="return false"
-                                                   step='0.1' value='50.0'
+                                                   step='1' value='50'
                                                    required="true">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-2 control-label">Temperatura de ensayo</label>
+                                    <label class="col-sm-2 control-label">Código del horno de convección</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="temperaturaEnsayo" id="temperaturaEnsayo"
-                                                   required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Código del horno</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <select class="selectpicker" name="codigoHorno" id="codigoHorno" required="true"
+                                            <select class="selectpicker" name="codigoHornoConveccion" id="codigoHornoConveccion" required="true"
                                                     data-title="Selecciona una opción..."
                                                     data-style="btn-success"
                                                     data-menu-style="dropdown-blue">
@@ -107,35 +99,137 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Ciclo de toma Fotográfica</label>
+                                    <label class="col-sm-2 control-label">Temperatura del horno</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="cicloTomaFotografica" id="cicloTomaFotografica"
+                                                   name="temperaturaHorno" id="temperaturaHorno"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tiempo de captura fotográfica</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="tiempoCapturaFotografica" id="tiempoCapturaFotografica"
                                                    required="true">
                                         </div>
                                     </div>
 
+                                    <label class="col-sm-2 control-label">Tiempo del ciclo</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="tiempoCiclo" id="tiempoCiclo"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Descripción de la muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="descripcionMuestra" id="descripcionMuestra"
+                                                   required="true">
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Tipo de producto</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoProducto" id="tipoProducto" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Lámina">Lámina</option>
+                                                <option value="Manguera">Manguera</option>
+                                                <option value="Película">Película</option>
+                                                <option value="Placa">Placa</option>
+                                                <option value="Popote">Popote</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <label class="col-sm-2 control-label">Tipo de material</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
+                                            <select class="selectpicker" name="tipoMaterial" id="tipoMaterial" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="PE">PE</option>
+                                                <option value="PP">PP</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Cara de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="caraAnalisis" id="caraAnalisis" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Interna">Interna</option>
+                                                <option value="Externa">Externa</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Aditivo biodegradable</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="aditivoBiodegradable" id="aditivoBiodegradable" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Porcentaje de inclusión</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="tipoMaterial" id="tipoMaterial"
+                                                   name="porcentajeInclusion" id="porcentajeInclusion"
                                                    required="true">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <label class="col-sm-2 control-label">Descripción del ciclo</label>
+                                    <label class="col-sm-2 control-label">Tipo de superficie</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoSuperficie" id="tipoSuperficie" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue" onchange="especifique()">
+                                                <option value="Con impresión">Con impresión</option>
+                                                <option value="Sin impresión">Sin Impresión</option>
+                                                <option value="Otra">Otra</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Especifique</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <input type="text" class="form-control"
-                                                   name="descripcionCiclo" id="descripcionCiclo"
-                                                   required="true">
+                                                   name="especifique" id="especifique"
+                                                   required="true" value="N/A" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -178,5 +272,16 @@
             previous: 'fa fa-chevron-circle-left'
         }
     });
+
+    function especifique(){
+        let condicional = document.getElementById("tipoSuperficie").value;
+        if (condicional === "Otra"){
+            document.getElementById("especifique").disabled = false;
+            document.getElementById("especifique").value = "";
+        } else {
+            document.getElementById("especifique").disabled = true;
+            document.getElementById("especifique").value = "N/A";
+        }
+    }
 </script>
 </html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body th:onload="javascript:cargarTabla2();">
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Resultados</h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <table id="fraicoTable2" class="table table-hover table-striped">
+
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-fill btn-success" onclick="volver2()">
+                                    <i class="fa fa-arrow-circle-left"></i>
+                                    Volver
+                                </button>
+                                <button class="btn btn-fill btn-danger" onclick="terminar()">
+                                    <i class="fa fa-flag-checkered"></i>
+                                    Finalizar
+                                </button>
+                                <button class="btn btn-fill btn-success" onclick="vistaAgregar()">
+                                    <i class="fa fa-clock-o"></i>
+                                    Registrar tiempo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/metodoFRAICO.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaInicioAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaFinalAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+</script>
+</html>

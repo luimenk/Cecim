@@ -2,11 +2,12 @@ package com.demo.service.operacion.metodos;
 
 import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
+import com.demo.model.operacion.metodos.fra09tga.FRA_TGA_001;
 import com.demo.repository.operacion.MetodoMuestraRepository;
 import com.demo.repository.operacion.RecepcionVerificacionRegistroCodificacionRepository;
 import com.demo.utils.EstructuraNombres;
 import com.demo.model.operacion.metodos.fra15dsc.FRA_DSC;
-import com.demo.repository.operacion.metodos.FRA_DSC_Repository;
+import com.demo.repository.operacion.metodos.fra15dsc.FRA_DSC_Repository;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -65,6 +66,10 @@ public class FRA_DSC_Service {
         return fra_dsc_repository.findByIdInternoMuestra(id);
     }
 
+    public FRA_DSC findByMuestra(Long id) {
+        return fra_dsc_repository.findByMetodoMuestra_MetodoMuestraId(id);
+    }
+
     public void delete(Long id) {
         fra_dsc_repository.deleteById(id);
     }
@@ -73,135 +78,5 @@ public class FRA_DSC_Service {
         return fra_dsc_repository.count();
     }
 
-    public ResponseEntity<InputStreamResource> crearFormato(Long id, int band) throws InvalidFormatException, IOException{
-        ClassPathResource resource = new ClassPathResource("/documentos/METODOS/FRA-DSC-001.docx");
-        XWPFDocument doc = new XWPFDocument(resource.getInputStream());
-        FRA_DSC fra_dsc;
 
-        if (band == 1){
-            fra_dsc = fra_dsc_repository.findByIdFRADSC(id);
-        }else {
-            fra_dsc = fra_dsc_repository.findByMetodoMuestra_MetodoMuestraId(id);
-        }
-
-        XWPFTable table0 = doc.getTables().get(0);
-        table0.getRow(0).getCell(3).setText(fra_dsc.getFolioSolicitudServicioInterno());
-        table0.getRow(1).getCell(1).setText(fra_dsc.getFolioSolicitudServicioInterno());
-        table0.getRow(1).getCell(3).setText(formatoFechas.formateadorFechas(fra_dsc.getFechaInicioAnalisis()));
-        table0.getRow(2).getCell(1).setText(fra_dsc.getIdInternoMuestra());
-        table0.getRow(2).getCell(3).setText(formatoFechas.formateadorFechas(fra_dsc.getFechaFinalAnalisis()));
-
-        XWPFTable table1 = doc.getTables().get(1);
-        table1.getRow(0).getCell(1).setText(fra_dsc.getTemperatura());
-        table1.getRow(0).getCell(3).setText(fra_dsc.getHumedadRelativa());
-        table1.getRow(1).getCell(1).setText(fra_dsc.getCodigoDSC());
-        table1.getRow(1).getCell(3).setText(fra_dsc.getCodigoBalanza());
-
-        XWPFTable table2 = doc.getTables().get(2);
-        table2.getRow(1).getCell(1).setText(fra_dsc.getEspesor1());
-        table2.getRow(1).getCell(2).setText(fra_dsc.getPeso1());
-        table2.getRow(1).getCell(3).setText(fra_dsc.getPpmDSC1());
-
-        XWPFTable table3 = doc.getTables().get(3);
-        table3.getRow(1).getCell(1).setText(fra_dsc.getTemperatura1());
-        table3.getRow(1).getCell(2).setText(fra_dsc.getFlujoOxigeno1());
-        table3.getRow(1).getCell(3).setText(fra_dsc.getFnatmosfera1());
-        table3.getRow(1).getCell(4).setText(fra_dsc.getFnproteccion1());
-
-        table3.getRow(2).getCell(1).setText(fra_dsc.getTemperatura2());
-        table3.getRow(2).getCell(2).setText(fra_dsc.getFlujoOxigeno2());
-        table3.getRow(2).getCell(3).setText(fra_dsc.getFnatmosfera2());
-        table3.getRow(2).getCell(4).setText(fra_dsc.getFnproteccion2());
-
-        table3.getRow(3).getCell(1).setText(fra_dsc.getTemperatura3());
-        table3.getRow(3).getCell(2).setText(fra_dsc.getFlujoOxigeno3());
-        table3.getRow(3).getCell(3).setText(fra_dsc.getFnatmosfera3());
-        table3.getRow(3).getCell(4).setText(fra_dsc.getFnproteccion3());
-
-        table3.getRow(4).getCell(1).setText(fra_dsc.getTemperatura4());
-        table3.getRow(4).getCell(2).setText(fra_dsc.getFlujoOxigeno4());
-        table3.getRow(4).getCell(3).setText(fra_dsc.getFnatmosfera4());
-        table3.getRow(4).getCell(4).setText(fra_dsc.getFnproteccion4());
-
-        table3.getRow(5).getCell(1).setText(fra_dsc.getTemperatura5());
-        table3.getRow(5).getCell(2).setText(fra_dsc.getFlujoOxigeno5());
-        table3.getRow(5).getCell(3).setText(fra_dsc.getFnatmosfera5());
-        table3.getRow(5).getCell(4).setText(fra_dsc.getFnproteccion5());
-
-        table3.getRow(6).getCell(1).setText(fra_dsc.getTemperatura6());
-        table3.getRow(6).getCell(2).setText(fra_dsc.getFlujoOxigeno6());
-        table3.getRow(6).getCell(3).setText(fra_dsc.getFnatmosfera6());
-        table3.getRow(6).getCell(4).setText(fra_dsc.getFnproteccion6());
-
-        table3.getRow(7).getCell(1).setText(fra_dsc.getTemperatura7());
-        table3.getRow(7).getCell(2).setText(fra_dsc.getFlujoOxigeno7());
-        table3.getRow(7).getCell(3).setText(fra_dsc.getFnatmosfera7());
-        table3.getRow(7).getCell(4).setText(fra_dsc.getFnproteccion7());
-
-        table3.getRow(8).getCell(1).setText(fra_dsc.getTemperatura8());
-        table3.getRow(8).getCell(2).setText(fra_dsc.getFlujoOxigeno8());
-        table3.getRow(8).getCell(3).setText(fra_dsc.getFnatmosfera8());
-        table3.getRow(8).getCell(4).setText(fra_dsc.getFnproteccion8());
-
-        table3.getRow(9).getCell(1).setText(fra_dsc.getTasaCalentamiento());
-        table3.getRow(9).getCell(3).setText(fra_dsc.getTasaEnfriamiento());
-
-        XWPFTable table4 = doc.getTables().get(4);
-        table4.getRow(1).getCell(1).setText(fra_dsc.getTemperaturaFusion1());
-        table4.getRow(1).getCell(2).setText(fra_dsc.getCalorFusion1());
-        table4.getRow(1).getCell(3).setText(fra_dsc.getTemperaturaCristalizacion1());
-        table4.getRow(1).getCell(4).setText(fra_dsc.getCalorCristalizacion1());
-
-        XWPFTable table5 = doc.getTables().get(5);
-        table5.getRow(0).getCell(1).setText(fra_dsc.getObservaciones());
-
-        XWPFTable table6 = doc.getTables().get(6);
-        table6.getRow(1).getCell(0).setText(fra_dsc.getRealizo());
-        table6.getRow(1).getCell(1).setText(fra_dsc.getSupervisor());
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=FRA-DSC-"+estructuraNombres.getNombre()+".docx");
-        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-        doc.write(byteArrayOutputStream);
-        doc.close();
-        MediaType word = MediaType.valueOf("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentType(word)
-                .body(new InputStreamResource(byteArrayInputStream));
-    }
-
-    public ResponseEntity<InputStreamResource> crearListaFolios() throws InvalidFormatException, IOException{
-        ClassPathResource resource = new ClassPathResource("/documentos/METODOS/Listas/BFF-MIE-016.docx");
-        XWPFDocument doc = new XWPFDocument(resource.getInputStream());
-        List<MetodoMuestra> metodoMuestraList = metodoMuestraRepository.findAllByMethod_MethodId(63L);
-
-        XWPFTable table = doc.getTables().get(0);
-        table.getRow(0).setRepeatHeader(true);
-        for (int i = 0; i<metodoMuestraList.size(); i++) {
-            try {
-                XWPFTableRow tableRow = table.createRow();
-                tableRow.getCell(0).setText(metodoMuestraList.get(i).getFolioTecnica());
-                RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionRepository.findBySolicitudServicioClienteMuestras_SolicitudServicioClienteMuestrasId(metodoMuestraList.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioClienteMuestrasId());
-                tableRow.getCell(1).setText(recepcionVerificacionRegistroCodificacion.getIdInternoMuestra1());
-                tableRow.getCell(2).setText(metodoMuestraList.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras());
-                tableRow.getCell(3).setText(metodoMuestraList.get(i).getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFolioSolitudServicioCliente());
-            } catch (NullPointerException e){
-                System.out.println("Error en la iteración " + i);
-            }
-        }
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=BFF-MIE-016-"+estructuraNombres.getNombre()+".docx");
-        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-        doc.write(byteArrayOutputStream);
-        doc.close();
-        MediaType word = MediaType.valueOf("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentType(word)
-                .body(new InputStreamResource(byteArrayInputStream));
-    }
 }

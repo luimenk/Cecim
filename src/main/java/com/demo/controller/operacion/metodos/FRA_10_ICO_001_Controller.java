@@ -121,6 +121,7 @@ public class FRA_10_ICO_001_Controller {
         APP.debug("Registro FRA_ICO a las: " + calendario.getTime());
         FRA_ICO_001 fra_ico_001 = new FRA_ICO_001();
 
+        fra_ico_001.setFolioTecnica(request.get("folioTecnica"));
         fra_ico_001.setFolioSolicitudServicioInterno(request.get("folioSolicitudServicioInterno"));
         fra_ico_001.setFechaInicioAnalisis(request.get("fechaInicioAnalisis"));
         fra_ico_001.setFechaFinalAnalisis(request.get("fechaFinalAnalisis"));
@@ -136,7 +137,7 @@ public class FRA_10_ICO_001_Controller {
         fra_ico_001.setGeometria(request.get("geometria"));
         fra_ico_001.setAditivoBiodegradable(request.get("aditivoBiodegradable"));
         fra_ico_001.setGradoAditivo(request.get("gradoAditivo"));
-        fra_ico_001.setPorcentajeInclusión(request.get("porcentajeInclusión"));
+        fra_ico_001.setPorcentajeInclusion(request.get("porcentajeInclusion"));
         fra_ico_001.setTipoEnvejecimiento(request.get("tipoEnvejecimiento"));
         fra_ico_001.setTiempoEnvejecimiento(request.get("tiempoEnvejecimiento"));
         fra_ico_001.setCodigoMicrometro(request.get("codigoMicrometro"));
@@ -177,7 +178,7 @@ public class FRA_10_ICO_001_Controller {
     @RequestMapping(value = "/agregar", method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> agrega(@RequestPart("datos") Map<String, String> request,
+    public ResponseEntity<?> agrega(@RequestPart("fraico") Map<String, String> request,
                                     Principal principal) {
 
         FRA_ICO_001 fra_ico_001 = fra_ico_001_service.findById(Long.parseLong(request.get("id")));

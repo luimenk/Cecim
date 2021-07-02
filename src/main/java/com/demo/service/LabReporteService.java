@@ -110,7 +110,7 @@ public class LabReporteService {
         XWPFTable table2 = doc.getTables().get(0);
         table2.getRow(0).getCell(1).setText(client.getFolioCliente());
         table2.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas("2020-07-11"));
-        table2.getRow(1).getCell(1).setText("E. Hernández");
+        table2.getRow(2).getCell(1).setText("E. Hernández");
         table2.getRow(3).getCell(1).setText("Cliente");
 
         XWPFTable table3 = doc.getTables().get(1);

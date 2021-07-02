@@ -2,7 +2,7 @@ package com.demo.service.formatos.metodos;
 
 import com.demo.model.operacion.metodos.fra02di.FRA_DI_001;
 import com.demo.model.operacion.metodos.fra02di.datas.FRA_DI_001_DATA;
-import com.demo.repository.operacion.metodos.FRA_DI_001_DATA_Repository;
+import com.demo.repository.operacion.metodos.fra02di.datas.FRA_DI_001_DATA_Repository;
 import com.demo.service.operacion.metodos.FRA_DI_001_Service;
 import com.demo.utils.EstructuraNombres;
 import com.demo.utils.FormatoFechas;

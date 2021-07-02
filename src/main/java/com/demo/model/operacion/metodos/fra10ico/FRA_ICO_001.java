@@ -31,7 +31,7 @@ public class FRA_ICO_001 {
     private String geometria;
     private String aditivoBiodegradable;
     private String gradoAditivo;
-    private String porcentajeInclusión;
+    private String porcentajeInclusion;
     private String tipoEnvejecimiento;
     private String tiempoEnvejecimiento;
     private String codigoMicrometro;
@@ -64,47 +64,6 @@ public class FRA_ICO_001 {
     private MetodoMuestra metodoMuestra;
 
     public FRA_ICO_001() {
-    }
-
-    public FRA_ICO_001(Long idFRAICO, String folioTecnica, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String tipoMaterial, String caraAnalisis, String tipoSuperficie, String especifiqueTipoSuperficie, String tipoProducto, String geometria, String aditivoBiodegradable, String gradoAditivo, String porcentajeInclusión, String tipoEnvejecimiento, String tiempoEnvejecimiento, String codigoMicrometro, String normaReferencia, String codigoEspectrometro, String metodoAnalisis, String numeroBarridos, String resolucion, String numeroOnda, String lineaBase, String grupoCarbonillo, String grupoAlifatico, String observaciones, String realizo, String rubricaRealizo, String supervisor, String estatus, String cantidadModificaciones, Timestamp createdAt, Timestamp updatedAt, MetodoMuestra metodoMuestra) {
-        this.idFRAICO = idFRAICO;
-        this.folioTecnica = folioTecnica;
-        this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
-        this.idInternoMuestra = idInternoMuestra;
-        this.fechaInicioAnalisis = fechaInicioAnalisis;
-        this.fechaFinalAnalisis = fechaFinalAnalisis;
-        this.temperatura = temperatura;
-        this.humedadRelativa = humedadRelativa;
-        this.tipoMaterial = tipoMaterial;
-        this.caraAnalisis = caraAnalisis;
-        this.tipoSuperficie = tipoSuperficie;
-        this.especifiqueTipoSuperficie = especifiqueTipoSuperficie;
-        this.tipoProducto = tipoProducto;
-        this.geometria = geometria;
-        this.aditivoBiodegradable = aditivoBiodegradable;
-        this.gradoAditivo = gradoAditivo;
-        this.porcentajeInclusión = porcentajeInclusión;
-        this.tipoEnvejecimiento = tipoEnvejecimiento;
-        this.tiempoEnvejecimiento = tiempoEnvejecimiento;
-        this.codigoMicrometro = codigoMicrometro;
-        this.normaReferencia = normaReferencia;
-        this.codigoEspectrometro = codigoEspectrometro;
-        this.metodoAnalisis = metodoAnalisis;
-        this.numeroBarridos = numeroBarridos;
-        this.resolucion = resolucion;
-        this.numeroOnda = numeroOnda;
-        this.lineaBase = lineaBase;
-        this.grupoCarbonillo = grupoCarbonillo;
-        this.grupoAlifatico = grupoAlifatico;
-        this.observaciones = observaciones;
-        this.realizo = realizo;
-        this.rubricaRealizo = rubricaRealizo;
-        this.supervisor = supervisor;
-        this.estatus = estatus;
-        this.cantidadModificaciones = cantidadModificaciones;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.metodoMuestra = metodoMuestra;
     }
 
     public Long getIdFRAICO() {
@@ -235,12 +194,12 @@ public class FRA_ICO_001 {
         this.gradoAditivo = gradoAditivo;
     }
 
-    public String getPorcentajeInclusión() {
-        return porcentajeInclusión;
+    public String getPorcentajeInclusion() {
+        return porcentajeInclusion;
     }
 
-    public void setPorcentajeInclusión(String porcentajeInclusión) {
-        this.porcentajeInclusión = porcentajeInclusión;
+    public void setPorcentajeInclusion(String porcentajeInclusion) {
+        this.porcentajeInclusion = porcentajeInclusion;
     }
 
     public String getTipoEnvejecimiento() {

@@ -3,7 +3,7 @@ package com.demo.controller.operacion.metodos;
 import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.metodos.fra03es.FRA_ES_001;
 import com.demo.model.operacion.metodos.fra03es.datas.FRA_ES_001_DATA;
-import com.demo.repository.operacion.metodos.FRA_ES_001_DATA_Repository;
+import com.demo.repository.operacion.metodos.fra03es.datas.FRA_ES_001_DATA_Repository;
 import com.demo.service.formatos.metodos.FRA_03_ES_Print;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.FRA_ES_001_Service;

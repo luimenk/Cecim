@@ -1,38 +1,13 @@
-function b64toBlob(b64Data, contentType, sliceSize) {
-    contentType = contentType || '';
-    sliceSize = sliceSize || 512;
-
-    var byteCharacters = atob(b64Data);
-    var byteArrays = [];
-
-    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-        var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-        var byteNumbers = new Array(slice.length);
-        for (var i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-        }
-
-        var byteArray = new Uint8Array(byteNumbers);
-
-        byteArrays.push(byteArray);
-    }
-
-    var blob = new Blob(byteArrays, {type: contentType});
-    return blob;
-}
-
 function valida() {
-    var contador = 0;
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
     var obj = {};
+    var contador = 0;
     var clave;
     var valor;
     var test = document.getElementsByTagName("input");
-    var combo = document.getElementById("codigoHorno").value;
-
-    if (combo === "") {
-        contador++;
-    }
+    var test2 = document.getElementsByTagName("select");
+    document.getElementById("btnAceptar").disabled = true;
 
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
@@ -45,10 +20,18 @@ function valida() {
         }
     }
 
-    const url = document.URL;
-    obj["codigoHorno"] = combo;
-    obj["id"] = url.substring(url.lastIndexOf('/') + 1);
-    var myjson = JSON.stringify(obj);
+    for (var i = 0; i < test2.length; i++) {
+        clave = test2[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === "") {
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    obj["id"] = id;
 
     $.getJSON("/FRAEAT/busquedaFolio/" + obj["folioTecnica"], function (result) {
         swal({
@@ -66,13 +49,12 @@ function valida() {
     }).fail(function () {
         if (contador !== 0) {
             swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+            document.getElementById("btnAceptar").disabled = false;
         } else {
-            document.getElementById("btnAceptar").disabled = true;
-
+            let myjson = JSON.stringify(obj);
             save(myjson);
         }
     });
-
 }
 
 function validaAgregar() {
@@ -93,17 +75,23 @@ function validaAgregar() {
     // Convert it to a blob to upload
     var blob1 = b64toBlob(realData, contentType);
 
-    const nombreAnalista = document.getElementById('nombreAnalista').value;
+    let nombreAnalista = document.getElementById('nombreAnalista').value;
+    let imagenSeleccionada = document.getElementById('imagenSeleccionada').value;
+    let tiempoExposicion = document.getElementById('tiempoExposicion').value;
     document.getElementById("btnAceptar").disabled = true;
     var obj = {};
     obj["id"] = id;
     obj["nombreAnalista"] = nombreAnalista;
+    obj["imagenSeleccionada"] = imagenSeleccionada;
+    obj["tiempoExposicion"] = tiempoExposicion;
     var formData = new FormData();
     formData.append("imagen", blob);
     formData.append("signature", blob1);
     formData.append("datos", new Blob([JSON.stringify({
         "nombreAnalista": nombreAnalista,
-        "id": id
+        "id": id,
+        "imagenSeleccionada": imagenSeleccionada,
+        "tiempoExposicion": tiempoExposicion
     })], {
         type: "application/json"
     }));
@@ -115,6 +103,7 @@ function validaTerminar() {
     const url = document.URL;
     const id = url.substring(url.lastIndexOf('/') + 1);
     var obj = {};
+    var contador = 0;
     var clave;
     var valor;
     var test = document.getElementsByTagName("input");
@@ -123,29 +112,51 @@ function validaTerminar() {
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
         valor = document.getElementById(clave).value;
-        obj[clave] = valor;
+        if (valor === "") {
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
     }
+
     obj["id"] = id;
 
-    var myjson = JSON.stringify(obj);
-    console.log(myjson);
-    saveTerminar(myjson);
+    const signature = document.getElementById("sig-dataUrl").value;
+    var block = signature.split(";");
+
+    // Get the content type of the image
+    var contentType = block[0].split(":")[1];// In this case "image/gif"
+
+    // get the real base64 content of the file
+    var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+
+    // Convert it to a blob to upload
+    var blob1 = b64toBlob(realData, contentType);
+
+    if (contador !== 0) {
+        swal("Alerta!", "Tienes uno o más campos vacíos. Favor de revisar.", "warning");
+        document.getElementById("btnAceptar").disabled = false;
+    } else {
+        var formData = new FormData();
+        formData.append("signature", blob1);
+        formData.append('fraeat', new Blob([JSON.stringify(obj)], {
+            type: "application/json"
+        }));
+        saveTerminar(formData);
+    }
 }
 
 function saveTerminar(myjson) {
-    $.ajax({
-        type: 'POST',
-        url: '/FRAEAT/terminar',
-        data: myjson,
-        cache: false,
-        contentType: "application/json",
-        processData: false,
-        success: function (data) {
-            console.log("success");
-            console.log(data);
+    var boundary = Math.random().toString().substr(2);
+    fetch('/FRAEAT/terminar', {
+        method: 'post',
+        body: myjson
+    }).then(function (response) {
+        if (response.status === 200) {
             swal({
-                title: "Registrado!",
-                text: "Se ha sido registrado exitosamente.",
+                title: "¡Realizado!",
+                text: "Se ha finalizado exitosamente.",
                 type: "success",
                 showCancelButton: false,
                 confirmButtonClass: "btn btn-info btn-fill",
@@ -154,12 +165,12 @@ function saveTerminar(myjson) {
             }, function () {
                 window.location = "/listFRAEAT";
             });
-        },
-        error: function (data) {
-            console.log("error");
-            console.log(data);
+        } else {
             swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
         }
+    }).catch(function (err) {
+        document.getElementById("btnAceptar").disabled = false;
+        swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
     });
 }
 
@@ -334,10 +345,74 @@ function modificarData(valor) {
     alert("Próximamente disponible :)");
 }
 
+function imagenSi(valor) {
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    $.ajax({
+        type: 'POST',
+        url: '/FRAEAT/imagenSi/' + valor,
+        cache: false,
+        contentType: "application/json",
+        processData: false,
+        success: function (data) {
+            console.log("success");
+            console.log(data);
+            swal({
+                title: "¡Realizado!",
+                text: "Está imagen si se imprimirá.",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonClass: "btn btn-info btn-fill",
+                confirmButtonText: "Ok",
+                closeOnConfirm: false,
+            }, function () {
+                window.location = "/verFRAEAT/"+id;
+            });
+        },
+        error: function (data) {
+            console.log("error");
+            console.log(data);
+            swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+        }
+    });
+}
+
+function imagenNo(valor) {
+    const url = document.URL;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    $.ajax({
+        type: 'POST',
+        url: '/FRAEAT/imagenNo/' + valor,
+        cache: false,
+        contentType: "application/json",
+        processData: false,
+        success: function (data) {
+            console.log("success");
+            console.log(data);
+            swal({
+                title: "¡Realizado!",
+                text: "Está imagen no se imprimirá.",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonClass: "btn btn-info btn-fill",
+                confirmButtonText: "Ok",
+                closeOnConfirm: false,
+            }, function () {
+                window.location = "/verFRAEAT/"+id;
+            });
+        },
+        error: function (data) {
+            console.log("error");
+            console.log(data);
+            swal("Error!", "Ha ocurrido un error. Favor de contactar al administrador.", "error");
+        }
+    });
+}
+
 function cargarTabla2() {
     const url = document.URL;
     const id = url.substring(url.lastIndexOf('/') + 1);
-    let columna = 0;
+
     var tbl =
         '<thead>' +
         '<tr>' +
@@ -345,32 +420,57 @@ function cargarTabla2() {
         '<th class="text-center">Fecha de toma de fotografía</th>' +
         '<th class="text-center">Rubrica del analísta</th>' +
         '<th class="text-center">Fotografía tomada</th>' +
-        '<th class="text-center">Agregar</th>' +
+        '<th class="text-center">¿Se imprime esta imagen?</th>' +
         '<th class="text-center">Modificar</th>' +
         '</tr>' +
         '</thead>' +
         '<tbody>';
     $.getJSON("/FRAEAT/getAllBy/" + id, function (result) {
+        let sumaCiclos = 0;
+        let columna = 0;
+        let puntero = 0;
         for (let i = 0; i < 56; i++) {
             tbl +=
                 '<tr>' +
                 '<td class="text-center">' + columna + '</td>';
-            if (result[i] === undefined) {
+            if (result[puntero] === undefined) {
                 tbl +=
                     '<td class="text-center">' + "." + '</td>' +
                     '<td class="text-center">' + "." + '</td>' +
                     '<td class="text-center">' + "." + '</td>' +
-                    '<td class="text-center"><button class="btn btn-success" onclick="vistaAgregar()"><i class="fa fa-plus"></i>Agregar</button></td>' +
+                    '<td class="text-center">' + "." + '</td>' +
                     '<td class="text-center">' + "." + '</td>' +
                     '</tr>';
-            } else {
-                let date = new Date(result[i].createdAt);
+            } else if (sumaCiclos === columna){
+                let date = new Date(result[puntero].createdAt);
                 tbl +=
                     '<td class="text-center">' + date.toLocaleString() + '</td>' +
-                    '<td class="text-center"><button class="btn btn-info" onclick="verFirma(' + result[i].idFRAEATDATA + ')"><i class="fa fa-pencil"></i>Ver Firma</button></td>' +
-                    '<td class="text-center"><button class="btn btn-danger" onclick="verFoto(' + result[i].idFRAEATDATA + ')"><i class="fa fa-picture-o"></i>Ver Foto</button></td>' +
-                    '<td class="text-center">.</td>' +
-                    '<td class="text-center"><button class="btn btn-warning" onclick="modificarData(' + result[i].idFRAEATDATA + ')"><i class="fa fa-pencil-square-o"></i>Modificar</button></td>' +
+                    '<td class="text-center"><button class="btn btn-info" onclick="verFirma(' + result[puntero].idFRAEATDATA + ')"><i class="fa fa-pencil"></i>Ver Firma</button></td>' +
+                    '<td class="text-center"><button class="btn btn-danger" onclick="verFoto(' + result[puntero].idFRAEATDATA + ')"><i class="fa fa-picture-o"></i>Ver Foto</button></td>';
+                if (result[puntero].imagenSeleccionada === "Si"){
+                    tbl +=
+                        '<td class="text-center"><button class="btn btn-success" onclick="imagenNo(' + result[puntero].idFRAEATDATA + ')"><i class="fa fa-check-circle"></i>Si</button></td>';
+                } else {
+                    tbl +=
+                        '<td class="text-center"><button class="btn btn-default" onclick="imagenSi(' + result[puntero].idFRAEATDATA + ')"><i class="fa fa-times-circle"></i>No</button></td>';
+                }
+                tbl +=
+                    '<td class="text-center"><button class="btn btn-warning" onclick="modificarData(' + result[puntero].idFRAEATDATA + ')"><i class="fa fa-pencil-square-o"></i>Modificar</button></td>' +
+                    '</tr>';
+
+                console.log(result.length);
+
+                if (puntero+1<result.length){
+                    sumaCiclos = parseInt(sumaCiclos) + parseInt(result[puntero+1].tiempoExposicion);
+                }
+                puntero++;
+            } else {
+                tbl +=
+                    '<td class="text-center">' + "N/A" + '</td>' +
+                    '<td class="text-center">' + "N/A" + '</td>' +
+                    '<td class="text-center">' + "N/A" + '</td>' +
+                    '<td class="text-center">' + "N/A" + '</td>' +
+                    '<td class="text-center">' + "N/A" + '</td>' +
                     '</tr>';
             }
             columna = columna + 48;
@@ -382,7 +482,7 @@ function cargarTabla2() {
             '<th class="text-center">Fecha de toma de fotografía</th>' +
             '<th class="text-center">Rubrica del analísta</th>' +
             '<th class="text-center">Fotografía tomada</th>' +
-            '<th class="text-center">Agregar</th>' +
+            '<th class="text-center">¿Se imprime esta imagen?</th>' +
             '<th class="text-center">Modificar</th>' +
             '</tr>' +
             '</tfoot>';

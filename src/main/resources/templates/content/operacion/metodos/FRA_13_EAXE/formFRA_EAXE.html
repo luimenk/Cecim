@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Registro de análisis de envejecimiento acelerado por XE</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio del método</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioTecnica" id="folioTecnica"
+                                                   th:value="${folioTecnica}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio de solicitud de servicio interno</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioSolicitudServicioInterno"
+                                                   id="folioSolicitudServicioInterno"
+                                                   th:value="${folioSolicitudServicioInterno}" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis"
+                                                   th:value="${fechaHoy}" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">ID Interno de muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="idInternoMuestra" id="idInternoMuestra"
+                                                   th:value="${idInternoMuestra}" disabled>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="temperatura" id="temperatura"
+                                                   min="21" max="25" onkeydown="return false"
+                                                   step='0.1' value='23.0'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Humedad relativa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa"
+                                                   min="40" max="60" onkeydown="return false"
+                                                   step='1' value='50'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Código de la cámara XE</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoCamaraXE" id="codigoCamaraXE"
+                                                   value="CAXE-03" disabled>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Código del radiómetro</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="codigoRadiometro" id="codigoRadiometro"
+                                                    required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="RADI-07">RADI-07</option>
+                                                <option value="RADI-08">RADI-08</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Irradiación</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="irradiacion" id="irradiacion"
+                                                   required="true" value="0.35 W/m2*nm" disabled>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Temperatura del panel</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaPanel" id="temperaturaPanel"
+                                                   required="true" value="63 °C" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Longitud de onda</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="longitudOnda" id="longitudOnda"
+                                                   required="true" value="340 nm" disabled>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Ciclo de condensación</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="cicloCondensacion" id="cicloCondensacion"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tiempo del ciclo</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="tiempoCiclo" id="tiempoCiclo"
+                                                   required="true" value="340 nm" disabled>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Ciclo de toma de fotográfica</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="cicloTomaFotografica" id="cicloTomaFotografica"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Descripción de la muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="descripcionMuestra" id="descripcionMuestra"
+                                                   required="true">
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Tipo de producto</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoProducto" id="tipoProducto" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Lámina">Lámina</option>
+                                                <option value="Manguera">Manguera</option>
+                                                <option value="Película">Película</option>
+                                                <option value="Placa">Placa</option>
+                                                <option value="Popote">Popote</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tipo de material</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoMaterial" id="tipoMaterial" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="PE">PE</option>
+                                                <option value="PP">PP</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Cara de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="caraAnalisis" id="caraAnalisis" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Interna">Interna</option>
+                                                <option value="Externa">Externa</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Aditivo biodegradable</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="aditivoBiodegradable" id="aditivoBiodegradable" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Porcentaje de inclusión</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="porcentajeInclusion" id="porcentajeInclusion"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tipo de superficie</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoSuperficie" id="tipoSuperficie" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue" onchange="especifique()">
+                                                <option value="Con impresión">Con impresión</option>
+                                                <option value="Sin impresión">Sin Impresión</option>
+                                                <option value="Otra">Otra</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Especifique</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="especifique" id="especifique"
+                                                   required="true" value="N/A" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-fill btn-success" id="btnAceptar" onclick="valida()">Registrar
+                                    Datos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/metodoFRAEAXE.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaInicioAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaFinalAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+
+    function especifique(){
+        let condicional = document.getElementById("tipoSuperficie").value;
+        if (condicional === "Otra"){
+            document.getElementById("especifique").disabled = false;
+            document.getElementById("especifique").value = "";
+        } else {
+            document.getElementById("especifique").disabled = true;
+            document.getElementById("especifique").value = "N/A";
+        }
+    }
+</script>
+</html>

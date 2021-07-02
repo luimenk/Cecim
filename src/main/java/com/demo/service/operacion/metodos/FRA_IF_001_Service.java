@@ -1,7 +1,7 @@
 package com.demo.service.operacion.metodos;
 
 import com.demo.model.operacion.metodos.fra17if.FRA_IF_001;
-import com.demo.repository.operacion.metodos.FRA_IF_001_Repository;
+import com.demo.repository.operacion.metodos.fra17if.FRA_IF_001_Repository;
 import com.demo.utils.EstructuraNombres;
 
 import java.io.ByteArrayInputStream;
@@ -85,9 +85,9 @@ public class FRA_IF_001_Service {
         table1.getRow(2).getCell(3).setText(fra_if_001.getPesaEnsayo());
         table1.getRow(3).getCell(1).setText(fra_if_001.getTiempoCorte());
 
-        XWPFTable table2 = doc.getTables().get(2);
-        table2.getRow(1).getCell(1).setText(fra_if_001.getPeso());
-        table2.getRow(1).getCell(2).setText(fra_if_001.getIndiceFluidez());
+//        XWPFTable table2 = doc.getTables().get(2);
+//        table2.getRow(1).getCell(1).setText(fra_if_001.getPeso());
+//        table2.getRow(1).getCell(2).setText(fra_if_001.getIndiceFluidez());
 
         XWPFTable table5 = doc.getTables().get(3);
         table5.getRow(0).getCell(1).setText(fra_if_001.getObservaciones());

@@ -62,6 +62,6 @@ public class FRA_09_TGA_Vista {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_TGA/listFRA_TGA";
+        return "content/operacion/metodos/FRA_09_TGA/listFRA_TGA";
     }
 }

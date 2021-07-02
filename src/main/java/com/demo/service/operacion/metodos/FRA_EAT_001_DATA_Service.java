@@ -1,7 +1,7 @@
 package com.demo.service.operacion.metodos;
 
 import com.demo.model.operacion.metodos.fra11eat.datas.FRA_EAT_001_DATA;
-import com.demo.repository.operacion.metodos.FRA_EAT_001_DATA_Repository;
+import com.demo.repository.operacion.metodos.fra11eat.datas.FRA_EAT_001_DATA_Repository;
 import com.demo.utils.EstructuraNombres;
 
 import java.util.List;

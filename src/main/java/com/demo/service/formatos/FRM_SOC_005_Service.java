@@ -2,6 +2,7 @@ package com.demo.service.formatos;
 
 import java.io.*;
 import java.lang.reflect.Array;
+import java.net.URL;
 import java.util.*;
 
 import com.demo.model.Client;
@@ -51,8 +52,8 @@ public class FRM_SOC_005_Service {
     FormatoFechas formatoFechas = new FormatoFechas();
 
     public ResponseEntity<InputStreamResource> crearFormato(Long id) throws InvalidFormatException, IOException{
-        ClassPathResource resource = new ClassPathResource("/documentos/FRM-SOC-005.docx");
-        XWPFDocument doc = new XWPFDocument(resource.getInputStream());
+        URL url = new URL("https://resources.adpmx.com/cecim/laboratorio/doc/register/operacion/FRM-SOC-005.docx");
+        XWPFDocument doc = new XWPFDocument(url.openStream());
 
         RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = recepcionVerificacionRegistroCodificacionService.findById(id);
 
@@ -61,7 +62,7 @@ public class FRM_SOC_005_Service {
 
         XWPFTable table0 = doc.getTables().get(0);
         table0.getRow(0).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getCuentaConEtiqueta());
-        table0.getRow(0).getCell(5).setText(recepcionVerificacionRegistroCodificacion.getUtilizoFeim());
+        table0.getRow(0).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getUtilizoFeim());
         table0.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras()));
         table0.getRow(1).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getIdClienteMuestra());
         table0.getRow(2).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getDescripcionMuestra());

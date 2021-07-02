@@ -30,12 +30,23 @@ import com.demo.repository.operacion.SolicitudServicioClienteRepository;
 
 import com.demo.repository.operacion.metodos.*;
 import com.demo.repository.operacion.metodos.fra01at.FRA_AT_001_Repository;
+import com.demo.repository.operacion.metodos.fra02di.FRA_DI_001_Repository;
+import com.demo.repository.operacion.metodos.fra03es.FRA_ES_001_Repository;
 import com.demo.repository.operacion.metodos.fra04gr.FRA_GR_001_Repository;
 import com.demo.repository.operacion.metodos.fra05hum.FRA_HUM_001_Repository;
 import com.demo.repository.operacion.metodos.fra06ncp.FRA_NCP_001_Repository;
 import com.demo.repository.operacion.metodos.fra07ppg.FRA_PPG_001_Repository;
 import com.demo.repository.operacion.metodos.fra08ftir.FRA_FTIR_001_Repository;
+import com.demo.repository.operacion.metodos.fra09tga.FRA_TGA_001_Repository;
 import com.demo.repository.operacion.metodos.fra10ico.FRA_ICO_001_Repository;
+import com.demo.repository.operacion.metodos.fra11eat.FRA_EAT_001_Repository;
+import com.demo.repository.operacion.metodos.fra12eauv.FRA_EAUV_001_Repository;
+import com.demo.repository.operacion.metodos.fra13eaxe.FRA_EAXE_013_Repository;
+import com.demo.repository.operacion.metodos.fra14oit.FRA_OIT_001_Repository;
+import com.demo.repository.operacion.metodos.fra15dsc.FRA_DSC_Repository;
+import com.demo.repository.operacion.metodos.fra17if.FRA_IF_001_Repository;
+import com.demo.repository.operacion.metodos.fra19prr.FRA_PRR_001_Repository;
+import com.demo.repository.operacion.metodos.fra20rter.FRA_RTER_001_Repository;
 import com.demo.service.MethodService;
 import com.demo.utils.EstructuraNombres;
 import com.demo.utils.FormatoFechas;
@@ -1538,25 +1549,25 @@ public class SolicitudServicioClienteService {
 
                         XWPFParagraph para9 = doc.createParagraph();
                         XWPFRun run9 = para9.createRun();
-                        run9.setText("Material altamente volátil: " + listaTGA.get(k).getRangoTemperatura1() + "%");
-                        run9.addBreak();
-                        run9.setText("Material volátil: " + listaTGA.get(k).getRangoTemperatura2() + "%");
-                        run9.addBreak();
-                        run9.setText("Material combustible: " + listaTGA.get(k).getRangoTemperatura3() + "%");
+//                        run9.setText("Material altamente volátil: " + listaTGA.get(k).getRangoTemperatura1() + "%");
+//                        run9.addBreak();
+//                        run9.setText("Material volátil: " + listaTGA.get(k).getRangoTemperatura2() + "%");
+//                        run9.addBreak();
+//                        run9.setText("Material combustible: " + listaTGA.get(k).getRangoTemperatura3() + "%");
                         run9.addBreak();
                         row.getCell(1).setText(para9.getText());
 
                         XWPFParagraph para8 = doc.createParagraph();
                         XWPFRun run8 = para8.createRun();
-                        run8.setText("Material altamente volátil: " + listaTGA.get(k).getCambioMasa1() + "°C");
-                        run8.addBreak();
-                        run8.setText("Material volátil: " + listaTGA.get(k).getCambioMasa2() + "°C");
-                        run8.addBreak();
-                        run8.setText("Material combustible: " + listaTGA.get(k).getCambioMasa3() + "°C");
-                        run8.addBreak();
-                        row.getCell(2).setText(para8.getText());
-
-                        row.getCell(3).setText(listaTGA.get(k).getCambioMasa4());
+//                        run8.setText("Material altamente volátil: " + listaTGA.get(k).getCambioMasa1() + "°C");
+//                        run8.addBreak();
+//                        run8.setText("Material volátil: " + listaTGA.get(k).getCambioMasa2() + "°C");
+//                        run8.addBreak();
+//                        run8.setText("Material combustible: " + listaTGA.get(k).getCambioMasa3() + "°C");
+//                        run8.addBreak();
+//                        row.getCell(2).setText(para8.getText());
+//
+//                        row.getCell(3).setText(listaTGA.get(k).getCambioMasa4());
 
                         table_3.addRow(row);
                     } catch (NullPointerException e) {
@@ -1691,7 +1702,7 @@ public class SolicitudServicioClienteService {
                 XWPFTable tableDocumment = plantilla.getTables().get(27);
                 try {
                     tableDocumment.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(listaEAT.get(0).getFechaInicioAnalisis()) + " al " + formatoFechas.formateadorFechas(listaEAT.get(0).getFechaFinalAnalisis()));
-                    tableDocumment.getRow(2).getCell(1).setText(listaEAT.get(0).getTemperaturaEnsayo());
+//                    tableDocumment.getRow(2).getCell(1).setText(listaEAT.get(0).getTemperaturaEnsayo());
                     tableDocumment.getRow(3).getCell(1).setText("Cantidad muestras");
                 } catch (NullPointerException e) {
                     System.out.println("El ensayo no ha sido desarrollado");
@@ -2004,7 +2015,7 @@ public class SolicitudServicioClienteService {
                     try{
                         XWPFTableRow row = table_3.createRow();
                         row.getCell(0).setText(listaOIT.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-                        row.getCell(1).setText(listaOIT.get(k).getPromedio());
+//                        row.getCell(1).setText(listaOIT.get(k).getPromedio());
                     } catch (NullPointerException e){
                         System.out.println("entró al catch");
                     }
@@ -2036,7 +2047,7 @@ public class SolicitudServicioClienteService {
                         listaParagraph.get(k).setAlignment(ParagraphAlignment.CENTER);
                         listaRun.add(k, listaParagraph.get(k).createRun());
                         try {
-                            listaFis.add(k, new FileInputStream(listaOIT.get(k).getPathImage()));
+//                            listaFis.add(k, new FileInputStream(listaOIT.get(k).getPathImage()));
                         } catch (NullPointerException e) {
                             System.out.println("No se encontró la imágen (1)");
                         }
@@ -2128,11 +2139,11 @@ public class SolicitudServicioClienteService {
                     try{
                         XWPFTableRow row = tableDocumment_3.getRow(1);
                         row.getCell(0).setText(listaDSC.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-                        row.getCell(1).setText(listaDSC.get(k).getTemperaturaFusion1());
-                        row.getCell(2).setText(listaDSC.get(k).getCalorFusion1());
-                        row.getCell(3).setText("?");
-                        row.getCell(4).setText(listaDSC.get(k).getTemperaturaCristalizacion1());
-                        row.getCell(5).setText(listaDSC.get(k).getCalorCristalizacion1());
+//                        row.getCell(1).setText(listaDSC.get(k).getTemperaturaFusion1());
+//                        row.getCell(2).setText(listaDSC.get(k).getCalorFusion1());
+//                        row.getCell(3).setText("?");
+//                        row.getCell(4).setText(listaDSC.get(k).getTemperaturaCristalizacion1());
+//                        row.getCell(5).setText(listaDSC.get(k).getCalorCristalizacion1());
                         table_3.addRow(row);
                     } catch (NullPointerException e){
                         table_3.addRow(tableDocumment_3.getRow(1));
@@ -2313,7 +2324,7 @@ public class SolicitudServicioClienteService {
                     try {
                         XWPFTableRow row = tableDocumment_3.getRow(1);
                         row.getCell(0).setText(listaIF.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-                        row.getCell(1).setText(listaIF.get(k).getIndiceFluidez());
+                        //row.getCell(1).setText(listaIF.get(k).getIndiceFluidez());
                         row.getCell(1).setText("¿De dónde se obtiene este valor?");
                         table_3.addRow(row);
                     } catch (NullPointerException e) {
@@ -2503,7 +2514,7 @@ public class SolicitudServicioClienteService {
                     try{
                         XWPFTableRow row = tableDocumment_3.getRow(2);
                         row.getCell(0).setText(listaPRR.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-                        row.getCell(1).setText(listaPRR.get(k).getMDPromedio());
+//                        row.getCell(1).setText(listaPRR.get(k).getMDPromedio());
                         row.getCell(2).setText(listaPRR.get(k).getMinMD());
                         row.getCell(3).setText(listaPRR.get(k).getMaxMD());
                         row.getCell(4).setText(listaPRR.get(k).getDesvEstandarMD());
@@ -2518,7 +2529,7 @@ public class SolicitudServicioClienteService {
                     try{
                         XWPFTableRow row = tableDocumment_3.getRow(4);
                         row.getCell(0).setText(listaPRR.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-                        row.getCell(1).setText(listaPRR.get(k).getTDPromedio());
+                        //row.getCell(1).setText(listaPRR.get(k).getTDPromedio());
                         row.getCell(2).setText(listaPRR.get(k).getMinTD());
                         row.getCell(3).setText(listaPRR.get(k).getMaxTD());
                         row.getCell(4).setText(listaPRR.get(k).getDesvEstandarTD());
@@ -2614,11 +2625,11 @@ public class SolicitudServicioClienteService {
                     try {
                         XWPFTableRow row = tableDocumment_3.getRow(2);
                         row.getCell(0).setText(listaRTER.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-                        row.getCell(1).setText(listaRTER.get(k).getMDpromedioFuerzaFluencia());
-                        row.getCell(2).setText(listaRTER.get(k).getMDpromedioElongacionRuptura());
-                        row.getCell(3).setText(listaRTER.get(k).getMDpromedioResistenciaTension());
-                        row.getCell(4).setText(listaRTER.get(k).getMDpromedioModuloElastico());
-                        row.getCell(5).setText(listaRTER.get(k).getMDpromedioEspesor());
+//                        row.getCell(1).setText(listaRTER.get(k).getMDpromedioFuerzaFluencia());
+//                        row.getCell(2).setText(listaRTER.get(k).getMDpromedioElongacionRuptura());
+//                        row.getCell(3).setText(listaRTER.get(k).getMDpromedioResistenciaTension());
+//                        row.getCell(4).setText(listaRTER.get(k).getMDpromedioModuloElastico());
+//                        row.getCell(5).setText(listaRTER.get(k).getMDpromedioEspesor());
                         table_3.addRow(row);
                     } catch (NullPointerException e) {
                         table_3.addRow(tableDocumment_3.getRow(2));
@@ -2629,11 +2640,11 @@ public class SolicitudServicioClienteService {
                     try {
                         XWPFTableRow row = tableDocumment_3.getRow(4);
                         row.getCell(0).setText(listaRTER.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
-                        row.getCell(1).setText(listaRTER.get(k).getTDpromedioFuerzaFluencia());
-                        row.getCell(2).setText(listaRTER.get(k).getTDpromedioElongacionRuptura());
-                        row.getCell(3).setText(listaRTER.get(k).getTDpromedioResistenciaTension());
-                        row.getCell(4).setText(listaRTER.get(k).getTDpromedioModuloElastico());
-                        row.getCell(5).setText(listaRTER.get(k).getTDpromedioEspesor());
+//                        row.getCell(1).setText(listaRTER.get(k).getTDpromedioFuerzaFluencia());
+//                        row.getCell(2).setText(listaRTER.get(k).getTDpromedioElongacionRuptura());
+//                        row.getCell(3).setText(listaRTER.get(k).getTDpromedioResistenciaTension());
+//                        row.getCell(4).setText(listaRTER.get(k).getTDpromedioModuloElastico());
+//                        row.getCell(5).setText(listaRTER.get(k).getTDpromedioEspesor());
                         table_3.addRow(row);
                     } catch (NullPointerException e) {
                         table_3.addRow(tableDocumment_3.getRow(4));

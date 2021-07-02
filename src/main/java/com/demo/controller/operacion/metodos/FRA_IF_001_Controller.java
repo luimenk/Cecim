@@ -71,8 +71,8 @@ public class FRA_IF_001_Controller {
         fra_if_001.setTemperaturaEnsayo(request.get("temperaturaEnsayo"));
         fra_if_001.setPesaEnsayo(request.get("pesaEnsayo"));
         fra_if_001.setTiempoCorte(request.get("tiempoCorte"));
-        fra_if_001.setPeso(request.get("peso"));
-        fra_if_001.setIndiceFluidez(request.get("indiceFluidez"));
+//        fra_if_001.setPeso(request.get("peso"));
+//        fra_if_001.setIndiceFluidez(request.get("indiceFluidez"));
         fra_if_001.setObservaciones(request.get("observaciones"));
         fra_if_001.setRealizo(request.get("realizo"));
         fra_if_001.setSupervisor(request.get("supervisor"));

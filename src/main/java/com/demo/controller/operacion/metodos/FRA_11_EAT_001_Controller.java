@@ -107,17 +107,23 @@ public class FRA_11_EAT_001_Controller {
 
         fra_eat_001.setFolioTecnica(request.get("folioTecnica"));
         fra_eat_001.setFolioSolicitudServicioInterno(request.get("folioSolicitudServicioInterno"));
-        fra_eat_001.setFechaInicioAnalisis(request.get("fechaInicioAnalisis"));
         fra_eat_001.setIdInternoMuestra(request.get("idInternoMuestra"));
+        fra_eat_001.setFechaInicioAnalisis(request.get("fechaInicioAnalisis"));
+        fra_eat_001.setFechaFinalAnalisis(request.get("fechaFinalAnalisis"));
         fra_eat_001.setTemperatura(request.get("temperatura"));
         fra_eat_001.setHumedadRelativa(request.get("humedadRelativa"));
-
-        fra_eat_001.setTemperaturaEnsayo(request.get("temperaturaEnsayo"));
-        fra_eat_001.setCodigoHorno(request.get("codigoHorno"));
-
-        fra_eat_001.setCicloTomaFotografica(request.get("cicloTomaFotografica"));
+        fra_eat_001.setCodigoHornoConveccion(request.get("codigoHornoConveccion"));
+        fra_eat_001.setTemperaturaHorno(request.get("temperaturaHorno"));
+        fra_eat_001.setTiempoCapturaFotografica(request.get("tiempoCapturaFotografica"));
+        fra_eat_001.setTiempoCiclo(request.get("tiempoCiclo"));
+        fra_eat_001.setDescripcionMuestra(request.get("descripcionMuestra"));
+        fra_eat_001.setTipoProducto(request.get("tipoProducto"));
         fra_eat_001.setTipoMaterial(request.get("tipoMaterial"));
-        fra_eat_001.setDescripcionCiclo(request.get("descripcionCiclo"));
+        fra_eat_001.setCaraAnalisis(request.get("caraAnalisis"));
+        fra_eat_001.setAditivoBiodegradable(request.get("aditivoBiodegradable"));
+        fra_eat_001.setPorcentajeInclusion(request.get("porcentajeInclusion"));
+        fra_eat_001.setTipoSuperficie(request.get("tipoSuperficie"));
+        fra_eat_001.setEspecifique(request.get("especifique"));
 
         fra_eat_001.setCantidadModificaciones("3");
         fra_eat_001.setEstatus("inicio");
@@ -150,8 +156,6 @@ public class FRA_11_EAT_001_Controller {
     public ResponseEntity<?> agrega(@RequestPart("imagen") MultipartFile file,
                                     @RequestPart("signature") MultipartFile file2,
                                     @RequestPart("datos") Map<String, String> request,
-                                    //@RequestPart("tiempoExposicion") String tiempoExposicion,
-                                    //@RequestBody Map<String, String> request,
                                     Principal principal) {
 
         FRA_EAT_001 fra_eat_001 = fra_eat_001_service.findById(Long.parseLong(request.get("id")));
@@ -161,7 +165,10 @@ public class FRA_11_EAT_001_Controller {
         SaveInServer saveInServer = new SaveInServer();
         try {
             fra_eat_001_data.setFra_eat_001(fra_eat_001);
+            fra_eat_001_data.setImagenSeleccionada(request.get("imagenSeleccionada"));
+            fra_eat_001_data.setTiempoExposicion(request.get("tiempoExposicion"));
             fra_eat_001_data.setNombreAnalista(request.get("nombreAnalista"));
+            fra_eat_001_data.setImagenSeleccionada(request.get("imagenSeleccionada"));
             fra_eat_001_data.setRubrica(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.SIGNATURE_EAT_TIME + saveInServer.SaveInServer(file2, Constantes.SIGNATURE_EAT_TIME));
             fra_eat_001_data.setPathImage(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.RUTA_IMG_11_EAT + saveInServer.SaveInServer(file, Constantes.RUTA_IMG_11_EAT));
 
@@ -177,24 +184,57 @@ public class FRA_11_EAT_001_Controller {
     @RequestMapping(value = "/terminar", method = RequestMethod.POST)
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> create2(@RequestBody Map<String, String> request) throws Exception {
+    public ResponseEntity<?> create2(@RequestPart("fraeat") Map<String, String> request,
+                                     @RequestPart("signature") MultipartFile signature,
+                                     Principal principal) {
         APP.debug("Se finalizó FRA_EAT a las: " + calendario.getTime());
 
         FRA_EAT_001 fra_eat_001 = fra_eat_001_service.findById(Long.parseLong(request.get("id")));
+        SaveInServer saveInServer = new SaveInServer();
 
-        fra_eat_001.setFechaFinalAnalisis(request.get("fechaFinalAnalisis"));
-        fra_eat_001.setTiempoTotalExposicion(request.get("tiempoTotalExposicion"));
-        fra_eat_001.setObservaciones(request.get("observaciones"));
-        fra_eat_001.setRealizo(request.get("realizo"));
-        fra_eat_001.setSupervisor(request.get("supervisor"));
+        try {
+            fra_eat_001.setFechaFinalAnalisis(request.get("fechaFinalAnalisis"));
+            fra_eat_001.setTiempoTotalExposicion(request.get("tiempoTotalExposicion"));
+            fra_eat_001.setObservaciones(request.get("observaciones"));
+            fra_eat_001.setRealizo(request.get("realizo"));
+            fra_eat_001.setSupervisor(request.get("supervisor"));
 
-        fra_eat_001.setEstatus("terminado");
+            fra_eat_001.setRubricaRealizo(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.SIGNATURE_REALIZO_EAT + saveInServer.SaveInServer(signature, Constantes.SIGNATURE_REALIZO_EAT));
 
-        fra_eat_001_service.save(fra_eat_001);
+            fra_eat_001.setEstatus("terminado");
 
-        MetodoMuestra metodoMuestra = fra_eat_001.getMetodoMuestra();
-        metodoMuestra.setEstatus("OK");
-        metodoMuestraService.save(metodoMuestra);
+            fra_eat_001_service.save(fra_eat_001);
+
+            MetodoMuestra metodoMuestra = fra_eat_001.getMetodoMuestra();
+            metodoMuestra.setEstatus("OK");
+            metodoMuestraService.save(metodoMuestra);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IOException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/imagenSi/{id}", method = RequestMethod.POST)
+    @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
+    public ResponseEntity<?> imagenSi(@PathVariable("id") Long id) throws Exception {
+
+        FRA_EAT_001_DATA fra_eat_001_data = fra_eat_001_data_service.findById(id);
+        fra_eat_001_data.setImagenSeleccionada("Si");
+
+        fra_eat_001_data_service.save(fra_eat_001_data);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/imagenNo/{id}", method = RequestMethod.POST)
+    @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
+    public ResponseEntity<?> imagenNo(@PathVariable("id") Long id) throws Exception {
+
+        FRA_EAT_001_DATA fra_eat_001_data = fra_eat_001_data_service.findById(id);
+        fra_eat_001_data.setImagenSeleccionada("No");
+
+        fra_eat_001_data_service.save(fra_eat_001_data);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

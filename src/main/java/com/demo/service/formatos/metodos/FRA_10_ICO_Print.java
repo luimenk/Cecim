@@ -72,7 +72,7 @@ public class FRA_10_ICO_Print {
         table2.getRow(3).getCell(3).setText(fra_ico_001.getGeometria());
         table2.getRow(4).getCell(1).setText(fra_ico_001.getAditivoBiodegradable());
         table2.getRow(4).getCell(3).setText(fra_ico_001.getGradoAditivo());
-        table2.getRow(4).getCell(5).setText(fra_ico_001.getPorcentajeInclusión());
+        table2.getRow(4).getCell(5).setText(fra_ico_001.getPorcentajeInclusion());
         table2.getRow(5).getCell(1).setText(fra_ico_001.getTipoEnvejecimiento());
         table2.getRow(5).getCell(3).setText(fra_ico_001.getTiempoEnvejecimiento());
         table2.getRow(7).getCell(3).setText(fra_ico_001.getMetodoAnalisis());
@@ -82,11 +82,13 @@ public class FRA_10_ICO_Print {
         table2.getRow(10).getCell(1).setText(fra_ico_001.getGrupoCarbonillo());
         table2.getRow(10).getCell(3).setText(fra_ico_001.getGrupoAlifatico());
 
+        int tiempo = 0;
         XWPFTable table3 = doc.getTables().get(3);
         table3.getRow(0).setRepeatHeader(true);
         for (int i = 0; i < lista.size(); i++) {
+            tiempo = tiempo + Integer.parseInt(lista.get(i).getTiempoExposicion());
             XWPFTableRow tableRow = table3.createRow();
-            tableRow.getCell(0).setText(lista.get(i).getTiempoExposicion());
+            tableRow.getCell(0).setText(tiempo + "");
             tableRow.getCell(1).setText(lista.get(i).getE1());
             tableRow.getCell(2).setText(lista.get(i).getE2());
             tableRow.getCell(3).setText(lista.get(i).getE3());

@@ -1,7 +1,7 @@
 package com.demo.service.operacion.metodos;
 
 import com.demo.model.operacion.metodos.fra02di.FRA_DI_001;
-import com.demo.repository.operacion.metodos.FRA_DI_001_Repository;
+import com.demo.repository.operacion.metodos.fra02di.FRA_DI_001_Repository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

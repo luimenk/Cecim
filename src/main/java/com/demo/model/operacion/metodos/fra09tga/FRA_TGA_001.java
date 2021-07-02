@@ -25,16 +25,23 @@ public class FRA_TGA_001 {
 
     private String codigoTGA;
     private String codigoBalanza;
+    private String peso;
+    private String posicionPortadorMuestra;
+    private String tipoMaterial;
 
-    //Resultados
-    private String avTemperatura;
-    private String avPeso;
-    private String mvTemperatura;
-    private String mvPeso;
-    private String combustibleTemperatura;
-    private String combustiblePeso;
-    private String cenizasTemperatura;
-    private String cenizasPeso;
+    //Condiciones
+    private String purga;
+    private String inicio;
+    private String dinamicaCal1;
+    private String dinamicaCal2;
+    private String tasaCalentamiento;
+    private String dinamicaEnf1;
+    private String tasaEnfriamiento;
+    private String temperaturaEmergencia;
+    private String tipoAtmosfera1;
+    private String tipoAtmosfera2;
+    private String tiempoPurga;
+    private String dinamica;
 
     private String observaciones;
     private String realizo;
@@ -50,6 +57,8 @@ public class FRA_TGA_001 {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
+    private String pathImagen;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Metodo_Muestra_Id")
     private MetodoMuestra metodoMuestra;
@@ -57,7 +66,7 @@ public class FRA_TGA_001 {
     public FRA_TGA_001() {
     }
 
-    public FRA_TGA_001(Long idFRATGA, String folioTecnica, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoTGA, String codigoBalanza, String avTemperatura, String avPeso, String mvTemperatura, String mvPeso, String combustibleTemperatura, String combustiblePeso, String cenizasTemperatura, String cenizasPeso, String observaciones, String realizo, String rubricaRealizo, String supervisor, String estatus, String cantidadModificaciones, Timestamp createdAt, Timestamp updatedAt, MetodoMuestra metodoMuestra) {
+    public FRA_TGA_001(Long idFRATGA, String folioTecnica, String folioSolicitudServicioInterno, String idInternoMuestra, String fechaInicioAnalisis, String fechaFinalAnalisis, String temperatura, String humedadRelativa, String codigoTGA, String codigoBalanza, String peso, String posicionPortadorMuestra, String tipoMaterial, String purga, String inicio, String dinamicaCal1, String dinamicaCal2, String tasaCalentamiento, String dinamicaEnf1, String tasaEnfriamiento, String temperaturaEmergencia, String tipoAtmosfera1, String tipoAtmosfera2, String tiempoPurga, String dinamica, String observaciones, String realizo, String rubricaRealizo, String supervisor, String estatus, String cantidadModificaciones, Timestamp createdAt, Timestamp updatedAt, String pathImagen, MetodoMuestra metodoMuestra) {
         this.idFRATGA = idFRATGA;
         this.folioTecnica = folioTecnica;
         this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
@@ -68,14 +77,21 @@ public class FRA_TGA_001 {
         this.humedadRelativa = humedadRelativa;
         this.codigoTGA = codigoTGA;
         this.codigoBalanza = codigoBalanza;
-        this.avTemperatura = avTemperatura;
-        this.avPeso = avPeso;
-        this.mvTemperatura = mvTemperatura;
-        this.mvPeso = mvPeso;
-        this.combustibleTemperatura = combustibleTemperatura;
-        this.combustiblePeso = combustiblePeso;
-        this.cenizasTemperatura = cenizasTemperatura;
-        this.cenizasPeso = cenizasPeso;
+        this.peso = peso;
+        this.posicionPortadorMuestra = posicionPortadorMuestra;
+        this.tipoMaterial = tipoMaterial;
+        this.purga = purga;
+        this.inicio = inicio;
+        this.dinamicaCal1 = dinamicaCal1;
+        this.dinamicaCal2 = dinamicaCal2;
+        this.tasaCalentamiento = tasaCalentamiento;
+        this.dinamicaEnf1 = dinamicaEnf1;
+        this.tasaEnfriamiento = tasaEnfriamiento;
+        this.temperaturaEmergencia = temperaturaEmergencia;
+        this.tipoAtmosfera1 = tipoAtmosfera1;
+        this.tipoAtmosfera2 = tipoAtmosfera2;
+        this.tiempoPurga = tiempoPurga;
+        this.dinamica = dinamica;
         this.observaciones = observaciones;
         this.realizo = realizo;
         this.rubricaRealizo = rubricaRealizo;
@@ -84,6 +100,7 @@ public class FRA_TGA_001 {
         this.cantidadModificaciones = cantidadModificaciones;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.pathImagen = pathImagen;
         this.metodoMuestra = metodoMuestra;
     }
 
@@ -167,68 +184,124 @@ public class FRA_TGA_001 {
         this.codigoBalanza = codigoBalanza;
     }
 
-    public String getAvTemperatura() {
-        return avTemperatura;
+    public String getPeso() {
+        return peso;
     }
 
-    public void setAvTemperatura(String avTemperatura) {
-        this.avTemperatura = avTemperatura;
+    public void setPeso(String peso) {
+        this.peso = peso;
     }
 
-    public String getAvPeso() {
-        return avPeso;
+    public String getPosicionPortadorMuestra() {
+        return posicionPortadorMuestra;
     }
 
-    public void setAvPeso(String avPeso) {
-        this.avPeso = avPeso;
+    public void setPosicionPortadorMuestra(String posicionPortadorMuestra) {
+        this.posicionPortadorMuestra = posicionPortadorMuestra;
     }
 
-    public String getMvTemperatura() {
-        return mvTemperatura;
+    public String getTipoMaterial() {
+        return tipoMaterial;
     }
 
-    public void setMvTemperatura(String mvTemperatura) {
-        this.mvTemperatura = mvTemperatura;
+    public void setTipoMaterial(String tipoMaterial) {
+        this.tipoMaterial = tipoMaterial;
     }
 
-    public String getMvPeso() {
-        return mvPeso;
+    public String getPurga() {
+        return purga;
     }
 
-    public void setMvPeso(String mvPeso) {
-        this.mvPeso = mvPeso;
+    public void setPurga(String purga) {
+        this.purga = purga;
     }
 
-    public String getCombustibleTemperatura() {
-        return combustibleTemperatura;
+    public String getInicio() {
+        return inicio;
     }
 
-    public void setCombustibleTemperatura(String combustibleTemperatura) {
-        this.combustibleTemperatura = combustibleTemperatura;
+    public void setInicio(String inicio) {
+        this.inicio = inicio;
     }
 
-    public String getCombustiblePeso() {
-        return combustiblePeso;
+    public String getDinamicaCal1() {
+        return dinamicaCal1;
     }
 
-    public void setCombustiblePeso(String combustiblePeso) {
-        this.combustiblePeso = combustiblePeso;
+    public void setDinamicaCal1(String dinamicaCal1) {
+        this.dinamicaCal1 = dinamicaCal1;
     }
 
-    public String getCenizasTemperatura() {
-        return cenizasTemperatura;
+    public String getDinamicaCal2() {
+        return dinamicaCal2;
     }
 
-    public void setCenizasTemperatura(String cenizasTemperatura) {
-        this.cenizasTemperatura = cenizasTemperatura;
+    public void setDinamicaCal2(String dinamicaCal2) {
+        this.dinamicaCal2 = dinamicaCal2;
     }
 
-    public String getCenizasPeso() {
-        return cenizasPeso;
+    public String getTasaCalentamiento() {
+        return tasaCalentamiento;
     }
 
-    public void setCenizasPeso(String cenizasPeso) {
-        this.cenizasPeso = cenizasPeso;
+    public void setTasaCalentamiento(String tasaCalentamiento) {
+        this.tasaCalentamiento = tasaCalentamiento;
+    }
+
+    public String getDinamicaEnf1() {
+        return dinamicaEnf1;
+    }
+
+    public void setDinamicaEnf1(String dinamicaEnf1) {
+        this.dinamicaEnf1 = dinamicaEnf1;
+    }
+
+    public String getTasaEnfriamiento() {
+        return tasaEnfriamiento;
+    }
+
+    public void setTasaEnfriamiento(String tasaEnfriamiento) {
+        this.tasaEnfriamiento = tasaEnfriamiento;
+    }
+
+    public String getTemperaturaEmergencia() {
+        return temperaturaEmergencia;
+    }
+
+    public void setTemperaturaEmergencia(String temperaturaEmergencia) {
+        this.temperaturaEmergencia = temperaturaEmergencia;
+    }
+
+    public String getTipoAtmosfera1() {
+        return tipoAtmosfera1;
+    }
+
+    public void setTipoAtmosfera1(String tipoAtmosfera1) {
+        this.tipoAtmosfera1 = tipoAtmosfera1;
+    }
+
+    public String getTipoAtmosfera2() {
+        return tipoAtmosfera2;
+    }
+
+    public void setTipoAtmosfera2(String tipoAtmosfera2) {
+        this.tipoAtmosfera2 = tipoAtmosfera2;
+    }
+
+    public String getTiempoPurga() {
+        return tiempoPurga;
+    }
+
+    public void setTiempoPurga(String tiempoPurga) {
+        this.tiempoPurga = tiempoPurga;
+    }
+
+    public String getDinamica() {
+        return dinamica;
+    }
+
+    public void setDinamica(String dinamica) {
+        this.dinamica = dinamica;
     }
 
     public String getObservaciones() {
@@ -301,5 +374,13 @@ public class FRA_TGA_001 {
 
     public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
         this.metodoMuestra = metodoMuestra;
+    }
+
+    public String getPathImagen() {
+        return pathImagen;
+    }
+
+    public void setPathImagen(String pathImagen) {
+        this.pathImagen = pathImagen;
     }
 }

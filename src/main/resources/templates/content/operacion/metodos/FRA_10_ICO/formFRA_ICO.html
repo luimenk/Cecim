@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Registro de análisis de la determinación del índice de carbonilo
+                                    por espectroscopía de infrarrojo por transformada de Fourier</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio del método</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioTecnica" id="folioTecnica"
+                                                   th:value="${folioTecnica}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio de solicitud de servicio interno</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioSolicitudServicioInterno"
+                                                   id="folioSolicitudServicioInterno"
+                                                   th:value="${folioSolicitudServicioInterno}" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis"
+                                                   th:value="${fechaHoy}" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">ID Interno de muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="idInternoMuestra" id="idInternoMuestra"
+                                                   th:value="${idInternoMuestra}" disabled>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="temperatura" id="temperatura"
+                                                   min="21" max="25" onkeydown="return false"
+                                                   step='0.1' value='23.0'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Humedad relativa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa"
+                                                   min="40" max="60" onkeydown="return false"
+                                                   step='1' value='50'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tipo de material</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoMaterial" id="tipoMaterial" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="PE">PE</option>
+                                                <option value="PP">PP</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Cara de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="caraAnalisis" id="caraAnalisis" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Interna">Interna</option>
+                                                <option value="Externa">Externa</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tipo de superficie</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoSuperficie" id="tipoSuperficie" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue" onchange="especifique()">
+                                                <option value="Con impresión">Con impresión</option>
+                                                <option value="Sin impresión">Sin Impresión</option>
+                                                <option value="Otra">Otra</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Especifique</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="especifiqueTipoSuperficie" id="especifiqueTipoSuperficie"
+                                                   required="true" value="N/A" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tipo de producto</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoProducto" id="tipoProducto" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Lámina">Lámina</option>
+                                                <option value="Manguera">Manguera</option>
+                                                <option value="Película">Película</option>
+                                                <option value="Placa">Placa</option>
+                                                <option value="Popote">Popote</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Geometría</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="geometria" id="geometria" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Cilíndrica">Cilíndrica</option>
+                                                <option value="Esférica">Esférica</option>
+                                                <option value="Plana">Plana</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Aditivo biodegradable</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="aditivoBiodegradable" id="aditivoBiodegradable" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Grado de aditivo</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="gradoAditivo" id="gradoAditivo"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Porcentaje de inclusión</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="porcentajeInclusion" id="porcentajeInclusion"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tipo de envejecimiento</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoEnvejecimiento" id="tipoEnvejecimiento" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="UV">UV</option>
+                                                <option value="Térmico">Térmico</option>
+                                                <option value="Xenón">Xenón</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Tiempo de envejecimiento (h)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="tiempoEnvejecimiento" id="tiempoEnvejecimiento"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Código de micrómetro</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoMicrometro" id="codigoMicrometro"
+                                                   required="true" value="MICR-02" disabled>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Norma de referencia</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="normaReferencia" id="normaReferencia"
+                                                   required="true" value="ASTM D6988" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Código de espectrómetro</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoEspectrometro" id="codigoEspectrometro"
+                                                   required="true" value="FTIR-04" disabled>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Método de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="metodoAnalisis" id="metodoAnalisis" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="ATR">ATR</option>
+                                                <option value="Transmisión">Transmisión</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Número de barridos</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="numeroBarridos" id="numeroBarridos" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="16">16</option>
+                                                <option value="32">32</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Resolución</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="resolucion" id="resolucion"
+                                                   required="true" value="4 cm -1" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Número de onda (cm<sup>-1</sup>)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="numeroOnda" id="numeroOnda"
+                                                   required="true">
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Línea base</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="lineaBase" id="lineaBase" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="1 punto">1 punto</option>
+                                                <option value="Región">Región</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Número de onda cm<sup>-1</sup>, grupo carbonilo</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="grupoCarbonillo" id="grupoCarbonillo"
+                                                   required="true" value="1715" disabled>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Número de onda cm<sup>-1</sup>, grupo alifático</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="grupoAlifatico" id="grupoAlifatico"
+                                                   required="true" value="1895" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-fill btn-primary" id="btnAceptar" onclick="valida()"><i
+                                        class="fa fa-floppy-o"></i>Registrar Datos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/metodoFRAICO.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaInicioAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaFinalAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+
+    function especifique(){
+        let condicional = document.getElementById("tipoSuperficie").value;
+        if (condicional === "Otra"){
+            document.getElementById("especifiqueTipoSuperficie").disabled = false;
+            document.getElementById("especifiqueTipoSuperficie").value = "";
+        } else {
+            document.getElementById("especifiqueTipoSuperficie").disabled = true;
+            document.getElementById("especifiqueTipoSuperficie").value = "N/A";
+        }
+    }
+</script>
+</html>

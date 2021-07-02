@@ -1,7 +1,7 @@
 package com.demo.service.operacion.metodos;
 
 import com.demo.model.operacion.metodos.fra12eauv.datas.FRA_EAUV_001_DATA;
-import com.demo.repository.operacion.metodos.*;
+import com.demo.repository.operacion.metodos.fra12eauv.datas.FRA_EAUV_001_DATA_Repository;
 import com.demo.utils.EstructuraNombres;
 
 import java.util.List;

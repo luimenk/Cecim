@@ -5,7 +5,7 @@ import com.demo.model.operacion.RecepcionVerificacionRegistroCodificacion;
 import com.demo.model.operacion.metodos.fra14oit.FRA_OIT_001;
 import com.demo.repository.operacion.MetodoMuestraRepository;
 import com.demo.repository.operacion.RecepcionVerificacionRegistroCodificacionRepository;
-import com.demo.repository.operacion.metodos.FRA_OIT_001_Repository;
+import com.demo.repository.operacion.metodos.fra14oit.FRA_OIT_001_Repository;
 import com.demo.utils.EstructuraNombres;
 
 import java.io.ByteArrayInputStream;
@@ -95,24 +95,24 @@ public class FRA_OIT_001_Service {
         XWPFTable table1 = doc.getTables().get(1);
         table1.getRow(0).getCell(1).setText(fra_oit_001.getTemperatura() + "°C");
         table1.getRow(0).getCell(3).setText(fra_oit_001.getHumedadRelativa() + "%");
-        table1.getRow(1).getCell(1).setText(fra_oit_001.getCodigoDSC());
-        table1.getRow(1).getCell(3).setText(fra_oit_001.getCodigoBalanza());
+//        table1.getRow(1).getCell(1).setText(fra_oit_001.getCodigoDSC());
+//        table1.getRow(1).getCell(3).setText(fra_oit_001.getCodigoBalanza());
 
-        XWPFTable table2 = doc.getTables().get(2);
-        table2.getRow(1).getCell(1).setText(fra_oit_001.getEspesor1());
-        table2.getRow(1).getCell(2).setText(fra_oit_001.getPeso1());
-        table2.getRow(1).getCell(3).setText(fra_oit_001.getPpmdsc1());
-        table2.getRow(2).getCell(1).setText(fra_oit_001.getEspesor2());
-        table2.getRow(2).getCell(2).setText(fra_oit_001.getPeso2());
-        table2.getRow(2).getCell(3).setText(fra_oit_001.getPpmdsc2());
+//        XWPFTable table2 = doc.getTables().get(2);
+//        table2.getRow(1).getCell(1).setText(fra_oit_001.getEspesor1());
+//        table2.getRow(1).getCell(2).setText(fra_oit_001.getPeso1());
+//        table2.getRow(1).getCell(3).setText(fra_oit_001.getPpmdsc1());
+//        table2.getRow(2).getCell(1).setText(fra_oit_001.getEspesor2());
+//        table2.getRow(2).getCell(2).setText(fra_oit_001.getPeso2());
+//        table2.getRow(2).getCell(3).setText(fra_oit_001.getPpmdsc2());
+//
+//        XWPFTable table3 = doc.getTables().get(3);
+//        table3.getRow(4).getCell(2).setText(fra_oit_001.getTiempoIsoterma());
 
-        XWPFTable table3 = doc.getTables().get(3);
-        table3.getRow(4).getCell(2).setText(fra_oit_001.getTiempoIsoterma());
-
-        XWPFTable table4 = doc.getTables().get(4);
-        table4.getRow(1).getCell(1).setText(fra_oit_001.getRepeticion1OIT());
-        table4.getRow(1).getCell(2).setText(fra_oit_001.getRepeticion2OIT());
-        table4.getRow(1).getCell(3).setText(fra_oit_001.getPromedio());
+//        XWPFTable table4 = doc.getTables().get(4);
+//        table4.getRow(1).getCell(1).setText(fra_oit_001.getRepeticion1OIT());
+//        table4.getRow(1).getCell(2).setText(fra_oit_001.getRepeticion2OIT());
+//        table4.getRow(1).getCell(3).setText(fra_oit_001.getPromedio());
 
         XWPFTable table5 = doc.getTables().get(5);
         table5.getRow(0).getCell(1).setText(fra_oit_001.getObservaciones());

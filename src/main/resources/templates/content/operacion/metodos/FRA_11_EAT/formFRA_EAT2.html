@@ -3,28 +3,7 @@
 <head>
     <title>Panel de Administración</title>
     <th:block th:include="/dependences/_HeadInside"></th:block>
-    <style>
-        body {
-            overscroll-behavior: contain;
-        }
-
-        #sig-canvas {
-            border: 3px dotted #CCCCCC;
-            border-radius: 5px;
-            cursor: crosshair;
-            text-align: center;
-            margin: auto;
-        }
-
-        #sig-dataUrl {
-            width: 100%;
-        }
-
-        #sig-image {
-            text-align: center;
-            margin: auto;
-        }
-    </style>
+    <link href="../assets/css/estiloPanelFirma.css" rel="stylesheet" />
 </head>
 <body>
 <!--<body>-->
@@ -44,6 +23,22 @@
                             <div class="card-body">
 
                                 <div class="row">
+                                    <label class="col-sm-2 control-label">Tiempo de exposición</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tiempoExposicion" id="tiempoExposicion" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue" onchange="especifique()">
+                                                <option value="0">0</option>
+                                                <option value="48">48</option>
+                                                <option value="96">96</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <label class="col-sm-2 control-label">Vista previa</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
@@ -61,6 +56,21 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">¿Esta imagen se imprimirá?</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="imagenSeleccionada" id="imagenSeleccionada" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-info"
+                                                    data-menu-style="dropdown-blue" onchange="especifique()">
+                                                <option value="Si">Si</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="card-footer text-right">
                             </div>
@@ -73,6 +83,16 @@
                                 <h4 class="card-title">Registro de firma</h4>
                             </div>
                             <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-6 control-label">Rubrica en texto</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="nombreAnalista" id="nombreAnalista">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-auto mr-auto ml-auto">
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Panel de firma</button>
@@ -116,15 +136,6 @@
                                     <img id="sig-image" src="" alt=""/>
                                 </div>
 
-                                <div class="row">
-                                    <label class="col-sm-6 control-label">Nombre del analista</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="nombreAnalista" id="nombreAnalista">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="card-footer"></div>
                         </div>
@@ -163,8 +174,9 @@
     </div>
 </div>
 </body>
-<script src="../assets/js/actions/metodoFRAEAT.js" type="text/javascript"></script>
+<script src="../assets/js/actions/base64aBlob.js" type="text/javascript"></script>
 <script src="../assets/js/actions/signature.js" type="text/javascript"></script>
+<script src="../assets/js/actions/metodoFRAEAT.js" type="text/javascript"></script>
 <th:block th:include="/dependences/_RequiredScripts"></th:block>
 <script>
     $('#fechaInicioAnalisis').datetimepicker({

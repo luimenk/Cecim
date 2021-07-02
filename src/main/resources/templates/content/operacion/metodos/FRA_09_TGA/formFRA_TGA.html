@@ -3,6 +3,7 @@
 <head>
     <title>Panel de Administración</title>
     <th:block th:include="/dependences/_HeadInside"></th:block>
+    <link href="../assets/css/estiloPanelFirma.css" rel="stylesheet" />
 </head>
 <body>
 <!--<body>-->
@@ -17,7 +18,8 @@
                     <div class="col-md-12">
                         <div class="card ">
                             <div class="card-header ">
-                                <h4 class="card-title">Registro de análisis de determinación compuestos por termogravimetría</h4>
+                                <h4 class="card-title">Registro de análisis de determinación compuestos por
+                                    termogravimetría</h4>
                             </div>
                             <div class="card-body ">
 
@@ -122,7 +124,7 @@
                             <div class="card-header">
                                 <h4 class="card-title">Condiciones de ensayo</h4>
                             </div>
-                            <div class="card-body" style="overflow-x: scroll">
+                            <div class="card-body">
                                 <div class="row">
                                     <label class="col-sm-2 control-label">Peso (mg)</label>
                                     <div class="col-sm-4 col-sm-offset-1">
@@ -145,8 +147,9 @@
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <select class="selectpicker" name="tipoMaterial" id="tipoMaterial"
+                                                    data-title="Selecciona una opción..."
                                                     data-style="btn-primary"
-                                                    data-menu-style="dropdown-blue">
+                                                    data-menu-style="dropdown-blue" onchange="setearResultados()">
                                                 <option value="Elastómeros">Elastómeros</option>
                                                 <option value="Termoplásticos">Termoplásticos</option>
                                                 <option value="Termofijos">Termofijos</option>
@@ -169,7 +172,7 @@
                                         <thead>
                                         <tr>
                                             <th class="text-center">Etapa</th>
-                                            <th class="text-center">Temperatura (°C)</th>
+                                            <th class="text-center" colspan="2">Temperatura (°C)</th>
                                             <th class="text-center">Tiempo (min)</th>
                                             <th class="text-center">Tipo de atmósfera</th>
                                         </tr>
@@ -177,88 +180,72 @@
                                         <tbody>
                                         <tr>
                                             <td class="text-center">Purga</td>
+                                            <td class="text-center" colspan="2"><input type="text" class="form-control"
+                                                                                       name="purga" id="purga"></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="temperatura1" id="temperatura1"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="tiempo1" id="tiempo1"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="fnpa1" id="fnpa1"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="fnpp1" id="fnpp1"
-                                                                           required="required"></td>
+                                                                           name="tiempoPurga" id="tiempoPurga"></td>
+                                            <td class="text-center">N<sub>2</sub></td>
                                         </tr>
                                         <tr>
-                                            <td class="text-center">Dinámica</td>
+                                            <td class="text-center">Inicio-Dinámica<sub>cal1</sub></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="temperatura2" id="temperatura2"
-                                                                           required="required"></td>
+                                                                           name="inicio" id="inicio"></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="flujoOxigeno2" id="flujoOxigeno2"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="fnpa2" id="fnpa2"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="fnpp2" id="fnpp2"
-                                                                           required="required"></td>
+                                                                           name="dinamicaCal1" id="dinamicaCal1"
+                                                                            onchange="setearEnA()"></td>
+                                            <td class="text-center" rowspan="2">NA</td>
+                                            <td class="text-center"><select class="selectpicker" name="tipoAtmosfera1"
+                                                                            id="tipoAtmosfera1"
+                                                                            data-style="btn-primary"
+                                                                            data-menu-style="dropdown-blue">
+                                                                        <option value="O2">O<sub>2</sub></option>
+                                                                        <option value="N2">N<sub>2</sub></option>
+                                                                    </select>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-center">Dinámica</td>
+                                            <td class="text-center">Dinámica<sub>cal1</sub>-Dinámica<sub>cal2</sub></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="temperatura3" id="temperatura3"
-                                                                           required="required"></td>
+                                                                           name="a" id="a" disabled></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="flujoOxigeno3" id="flujoOxigeno3"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="fnpa3" id="fnpa3"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="fnpp3" id="fnpp3"
-                                                                           required="required"></td>
+                                                                           name="dinamicaCal2" id="dinamicaCal2"
+                                                                            onchange="setearEnB()"></td>
+                                            <td class="text-center"><select class="selectpicker" name="tipoAtmosfera2"
+                                                                            id="tipoAtmosfera2"
+                                                                            data-style="btn-primary"
+                                                                            data-menu-style="dropdown-blue">
+                                                <option value="O2">O<sub>2</sub></option>
+                                                <option value="N2">N<sub>2</sub></option>
+                                            </select>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-center">Dinámica</td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="temperatura4" id="temperatura4"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="flujoOxigeno4" id="flujoOxigeno4"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="fnpa4" id="fnpa4"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="fnpp4" id="fnpp4"
-                                                                           required="required"></td>
+                                            <td class="text-center">Tasa de calentamiento</td>
+                                            <td class="text-center" colspan="3"><input type="text" class="form-control"
+                                                                                       name="tasaCalentamiento" id="tasaCalentamiento"></td>
+                                            <td></td>
                                         </tr>
                                         <tr>
-                                            <td class="text-center">Dinámica</td>
+                                            <td class="text-center">Dinámica<sub>cal2</sub>-Dinámica<sub>enf1</sub></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="temperatura5" id="temperatura5"
-                                                                           required="required"></td>
+                                                                           name="b" id="b" disabled></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="flujoOxigeno5" id="flujoOxigeno5"
-                                                                           required="required"></td>
+                                                                           name="dinamicaEnf1" id="dinamicaEnf1"></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="fnpa5" id="fnpa5"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="fnpp5" id="fnpp5"
-                                                                           required="required"></td>
+                                                                           name="dinamica" id="dinamica"></td>
+                                            <td class="text-center">N<sub>2</sub></td>
                                         </tr>
                                         <tr>
-                                            <th class="text-center">Tasa de calentamiento</th>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="tasaCalentamiento" id="tasaCalentamiento"
-                                                                           required="required"></td>
-                                            <th class="text-center">Tasa de enfriamiento</th>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           name="tasaEnfriamiento" id="tasaEnfriamiento"
-                                                                           required="required"></td>
+                                            <td class="text-center">Tasa de enfriamiento</td>
+                                            <td class="text-center" colspan="3"><input type="text" class="form-control"
+                                                                                       name="tasaEnfriamiento" id="tasaEnfriamiento"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Temperatura de emergencia</td>
+                                            <td class="text-center" colspan="3"><input type="text" class="form-control"
+                                                                                       name="temperaturaEmergencia" id="temperaturaEmergencia"></td>
+                                            <td class="text-center">N/A</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -279,47 +266,43 @@
                                     <table class="table table-hover table-striped">
                                         <thead>
                                         <tr>
-                                            <th class="text-center">Perdidas de masa</th>
+                                            <th class="text-center">Compuesto</th>
                                             <th class="text-center">Rango de temperatura (°C)</th>
-                                            <th class="text-center">Cambio de masa(%)</th>
+                                            <th class="text-center">Concentración de compuesto (% en peso)</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
                                             <td class="text-center">Material altamente volátil</td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="rangoTemperatura1" id="rangoTemperatura1"
-                                                                           required="required"></td>
+                                                                           name="avTemperatura"
+                                                                           id="avTemperatura" disabled></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="cambioMasa1" id="cambioMasa1"
-                                                                           required="required"></td>
+                                                                           name="avPeso" id="avPeso"></td>
                                         </tr>
                                         <tr>
                                             <td class="text-center">Material volátil</td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="rangoTemperatura2" id="rangoTemperatura2"
-                                                                           required="required"></td>
+                                                                           name="mvTemperatura"
+                                                                           id="mvTemperatura" disabled></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="cambioMasa2" id="cambioMasa2"
-                                                                           required="required"></td>
+                                                                           name="mvPeso" id="mvPeso"></td>
                                         </tr>
                                         <tr>
-                                            <td class="text-center">Material combustible</td>
+                                            <td class="text-center">Combustible</td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="rangoTemperatura3" id="rangoTemperatura3"
-                                                                           required="required"></td>
+                                                                           name="combustibleTemperatura"
+                                                                           id="combustibleTemperatura" disabled></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="cambioMasa3" id="cambioMasa3"
-                                                                           required="required"></td>
+                                                                           name="combustiblePeso" id="combustiblePeso"></td>
                                         </tr>
                                         <tr>
                                             <td class="text-center">Contenido de cenizas</td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="rangoTemperatura4" id="rangoTemperatura4"
-                                                                           required="required"></td>
+                                                                           name="cenizasTemperatura"
+                                                                           id="cenizasTemperatura" disabled></td>
                                             <td class="text-center"><input type="text" class="form-control"
-                                                                           name="cambioMasa4" id="cambioMasa4"
-                                                                           required="required"></td>
+                                                                           name="cenizasPeso" id="cenizasPeso"></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -375,21 +358,77 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Panel de firma</button>
+                                    </div>
+                                </div>
+
+                                <!--MODAL-->
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <canvas id="sig-canvas" width="320" height="240">
+                                                        Usa un navegador diferente
+                                                    </canvas>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-auto mr-auto ml-auto">
+                                                        <button class="btn btn-primary" id="sig-submitBtn" data-dismiss="modal"><i class="fa fa-check-circle"></i>Aceptar firma</button>
+                                                        <button class="btn btn-default" id="sig-clearBtn"><i class="fa fa-eraser"></i>Limpiar firma</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <textarea id="sig-dataUrl" class="form-control" rows="5" hidden>Metadato</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <img id="sig-image" src="" alt=""/>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="card-footer">
-                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success" onclick="valida()">Registrar
-                                    Datos
+                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success" onclick="valida()">
+                                    <span class="btn-label">
+                                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                                    </span>
+                                    Registrar
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <th:block th:include="/dependences/_Footer"></th:block>
         </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
     </div>
 </div>
 </body>
+<script src="../assets/js/actions/base64aBlob.js" type="text/javascript"></script>
+<script src="../assets/js/actions/signature.js" type="text/javascript"></script>
 <script src="../assets/js/actions/metodoFRATGA.js" type="text/javascript"></script>
 <th:block th:include="/dependences/_RequiredScripts"></th:block>
 <script>
@@ -413,5 +452,37 @@
             previous: 'fa fa-chevron-circle-left'
         }
     });
+
+    function setearResultados(){
+        let condicional = document.getElementById("tipoMaterial").value;
+        if (condicional === "Elastómeros") {
+            document.getElementById("avTemperatura").value = "Tamb – 325";
+            document.getElementById("mvTemperatura").value = "325 – 550";
+            document.getElementById("combustibleTemperatura").value = "550 - 750";
+            document.getElementById("cenizasTemperatura").value = "> 750";
+        }
+        if (condicional === "Termoplásticos") {
+            document.getElementById("avTemperatura").value = "Tamb – 200";
+            document.getElementById("mvTemperatura").value = "200 - 600";
+            document.getElementById("combustibleTemperatura").value = "600 - 750";
+            document.getElementById("cenizasTemperatura").value = "> 750";
+        }
+        if (condicional === "Termofijos") {
+            document.getElementById("avTemperatura").value = "Tamb – 200";
+            document.getElementById("mvTemperatura").value = "200 - 550";
+            document.getElementById("combustibleTemperatura").value = "550 – 750";
+            document.getElementById("cenizasTemperatura").value = "> 750";
+        }
+    }
+
+    function setearEnA(){
+        let dinamicaA = document.getElementById("dinamicaCal1").value;
+        document.getElementById("a").value = dinamicaA;
+    }
+
+    function setearEnB(){
+        let dinamicaB = document.getElementById("dinamicaCal2").value;
+        document.getElementById("b").value = dinamicaB;
+    }
 </script>
 </html>
