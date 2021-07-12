@@ -94,6 +94,7 @@ public class FRA_17_IF_Print {
         XWPFTable table8 = doc.getTables().get(8);
         table8.getRow(0).getCell(1).setText(fra_if_001.getObservaciones());
 
+
         XWPFTable table9 = doc.getTables().get(9);
         table9.getRow(1).getCell(0).removeParagraph(0);
         XWPFParagraph paragraph = table9.getRow(1).getCell(0).addParagraph();
