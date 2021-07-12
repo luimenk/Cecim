@@ -1,6 +1,7 @@
 package com.demo.model.operacion.metodos.fra16rsc;
 
 import com.demo.model.operacion.MetodoMuestra;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Data
 public class FRA_RSC_001 {
 
     @Id
@@ -26,6 +28,47 @@ public class FRA_RSC_001 {
     private String codigoLaboratorio;
     private String codigoMicrometro;
 
+    private String anchoMuestra;
+    private String anchoMordazas;
+    private String tipoMordazas;
+    private String presion;
+
+    private String tiempoSellado;
+    private String tiempoRetardo;
+    private String velocidadDesprendimiento;
+
+    private String temperaturaSellado1;
+    private String temperaturaSellado2;
+    private String temperaturaSellado3;
+    private String temperaturaSellado4;
+    private String temperaturaSellado5;
+    private String temperaturaMordazaSuperior1;
+    private String temperaturaMordazaSuperior2;
+    private String temperaturaMordazaSuperior3;
+    private String temperaturaMordazaSuperior4;
+    private String temperaturaMordazaSuperior5;
+    private String temperaturaMordazaInferior1;
+    private String temperaturaMordazaInferior2;
+    private String temperaturaMordazaInferior3;
+    private String temperaturaMordazaInferior4;
+    private String temperaturaMordazaInferior5;
+    private String tasaIncrementoTemperaturaMordaza;
+
+    private String ejeAnalisis;
+    private String caraAnalisis;
+    private String tipoMaterial;
+
+    private String promedioFuerzaSello1;
+    private String promedioDesvEstandar1;
+    private String promedioFuerzaSello2;
+    private String promedioDesvEstandar2;
+    private String promedioFuerzaSello3;
+    private String promedioDesvEstandar3;
+    private String promedioFuerzaSello4;
+    private String promedioDesvEstandar4;
+    private String promedioFuerzaSello5;
+    private String promedioDesvEstandar5;
+
     private String observaciones;
     private String realizo;
     private String rubricaRealizo;
@@ -40,162 +83,9 @@ public class FRA_RSC_001 {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
+    private String pathImagen;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Metodo_Muestra_Id")
     private MetodoMuestra metodoMuestra;
-
-    public FRA_RSC_001() {
-    }
-
-    public Long getIdFRARSC() {
-        return idFRARSC;
-    }
-
-    public void setIdFRARSC(Long idFRARSC) {
-        this.idFRARSC = idFRARSC;
-    }
-
-    public String getFolioTecnica() {
-        return folioTecnica;
-    }
-
-    public void setFolioTecnica(String folioTecnica) {
-        this.folioTecnica = folioTecnica;
-    }
-
-    public String getFolioSolicitudServicioInterno() {
-        return folioSolicitudServicioInterno;
-    }
-
-    public void setFolioSolicitudServicioInterno(String folioSolicitudServicioInterno) {
-        this.folioSolicitudServicioInterno = folioSolicitudServicioInterno;
-    }
-
-    public String getIdInternoMuestra() {
-        return idInternoMuestra;
-    }
-
-    public void setIdInternoMuestra(String idInternoMuestra) {
-        this.idInternoMuestra = idInternoMuestra;
-    }
-
-    public String getFechaInicioAnalisis() {
-        return fechaInicioAnalisis;
-    }
-
-    public void setFechaInicioAnalisis(String fechaInicioAnalisis) {
-        this.fechaInicioAnalisis = fechaInicioAnalisis;
-    }
-
-    public String getFechaFinalAnalisis() {
-        return fechaFinalAnalisis;
-    }
-
-    public void setFechaFinalAnalisis(String fechaFinalAnalisis) {
-        this.fechaFinalAnalisis = fechaFinalAnalisis;
-    }
-
-    public String getTemperatura() {
-        return temperatura;
-    }
-
-    public void setTemperatura(String temperatura) {
-        this.temperatura = temperatura;
-    }
-
-    public String getHumedadRelativa() {
-        return humedadRelativa;
-    }
-
-    public void setHumedadRelativa(String humedadRelativa) {
-        this.humedadRelativa = humedadRelativa;
-    }
-
-    public String getCodigoLaboratorio() {
-        return codigoLaboratorio;
-    }
-
-    public void setCodigoLaboratorio(String codigoLaboratorio) {
-        this.codigoLaboratorio = codigoLaboratorio;
-    }
-
-    public String getCodigoMicrometro() {
-        return codigoMicrometro;
-    }
-
-    public void setCodigoMicrometro(String codigoMicrometro) {
-        this.codigoMicrometro = codigoMicrometro;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public String getRealizo() {
-        return realizo;
-    }
-
-    public void setRealizo(String realizo) {
-        this.realizo = realizo;
-    }
-
-    public String getRubricaRealizo() {
-        return rubricaRealizo;
-    }
-
-    public void setRubricaRealizo(String rubricaRealizo) {
-        this.rubricaRealizo = rubricaRealizo;
-    }
-
-    public String getSupervisor() {
-        return supervisor;
-    }
-
-    public void setSupervisor(String supervisor) {
-        this.supervisor = supervisor;
-    }
-
-    public String getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(String estatus) {
-        this.estatus = estatus;
-    }
-
-    public String getCantidadModificaciones() {
-        return cantidadModificaciones;
-    }
-
-    public void setCantidadModificaciones(String cantidadModificaciones) {
-        this.cantidadModificaciones = cantidadModificaciones;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public MetodoMuestra getMetodoMuestra() {
-        return metodoMuestra;
-    }
-
-    public void setMetodoMuestra(MetodoMuestra metodoMuestra) {
-        this.metodoMuestra = metodoMuestra;
-    }
 }

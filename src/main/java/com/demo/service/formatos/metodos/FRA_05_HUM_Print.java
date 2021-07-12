@@ -74,7 +74,7 @@ public class FRA_05_HUM_Print {
         table2.getRow(0).getCell(3).setText(fra_hum_001.getHumedadRelativa() + " %");
         //table2.getRow(1).getCell(1).setText(fra_hum_001.getCodigoBalanza());
         table2.getRow(1).getCell(3).setText(fra_hum_001.getCodigoHorno());
-        table2.getRow(2).getCell(1).setText(fra_hum_001.getTemperaturaSecado());
+        table2.getRow(2).getCell(1).setText(fra_hum_001.getTemperaturaSecado() + " °C");
         table2.getRow(2).getCell(3).setText(fra_hum_001.getTipoMaterial());
 
         XWPFTable table3 = doc.getTables().get(3);

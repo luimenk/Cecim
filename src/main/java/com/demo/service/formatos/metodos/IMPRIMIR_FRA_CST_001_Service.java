@@ -78,8 +78,6 @@ public class IMPRIMIR_FRA_CST_001_Service {
         table5.getRow(1).getCell(0).setText(fra_cst_001.getRealizo());
         table5.getRow(1).getCell(1).setText(fra_cst_001.getSupervisor());
 
-
-
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=FRA-CST-"+estructuraNombres.getNombre()+".docx");
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FRA_OIT_001_Repository extends JpaRepository<FRA_OIT_001, Long>{
     FRA_OIT_001 findByIdFRAOIT(Long id);
+    FRA_OIT_001 findByFolioTecnica(String folio);
     FRA_OIT_001 findByMetodoMuestra_MetodoMuestraId(Long id);
     FRA_OIT_001 findByIdInternoMuestra(String id);
 }

@@ -141,8 +141,8 @@ public class FRA_15_DSC_Controller {
             fra_dsc.setPathImagen(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.RUTA_IMG_15_DSC + saveInServer.SaveInServer(file, Constantes.RUTA_IMG_15_DSC));
             fra_dsc.setRubricaRealizo(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.SIGNATURE_REALIZO_DSC + saveInServer.SaveInServer(signature, Constantes.SIGNATURE_REALIZO_DSC));
 
-            fra_dsc.setEstatus(request.get("FINALIZADO"));
-            fra_dsc.setCantidadModificaciones(request.get("3"));
+            fra_dsc.setEstatus("FINALIZADO");
+            fra_dsc.setCantidadModificaciones("3");
 
             fra_dsc_service.save(fra_dsc);
 

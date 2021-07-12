@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+    <link href="../assets/css/estiloPanelFirma.css" rel="stylesheet"/>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Registro de análisis de determinación del índice de fluidez</h4>
+                            </div>
+                            <div class="card-body ">
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio del método</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioTecnica" id="folioTecnica"
+                                                   th:value="${folioTecnica}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio de solicitud de servicio interno</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioSolicitudServicioInterno"
+                                                   id="folioSolicitudServicioInterno"
+                                                   th:value="${folioSolicitudServicioInterno}" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis"
+                                                   th:value="${fechaHoy}" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">ID Interno de muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="idInternoMuestra" id="idInternoMuestra"
+                                                   th:value="${idInternoMuestra}" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha final de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaFinalAnalisis" id="fechaFinalAnalisis" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="temperatura" id="temperatura"
+                                                   min="21" max="25" onkeydown="return false"
+                                                   step='0.1' value='23.0'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Humedad relativa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa"
+                                                   min="40" max="60" onkeydown="return false"
+                                                   step='1' value='50'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Código de la balanza analítica</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoBalanzaAnalitica" id="codigoBalanzaAnalitica"
+                                                   value="BALA-02" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Código del plastómetro</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoPlastometro" id="codigoPlastometro" value="PLAS-06"
+                                                   disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura de ensayo</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaEnsayo" id="temperaturaEnsayo"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Pesa de ensayo</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="pesaEnsayo" id="pesaEnsayo"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tiempo de corte</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="tiempoCorte" id="tiempoCorte"
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tipo de material</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tipoMaterial" id="tipoMaterial"
+                                                    required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="PE">PE</option>
+                                                <option value="PP">PP</option>
+                                                <option value="PS">PS</option>
+                                                <option value="PA">PA</option>
+                                                <option value="PC">PC</option>
+                                                <option value="EVA">EVA</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Forma física del material</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="formaFisicaMaterial"
+                                                    id="formaFisicaMaterial" required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Pellet">Pellet</option>
+                                                <option value="Polvo">Polvo</option>
+                                                <option value="Hojuelas">Hojuelas</option>
+                                                <option value="Tiras de película">Tiras de película</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Índice de fluidez. Referencia</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="indiceFuidez" id="indiceFuidez"
+                                                    required="true"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue" onchange="mostrarTablaResultados()">
+                                                <option value="0.15 a 1.0">0.15 a 1.0</option>
+                                                <option value=">1.0 a 3.5">>1.0 a 3.5</option>
+                                                <option value=">3.5 a 10">>3.5 a 10</option>
+                                                <option value=">10 a 25">>10 a 25</option>
+                                                <option value=">25">>25</option>
+                                                <option value="No especificado">No especificado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer ">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div id="tablaRepeticiones">
+
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Observaciones</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Observaciones</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="observaciones" id="observaciones" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Realizó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="realizo" id="realizo" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Supervisó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="supervisor" id="supervisor" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Panel de firma</button>
+                                    </div>
+                                </div>
+
+                                <!--MODAL-->
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <canvas id="sig-canvas" width="320" height="240">
+                                                        Usa un navegador diferente
+                                                    </canvas>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-auto mr-auto ml-auto">
+                                                        <button class="btn btn-primary" id="sig-submitBtn" data-dismiss="modal"><i class="fa fa-check-circle"></i>Aceptar firma</button>
+                                                        <button class="btn btn-default" id="sig-clearBtn"><i class="fa fa-eraser"></i>Limpiar firma</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <textarea id="sig-dataUrl" class="form-control" rows="5" hidden>Metadato</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <img id="sig-image" src="" alt=""/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success" onclick="valida()">
+                                    <span class="btn-label">
+                                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                                    </span>
+                                    Registrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/base64aBlob.js" type="text/javascript"></script>
+<script src="../assets/js/actions/signature.js" type="text/javascript"></script>
+<script src="../assets/js/actions/metodoFRAIF.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaInicioAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaFinalAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+</script>
+</html>

@@ -819,38 +819,7 @@ public class InterfaceController {
         return "content/operacion/metodos/elongacionRuptura/listElongacionRuptura";
     }
 
-    @RequestMapping(value = "/registerFRAPRR/{id}")
-    public String registerFRAPRR(Model model, Principal principal, @PathVariable("id") Long id) {
 
-        List<Client> lista = clientService.findAll();
-        model.addAttribute("empresas", lista);
-
-        List<Method> lista2 = methodService.findAll();
-        model.addAttribute("metodos", lista2);
-
-        return "content/operacion/metodos/FRA_PRR/formFRA_PRR";
-    }
-
-    @RequestMapping("/listFRAPRR")
-    public String listFRAPRR(Model model, Principal principal) {
-        // After user login successfully.
-        String userName = principal.getName();
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
-        String userInfo = WebUtils.toString(loginedUser);
-
-        Collection<GrantedAuthority> review = loginedUser.getAuthorities();
-
-        model.addAttribute("userName", userName);
-        model.addAttribute("userInfo", userInfo);
-
-        for (GrantedAuthority a : review) {
-            model.addAttribute("role", a.getAuthority());
-        }
-
-        return "content/operacion/metodos/FRA_PRR/listFRA_PRR";
-    }
 
 
 

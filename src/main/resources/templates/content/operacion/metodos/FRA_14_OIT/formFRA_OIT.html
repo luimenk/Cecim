@@ -17,7 +17,7 @@
                     <div class="col-md-12">
                         <div class="card ">
                             <div class="card-header text-center">
-                                <h4 class="card-title">Determinación del tiempo de inducción a la oxidación</h4>
+                                <h4 class="card-title">Registro de análisis de determinación del tiempo de inducción a la oxidación por calorimetría diferencial de barrido</h4>
                             </div>
                             <div class="card-body ">
                                 <div class="row">
@@ -60,13 +60,6 @@
                                                    th:value="${idInternoMuestra}" disabled>
                                         </div>
                                     </div>
-                                    <!--<label class="col-sm-2 control-label">Fecha final de análisis</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="fechaFinalAnalisis" id="fechaFinalAnalisis" required="true">
-                                        </div>
-                                    </div>-->
                                 </div>
 
                                 <div class="row">
@@ -86,7 +79,7 @@
                                             <input type="number" class="form-control"
                                                    name="humedadRelativa" id="humedadRelativa"
                                                    min="40" max="60" onkeydown="return false"
-                                                   step='0.1' value='50.0'
+                                                   step='1' value='50'
                                                    required="true">
                                         </div>
                                     </div>
@@ -114,26 +107,51 @@
                                 </div>
 
                                 <div class="row">
+                                    <label class="col-sm-2 control-label">Peso (mg) M1</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="pesom1" id="pesom1">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Peso (mg) M2</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="pesom2" id="pesom2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Posición portador muestra M1</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="posicionm1" id="posicionm1">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Posición portador muestra M2</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="posicionm2" id="posicionm2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <label class="col-sm-2 control-label">Cantidad de repeticiones</label>
                                     <div class="col-sm-4 col-sm-offset-1">
                                         <div class="form-group">
                                             <select class="selectpicker" name="repeticiones" id="repeticiones" required="true"
                                                     data-style="btn-success"
-                                                    data-menu-style="dropdown-blue">
+                                                    data-menu-style="dropdown-blue"
+                                                    data-title="Selecciona una opción..."
+                                                    onchange="mostrarRepeticiones()">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                             </select>
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label"></label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-fill btn-success" onclick="mostrarRepeticiones()">
-                                                <span class="btn-label">
-                                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                                </span>
-                                                Mostrar
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -142,10 +160,6 @@
                             <div class="card-footer ">
                                 <h6 class="text-danger">* Favor de verificar tu información.</h6>
                             </div>
-                        </div>
-
-                        <div id="tablaRepeticiones">
-
                         </div>
 
                         <div class="card">
@@ -158,104 +172,99 @@
                                         <thead>
                                         <tr>
                                             <th class="text-center">Etapa</th>
-                                            <th class="text-center">Temperatura (°C)</th>
+                                            <th class="text-center" colspan="2">Temperatura (°C)</th>
                                             <th class="text-center">Tiempo (min)</th>
-                                            <th class="text-center">Tasa (K/min)</th>
-                                            <th class="text-center">Flujo de oxígeno (ml/min)</th>
-                                            <th class="text-center">Flujo de nitrógeno para atmosfera (ml/min)</th>
-                                            <th class="text-center">Flujo de nitrógeno para protección (ml/min)</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td class="text-center">Inicio</td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="40" disabled id="na1"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="N/A" disabled id="na2"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="N/A" disabled id="na3"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="0" disabled id="na4"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="50" disabled id="na5"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="100" disabled id="na6"></td>
+                                            <td class="text-center">Purga</td>
+                                            <td class="text-center" colspan="2">T<sub>amb</sub></td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control" name="purga" id="purga">
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-center">Dinámica</td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="180" disabled id="nb2"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="7" disabled id="nb3"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="20" disabled id="nb4"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="0" disabled id="nb5"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="50" disabled id="nb6"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="100" disabled id="nb7"></td>
+                                            <td class="text-center">Tpurga-Tequilibrio</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control" name="tpurga" id="tpurga">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control" name="tequilibrio" id="tequilibrio" onchange="setearEnAB()">
+                                            </td>
+                                            <td class="text-center">NA</td>
                                         </tr>
                                         <tr>
-                                            <td class="text-center">Isotermica</td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="180" disabled id="nc1"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="5" disabled id="nc2"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="N/A" disabled id="nc3"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="0" disabled id="nc4"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="50" disabled id="nc5"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="100" disabled id="nc6"></td>
+                                            <td class="text-center">Tequilibrio</td>
+                                            <td class="text-center" colspan="2">
+                                                <input type="text" class="form-control" name="a" id="a" disabled>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control" name="tiempoEquilibrio" id="tiempoEquilibrio">
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="text-center">Isotermica</td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="180" disabled id="nc7"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           id="tiempoIsoterma" name="tiempoIsoterma"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="N/A" disabled id="nd2"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="50" disabled id="nd3"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="0" disabled id="nd4"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="100" disabled id="nd5"></td>
+                                            <td class="text-center">Tequilibrio-dinámica<sub>cal1</sub></td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control" name="b" id="b" disabled>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control" name="dinamicaCal1" id="dinamicaCal1" onchange="setearEnC()">
+                                            </td>
+                                            <td class="text-center">NA</td>
                                         </tr>
                                         <tr>
-                                            <td class="text-center">Dinámica</td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="40" disabled id="nd6"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="7" disabled id="nd7"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="20" disabled id="ne1"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="0" disabled id="ne2"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="50" disabled id="ne3"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="100" disabled id="ne4"></td>
+                                            <td class="text-center">Tasa de calentamiento</td>
+                                            <td class="text-center" colspan="2">20 °C/min</td>
+                                            <td class="text-center"></td>
                                         </tr>
                                         <tr>
-                                            <th class="text-center">Temperatura de emergencia</th>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="190" disabled id="ne5"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="N/A" disabled id="ne6"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="N/A" disabled id="ne7"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="0" disabled id="nf1"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="50" disabled id="nf2"></td>
-                                            <td class="text-center"><input type="text" class="form-control"
-                                                                           value="100" disabled id="nf3"></td>
+                                            <td class="text-center">Tiempo isotérmico<sub>1</sub></td>
+                                            <td class="text-center" colspan="2">NA</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control" name="tiempoIsotermico1" id="tiempoIsotermico1">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center"></td>
+                                            <td class="text-center" colspan="2"><b>Cambio de atmósfera, O<sub>2</sub></b></td>
+                                            <td class="text-center"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Tiempo isotérmico<sub>2</sub></td>
+                                            <td class="text-center" colspan="2">NA</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control" name="tiempoIsotermico2" id="tiempoIsotermico2">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center"></td>
+                                            <td class="text-center" colspan="2"><b>Cambio de atmósfera, N<sub>2</sub></b></td>
+                                            <td class="text-center"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Dinámica<sub>cal1</sub>-dinámica<sub>enf1</sub></td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control" name="c" id="c" disabled>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control" name="dinamicaEnf1" id="dinamicaEnf1" onchange="setearEnC()">
+                                            </td>
+                                            <td class="text-center">NA</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center"><b>Tasa de enfriamiento</b></td>
+                                            <td class="text-center" colspan="2">
+                                                <input type="text" class="form-control" name="tasaEnfriamiento" id="tasaEnfriamiento">
+                                            </td>
+                                            <td class="text-center"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">Temperatura de emergencia</td>
+                                            <td class="text-center" colspan="2">
+                                                <input type="text" class="form-control" name="temperaturaEmergencia" id="temperaturaEmergencia">
+                                            </td>
+                                            <td class="text-center">NA</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -263,6 +272,17 @@
                             </div>
                             <div class="card-footer">
                                 <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div id="tablaRepeticiones">
+
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header"></div>
+                            <div class="card-body"></div>
+                            <div class="card-footer">
                                 <button type="submit" id="btnAceptar" class="btn btn-fill btn-success" onclick="valida()">
                                     <span class="btn-label">
                                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
@@ -272,91 +292,6 @@
                             </div>
                         </div>
 
-<!--                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Resultados</h4>
-                            </div>
-                            <div class="card-body" style="overflow-x: scroll">
-                                <div class="row">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-center">Repetición</th>
-                                            <th class="text-center">OIT repetición 1 (min)</th>
-                                            <th class="text-center">OIT repetición 2 (min)</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td class="text-center">1</td>
-                                            <td class="text-center"><input type="number" class="form-control"
-                                                                           name="repeticion1OIT" id="repeticion1OIT"
-                                                                           required="required"></td>
-                                            <td class="text-center"><input type="number" class="form-control"
-                                                                           name="repeticion2OIT" id="repeticion2OIT"
-                                                                           required="required"></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Observaciones</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Evidencia</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="file" id="file" accept="image/*" onchange="mostrar()"/>
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Vista previa</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <img id="img" style="width: 320px; height: 240px;"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Observaciones</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="observaciones" id="observaciones" required="true">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <label class="col-sm-2 control-label">Realizó</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="realizo" id="realizo" required="true">
-                                        </div>
-                                    </div>
-                                    <label class="col-sm-2 control-label">Supervisó</label>
-                                    <div class="col-sm-4 col-sm-offset-1">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control"
-                                                   name="supervisor" id="supervisor" required="true">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success" onclick="valida()">Registrar
-                                    Datos
-                                </button>
-                            </div>
-                        </div>-->
                     </div>
                 </div>
             </div>
@@ -388,5 +323,16 @@
             previous: 'fa fa-chevron-circle-left'
         }
     });
+
+    function setearEnAB(){
+        let dinamicaA = document.getElementById("tequilibrio").value;
+        document.getElementById("a").value = dinamicaA;
+        document.getElementById("b").value = dinamicaA;
+    }
+
+    function setearEnC(){
+        let dinamicaC = document.getElementById("dinamicaCal1").value;
+        document.getElementById("c").value = dinamicaC;
+    }
 </script>
 </html>

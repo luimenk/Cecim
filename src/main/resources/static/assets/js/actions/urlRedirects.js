@@ -481,3 +481,7 @@ function registerFRAOIT(e) {
 function listFRAOIT(e) {
     window.location = "/listFRAOIT";
 }
+
+function listFRAOTT(e) {
+    window.location = "/listFRAOTT";
+}

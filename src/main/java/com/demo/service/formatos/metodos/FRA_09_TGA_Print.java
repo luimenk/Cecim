@@ -63,6 +63,8 @@ public class FRA_09_TGA_Print {
         table2.getRow(0).getCell(3).setText(fra_tga_001.getHumedadRelativa() + " %");
 
         XWPFTable table3 = doc.getTables().get(3);
+        table3.getRow(0).getCell(3).setText("Flujo " + fra_tga_001.getGasPrueba());
+        table3.getRow(0).getCell(7).setText("Flujo " + fra_tga_001.getGasProteccion());
         table3.getRow(1).getCell(1).setText(fra_tga_001.getPeso());
         table3.getRow(1).getCell(3).setText(fra_tga_001.getPosicionPortadorMuestra());
         table3.getRow(1).getCell(5).setText(fra_tga_001.getTipoMaterial());

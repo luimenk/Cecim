@@ -1,6 +1,7 @@
 package com.demo.model.operacion.metodos.fra16rsc.datas;
 
 import com.demo.model.operacion.metodos.fra16rsc.FRA_RSC_001;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Data
 public class FRA_RSC_001_DATA {
 
     @Id
@@ -15,9 +17,19 @@ public class FRA_RSC_001_DATA {
     @Column(nullable = false)
     private Long idFRARSCDATA;
 
-    private String fuerzaSello;
-    private String desviacionEstandar;
-    private String modoFalla;
+    private String temperatura;
+
+    private String fuerzaSello1;
+    private String desviacionEstandar1;
+    private String modoFalla1;
+
+    private String fuerzaSello2;
+    private String desviacionEstandar2;
+    private String modoFalla2;
+
+    private String fuerzaSello3;
+    private String desviacionEstandar3;
+    private String modoFalla3;
 
     @CreationTimestamp
     private Timestamp createdAt;
@@ -28,73 +40,4 @@ public class FRA_RSC_001_DATA {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idfrarsc")
     private FRA_RSC_001 fra_rsc_001;
-
-    public FRA_RSC_001_DATA() {
-    }
-
-    public FRA_RSC_001_DATA(Long idFRARSCDATA, String fuerzaSello, String desviacionEstandar, String modoFalla, Timestamp createdAt, Timestamp updatedAt, FRA_RSC_001 fra_rsc_001) {
-        this.idFRARSCDATA = idFRARSCDATA;
-        this.fuerzaSello = fuerzaSello;
-        this.desviacionEstandar = desviacionEstandar;
-        this.modoFalla = modoFalla;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.fra_rsc_001 = fra_rsc_001;
-    }
-
-    public Long getIdFRARSCDATA() {
-        return idFRARSCDATA;
-    }
-
-    public void setIdFRARSCDATA(Long idFRARSCDATA) {
-        this.idFRARSCDATA = idFRARSCDATA;
-    }
-
-    public String getFuerzaSello() {
-        return fuerzaSello;
-    }
-
-    public void setFuerzaSello(String fuerzaSello) {
-        this.fuerzaSello = fuerzaSello;
-    }
-
-    public String getDesviacionEstandar() {
-        return desviacionEstandar;
-    }
-
-    public void setDesviacionEstandar(String desviacionEstandar) {
-        this.desviacionEstandar = desviacionEstandar;
-    }
-
-    public String getModoFalla() {
-        return modoFalla;
-    }
-
-    public void setModoFalla(String modoFalla) {
-        this.modoFalla = modoFalla;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public FRA_RSC_001 getFra_rsc_001() {
-        return fra_rsc_001;
-    }
-
-    public void setFra_rsc_001(FRA_RSC_001 fra_rsc_001) {
-        this.fra_rsc_001 = fra_rsc_001;
-    }
 }

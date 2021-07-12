@@ -76,10 +76,23 @@ function valida5() {
     obj["id"] = url.substring(url.lastIndexOf('/') + 1);
     //obj["numeroRepeticiones"] = repeticiones;
 
+    const signature = document.getElementById("sig-dataUrl").value;
+    var block = signature.split(";");
+
+    // Get the content type of the image
+    var contentType = block[0].split(":")[1];// In this case "image/gif"
+
+    // get the real base64 content of the file
+    var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+
+    // Convert it to a blob to upload
+    var blob1 = b64toBlob(realData, contentType);
+
     var blob = document.getElementById("file").files[0];
     var formData = new FormData();
 
     formData.append("imagen", blob);
+    formData.append("signature", blob1);
     formData.append('fraoit', new Blob([JSON.stringify(obj)], {
         type: "application/json"
     }));
@@ -137,30 +150,34 @@ function mostrarRepeticiones() {
     if (repeticiones === "1") {
         mostrarDato += "<div class=\"card\">" +
             "                                <div class=\"card-header\">" +
-            "                                    <h4 class=\"card-title text-center\">Resultados</h4>" +
+            "                                    <h4 class=\"card-title text-center\">Espesor(mm)</h4>" +
             "                                </div>" +
             "                                <div class=\"card-body\" style=\"overflow-x: scroll\">" +
             "                                    <div class=\"row\">" +
             "                                        <table class=\"table table-hover table-striped\">" +
             "                                            <thead>" +
             "                                            <tr>" +
-            "                                                <th class=\"text-center\">Repetición</th>" +
-            "                                                <th class=\"text-center\">Espesor (mm)</th>" +
-            "                                                <th class=\"text-center\">Peso (mg)</th>" +
-            "                                                <th class=\"text-center\">Posición en el portador de muestras de DSC</th>" +
+            "                                                <th class=\"text-center\"></th>" +
+            "                                                <th class=\"text-center\"># Dobleces</th>" +
+            "                                                <th class=\"text-center\">E1</th>" +
+            "                                                <th class=\"text-center\">E2</th>" +
+            "                                                <th class=\"text-center\">E3</th>" +
             "                                            </tr>" +
             "                                            </thead>" +
             "                                            <tbody>" +
             "                                            <tr>" +
-            "                                                <td class=\"text-center\">1</td>" +
+            "                                                <td class=\"text-center\">M1</td>" +
             "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
-            "                                                                               name=\"espesor1\" id=\"espesor1\"" +
+            "                                                                               name=\"noDobleces0\" id=\"noDobleces0\"" +
             "                                                                               required=\"required\"></td>" +
             "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
-            "                                                                               name=\"peso1\" id=\"peso1\"" +
+            "                                                                               name=\"e10\" id=\"e10\"" +
             "                                                                               required=\"required\"></td>" +
-            "                                                <td class=\"text-center\"><input type=\"text\" class=\"form-control\"" +
-            "                                                                               name=\"ppmdsc1\" id=\"ppmdsc1\"" +
+            "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
+            "                                                                               name=\"e20\" id=\"e20\"" +
+            "                                                                               required=\"required\"></td>" +
+            "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
+            "                                                                               name=\"e30\" id=\"e30\"" +
             "                                                                               required=\"required\"></td>" +
             "                                            </tr>" +
             "                                            </tbody>" +
@@ -171,46 +188,57 @@ function mostrarRepeticiones() {
             "                                    <h6 class=\"text-danger\">* Favor de verificar tu información.</h6>" +
             "                                </div>" +
             "                            </div>";
+        document.getElementById("pesom2").value = "N/A";
+        document.getElementById("pesom2").disabled = true;
+        document.getElementById("posicionm2").value = "N/A";
+        document.getElementById("posicionm2").disabled = true;
     }
     if (repeticiones === "2") {
         mostrarDato += "<div class=\"card\">" +
             "                                <div class=\"card-header\">" +
-            "                                    <h4 class=\"card-title\">Resultados</h4>" +
+            "                                    <h4 class=\"card-title\">Espesor(mm)</h4>" +
             "                                </div>" +
             "                                <div class=\"card-body\" style=\"overflow-x: scroll\">" +
             "                                    <div class=\"row\">" +
             "                                        <table class=\"table table-hover table-striped\">" +
             "                                            <thead>" +
             "                                            <tr>" +
-            "                                                <th class=\"text-center\">Repetición</th>" +
-            "                                                <th class=\"text-center\">Espesor (mm)</th>" +
-            "                                                <th class=\"text-center\">Peso (mg)</th>" +
-            "                                                <th class=\"text-center\">Posición en el portador de muestras de DSC</th>" +
+            "                                                <th class=\"text-center\"></th>" +
+            "                                                <th class=\"text-center\"># Dobleces</th>" +
+            "                                                <th class=\"text-center\">E1</th>" +
+            "                                                <th class=\"text-center\">E2</th>" +
+            "                                                <th class=\"text-center\">E3</th>" +
             "                                            </tr>" +
             "                                            </thead>" +
             "                                            <tbody>" +
             "                                            <tr>" +
-            "                                                <td class=\"text-center\">1</td>" +
+            "                                                <td class=\"text-center\">M1</td>" +
             "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
-            "                                                                               name=\"espesor1\" id=\"espesor1\"" +
+            "                                                                               name=\"noDobleces0\" id=\"noDobleces0\"" +
             "                                                                               required=\"required\"></td>" +
             "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
-            "                                                                               name=\"peso1\" id=\"peso1\"" +
+            "                                                                               name=\"e10\" id=\"e10\"" +
             "                                                                               required=\"required\"></td>" +
-            "                                                <td class=\"text-center\"><input type=\"text\" class=\"form-control\"" +
-            "                                                                               name=\"ppmdsc1\" id=\"ppmdsc1\"" +
+            "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
+            "                                                                               name=\"e20\" id=\"e20\"" +
+            "                                                                               required=\"required\"></td>" +
+            "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
+            "                                                                               name=\"e30\" id=\"e30\"" +
             "                                                                               required=\"required\"></td>" +
             "                                            </tr>" +
             "                                            <tr>" +
-            "                                                <td class=\"text-center\">2</td>" +
+            "                                                <td class=\"text-center\">M2</td>" +
             "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
-            "                                                                               name=\"espesor2\" id=\"espesor2\"" +
+            "                                                                               name=\"noDobleces1\" id=\"noDobleces1\"" +
             "                                                                               required=\"required\"></td>" +
             "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
-            "                                                                               name=\"peso2\" id=\"peso2\"" +
+            "                                                                               name=\"e11\" id=\"e11\"" +
             "                                                                               required=\"required\"></td>" +
-            "                                                <td class=\"text-center\"><input type=\"text\" class=\"form-control\"" +
-            "                                                                               name=\"ppmdsc2\" id=\"ppmdsc2\"" +
+            "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
+            "                                                                               name=\"e21\" id=\"e21\"" +
+            "                                                                               required=\"required\"></td>" +
+            "                                                <td class=\"text-center\"><input type=\"number\" class=\"form-control\"" +
+            "                                                                               name=\"e31\" id=\"e31\"" +
             "                                                                               required=\"required\"></td>" +
             "                                            </tr>" +
             "                                            </tbody>" +
@@ -221,6 +249,10 @@ function mostrarRepeticiones() {
             "                                    <h6 class=\"text-danger\">* Favor de verificar tu información.</h6>" +
             "                                </div>" +
             "                            </div>";
+        document.getElementById("pesom2").value = "";
+        document.getElementById("pesom2").disabled = false;
+        document.getElementById("posicionm2").value = "";
+        document.getElementById("posicionm2").disabled = false;
     }
 
     $("#tablaRepeticiones").empty().append(mostrarDato);

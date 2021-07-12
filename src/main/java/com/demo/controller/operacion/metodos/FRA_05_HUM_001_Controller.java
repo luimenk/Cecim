@@ -157,9 +157,6 @@ public class FRA_05_HUM_001_Controller {
 
         fra_hum_001.setMetodoMuestra(metodoMuestra);
 
-        fra_hum_001_service.save(fra_hum_001);
-
-
         fra_hum_001.setEstatus("inicio");
         fra_hum_001.setCantidadModificaciones("3");
 
@@ -210,8 +207,8 @@ public class FRA_05_HUM_001_Controller {
         fra_hum_001_data_01.setPips(String.format("%.4f", (Double.parseDouble(fra_hum_001_data_01.getPesoInicial())) - (Double.parseDouble(fra_hum_001_data_01.getPesoSeco()))));
         fra_hum_001_data_02.setPips(String.format("%.4f", (Double.parseDouble(fra_hum_001_data_02.getPesoInicial())) - (Double.parseDouble(fra_hum_001_data_02.getPesoSeco()))));
 
-        fra_hum_001_data_01.setPorcentajeHumedad(String.format("%.1f", (((Double.parseDouble(fra_hum_001_data_01.getPips()) - Double.parseDouble(fra_hum_001_data_01.getPesoSeco())) / (Double.parseDouble(fra_hum_001_data_01.getPesoInicial()))) * 100)));
-        fra_hum_001_data_02.setPorcentajeHumedad(String.format("%.1f", (((Double.parseDouble(fra_hum_001_data_02.getPips()) - Double.parseDouble(fra_hum_001_data_02.getPesoSeco())) / (Double.parseDouble(fra_hum_001_data_02.getPesoInicial()))) * 100)));
+        fra_hum_001_data_01.setPorcentajeHumedad(String.format("%.2f", (Double.parseDouble(fra_hum_001_data_01.getPips()) / Double.parseDouble(fra_hum_001_data_01.getPesoInicial()) * 100)));
+        fra_hum_001_data_02.setPorcentajeHumedad(String.format("%.2f", (Double.parseDouble(fra_hum_001_data_02.getPips()) / Double.parseDouble(fra_hum_001_data_02.getPesoInicial()) * 100)));
 
         fra_hum_001_data_01.setFra_hum_001(fra_hum_001);
         fra_hum_001_data_02.setFra_hum_001(fra_hum_001);
@@ -250,9 +247,9 @@ public class FRA_05_HUM_001_Controller {
                 promedios.add((Double.parseDouble(lista1.get(i).getPorcentajeHumedad()) + Double.parseDouble(lista2.get(i).getPorcentajeHumedad())) / 2);
             }
 
-            fra_hum_001.setHumedadPromedio0(String.format("%.1f", promedios.get(0)));
-            fra_hum_001.setHumedadPromedio4(String.format("%.1f", promedios.get(1)));
-            fra_hum_001.setHumedadPromedio8(String.format("%.1f", promedios.get(2)));
+            fra_hum_001.setHumedadPromedio0(String.format("%.2f", promedios.get(0)));
+            fra_hum_001.setHumedadPromedio4(String.format("%.2f", promedios.get(1)));
+            fra_hum_001.setHumedadPromedio8(String.format("%.2f", promedios.get(2)));
 
             fra_hum_001.setEstatus("terminado");
 

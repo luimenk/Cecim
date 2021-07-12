@@ -176,11 +176,11 @@ public class FRA_06_NCP_001_Controller {
 
                 fra_ncp_001_data_04.setEspesorPorMicroscopia(request.get("2espesorPorMicroscopia" + i));
 
-                fra_ncp_001_data_04_repository.save(fra_ncp_001_data_04);
+                fra_ncp_001_data_04.setFra_ncp_001(fra_ncp_001);
 
                 sumatoria2 = sumatoria2 + Double.parseDouble(fra_ncp_001_data_04.getEspesorPorMicroscopia());
 
-                fra_ncp_001_data_04.setFra_ncp_001(fra_ncp_001);
+                fra_ncp_001_data_04_repository.save(fra_ncp_001_data_04);
             }
 
             fra_ncp_001.setEspesorTotalMicroscopia1(String.format("%.3f", sumatoria1));

@@ -33,8 +33,6 @@ function valida() {
 
     obj["id"] = id;
 
-    var blob = document.getElementById("file").files[0];
-
     const signature = document.getElementById("sig-dataUrl").value;
     var block = signature.split(";");
 

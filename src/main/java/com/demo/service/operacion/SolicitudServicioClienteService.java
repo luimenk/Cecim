@@ -74,6 +74,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -444,10 +445,9 @@ public class SolicitudServicioClienteService {
     }
 
     public ResponseEntity<InputStreamResource> crearSolicitudServicioInterno(Long id) throws InvalidFormatException, IOException, XmlException {
-        ClassPathResource resource = new ClassPathResource("/documentos/FSI-SOC-006.docx");
-        ClassPathResource resource2 = new ClassPathResource("/documentos/plantillaFSI.docx");
-        XWPFDocument doc = new XWPFDocument(resource.getInputStream());
-        XWPFDocument doc2 = new XWPFDocument(resource2.getInputStream());
+
+        URL url = new URL("https://resources.adpmx.com/cecim/laboratorio/doc/register/operacion/FSI-SOC-006.docx");
+        XWPFDocument doc = new XWPFDocument(url.openStream());
 
         SolicitudServicioCliente solicitudServicioCliente = solicitudServicioClienteRepository.findBySolicitudServicioClienteId(id);
         List<SolicitudServicioClienteMuestras> solicitudServicioClienteMuestrasList = solicitudServicioClienteMuestrasRepository.findAllBySolicitudServicioCliente_SolicitudServicioClienteId(id);
@@ -531,13 +531,13 @@ public class SolicitudServicioClienteService {
                 if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-DSC-015")){
                     tableRow.getCell(16).setText(metodoMuestraList1.get(j).getFolioTecnica());
                 }
-                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-CST-016")){
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-RSC-016")){
                     tableRow.getCell(17).setText(metodoMuestraList1.get(j).getFolioTecnica());
                 }
                 if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-IF-017")){
                     tableRow.getCell(18).setText(metodoMuestraList1.get(j).getFolioTecnica());
                 }
-                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-PO-018")){
+                if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-TTO-018")){
                     tableRow.getCell(19).setText(metodoMuestraList1.get(j).getFolioTecnica());
                 }
                 if (metodoMuestraList1.get(j).getMethod().getCodigoMetodo().equals("MET-PRR-019")){

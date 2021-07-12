@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+    <link href="../assets/css/estiloPanelFirma.css" rel="stylesheet"/>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header ">
+                                <h4 class="card-title">Registro de análisis de determinación
+                                    de la tasa de transmisión de oxígeno a través de películas plásticas y láminas
+                                    usando un sensor coulométrico
+                                </h4>
+                            </div>
+                            <div class="card-body ">
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio del método</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioTecnica" id="folioTecnica"
+                                                   th:value="${folioTecnica}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio de solicitud de servicio interno</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioSolicitudServicioInterno"
+                                                   id="folioSolicitudServicioInterno"
+                                                   th:value="${folioSolicitudServicioInterno}" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis"
+                                                   th:value="${fechaHoy}" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">ID Interno de muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="idInternoMuestra" id="idInternoMuestra"
+                                                   th:value="${idInternoMuestra}" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha final de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaFinalAnalisis" id="fechaFinalAnalisis" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="temperatura" id="temperatura"
+                                                   min="21" max="25" onkeydown="return false"
+                                                   step='0.1' value='23.0'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Humedad relativa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa"
+                                                   min="40" max="60" onkeydown="return false"
+                                                   step='1' value='50'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Código OXTRAN</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoOxtran" id="codigoOxtran"
+                                                   value="OXTR-05" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Código del micrómetro</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoMicrometro" id="codigoMicrometro"
+                                                   value="MICR-02" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Mascarilla celda A (cm2)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="mascarillaCeldaA" id="mascarillaCeldaA"
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="1">1</option>
+                                                <option value="5">5</option>
+                                                <option value="50">50</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-sm-2 control-label">Mascarilla celda B (cm2)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="mascarillaCeldaB" id="mascarillaCeldaB"
+                                                    data-style="btn-success"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="1">1</option>
+                                                <option value="5">5</option>
+                                                <option value="50">50</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Presión barométrica (mm Hg)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="presionBarometrica" id="presionBarometrica">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer ">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title text-center">Resultados</h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Celda</th>
+                                            <th class="text-center">E1 (mm)</th>
+                                            <th class="text-center">E2 (mm)</th>
+                                            <th class="text-center">E3 (mm)</th>
+                                            <th class="text-center">E4 (mm)</th>
+                                            <th class="text-center">E5 (mm)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">A</td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="e10" id="e10">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="e20" id="e20">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="e30" id="e30">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="e40" id="e40">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="e50" id="e50">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">B</td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="e11" id="e11">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="e21" id="e21">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="e31" id="e31">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="e41" id="e41">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="e51" id="e51">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title text-center">Tasa de transmisión de oxígeno O<sub>2</sub></h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Celda</th>
+                                            <th class="text-center">cc/[m<sup>2</sup>∙day]</th>
+                                            <th class="text-center">mol/(m<sup>2</sup>∙s)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center">A</td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="cc0" id="cc0">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="mol0" id="mol0">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">B</td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="cc1" id="cc1">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="number" class="form-control" name="mol1" id="mol1">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Observaciones</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Evidencia</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="file" id="file" accept="image/*" onchange="mostrar()"/>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Vista previa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <img id="img" style="width: 320px; height: 240px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Observaciones</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="observaciones" id="observaciones" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Realizó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="realizo" id="realizo" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Supervisó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="supervisor" id="supervisor" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <button type="button" class="btn btn-info" data-toggle="modal"
+                                                data-target="#myModal"><i class="fa fa-pencil-square-o"
+                                                                          aria-hidden="true"></i>Panel de firma
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!--MODAL-->
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <canvas id="sig-canvas" width="320" height="240">
+                                                        Usa un navegador diferente
+                                                    </canvas>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-auto mr-auto ml-auto">
+                                                        <button class="btn btn-primary" id="sig-submitBtn"
+                                                                data-dismiss="modal"><i class="fa fa-check-circle"></i>Aceptar
+                                                            firma
+                                                        </button>
+                                                        <button class="btn btn-default" id="sig-clearBtn"><i
+                                                                class="fa fa-eraser"></i>Limpiar firma
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <textarea id="sig-dataUrl" class="form-control" rows="5"
+                                                  hidden>Metadato</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <img id="sig-image" src="" alt=""/>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success"
+                                        onclick="valida()">
+                                    <span class="btn-label">
+                                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                                    </span>
+                                    Registrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/base64aBlob.js" type="text/javascript"></script>
+<script src="../assets/js/actions/signature.js" type="text/javascript"></script>
+<script src="../assets/js/actions/metodos/FRA_18_TTO.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaInicioAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaFinalAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+</script>
+</html>

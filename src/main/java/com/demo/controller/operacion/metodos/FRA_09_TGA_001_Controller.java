@@ -101,6 +101,10 @@ public class FRA_09_TGA_001_Controller {
 
             fra_tga_001.setCodigoTGA(request.get("codigoTGA"));
             fra_tga_001.setCodigoBalanza(request.get("codigoBalanza"));
+
+            fra_tga_001.setGasPrueba(request.get("gasPrueba"));
+            fra_tga_001.setGasProteccion(request.get("gasProteccion"));
+
             fra_tga_001.setPeso(request.get("peso"));
             fra_tga_001.setPosicionPortadorMuestra(request.get("posicionPortadorMuestra"));
             fra_tga_001.setTipoMaterial(request.get("tipoMaterial"));
@@ -142,8 +146,8 @@ public class FRA_09_TGA_001_Controller {
             fra_tga_001.setPathImagen(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.RUTA_IMG_09_TGA + saveInServer.SaveInServer(file, Constantes.RUTA_IMG_09_TGA));
             fra_tga_001.setRubricaRealizo(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.SIGNATURE_REALIZO_TGA + saveInServer.SaveInServer(signature, Constantes.SIGNATURE_REALIZO_TGA));
 
-            fra_tga_001.setEstatus(request.get("FINALIZADO"));
-            fra_tga_001.setCantidadModificaciones(request.get("3"));
+            fra_tga_001.setEstatus("FINALIZADO");
+            fra_tga_001.setCantidadModificaciones("3");
 
             fra_tga_001_service.save(fra_tga_001);
 

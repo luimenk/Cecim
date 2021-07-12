@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FRA_RTER_001_Repository extends JpaRepository<FRA_RTER_001, Long>{
-    FRA_RTER_001 findByResistenciaTensionElongacionRupturaId(Long id);
+    FRA_RTER_001 findByIdFRARTER(Long folio);
+    FRA_RTER_001 findByFolioTecnica(String id);
     FRA_RTER_001 findByMetodoMuestra_MetodoMuestraId(Long id);
+    FRA_RTER_001 findByIdInternoMuestra(String id);
 }

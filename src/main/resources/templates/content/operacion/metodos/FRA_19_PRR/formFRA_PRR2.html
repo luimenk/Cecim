@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Muestra dirección de corte MD</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Espesor 1 (mm)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="espesor1MD" id="espesor1MD">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Espesor 2 (mm)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="espesor2MD" id="espesor2MD">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Espesor 3 (mm)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="espesor3MD" id="espesor3MD">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Resistencia al rasgado (gramos-fuerza)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="resistenciaRasgadoMD" id="resistenciaRasgadoMD">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Desgarre oblicuo (O)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="desgarreOblicuoMD" id="desgarreOblicuoMD"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-primary"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="O">O</option>
+                                                <option value="N/A">N/A</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Muestra dirección de corte TD</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Espesor 1 (mm)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="espesor1TD" id="espesor1TD">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Espesor 2 (mm)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="espesor2TD" id="espesor2TD">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Espesor 3 (mm)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="espesor3TD" id="espesor3TD">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Resistencia al rasgado (gramos-fuerza)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="resistenciaRasgadoTD" id="resistenciaRasgadoTD">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Desgarre oblicuo (O)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="desgarreOblicuoTD" id="desgarreOblicuoTD"
+                                                    data-title="Selecciona una opción..."
+                                                    data-style="btn-primary"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="O">O</option>
+                                                <option value="N/A">N/A</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header"></div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-auto mr-auto ml-auto">
+                                        <button type="submit" class="btn btn-fill btn-primary" id="btnAceptar" onclick="validaAgregar()"><i
+                                                class="fa fa-floppy-o"></i>Registrar Datos
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-auto mr-auto ml-auto">
+                                        <button class="btn btn-fill btn-success" onclick="volver()"><i
+                                                class="fa fa-arrow-circle-left"></i>Volver
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/metodoFRAPRR.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaInicioAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaFinalAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+</script>
+</html>

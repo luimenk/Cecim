@@ -30,7 +30,15 @@ public class FRA_RTER_001_Service {
     }
 
     public FRA_RTER_001 findById(Long id) {
-        return fra_rter_001_repository.findByResistenciaTensionElongacionRupturaId(id);
+        return fra_rter_001_repository.findByIdFRARTER(id);
+    }
+
+    public FRA_RTER_001 findByFolio(String folio){
+        return fra_rter_001_repository.findByFolioTecnica(folio);
+    }
+
+    public FRA_RTER_001 findByIdInternoMuestra(String id) {
+        return fra_rter_001_repository.findByIdInternoMuestra(id);
     }
 
     public FRA_RTER_001 findByIdMuestra(Long id) {

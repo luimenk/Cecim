@@ -1,6 +1,7 @@
 package com.demo.model.operacion.metodos.fra18tto;
 
 import com.demo.model.operacion.MetodoMuestra;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Data
 public class FRA_TTO_001 {
 
     @Id
@@ -22,6 +24,9 @@ public class FRA_TTO_001 {
     private String fechaFinalAnalisis;
     private String temperatura;
     private String humedadRelativa;
+
+    private String codigoOxtran;
+    private String codigoMicrometro;
 
     private String mascarillaCeldaA;
     private String mascarillaCeldaB;
@@ -41,10 +46,9 @@ public class FRA_TTO_001 {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
+    private String pathImagen;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Metodo_Muestra_Id")
     private MetodoMuestra metodoMuestra;
-
-
-
 }

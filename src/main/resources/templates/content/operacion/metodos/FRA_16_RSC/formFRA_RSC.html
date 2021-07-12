@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Panel de Administración</title>
+    <th:block th:include="/dependences/_HeadInside"></th:block>
+    <link href="../assets/css/estiloPanelFirma.css" rel="stylesheet"/>
+</head>
+<body>
+<!--<body>-->
+<div class="wrapper">
+    <th:block th:include="/dependences/sidebar/_sidebarAdmin"></th:block>
+    <div class="main-panel">
+        <th:block th:include="/dependences/_Header"></th:block>
+        <!--Contenido de página-->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card ">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Registro de análisis de la determinación de la resistencia del
+                                    sellado en caliente (Hot tack) de polímeros termoplásticos.</h4>
+                            </div>
+                            <div class="card-body ">
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio del método</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioTecnica" id="folioTecnica"
+                                                   th:value="${folioTecnica}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Folio de solicitud de servicio interno</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="folioSolicitudServicioInterno"
+                                                   id="folioSolicitudServicioInterno"
+                                                   th:value="${folioSolicitudServicioInterno}" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha inicio de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaInicioAnalisis" id="fechaInicioAnalisis"
+                                                   th:value="${fechaHoy}" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">ID Interno de muestra</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="idInternoMuestra" id="idInternoMuestra"
+                                                   th:value="${idInternoMuestra}" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Fecha final de análisis</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="fechaFinalAnalisis" id="fechaFinalAnalisis" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="temperatura" id="temperatura"
+                                                   min="21" max="25" onkeydown="return false"
+                                                   step='0.1' value='23.0'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Humedad relativa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="number" class="form-control"
+                                                   name="humedadRelativa" id="humedadRelativa"
+                                                   min="40" max="60" onkeydown="return false"
+                                                   step='1' value='50'
+                                                   required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Código del laboratorio de sello</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoLaboratorio" id="codigoLaboratorio"
+                                                   value="LABO-03" disabled>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Código del micrómetro</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="codigoMicrometro" id="codigoMicrometro"
+                                                   value="MICR-02" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer ">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h4 class="card-title">Condiciones de ensayo</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Ancho de muestra (mm)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="anchoMuestra" id="anchoMuestra">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Ancho mordazas (mm)</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="anchoMordazas" id="anchoMordazas">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Presión (N/mm2):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="presion" id="presion">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Tipo de mordazas</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="tipoMordazas" id="tipoMordazas"
+                                                   value="Metal Superior Polímero Inferior" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Presión (N/mm2):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker" name="tiempoSellado"
+                                                    id="tiempoSellado"
+                                                    data-style="btn-primary"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="1">1</option>
+                                                <option value="0.5">0.5</sub></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Tiempo de retardo (s):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="tiempoRetardo" id="tiempoRetardo">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Velocidad de desprendimiento (mm/s):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="velocidadDesprendimiento" id="velocidadDesprendimiento">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura de sellado 1 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaSellado1" id="temperaturaSellado1">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Temperatura de sellado 2 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaSellado2" id="temperaturaSellado2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura de sellado 3 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaSellado3" id="temperaturaSellado3">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Temperatura de sellado 4 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaSellado4" id="temperaturaSellado4">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura de sellado 5 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaSellado5" id="temperaturaSellado5">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Temperatura mordaza superior 1 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaMordazaSuperior1" id="temperaturaMordazaSuperior1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura mordaza superior 2 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaMordazaSuperior2" id="temperaturaMordazaSuperior2">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Temperatura mordaza superior 3 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaMordazaSuperior3" id="temperaturaMordazaSuperior3">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura mordaza superior 4 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaMordazaSuperior4" id="temperaturaMordazaSuperior4">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Temperatura mordaza superior 5 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaMordazaSuperior5" id="temperaturaMordazaSuperior5">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura mordaza inferior 1 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaMordazaInferior1" id="temperaturaMordazaInferior1">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Temperatura mordaza inferior 1 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaMordazaInferior2" id="temperaturaMordazaInferior2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura mordaza inferior 3 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaMordazaInferior3" id="temperaturaMordazaInferior3">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Temperatura mordaza inferior 4 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaMordazaInferior4" id="temperaturaMordazaInferior4">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Temperatura mordaza inferior 5 (°C):</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="temperaturaMordazaInferior5" id="temperaturaMordazaInferior5">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Tasa incremento temperatura mordazas:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker"
+                                                    name="tasaIncrementoTemperaturaMordaza"
+                                                    id="tasaIncrementoTemperaturaMordaza"
+                                                    data-style="btn-primary"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="5/5">5/5</option>
+                                                <option value="10/10">10/10</sub></option>
+                                                <option value="Otra">Otra</sub></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Eje de análisis:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker"
+                                                    name="ejeAnalisis"
+                                                    id="ejeAnalisis"
+                                                    data-style="btn-primary"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="MD">MD</option>
+                                                <option value="TD">TD</sub></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Caras de análisis:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker"
+                                                    name="caraAnalisis"
+                                                    id="caraAnalisis"
+                                                    data-style="btn-primary"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="Interna/Interna">Interna/Interna</option>
+                                                <option value="Externa/Externa">Externa/Externa</sub></option>
+                                                <option value="Interna/Externa">Interna/Externa</sub></option>
+                                                <option value="Externa/Interna">Externa/Interna</sub></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Tipo de material:</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <select class="selectpicker"
+                                                    name="tipoMaterial"
+                                                    id="tipoMaterial"
+                                                    data-style="btn-primary"
+                                                    data-menu-style="dropdown-blue">
+                                                <option value="PE">PE</option>
+                                                <option value="PP">PP</sub></option>
+                                                <option value="BOPP">BOPP</sub></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Resultados</h4>
+                            </div>
+                            <div class="card-body" style="overflow-x: scroll">
+                                <div class="row">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Punto</th>
+                                            <th class="text-center">Temperatura (°C)</th>
+                                            <th class="text-center">Medición</th>
+                                            <th class="text-center">Fuerza de sello (g/25.4 mm)</th>
+                                            <th class="text-center">Desviación estándar (g/25.4 mm)</th>
+                                            <th class="text-center">Modo de falla</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center" rowspan="3">1</td>
+                                            <td class="text-center" rowspan="3">
+                                                <input type="text" class="form-control"
+                                                       name="1temperatura"
+                                                       id="1temperatura">
+                                            </td>
+                                            <td>1</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="1fuerzaSello1"
+                                                       id="1fuerzaSello1">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="1desviacionEstandar1"
+                                                       id="1desviacionEstandar1">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="1modoFalla1" id="1modoFalla1"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="1fuerzaSello2"
+                                                       id="1fuerzaSello2">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="1desviacionEstandar2"
+                                                       id="1desviacionEstandar2">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="1modoFalla2" id="1modoFalla2"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="1fuerzaSello3"
+                                                       id="1fuerzaSello3">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="1desviacionEstandar3"
+                                                       id="1desviacionEstandar3">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="1modoFalla3" id="1modoFalla3"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <!--otro-->
+                                        <tr>
+                                            <td class="text-center" rowspan="3">2</td>
+                                            <td class="text-center" rowspan="3">
+                                                <input type="text" class="form-control"
+                                                       name="2temperatura"
+                                                       id="2temperatura">
+                                            </td>
+                                            <td>1</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="2fuerzaSello1"
+                                                       id="2fuerzaSello1">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="2desviacionEstandar1"
+                                                       id="2desviacionEstandar1">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="2modoFalla1" id="2modoFalla1"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="2fuerzaSello2"
+                                                       id="2fuerzaSello2">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="2desviacionEstandar2"
+                                                       id="2desviacionEstandar2">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="2modoFalla2" id="2modoFalla2"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="2fuerzaSello3"
+                                                       id="2fuerzaSello3">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="2desviacionEstandar3"
+                                                       id="2desviacionEstandar3">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="2modoFalla3" id="2modoFalla3"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <!--otro-->
+                                        <tr>
+                                            <td class="text-center" rowspan="3">3</td>
+                                            <td class="text-center" rowspan="3">
+                                                <input type="text" class="form-control"
+                                                       name="3temperatura"
+                                                       id="3temperatura">
+                                            </td>
+                                            <td>1</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="3fuerzaSello1"
+                                                       id="3fuerzaSello1">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="3desviacionEstandar1"
+                                                       id="3desviacionEstandar1">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="3modoFalla1" id="3modoFalla1"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="3fuerzaSello2"
+                                                       id="3fuerzaSello2">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="3desviacionEstandar2"
+                                                       id="3desviacionEstandar2">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="3modoFalla2" id="3modoFalla2"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="3fuerzaSello3"
+                                                       id="3fuerzaSello3">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="3desviacionEstandar3"
+                                                       id="3desviacionEstandar3">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="3modoFalla3" id="3modoFalla3"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <!--otro-->
+                                        <tr>
+                                            <td class="text-center" rowspan="3">4</td>
+                                            <td class="text-center" rowspan="3">
+                                                <input type="text" class="form-control"
+                                                       name="4temperatura"
+                                                       id="4temperatura">
+                                            </td>
+                                            <td>1</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="4fuerzaSello1"
+                                                       id="4fuerzaSello1">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="4desviacionEstandar1"
+                                                       id="4desviacionEstandar1">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="4modoFalla1" id="4modoFalla1"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="4fuerzaSello2"
+                                                       id="4fuerzaSello2">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="4desviacionEstandar2"
+                                                       id="4desviacionEstandar2">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="4modoFalla2" id="4modoFalla2"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="4fuerzaSello3"
+                                                       id="4fuerzaSello3">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="4desviacionEstandar3"
+                                                       id="4desviacionEstandar3">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="4modoFalla3" id="4modoFalla3"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <!--Otro-->
+                                        <!--otro-->
+                                        <tr>
+                                            <td class="text-center" rowspan="3">5</td>
+                                            <td class="text-center" rowspan="3">
+                                                <input type="text" class="form-control"
+                                                       name="5temperatura"
+                                                       id="5temperatura">
+                                            </td>
+                                            <td>1</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="5fuerzaSello1"
+                                                       id="5fuerzaSello1">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="5desviacionEstandar1"
+                                                       id="5desviacionEstandar1">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="5modoFalla1" id="5modoFalla1"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="5fuerzaSello2"
+                                                       id="5fuerzaSello2">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="5desviacionEstandar2"
+                                                       id="5desviacionEstandar2">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="5modoFalla2" id="5modoFalla2"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="5fuerzaSello3"
+                                                       id="5fuerzaSello3">
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="text" class="form-control"
+                                                       name="5desviacionEstandar3"
+                                                       id="5desviacionEstandar3">
+                                            </td>
+                                            <td class="text-center">
+                                                <select class="selectpicker" name="5modoFalla3" id="5modoFalla3"
+                                                        data-title="Selecciona una opción..."
+                                                        data-style="btn-primary"
+                                                        data-menu-style="dropdown-blue">
+                                                    <option value="1">1.- Falla del sello; adhesivo (pelado)</option>
+                                                    <option value="2">2.- Falla del material cohesiva</option>
+                                                    <option value="3">3.- Falla del material delaminación</option>
+                                                    <option value="4">4.- Falla del material; ruptura en el borde del sello</option>
+                                                    <option value="5">5.- Falla del material; ruptura o desgarro alejado del sello</option>
+                                                    <option value="6">6.- Falla del material; elongación del material sin sellar</option>
+                                                    <option value="7">7.- Falla del material; sello + material</option>
+                                                    <option value="8">8.- Falla del material; sello + material; pelado + elongación del material</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="text-danger">* Favor de verificar tu información.</h6>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Observaciones</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Evidencia</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="file" id="file" accept="image/*" onchange="mostrar()"/>
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Vista previa</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <img id="img" style="width: 320px; height: 240px;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Observaciones</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="observaciones" id="observaciones" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">Realizó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="realizo" id="realizo" required="true">
+                                        </div>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Supervisó</label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"
+                                                   name="supervisor" id="supervisor" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <button type="button" class="btn btn-info" data-toggle="modal"
+                                                data-target="#myModal"><i class="fa fa-pencil-square-o"
+                                                                          aria-hidden="true"></i>Panel de firma
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!--MODAL-->
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <canvas id="sig-canvas" width="320" height="240">
+                                                        Usa un navegador diferente
+                                                    </canvas>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-auto mr-auto ml-auto">
+                                                        <button class="btn btn-primary" id="sig-submitBtn"
+                                                                data-dismiss="modal"><i class="fa fa-check-circle"></i>Aceptar
+                                                            firma
+                                                        </button>
+                                                        <button class="btn btn-default" id="sig-clearBtn"><i
+                                                                class="fa fa-eraser"></i>Limpiar firma
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <textarea id="sig-dataUrl" class="form-control" rows="5"
+                                                  hidden>Metadato</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-4 col-sm-offset-1">
+                                        <img id="sig-image" src="" alt=""/>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" id="btnAceptar" class="btn btn-fill btn-success"
+                                        onclick="valida()">
+                                    <span class="btn-label">
+                                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                                    </span>
+                                    Registrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="/dependences/_Footer"></th:block>
+    </div>
+</div>
+</body>
+<script src="../assets/js/actions/base64aBlob.js" type="text/javascript"></script>
+<script src="../assets/js/actions/signature.js" type="text/javascript"></script>
+<script src="../assets/js/actions/metodos/FRA_16_RSC.js" type="text/javascript"></script>
+<th:block th:include="/dependences/_RequiredScripts"></th:block>
+<script>
+    $('#fechaInicioAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+    $('#fechaFinalAnalisis').datetimepicker({
+        format: 'YYYY-MM-DD',
+        sideBySide: true,
+        icons: {
+            up: "fa fa-chevron-circle-up",
+            down: "fa fa-chevron-circle-down",
+            next: 'fa fa-chevron-circle-right',
+            previous: 'fa fa-chevron-circle-left'
+        }
+    });
+
+</script>
+</html>

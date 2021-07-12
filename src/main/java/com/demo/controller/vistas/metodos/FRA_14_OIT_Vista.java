@@ -56,7 +56,7 @@ public class FRA_14_OIT_Vista {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_OIT/formFRA_OIT";
+        return "content/operacion/metodos/FRA_14_OIT/formFRA_OIT";
     }
 
     @RequestMapping(value = "/modificarFRAOIT/{id}")
@@ -78,7 +78,7 @@ public class FRA_14_OIT_Vista {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_OIT/formFRA_OIT3";
+        return "content/operacion/metodos/FRA_14_OIT/formFRA_OIT3";
     }
 
     @RequestMapping(value = "/finalizarFRAOIT/{id}")
@@ -92,13 +92,13 @@ public class FRA_14_OIT_Vista {
         String fechaHoy = ahoraFormato.format(ahora);
         System.out.println(fechaHoy);
 
-        //model.addAttribute("numeroRepeticiones", fra_oit_001.getNumeroRepeticiones());
+        model.addAttribute("numeroRepeticiones", fra_oit_001.getNumeroRepeticiones());
 
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_OIT/formFRA_OIT2";
+        return "content/operacion/metodos/FRA_14_OIT/formFRA_OIT2";
     }
 
     @RequestMapping("/listFRAOIT")
@@ -110,6 +110,6 @@ public class FRA_14_OIT_Vista {
             model.addAttribute("role", a.getAuthority());
         }
 
-        return "content/operacion/metodos/FRA_OIT/listFRA_OIT";
+        return "content/operacion/metodos/FRA_14_OIT/listFRA_OIT";
     }
 }

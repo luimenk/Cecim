@@ -123,7 +123,7 @@ public class FRA_04_GR_001_Controller {
             }
 
             fra_gr_001.setPromedio(String.format("%.4f", (pesoPromedio / 5)));
-            fra_gr_001.setGramaje(String.format("%.4f", ((pesoPromedio / 5) / 0.01)));
+            fra_gr_001.setGramaje(String.format("%.2f", ((pesoPromedio / 5) / 0.01)));
 
             fra_gr_001.setEstatus("FINALIZADO");
             fra_gr_001.setCantidadModificaciones("3");

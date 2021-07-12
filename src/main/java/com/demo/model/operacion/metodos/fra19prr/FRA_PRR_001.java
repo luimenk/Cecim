@@ -33,8 +33,10 @@ public class FRA_PRR_001 {
     
     private String promedioResistenciaRasgadoMD;
     private String promedioResistenciaRasgadoTD;
+
     private String desgarreOblicuioMD;
     private String desgarreOblicuioTD;
+
     private String minMD;
     private String minTD;
     private String maxMD;
