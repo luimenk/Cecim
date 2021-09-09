@@ -6,6 +6,7 @@ import com.demo.model.operacion.metodos.fra17if.FRA_IF_001;
 import com.demo.model.operacion.metodos.fra17if.datas.FRA_IF_001_DATA;
 import com.demo.repository.operacion.metodos.fra17if.datas.FRA_IF_001_DATA_Repository;
 import com.demo.service.formatos.metodos.FRA_17_IF_Print;
+import com.demo.service.formatos.metodos.listas.LFF_MIE_MET_XX_Print;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.*;
 import com.demo.utils.Constantes;
@@ -42,6 +43,9 @@ public class FRA_17_IF_001_Controller {
 
     @Autowired
     private FRA_17_IF_Print fra_17_if_print;
+
+    @Autowired
+    private LFF_MIE_MET_XX_Print lff_mie_met_xx_print;
 
     @Autowired
     private MetodoMuestraService metodoMuestraService;
@@ -189,5 +193,11 @@ public class FRA_17_IF_001_Controller {
         APP.debug("Impresion de FRA_IF a las: " + calendario.getTime() + calendario.getTimeZone());
 
         return fra_17_if_print.crearFormato(id,2);
+    }
+
+    @RequestMapping(value = "/imprimir3", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3() throws Exception {
+
+        return lff_mie_met_xx_print.crearListaFolios("17-LFF-MIE-MET-IF-001", 65L);
     }
 }

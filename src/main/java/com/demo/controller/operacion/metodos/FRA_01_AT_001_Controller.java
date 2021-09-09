@@ -2,12 +2,16 @@ package com.demo.controller.operacion.metodos;
 
 import com.demo.model.operacion.MetodoMuestra;
 import com.demo.model.operacion.metodos.fra01at.FRA_AT_001;
+import com.demo.service.DropboxService;
 import com.demo.service.formatos.metodos.FRA_01_AT_Print;
+import com.demo.service.formatos.metodos.listas.LFF_MIE_MET_XX_Print;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.*;
 import com.demo.utils.Constantes;
 import com.demo.utils.SaveInServer;
+//import com.dropbox.core.v2.DbxClientV2;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalTime;
 import java.util.*;
 
 @RestController
@@ -38,7 +43,16 @@ public class FRA_01_AT_001_Controller {
     private FRA_01_AT_Print fra_01_at_print;
 
     @Autowired
+    private LFF_MIE_MET_XX_Print lff_mie_met_xx_print;
+
+    @Autowired
     private MetodoMuestraService metodoMuestraService;
+
+//    @Autowired
+//    DropboxService dropboxService;
+
+//    @Autowired
+//    DbxClientV2 dropboxClient;
 
     //ListarTodo
     @RequestMapping(method = RequestMethod.GET)
@@ -90,6 +104,16 @@ public class FRA_01_AT_001_Controller {
 
             fra_at_001.setAtp(request.get("atp"));
 
+            /***** INICIO DE PRUEBA PARA GUARDAR EN DROPBOX *****/
+//            Date date = new Date() ;
+//            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+//            String fileName=date.getTime()+"."+extension;
+//            dropboxService.uploadFile(file, "/abc/"+fileName);
+            /***** FIN DE PRUEBA PARA GUARDAR EN DROPBOX *****/
+
+
+            //dropboxService.getDropboxItems("/abc/1627686166050.jpg");
+
             fra_at_001.setZona1(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.RUTA_IMG_01_AT + saveInServer.SaveInServer(file, Constantes.RUTA_IMG_01_AT));
             fra_at_001.setZona2(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.RUTA_IMG_01_AT + saveInServer.SaveInServer(file2, Constantes.RUTA_IMG_01_AT));
             fra_at_001.setZona3(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.RUTA_IMG_01_AT + saveInServer.SaveInServer(file3, Constantes.RUTA_IMG_01_AT));
@@ -109,6 +133,8 @@ public class FRA_01_AT_001_Controller {
             metodoMuestraService.save(metodoMuestra);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -126,5 +152,11 @@ public class FRA_01_AT_001_Controller {
         APP.debug("Impresion de FRA_AT a las: " + calendario.getTime() + calendario.getTimeZone());
 
         return fra_01_at_print.crearFormato(id, 2);
+    }
+
+    @RequestMapping(value = "/imprimir3", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3() throws Exception {
+
+        return lff_mie_met_xx_print.crearListaFolios("01-LFF-MIE-MET-AT-001", 31L);
     }
 }

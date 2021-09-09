@@ -11,6 +11,7 @@ import com.demo.repository.operacion.metodos.fra06ncp.datas.FRA_NCP_001_DATA_02_
 import com.demo.repository.operacion.metodos.fra06ncp.datas.FRA_NCP_001_DATA_03_Repository;
 import com.demo.repository.operacion.metodos.fra06ncp.datas.FRA_NCP_001_DATA_04_Repository;
 import com.demo.service.formatos.metodos.FRA_06_NCP_Print;
+import com.demo.service.formatos.metodos.listas.LFF_MIE_MET_XX_Print;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.FRA_NCP_001_Service;
 import com.demo.utils.Constantes;
@@ -55,6 +56,9 @@ public class FRA_06_NCP_001_Controller {
 
     @Autowired
     private FRA_06_NCP_Print fra_06_ncp_print;
+
+    @Autowired
+    private LFF_MIE_MET_XX_Print lff_mie_met_xx_print;
 
     @Autowired
     private MetodoMuestraService metodoMuestraService;
@@ -187,7 +191,7 @@ public class FRA_06_NCP_001_Controller {
             fra_ncp_001.setEspesorTotalMicroscopia2(String.format("%.3f", sumatoria2));
 
             fra_ncp_001.setPathImagen(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.RUTA_IMG_06_NCP + saveInServer.SaveInServer(file, Constantes.RUTA_IMG_06_NCP));
-            fra_ncp_001.setPathImagen(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.RUTA_IMG_06_NCP + saveInServer.SaveInServer(file2, Constantes.RUTA_IMG_06_NCP));
+            fra_ncp_001.setPathImagen2(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.RUTA_IMG_06_NCP + saveInServer.SaveInServer(file2, Constantes.RUTA_IMG_06_NCP));
             fra_ncp_001.setRubricaRealizo(Constantes.PROTOCOLO + Constantes.SERVER + Constantes.CLIENTE + Constantes.SIGNATURE_REALIZO_NCP + saveInServer.SaveInServer(signature, Constantes.SIGNATURE_REALIZO_NCP));
 
             fra_ncp_001.setEstatus("FINALIZADO");
@@ -218,5 +222,11 @@ public class FRA_06_NCP_001_Controller {
         APP.debug("Impresion de FRA_NCP a las: " + calendario.getTime() + calendario.getTimeZone());
 
         return fra_06_ncp_print.crearFormato(id, 2);
+    }
+
+    @RequestMapping(value = "/imprimir3", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3() throws Exception {
+
+        return lff_mie_met_xx_print.crearListaFolios("06-LFF-MIE-MET-NCP-001", 36L);
     }
 }

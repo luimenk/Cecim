@@ -5,6 +5,7 @@ import com.demo.model.operacion.metodos.fra11eat.datas.FRA_EAT_001_DATA;
 import com.demo.model.operacion.metodos.fra13eaxe.FRA_EAXE_013;
 import com.demo.model.operacion.metodos.fra13eaxe.datas.FRA_EAXE_013_DATA;
 import com.demo.service.formatos.metodos.FRA_13_EAXE_Print;
+import com.demo.service.formatos.metodos.listas.LFF_MIE_MET_XX_Print;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.*;
 import com.demo.utils.Constantes;
@@ -41,6 +42,9 @@ public class FRA_13_EAXE_013_Controller {
 
     @Autowired
     private FRA_13_EAXE_Print fra_13_eaxe_print;
+
+    @Autowired
+    private LFF_MIE_MET_XX_Print lff_mie_met_xx_print;
 
     @Autowired
     private MetodoMuestraService metodoMuestraService;
@@ -254,5 +258,11 @@ public class FRA_13_EAXE_013_Controller {
         APP.debug("Impresion de FRA_EAXE a las: " + calendario.getTime() + calendario.getTimeZone());
 
         return fra_13_eaxe_print.crearFormato(id, 2);
+    }
+
+    @RequestMapping(value = "/imprimir3", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3() throws Exception {
+
+        return lff_mie_met_xx_print.crearListaFolios("13-LFF-MIE-MET-EAXE-001", 61L);
     }
 }

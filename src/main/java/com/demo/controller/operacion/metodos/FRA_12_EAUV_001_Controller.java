@@ -5,6 +5,7 @@ import com.demo.model.operacion.metodos.fra11eat.datas.FRA_EAT_001_DATA;
 import com.demo.model.operacion.metodos.fra12eauv.FRA_EAUV_001;
 import com.demo.model.operacion.metodos.fra12eauv.datas.FRA_EAUV_001_DATA;
 import com.demo.service.formatos.metodos.FRA_12_EAUV_Print;
+import com.demo.service.formatos.metodos.listas.LFF_MIE_MET_XX_Print;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.*;
 import com.demo.utils.Constantes;
@@ -41,6 +42,9 @@ public class FRA_12_EAUV_001_Controller {
 
     @Autowired
     private FRA_12_EAUV_Print fra_12_eauv_print;
+
+    @Autowired
+    private LFF_MIE_MET_XX_Print lff_mie_met_xx_print;
 
     @Autowired
     private MetodoMuestraService metodoMuestraService;
@@ -257,5 +261,11 @@ public class FRA_12_EAUV_001_Controller {
         APP.debug("Impresion de FRA_EAUV a las: " + calendario.getTime() + calendario.getTimeZone());
 
         return fra_12_eauv_print.crearFormato(id, 2);
+    }
+
+    @RequestMapping(value = "/imprimir3", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3() throws Exception {
+
+        return lff_mie_met_xx_print.crearListaFolios("12-LFF-MIE-MET-EAUV-001", 60L);
     }
 }

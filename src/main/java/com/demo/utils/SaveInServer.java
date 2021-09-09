@@ -28,7 +28,7 @@ public class SaveInServer {
             extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         }
 
-        Date date = new Date() ;
+            Date date = new Date() ;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
         String strinDate=dateFormat.format(date);
 

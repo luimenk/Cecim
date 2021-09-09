@@ -2,8 +2,8 @@ package com.demo.utils;
 
 public class Constantes {
 
-    //public final static String CLIENTE = "/cecim";
-    public final static String CLIENTE = "/cecim2";
+    //public final static String CLIENTE = "/cecim"; //Calidad
+    public final static String CLIENTE = "/cecim2"; //Productivo
     public final static String PROTOCOLO = "https://";
 
     public final static String SERVER = "resources.adpmx.com";

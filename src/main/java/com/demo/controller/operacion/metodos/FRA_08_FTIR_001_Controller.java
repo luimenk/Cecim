@@ -5,6 +5,7 @@ import com.demo.model.operacion.metodos.fra08ftir.FRA_FTIR_001;
 import com.demo.model.operacion.metodos.fra08ftir.datas.FRA_FTIR_001_DATA;
 import com.demo.repository.operacion.metodos.fra08ftir.datas.FRA_FTIR_001_DATA_Repository;
 import com.demo.service.formatos.metodos.FRA_08_FTIR_Print;
+import com.demo.service.formatos.metodos.listas.LFF_MIE_MET_XX_Print;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.FRA_FTIR_001_Service;
 import com.demo.utils.Constantes;
@@ -41,6 +42,9 @@ public class FRA_08_FTIR_001_Controller {
 
     @Autowired
     private FRA_08_FTIR_Print fra_08_ftir_print;
+
+    @Autowired
+    private LFF_MIE_MET_XX_Print lff_mie_met_xx_print;
 
     @Autowired
     private MetodoMuestraService metodoMuestraService;
@@ -155,5 +159,11 @@ public class FRA_08_FTIR_001_Controller {
         System.out.println(LocalTime.now());
 
         return fra_08_ftir_print.crearFormato(id,2);
+    }
+
+    @RequestMapping(value = "/imprimir3", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3() throws Exception {
+
+        return lff_mie_met_xx_print.crearListaFolios("08-LFF-MIE-MET-FTIR-001", 56L);
     }
 }

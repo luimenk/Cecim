@@ -7,6 +7,7 @@ import com.demo.model.operacion.metodos.fra05hum.FRA_HUM_001;
 import com.demo.repository.operacion.metodos.fra05hum.datas.FRA_HUM_001_DATA_01_Repository;
 import com.demo.repository.operacion.metodos.fra05hum.datas.FRA_HUM_001_DATA_02_Repository;
 import com.demo.service.formatos.metodos.FRA_05_HUM_Print;
+import com.demo.service.formatos.metodos.listas.LFF_MIE_MET_XX_Print;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.*;
 import com.demo.utils.Constantes;
@@ -45,6 +46,9 @@ public class FRA_05_HUM_001_Controller {
 
     @Autowired
     FRA_05_HUM_Print fra_05_hum_print;
+
+    @Autowired
+    private LFF_MIE_MET_XX_Print lff_mie_met_xx_print;
 
     @Autowired
     private MetodoMuestraService metodoMuestraService;
@@ -277,5 +281,11 @@ public class FRA_05_HUM_001_Controller {
         APP.debug("Impresion de FRA_HUM a las: " + calendario.getTime() + calendario.getTimeZone());
 
         return fra_05_hum_print.crearFormato(id, 2);
+    }
+
+    @RequestMapping(value = "/imprimir3", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3() throws Exception {
+
+        return lff_mie_met_xx_print.crearListaFolios("05-LFF-MIE-MET-HUM-001", 35L);
     }
 }

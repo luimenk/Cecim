@@ -5,6 +5,7 @@ import com.demo.model.operacion.metodos.fra15dsc.FRA_DSC;
 import com.demo.model.operacion.metodos.fra15dsc.datas.FRA_DSC_001_DATA;
 import com.demo.repository.operacion.metodos.fra15dsc.datas.FRA_DSC_DATA_Repository;
 import com.demo.service.formatos.metodos.FRA_15_DSC_Print;
+import com.demo.service.formatos.metodos.listas.LFF_MIE_MET_XX_Print;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.FRA_DSC_Service;
 import com.demo.utils.Constantes;
@@ -41,6 +42,9 @@ public class FRA_15_DSC_Controller {
 
     @Autowired
     private FRA_15_DSC_Print fra_15_dsc_print;
+
+    @Autowired
+    private LFF_MIE_MET_XX_Print lff_mie_met_xx_print;
 
     @Autowired
     private MetodoMuestraService metodoMuestraService;
@@ -174,9 +178,7 @@ public class FRA_15_DSC_Controller {
 
     @RequestMapping(value = "/imprimir3", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> imprimir3() throws Exception {
-        System.out.println("Se generó BFF-MIE-016");
-        System.out.println(LocalTime.now());
 
-        return fra_15_dsc_print.crearListaFolios();
+        return lff_mie_met_xx_print.crearListaFolios("15-LFF-MIE-MET-DSC-001", 63L);
     }
 }

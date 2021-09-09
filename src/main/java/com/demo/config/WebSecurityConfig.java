@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
@@ -128,14 +129,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         db.setDataSource(dataSource);
         return db;
     }
-
-
-
-
-
-
-
-
-
-
 }

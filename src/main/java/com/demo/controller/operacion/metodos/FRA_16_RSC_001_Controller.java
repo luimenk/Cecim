@@ -6,6 +6,7 @@ import com.demo.model.operacion.metodos.fra16rsc.datas.FRA_RSC_001_DATA;
 import com.demo.repository.operacion.metodos.fra16rsc.FRA_RSC_001_Repository;
 import com.demo.repository.operacion.metodos.fra16rsc.datas.FRA_RSC_001_DATA_Repository;
 import com.demo.service.formatos.metodos.FRA_16_RSC_Print;
+import com.demo.service.formatos.metodos.listas.LFF_MIE_MET_XX_Print;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.utils.Constantes;
 import com.demo.utils.SaveInServer;
@@ -35,6 +36,9 @@ public class FRA_16_RSC_001_Controller {
 
     @Autowired
     private FRA_16_RSC_Print fra_16_rsc_print;
+
+    @Autowired
+    private LFF_MIE_MET_XX_Print lff_mie_met_xx_print;
 
     @Autowired
     private MetodoMuestraService metodoMuestraService;
@@ -204,5 +208,11 @@ public class FRA_16_RSC_001_Controller {
     @RequestMapping(value = "/imprimir2/{id}", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> imprimir2(@PathVariable("id") Long id) throws Exception {
         return fra_16_rsc_print.crearFormato(id, 2);
+    }
+
+    @RequestMapping(value = "/imprimir3", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3() throws Exception {
+
+        return lff_mie_met_xx_print.crearListaFolios("16-LFF-MIE-MET-RSC-001", 64L);
     }
 }

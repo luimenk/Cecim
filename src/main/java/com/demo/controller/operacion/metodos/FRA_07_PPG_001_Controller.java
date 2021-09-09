@@ -5,6 +5,7 @@ import com.demo.model.operacion.metodos.fra07ppg.FRA_PPG_001;
 import com.demo.model.operacion.metodos.fra07ppg.datas.FRA_PPG_001_DATA;
 import com.demo.repository.operacion.metodos.fra07ppg.datas.FRA_PPG_001_DATA_Repository;
 import com.demo.service.formatos.metodos.FRA_07_PPG_Print;
+import com.demo.service.formatos.metodos.listas.LFF_MIE_MET_XX_Print;
 import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.FRA_PPG_001_Service;
 import com.demo.utils.Constantes;
@@ -40,6 +41,9 @@ public class FRA_07_PPG_001_Controller {
 
     @Autowired
     private FRA_07_PPG_Print fra_07_ppg_print;
+
+    @Autowired
+    private LFF_MIE_MET_XX_Print lff_mie_met_xx_print;
 
     @Autowired
     private MetodoMuestraService metodoMuestraService;
@@ -157,5 +161,11 @@ public class FRA_07_PPG_001_Controller {
         APP.debug("Impresion de FRA_PPG a las: " + calendario.getTime());
 
         return fra_07_ppg_print.crearFormato(id, 2);
+    }
+
+    @RequestMapping(value = "/imprimir3", method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> imprimir3() throws Exception {
+
+        return lff_mie_met_xx_print.crearListaFolios("07-LFF-MIE-MET-PPG-001", 55L);
     }
 }
