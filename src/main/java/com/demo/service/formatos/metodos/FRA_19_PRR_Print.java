@@ -23,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -224,7 +225,6 @@ public class FRA_19_PRR_Print {
         table_2.removeRow(4);
         table_2.removeRow(3);
         table_2.removeRow(2);
-        table_2.removeRow(1);
         for (int k = 0; k < contador; k++) {
             try {
                 XWPFTableRow row = table_2.createRow();
@@ -236,7 +236,7 @@ public class FRA_19_PRR_Print {
                 row.getCell(5).setText(lista.get(k).getDesvEstandarMD());
                 row.getCell(6).setText(lista.get(k).getEspesorPromedioMD());
             } catch (NullPointerException e) {
-                table_2.addRow(tableDocumment_2.getRow(1));
+                table_2.addRow(tableDocumment_2.getRow(2));
             }
         }
 
@@ -264,14 +264,20 @@ public class FRA_19_PRR_Print {
         try {
             XWPFTableRow row2 = tableDocumment_5.getRow(0);
             row2.getCell(1).setText("N/A");
+            row2.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row2.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 6));
             table_2.addRow(row2);
 
             XWPFTableRow row3 = tableDocumment_5.getRow(1);
             row3.getCell(1).setText("N/A");
+            row3.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row3.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 6));
             table_2.addRow(row3);
 
             XWPFTableRow row4 = tableDocumment_5.getRow(2);
             row4.getCell(1).setText(lista.get(0).getObservaciones());
+            row4.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row4.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 6));
             table_2.addRow(row4);
         } catch (NullPointerException e) {
             table_2.addRow(tableDocumment_5.getRow(2));

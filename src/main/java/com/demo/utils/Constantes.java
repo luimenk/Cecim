@@ -15,9 +15,9 @@ public class Constantes {
     public final static String QR_FERI = "/laboratorio/img/qr/feri/";
     public final static String QR_FEIL = "/laboratorio/img/qr/feil/";
 
-    public final static String SIGNATURE_EAT_TIME = "/laboratorio/img/signatures/methods/eat/individuales/";
-    public final static String SIGNATURE_EAUV_TIME = "/laboratorio/img/signatures/methods/eauv/individuales/";
-    public final static String SIGNATURE_EAXE_TIME = "/laboratorio/img/signatures/methods/eaxe/individuales/";
+    public final static String SIGNATURE_EAT_TIME = "/laboratorio/img/signatures/methods/11-eat/individuales/";
+    public final static String SIGNATURE_EAUV_TIME = "/laboratorio/img/signatures/methods/12-eauv/individuales/";
+    public final static String SIGNATURE_EAXE_TIME = "/laboratorio/img/signatures/methods/13-eaxe/individuales/";
 
     public final static String SIGNATURE_REALIZO_AT =   "/laboratorio/img/signatures/methods/01-at/";
     public final static String SIGNATURE_REALIZO_DI =   "/laboratorio/img/signatures/methods/02-di/";

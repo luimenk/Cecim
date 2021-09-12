@@ -24,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -275,14 +276,20 @@ public class FRA_20_RTER_Print {
         try {
             XWPFTableRow row2 = tableDocumment_5.getRow(0);
             row2.getCell(1).setText("N/A");
+            row2.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row2.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 5));
             table_2.addRow(row2);
 
             XWPFTableRow row3 = tableDocumment_5.getRow(1);
             row3.getCell(1).setText("N/A");
+            row3.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row3.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 5));
             table_2.addRow(row3);
 
             XWPFTableRow row4 = tableDocumment_5.getRow(2);
             row4.getCell(1).setText(lista.get(0).getObservaciones());
+            row4.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row4.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 5));
             table_2.addRow(row4);
         } catch (NullPointerException e) {
             table_2.addRow(tableDocumment_5.getRow(2));

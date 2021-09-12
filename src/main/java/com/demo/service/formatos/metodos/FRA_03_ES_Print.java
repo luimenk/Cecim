@@ -23,6 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.List;
 
@@ -215,16 +216,22 @@ public class FRA_03_ES_Print {
 
         XWPFTable tableDocumment_5 = plantilla.getTables().get(16);
         try {
-            XWPFTableRow row2 = tableDocumment_5.getRow(0);
+            XWPFTableRow row2 = tableDocumment_4.getRow(0);
             row2.getCell(1).setText("N/A");
+            row2.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row2.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 2));
             table_2.addRow(row2);
 
-            XWPFTableRow row3 = tableDocumment_5.getRow(1);
+            XWPFTableRow row3 = tableDocumment_4.getRow(1);
             row3.getCell(1).setText("N/A");
+            row3.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row3.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 2));
             table_2.addRow(row3);
 
-            XWPFTableRow row4 = tableDocumment_5.getRow(2);
+            XWPFTableRow row4 = tableDocumment_4.getRow(2);
             row4.getCell(1).setText(lista.get(0).getObservaciones());
+            row4.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row4.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 2));
             table_2.addRow(row4);
         } catch (NullPointerException e) {
             table_2.addRow(tableDocumment_5.getRow(2));

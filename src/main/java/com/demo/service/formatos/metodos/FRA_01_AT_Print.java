@@ -150,7 +150,6 @@ public class FRA_01_AT_Print {
                 row1.getCell(2).setText(lista.get(l).getTemperatura());
                 row1.createCell();
                 row1.getCell(3).setText(lista.get(l).getHumedadRelativa());
-                table.addRow(row1);
             } catch (NullPointerException e) {
                 System.out.println("El ensayo aún no ha sido desarrollado");
                 table.addRow(tableDocumment.getRow(2));
@@ -190,7 +189,6 @@ public class FRA_01_AT_Print {
                 XWPFTableRow row = table_2.createRow();
                 row.getCell(0).setText(lista.get(k).getMetodoMuestra().getSolicitudServicioClienteMuestras().getIdClienteMuestra());
                 row.getCell(1).setText(lista.get(k).getAtp());
-                table_2.addRow(row);
             } catch (NullPointerException e) {
                 table_2.addRow(tableDocumment_2.getRow(1));
             }

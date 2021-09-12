@@ -169,6 +169,8 @@ public class SolicitudServicioClienteVista {
         model.addAttribute("listaMetodos", lista2);
         model.addAttribute("folio", solicitudServicioCliente.getFolioSolitudServicioCliente());
 
+        lista2.get(0).getMetodoMuestraId();
+
         for (GrantedAuthority a : review) {
             model.addAttribute("role", a.getAuthority());
         }

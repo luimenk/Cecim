@@ -11,7 +11,9 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
 import org.apache.xmlbeans.XmlException;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTHMerge;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTbl;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +25,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.List;
 
@@ -201,20 +204,25 @@ public class FRA_02_DI_Print {
         try {
             XWPFTableRow row2 = tableDocumment_4.getRow(0);
             row2.getCell(1).setText("N/A");
+            row2.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row2.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 4));
             table_2.addRow(row2);
 
             XWPFTableRow row3 = tableDocumment_4.getRow(1);
             row3.getCell(1).setText("N/A");
+            row3.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row3.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 4));
             table_2.addRow(row3);
 
             XWPFTableRow row4 = tableDocumment_4.getRow(2);
             row4.getCell(1).setText(lista.get(0).getObservaciones());
+            row4.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row4.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 4));
             table_2.addRow(row4);
         } catch (NullPointerException e) {
             table_2.addRow(tableDocumment_4.getRow(2));
         }
         /***** FIN DE TABLA DE RESULTADOS *****/
-
 
         doc.setTable(contTabla, table_2);
 

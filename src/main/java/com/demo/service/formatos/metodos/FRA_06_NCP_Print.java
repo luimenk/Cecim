@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.Null;
 import java.io.*;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -254,14 +255,20 @@ public class FRA_06_NCP_Print {
         try {
             XWPFTableRow row2 = tableDocumment_4.getRow(0);
             row2.getCell(1).setText("N/A");
+            row2.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row2.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 4));
             table_2.addRow(row2);
 
             XWPFTableRow row3 = tableDocumment_4.getRow(1);
             row3.getCell(1).setText("N/A");
+            row3.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row3.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 4));
             table_2.addRow(row3);
 
             XWPFTableRow row4 = tableDocumment_4.getRow(2);
             row4.getCell(1).setText(lista.get(0).getObservaciones());
+            row4.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row4.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 4));
             table_2.addRow(row4);
         } catch (NullPointerException e) {
             table_2.addRow(tableDocumment_4.getRow(2));
@@ -320,15 +327,21 @@ public class FRA_06_NCP_Print {
         try {
             XWPFTableRow row2 = tableDocumment_5.getRow(0);
             row2.getCell(1).setText("N/A");
-            table_3.addRow(row2);
+            row2.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row2.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 4));
+            table_2.addRow(row2);
 
             XWPFTableRow row3 = tableDocumment_5.getRow(1);
             row3.getCell(1).setText("N/A");
-            table_3.addRow(row3);
+            row3.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row3.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 4));
+            table_2.addRow(row3);
 
             XWPFTableRow row4 = tableDocumment_5.getRow(2);
             row4.getCell(1).setText(lista.get(0).getObservaciones());
-            table_3.addRow(row4);
+            row4.getCell(1).getCTTc().getTcPr().addNewGridSpan();
+            row4.getCell(1).getCTTc().getTcPr().getGridSpan().setVal(BigInteger.valueOf((long) 4));
+            table_2.addRow(row4);
         } catch (NullPointerException e) {
             table_3.addRow(tableDocumment_5.getRow(2));
         }
