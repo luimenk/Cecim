@@ -2,13 +2,13 @@ package com.demo.utils;
 
 public class Constantes {
 
-    //public final static String CLIENTE = "/cecim"; //Calidad
-    public final static String CLIENTE = "/cecim2"; //Productivo
+    public final static String CLIENTE = "/cecim"; //Calidad
+    //public final static String CLIENTE = "/cecim2"; //Productivo
     public final static String PROTOCOLO = "https://";
 
     public final static String SERVER = "resources.adpmx.com";
-    public final static String USER = "pruebascecim"; //Usuario FTP Calidad
-    //public final static String USER = "cecim"; //Usuario FTP Productivo
+    //public final static String USER = "pruebascecim"; //Usuario FTP Calidad
+    public final static String USER = "cecim"; //Usuario FTP Productivo
     public final static String PASSWORD = "cecim&123$987";
 
     public final static String QR_FEIM = "/laboratorio/img/qr/feim/";

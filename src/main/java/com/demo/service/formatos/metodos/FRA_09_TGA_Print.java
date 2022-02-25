@@ -143,6 +143,7 @@ public class FRA_09_TGA_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(39);
         try {
+            tableDocummento.getRow(1).getCell(1).setText("Analizador termogravimétrico, NETZSCH 209 F3 Tarsus.");
             tableDocummento.getRow(2).getCell(1).setText(lista.get(0).getTemperaturaEmergencia() + " °C");
             tableDocummento.getRow(3).getCell(1).setText(lista.get(0).getTasaCalentamiento() + " °C/min");
             System.out.println("Posible error en la lista " + lista.get(0).getTemperaturaEmergencia());
@@ -206,6 +207,8 @@ public class FRA_09_TGA_Print {
         XWPFTable tableDocumment_2 = plantilla.getTables().get(41);
         CTTbl cTTblTemplate_2 = tableDocumment_2.getCTTbl();
         table_2 = new XWPFTable((CTTbl) cTTblTemplate_2.copy(), doc);
+
+        //TODO: REVISAR ESTE METODO
 
         try {
             List<FRA_TGA_001_DATA> datas = fra_tga_001_data_repository.buscarTodosPorEnsayo(lista.get(0).getIdFRATGA());

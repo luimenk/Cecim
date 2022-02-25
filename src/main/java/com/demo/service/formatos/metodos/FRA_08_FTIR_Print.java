@@ -124,7 +124,7 @@ public class FRA_08_FTIR_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(35);
-        tableDocummento.getRow(1).getCell(1).setText("N/A");
+        tableDocummento.getRow(1).getCell(1).setText("Espectrofotómetro infrarrojo FTIR iS20/iZ10, Thermo Scientific Nicolet iS20/iZ10");
         CTTbl cTTblTemplat = tableDocummento.getCTTbl();
         tabl = new XWPFTable((CTTbl) cTTblTemplat.copy(), doc);
         doc.setTable(contTabla, tabl);

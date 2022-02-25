@@ -232,7 +232,7 @@ public class FRA_12_EAUV_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(51);
         try {
-            tableDocummento.getRow(1).getCell(1).setText("N/A");
+            tableDocummento.getRow(1).getCell(1).setText("Radiometro UV, Q-Lab Corporation CR10. Cámara de envejecimiento UV, Q-Lab Corporation QUV/SPRAY");
         } catch (NullPointerException e) {
             System.out.println("Ocurrió un error con la tabla 1 de eat");
         }

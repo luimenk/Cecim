@@ -148,6 +148,16 @@ public class RecepcionVerificacionRegistroCodificacionController {
 
         String ids = foliosService.IdConsecutivos();
 
+        Date date = new Date();
+        int year = date.getYear();
+        int anio = year + 1900;
+
+        System.out.println(anio);
+
+        String a = anio + "";
+
+        System.out.println();
+
         RecepcionVerificacionRegistroCodificacion recepcionVerificacionRegistroCodificacion = new RecepcionVerificacionRegistroCodificacion();
         SolicitudServicioClienteMuestras solicitudServicioClienteMuestras = solicitudServicioClienteMuestrasService.findById(Long.parseLong(request.get("idMuestra")));
 
@@ -160,8 +170,8 @@ public class RecepcionVerificacionRegistroCodificacionController {
         recepcionVerificacionRegistroCodificacion.setNombrePersonaRecibe("");
         recepcionVerificacionRegistroCodificacion.setNombrePersonaEntrega("");
         recepcionVerificacionRegistroCodificacion.setMedioRecepcion(request.get("medioRecepcion"));
-        recepcionVerificacionRegistroCodificacion.setIdInternoMuestra1("L-" + ids);
-        recepcionVerificacionRegistroCodificacion.setIdInternoMuestra2("R-" + ids);
+        recepcionVerificacionRegistroCodificacion.setIdInternoMuestra1("L" + a.substring(2) + "-" + ids);
+        recepcionVerificacionRegistroCodificacion.setIdInternoMuestra2("R" + a.substring(2) + "-" + ids);
         recepcionVerificacionRegistroCodificacion.setCondicionesMuestra1(request.get("condicionesMuestra1"));
         recepcionVerificacionRegistroCodificacion.setCondicionesMuestra2(request.get("condicionesMuestra2"));
         recepcionVerificacionRegistroCodificacion.setCumpleCantidad(request.get("cumpleCantidad"));

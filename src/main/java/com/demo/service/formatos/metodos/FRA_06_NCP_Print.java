@@ -169,7 +169,7 @@ public class FRA_06_NCP_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(25);
-        tableDocummento.getRow(1).getCell(1).setText("N/A");
+        tableDocummento.getRow(1).getCell(1).setText("Micrómetro, Mitutoyo ID-C112EXBS. Microscopio óptico, Motic BA410.");
         CTTbl cTTblTemplat = tableDocummento.getCTTbl();
         tabl = new XWPFTable((CTTbl) cTTblTemplat.copy(), doc);
         doc.setTable(contTabla, tabl);
@@ -234,7 +234,7 @@ public class FRA_06_NCP_Print {
         } catch (NullPointerException e) {
             System.out.println("Ocurrió un error en la tabla de resultados 1");
         }
-
+///TODO: REVISAR ESTO
         try {
             if (lista.get(0).getMuestraEnReporte().equals("1")) {
                 for (int i = 0; i < lista1.size(); i++) {
@@ -376,7 +376,7 @@ public class FRA_06_NCP_Print {
                     System.out.println("No se encontró la imágen o el formato de la imagen es incorrecto");
                 }
                 try {
-                    listaPircures.add(k, listaRun.get(k).addPicture(listaFis.get(k), XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(430), Units.pixelToEMU(430)));
+                    listaPircures.add(k, listaRun.get(k).addPicture(listaFis.get(k), XWPFDocument.PICTURE_TYPE_PNG, "Name", Units.pixelToEMU(480), Units.pixelToEMU(360)));
                 } catch (NullPointerException | InvalidFormatException e) {
                     System.out.println("No se encontró la imágen (1)");
                 } catch (IndexOutOfBoundsException e) {

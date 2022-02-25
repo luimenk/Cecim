@@ -536,8 +536,8 @@ public class SolicitudServicioClienteService {
         table1.getRow(0).getCell(5).setText(formatoFechas.fechaActual());
 
         XWPFTable table2 = doc.getTables().get(2);
-        table2.getRow(0).getCell(1).setText(solicitudServicioCliente.getNombreFirmaEmisor());
-        table2.getRow(0).getCell(3).setText(solicitudServicioCliente.getNombreFirmaReceptor());
+        table2.getRow(0).getCell(1).setText(solicitudServicioCliente.getNombreFirmaReceptor());
+        table2.getRow(0).getCell(3).setText("J. Romero");
 
         XWPFTable table = doc.getTables().get(3);
         for (int i = 0; i < solicitudServicioClienteMuestrasList.size(); i++) {

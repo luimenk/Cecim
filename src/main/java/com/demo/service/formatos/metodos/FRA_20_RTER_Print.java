@@ -172,7 +172,8 @@ public class FRA_20_RTER_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(84);
         try {
-            tableDocummento.getRow(1).getCell(1).setText("N/A");
+            tableDocummento.getRow(1).getCell(1).setText("Máquina universal de ensayos de tensión, SAUMYA UTM-AVS");
+            tableDocummento.getRow(1).getCell(3).setText(lista.get(0).getDistanciaEntreMordazas() + " mm");
             tableDocummento.getRow(4).getCell(1).setText(lista.get(0).getVelocidadDeformacion() + " mm/min");
         } catch (NullPointerException e) {
             System.out.println("Ocurrió un error con la tabla");

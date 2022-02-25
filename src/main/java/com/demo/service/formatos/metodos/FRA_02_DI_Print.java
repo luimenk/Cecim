@@ -127,7 +127,7 @@ public class FRA_02_DI_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(8);
-        tableDocummento.getRow(1).getCell(1).setText("N/A");
+        tableDocummento.getRow(1).getCell(1).setText("Regla 30 cm / 60 cm ARLY");
         CTTbl cTTblTemplat = tableDocummento.getCTTbl();
         tabl = new XWPFTable((CTTbl) cTTblTemplat.copy(), doc);
         doc.setTable(contTabla, tabl);

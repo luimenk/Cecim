@@ -155,11 +155,13 @@ public class FRA_19_PRR_Print {
         /***** INICIO DE TABLA DE MARCA DE EQUIPO *****/
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
+
+        //TODO: AGREGAR TD-MD EN EL REGISTRO EL FORMULARIO
         XWPFTable tableDocummento = plantilla.getTables().get(79);
         try {
-            tableDocummento.getRow(1).getCell(1).setText("N/A");
-            tableDocummento.getRow(2).getCell(1).setText("N/A");
-            tableDocummento.getRow(3).getCell(1).setText("N/A");
+            tableDocummento.getRow(1).getCell(1).setText("Péndulo, Testing Machines Inc. 83-11-01-0001");
+            tableDocummento.getRow(2).getCell(1).setText("10");
+            tableDocummento.getRow(3).getCell(1).setText("MD - TD");
             tableDocummento.getRow(4).getCell(1).setText(lista.get(0).getPrensaEnsayo() + " ");
         } catch (NullPointerException e) {
             System.out.println("Ocurrió un error con la tabla 1");

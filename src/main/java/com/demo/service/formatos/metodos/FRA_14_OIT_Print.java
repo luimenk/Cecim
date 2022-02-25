@@ -159,7 +159,7 @@ public class FRA_14_OIT_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(59);
         try {
-            tableDocummento.getRow(1).getCell(1).setText("N/A");
+            tableDocummento.getRow(1).getCell(1).setText("Información no incluida en el excel proporcionado");
             tableDocummento.getRow(3).getCell(1).setText(lista.get(0).getTemperaturaEmergencia() + " °C");
             tableDocummento.getRow(4).getCell(1).setText(lista.get(0).getTiempoIsotermico1() + " min");
         } catch (NullPointerException e) {

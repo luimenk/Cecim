@@ -4,9 +4,21 @@ function valida() {
     var clave;
     var valor;
     var test = document.getElementsByTagName("input");
+    var test2 = document.getElementsByTagName("select");
 
     for (var i = 0; i < test.length; i++) {
         clave = test[i].getAttribute("id");
+        valor = document.getElementById(clave).value;
+        if (valor === "") {
+            contador++;
+            break;
+        } else {
+            obj[clave] = valor;
+        }
+    }
+
+    for (var i = 0; i < test2.length; i++) {
+        clave = test2[i].getAttribute("id");
         valor = document.getElementById(clave).value;
         if (valor === "") {
             contador++;

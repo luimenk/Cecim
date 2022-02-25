@@ -128,8 +128,9 @@ public class FRA_18_TTO_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(75);
         try {
-            tableDocummento.getRow(1).getCell(1).setText("N/A");
+            tableDocummento.getRow(1).getCell(1).setText("No incluido en el excel proporcionado");
             tableDocummento.getRow(6).getCell(1).setText(lista.get(0).getPresionBarometrica() + " mm Hg");
+            tableDocummento.getRow(2).getCell(1).setText(lista.get(0).getMascarillaCeldaA() + " mm Hg");
         } catch (NullPointerException e) {
             System.out.println("Ocurrió un error con la tabla 1");
         }

@@ -134,7 +134,7 @@ public class FRA_17_IF_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(71);
         try {
-            tableDocummento.getRow(1).getCell(1).setText("N/A");
+            tableDocummento.getRow(1).getCell(1).setText("Plastómetro, Kayeness D4002");
             tableDocummento.getRow(4).getCell(1).setText(lista.get(0).getTemperaturaEnsayo() + " °C");
             tableDocummento.getRow(5).getCell(1).setText(lista.get(0).getPesaEnsayo() + " min");
         } catch (NullPointerException e) {

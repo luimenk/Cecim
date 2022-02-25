@@ -227,7 +227,7 @@ public class FRA_16_RSC_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(67);
         try {
-            tableDocummento.getRow(1).getCell(1).setText("N/A");
+            tableDocummento.getRow(1).getCell(1).setText("Laboratorio de sellado Hot Tack, Lako Tool & Manufacturing, Inc. SL-10");
         } catch (NullPointerException e) {
             System.out.println("Ocurrió un error con la tabla 1 de OIT");
         }

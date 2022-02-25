@@ -232,7 +232,7 @@ public class FRA_11_EAT_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(47);
         try {
-            tableDocummento.getRow(1).getCell(1).setText("N/A");
+            tableDocummento.getRow(1).getCell(1).setText("Horno de convección, Memmert UFE 600");
             tableDocummento.getRow(2).getCell(1).setText(lista.get(0).getTemperaturaHorno());
             tableDocummento.getRow(3).getCell(1).setText(lista.get(0).getMetodoMuestra().getMethod().getCantidadMuestraEnsayo());
         } catch (NullPointerException e) {

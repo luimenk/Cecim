@@ -145,7 +145,7 @@ public class FRA_10_ICO_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(43);
         try{
-            tableDocummento.getRow(1).getCell(1).setText("N/A");
+            tableDocummento.getRow(1).getCell(1).setText("Micrómetro, Mitutoyo ID-C112EXBS");
             tableDocummento.getRow(1).getCell(2).setText(lista.get(0).getTipoEnvejecimiento());
             tableDocummento.getRow(1).getCell(3).setText("En dónde se localiza esto en el formato de ensayo?");
             tableDocummento.getRow(1).getCell(4).setText("En dónde se localiza esto en el formato de ensayo?");
@@ -205,6 +205,8 @@ public class FRA_10_ICO_Print {
         XWPFRun run2 = para2.createRun();
         run2.setText("Resultados del análisis de la determinación del índice de carbonilo por espectroscopía de infrarrojo por transformada de Fourier.");
         /***** FIN DE TÍTULO DE TABLA *****/
+
+        //TODO: REVISAR ESTE
 
         /***** INICIO DE TABLA DE RESULTADOS *****/
         XWPFTable table_2 = doc.createTable();

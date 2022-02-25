@@ -10,6 +10,7 @@ import com.demo.service.operacion.MetodoMuestraService;
 import com.demo.service.operacion.metodos.*;
 import com.demo.utils.Constantes;
 import com.demo.utils.SaveInServer;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,6 +125,7 @@ public class FRA_14_OIT_001_Controller {
         APP.debug("Registro FRA_OIT a las: " + calendario.getTime());
         FRA_OIT_001 fra_oit_001 = new FRA_OIT_001();
         MetodoMuestra metodoMuestra = metodoMuestraService.findById(Long.parseLong(request.get("id")));
+
 
         try {
             fra_oit_001.setFolioTecnica(request.get("folioTecnica"));

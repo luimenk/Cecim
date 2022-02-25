@@ -316,6 +316,7 @@ function consultaListaEnsayos(e){
     });
 }
 
+/********** INICIO DE LISTAS DE METODOS PARA LLAMAR POR JAVASCRIPT **********/
 function listFRAAT(e) {
     window.location = "/listFRAAT";
 }
@@ -327,6 +328,75 @@ function listFRADI(e) {
 function listFRAES(e) {
     window.location = "/listFRAES";
 }
+
+function listFRAGR(e) {
+    window.location = "/listFRAGR";
+}
+
+function listFRAHUM(e) {
+    window.location = "/listFRAHUM";
+}
+
+function listFRANCP(e) {
+    window.location = "/listFRANCP";
+}
+
+function listFRAPPG(e) {
+    window.location = "/listFRAPPG";
+}
+
+function listFRAFTIR(e) {
+    window.location = "/listFRAFTIR";
+}
+
+function listFRATGA(e) {
+    window.location = "/listFRATGA";
+}
+
+function listFRAICO(e) {
+    window.location = "/listFRAICO";
+}
+
+function listFRAEAT(e) {
+    window.location = "/listFRAEAT";
+}
+
+function listFRAEAUV(e) {
+    window.location = "/listFRAEAUV";
+}
+
+function listFRAEAXE(e) {
+    window.location = "/listFRAEAXE";
+}
+
+function listFRAOIT(e) {
+    window.location = "/listFRAOIT";
+}
+
+function listFRADSC(e) {
+    window.location = "/listFRADSC";
+}
+
+function listFRARSC(e) {
+    window.location = "/listFRARSC";
+}
+
+function listFRAIF(e) {
+    window.location = "/listFRAIF";
+}
+
+function listFRATTO(e) {
+    window.location = "/listFRATTO";
+}
+
+function listFRAPRR(e) {
+    window.location = "/listFRAPRR";
+}
+
+function listFRARTER(e) {
+    window.location = "/listFRARTER";
+}
+/********** FINAL DE LISTAS DE METODOS PARA LLAMAR POR JAVASCRIPT **********/
 
 
 function registerEspesor(e) {
@@ -361,49 +431,37 @@ function registerElongacionRuptura(e) {
     window.location = "/registerElongacionRuptura";
 }
 
-function listElongacionRuptura(e) {
-    window.location = "/listElongacionRuptura";
-}
+
 
 function registerFRAPRR(e) {
     window.location = "/registerFRAPRR";
 }
 
-function listFRAPRR(e) {
-    window.location = "/listFRAPRR";
-}
+
 
 function registerFRADSC(e) {
     window.location = "/registerFRADSC";
 }
 
-function listFRADSC(e) {
-    window.location = "/listFRADSC";
-}
+
 
 function registerFRAGR(e) {
     window.location = "/registerFRAGR";
 }
 
-function listFRAGR(e) {
-    window.location = "/listFRAGR";
-}
+
 
 function registerFRAHUM(e) {
     window.location = "/registerFRAHUM";
 }
 
-function listFRAHUM(e) {
-    window.location = "/listFRAHUM";
-}
+
 
 function registerFRAPPG(e) {
     window.location = "/registerFRAPPG";
 }
 
-function listFRAPPG(e) {
-    window.location = "/listFRAPPG";
-}
+
 
 function registerFRAAT(e) {
     window.location = "/registerFRAAT";
@@ -414,73 +472,55 @@ function registerFRAIF(e) {
     window.location = "/registerFRAIF";
 }
 
-function listFRAIF(e) {
-    window.location = "/listFRAIF";
-}
+
 
 function registerFRAPO(e) {
     window.location = "/registerFRAPO";
 }
 
-function listFRAPO(e) {
-    window.location = "/listFRAPO";
-}
+
 
 function registerFRATGA(e) {
     window.location = "/registerFRATGA";
 }
 
-function listFRATGA(e) {
-    window.location = "/listFRATGA";
-}
+
 
 function registerFRANCP(e) {
     window.location = "/registerFRANCP";
 }
 
-function listFRANCP(e) {
-    window.location = "/listFRANCP";
-}
+
 
 function registerFRAEAT(e) {
     window.location = "/registerFRAEAT";
 }
 
-function listFRAEAT(e) {
-    window.location = "/listFRAEAT";
-}
+
 
 function registerFRAEAUV(e) {
     window.location = "/registerFRAEAUV";
 }
 
-function listFRAEAUV(e) {
-    window.location = "/listFRAEAUV";
-}
+
 
 function registerFRAEAXE(e) {
     window.location = "/registerFRAEAXE";
 }
 
-function listFRAEAXE(e) {
-    window.location = "/listFRAEAXE";
-}
+
 
 function registerFRAICO(e) {
     window.location = "/registerFRAICO";
 }
 
-function listFRAICO(e) {
-    window.location = "/listFRAICO";
-}
+
 
 function registerFRAOIT(e) {
     window.location = "/registerFRAOIT";
 }
 
-function listFRAOIT(e) {
-    window.location = "/listFRAOIT";
-}
+
 
 function listFRAOTT(e) {
     window.location = "/listFRAOTT";

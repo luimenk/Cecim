@@ -121,13 +121,13 @@ public class FRA_03_ES_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(12);
-        tableDocummento.getRow(1).getCell(1).setText("N/A");
+        tableDocummento.getRow(1).getCell(1).setText("Micrómetro, Mitutoyo ID-C112EXBS");
         try {
             tableDocummento.getRow(2).getCell(1).setText(lista.get(0).getMetodoMuestra().getMethod().getCantidadTotal());
         } catch (NullPointerException e) {
             tableDocummento.getRow(2).getCell(1).setText("");
         }
-        tableDocummento.getRow(3).getCell(1).setText("N/A");
+        tableDocummento.getRow(3).getCell(1).setText("3");
         CTTbl cTTblTemplat = tableDocummento.getCTTbl();
         tabl = new XWPFTable((CTTbl) cTTblTemplat.copy(), doc);
         doc.setTable(contTabla, tabl);

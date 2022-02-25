@@ -142,7 +142,7 @@ public class FRA_17_IF_001_Controller {
                 fra_if_001_data.setPesoFilamento(request.get("pesoFilamento" + i));
                 fra_if_001_data.setIndiceFluidez(request.get("indiceFluidez" + i));
                 if (fra_if_001.getIndiceFuidez().equals("No especificado")) {
-                    fra_if_001_data.setIndiceFluidez(request.get("mfi" + i));
+                    fra_if_001_data.setMfi(request.get("mfi" + i));
                 } else {
                     for (int j=0; j< listaIndices.size(); j++){
                         if (fra_if_001.getIndiceFuidez().equals(listaIndices.get(j))) {

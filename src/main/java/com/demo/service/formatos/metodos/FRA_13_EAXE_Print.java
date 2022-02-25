@@ -232,7 +232,7 @@ public class FRA_13_EAXE_Print {
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(55);
         try {
-            tableDocummento.getRow(1).getCell(1).setText("N/A");
+            tableDocummento.getRow(1).getCell(1).setText("Radiometro Xenón, Q-Lab Corporation CR20/340/D. Cámara de envejecimiento Xe, Q-Lab Corporation QSUN Xe-1-S");
         } catch (NullPointerException e) {
             System.out.println("Ocurrió un error con la tabla 1 de eat");
         }
@@ -285,6 +285,9 @@ public class FRA_13_EAXE_Print {
         XWPFRun run2 = para2.createRun();
         run2.setText("Resultados del envejecimiento acelerado por arco xenón.");
         /***** FIN DE TÍTULO DE TABLA *****/
+
+
+        //TODO: REVISAR
 
         /***** INICIO DE TABLA DE RESULTADOS *****/
         XWPFTable table_2 = doc.createTable();

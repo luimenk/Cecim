@@ -144,7 +144,8 @@ public class FRA_05_HUM_Print {
         XWPFTable tabl = doc.createTable();
         tabl.removeRow(0);
         XWPFTable tableDocummento = plantilla.getTables().get(21);
-        tableDocummento.getRow(1).getCell(1).setText("N/A");
+        tableDocummento.getRow(1).getCell(1).setText("Balanza analítica, OHAUS EP 214 C. Horno de convección, Memmert UFE 600");
+        tableDocummento.getRow(2).getCell(1).setText(lista.get(0).getTemperaturaSecado());
         CTTbl cTTblTemplat = tableDocummento.getCTTbl();
         tabl = new XWPFTable((CTTbl) cTTblTemplat.copy(), doc);
         doc.setTable(contTabla, tabl);

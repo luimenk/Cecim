@@ -50,6 +50,7 @@ function cargarTabla() {
         tbl += '</tbody>';
         $("#solicitudServicioInternoTable").append(tbl);
         $('#solicitudServicioInternoTable').DataTable({
+            "order": [[ 0, "desc" ]],
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],

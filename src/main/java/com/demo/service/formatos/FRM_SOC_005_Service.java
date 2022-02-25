@@ -66,7 +66,7 @@ public class FRM_SOC_005_Service {
         table0.getRow(1).getCell(1).setText(formatoFechas.formateadorFechas(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getSolicitudServicioCliente().getFechaRecepcionMuestras()));
         table0.getRow(1).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getIdClienteMuestra());
         table0.getRow(2).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getDescripcionMuestra());
-        table0.getRow(3).getCell(1).setText("por definir");
+        table0.getRow(3).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getLote());
         table0.getRow(3).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getTipoMuestra());
         table0.getRow(4).getCell(3).setText(recepcionVerificacionRegistroCodificacion.getCantidadMuestraEntregada());
         table0.getRow(6).getCell(1).setText(recepcionVerificacionRegistroCodificacion.getSolicitudServicioClienteMuestras().getObservaciones());

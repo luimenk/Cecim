@@ -773,6 +773,7 @@ function cargarTabla() {
         tbl += '</tbody>';
         $("#solicitudServicioClienteTable").append(tbl);
         $('#solicitudServicioClienteTable').DataTable({
+            "order": [[ 0, "desc" ]],
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],
@@ -834,6 +835,7 @@ function cargarTablaPagos() {
         tbl += '</tbody>';
         $("#solicitudServicioClienteTable").append(tbl);
         $('#solicitudServicioClienteTable').DataTable({
+            "order": [[ 0, "desc" ]],
             "pagingType": "full_numbers",
             "lengthMenu": [
                 [10, 25, 50, -1],
